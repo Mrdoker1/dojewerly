@@ -1,0 +1,24 @@
+@import '../../../variables.scss';
+
+.rs-school{
+    font: $jost-12-regular;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin: 0 auto;
+    flex-direction: row;
+    .rss {
+        -webkit-mask: url(https://raw.githubusercontent.com/Mrdoker1/rsschool-cv/8aa63d43871adc2e2ea7964a8eea16d2e64aa46a/assets/images/rss.svg) no-repeat center;
+        mask: url(https://rs.school/images/rs_school_js.svg) no-repeat center;
+        width: 64px;
+        height: 28px;
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-color: #bcbdc5;
+    }
+    a {
+        text-decoration: none;
+        border-bottom: 1px solid #c0d6e7;
+        transition: all .3s;
+    }   
+}
