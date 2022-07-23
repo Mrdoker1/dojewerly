@@ -2,6 +2,10 @@ import './style.scss';
 import Component from '../component';
 import template from './index.html';
 import getHTMLElement from '../../../utils/getHTMLElement';
+import * as noUiSlider from 'nouislider';
+interface noUiSliderInstance extends HTMLElement {
+    noUiSlider: noUiSlider.API;
+}
 
 export default class FiltersComponent extends Component {
     constructor(temp: string = template) {
@@ -34,6 +38,10 @@ export default class FiltersComponent extends Component {
             }
             let catalog: HTMLElement = document.querySelector('.catalog')!;
             this.updateComponent(catalog, 'catalog');
+
+            let slider = getHTMLElement(document.querySelector('.price-slider'));
+            (slider as noUiSliderInstance).noUiSlider.reset();
+
         });
         return node;
     }

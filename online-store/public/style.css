@@ -261,26 +261,45 @@ h1 {
   \********************************************************************************************************************************************************************************************************/
 .poped.filter {
   display: flex;
+  position: absolute;
   gap: 12px;
   flex-direction: column;
   width: 176px;
   padding: 12px;
+  z-index: 1;
   background: #F4F4F2;
+  transform: translate(-68px, -37px);
+  transition: 0.1s linear;
 }
 .poped.filter .price-filter-label {
+  padding-right: 24px;
+}
+.poped.filter .price-range-wrapper {
   display: flex;
+  justify-content: space-between;
+  font: normal 400 14px/19px "Jost";
+  color: #65635F;
+}
+
+.poped .price-filter-label {
+  background-image: url("./assets/img/chevron_up.svg");
+  background-position: 63% center;
+}
+
+.price-filter-label {
+  display: flex;
+  z-index: 1;
   justify-content: center;
   color: #161412;
   font: normal 400 13px/25px "Jost";
   letter-spacing: 0.1em;
   text-transform: uppercase;
-  background-color: inherit;
-}
-.poped.filter .price-filter-wrapper {
-  display: flex;
-  justify-content: space-between;
-  font: normal 400 14px/19px "Jost";
-  color: #65635F;
+  padding-right: 15px;
+  background-image: url(./assets/img/chevron_down.svg);
+  background-repeat: no-repeat;
+  background-position: 120% center;
+  background-size: 20px;
+  cursor: pointer;
 }
 
 .noUi-target,
@@ -653,28 +672,7 @@ h1 {
 /*!*******************************************************************************************************************************************************************************************!*\
   !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[1].use[1]!./node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[1].use[2]!./src/modules/pages/catalogPage/style.scss ***!
   \*******************************************************************************************************************************************************************************************/
-.rs-school {
-  font: normal 400 12px/24px "Jost";
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-end;
-  margin: 0 auto;
-  flex-direction: row;
-}
-.rs-school .rss {
-  -webkit-mask: url(https://raw.githubusercontent.com/Mrdoker1/rsschool-cv/8aa63d43871adc2e2ea7964a8eea16d2e64aa46a/assets/images/rss.svg) no-repeat center;
-  mask: url(https://rs.school/images/rs_school_js.svg) no-repeat center;
-  width: 64px;
-  height: 28px;
-  background-size: contain;
-  background-repeat: no-repeat;
-  background-color: #bcbdc5;
-}
-.rs-school a {
-  text-decoration: none;
-  border-bottom: 1px solid #c0d6e7;
-  transition: all 0.3s;
-}
+
 /*!**********************************************************************************************************************************************************************!*\
   !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[1].use[1]!./node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[1].use[2]!./src/global.scss (2) ***!
   \**********************************************************************************************************************************************************************/
@@ -683,29 +681,39 @@ h1 {
   padding: 0;
 }
 
+body {
+  z-index: -100;
+}
+
 .dox-icon {
   width: 60px;
   height: 94px;
-  background: url("./assets/img/dox.svg") no-repeat;
+  background: url("./assets/img/dox.svg") center no-repeat;
 }
 
 .search-icon {
   transition: 0.1s linear;
   width: 24px;
   height: 24px;
-  background: url("./assets/img/search.svg") no-repeat;
+  background: url("./assets/img/search.svg") center no-repeat;
 }
 
 .account-icon {
   width: 24px;
   height: 24px;
-  background: url("./assets/img/account.svg") no-repeat;
+  background: url("./assets/img/account.svg") center no-repeat;
 }
 
 .close-icon {
   width: 24px;
   height: 24px;
-  background: url("./assets/img/close.svg") no-repeat;
+  background: url("./assets/img/close.svg") center no-repeat;
+}
+
+.chevron_down-icon {
+  width: 10px;
+  height: 20px;
+  background: url("./assets/img/chevron_down.svg") center no-repeat;
 }
 
 .wrapper {
@@ -724,6 +732,13 @@ h1 {
   text-transform: uppercase;
   background-color: inherit;
   border: none;
+  cursor: pointer;
+  padding-right: 24px;
+  appearance: none;
+  background-image: url("./assets/img/chevron_down.svg");
+  background-repeat: no-repeat;
+  background-position: 100% center;
+  background-size: 20px;
 }
 
 input {
@@ -794,11 +809,14 @@ button.system:hover {
   display: flex;
 }
 
-body .hide {
-  display: none;
+.hide {
+  opacity: 0;
+  pointer-events: none;
 }
-body .show {
-  display: flex;
+
+.show {
+  opacity: 100;
+  pointer-events: initial;
 }
 
 /* clears the 'X' from Internet Explorer */

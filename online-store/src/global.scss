@@ -7,26 +7,36 @@
     padding: 0;
 }
 
+body {
+  z-index: -100;
+}
+
 .dox-icon{
   width: 60px;
   height: 94px;
-  background: url("./assets/img/dox.svg") no-repeat;
+  background: url("./assets/img/dox.svg") center no-repeat;
 }
 .search-icon{
   transition: $transition-1;
   width: 24px;
   height: 24px;
-  background: url("./assets/img/search.svg") no-repeat;
+  background: url("./assets/img/search.svg") center no-repeat;
 }
 .account-icon{
   width: 24px;
   height: 24px;
-  background: url("./assets/img/account.svg") no-repeat;
+  background: url("./assets/img/account.svg") center no-repeat;
 }
 .close-icon{
   width: 24px;
   height: 24px;
-  background: url("./assets/img/close.svg") no-repeat;
+  background: url("./assets/img/close.svg") center no-repeat;
+}
+
+.chevron_down-icon{
+  width: 10px;
+  height: 20px;
+  background: url("./assets/img/chevron_down.svg") center no-repeat;
 }
 
 .wrapper{
@@ -44,6 +54,13 @@
       text-transform: uppercase;
       background-color: inherit;
       border: none;
+      cursor:pointer;
+      padding-right: 24px;
+      appearance: none;
+      background-image: url("./assets/img/chevron_down.svg");
+      background-repeat: no-repeat;
+      background-position: calc(100%) center;
+      background-size: 20px;
     }
 }
 
@@ -115,13 +132,13 @@ button.system {
   display: flex;
 }
 
-body{
-  .hide {
-    display: none;
-  }
-  .show {
-    display: flex;
-  }
+.hide {
+  opacity: 0;
+  pointer-events: none;
+}
+.show {
+    opacity: 100;
+    pointer-events: initial;
 }
 
 /* clears the 'X' from Internet Explorer */

@@ -4,6 +4,12 @@ import CatalogPage from '../pages/catalogPage';
 import Products from '../interface/products';
 import Settings from '../interface/settings';
 import Notification from '../components/notification';
+import getHTMLElement from '../../utils/getHTMLElement';
+import * as noUiSlider from 'nouislider';
+interface noUiSliderInstance extends HTMLElement {
+    noUiSlider: noUiSlider.API;
+}
+
 
 export default class PageBuilder extends Builder {
     constructor() {
@@ -21,7 +27,7 @@ export default class PageBuilder extends Builder {
         let temp = page.insert(
             undefined,
             builder.build('header')!,
-            builder.build('navigation')!,
+            builder.build('navigation', 'Catalog')!,
             builder.build('filter')!,
             builder.build('catalog')!,
             builder.build('footer')!
@@ -35,5 +41,14 @@ export default class PageBuilder extends Builder {
         document.dispatchEvent(event);
         let notification = new Notification(undefined, 'top', 'Working in progress');
         notification.show();
+
+        let slider = getHTMLElement(document.querySelector('.price-slider'));
+        (slider as noUiSliderInstance).noUiSlider.on('update', () => {
+            let value = (slider as noUiSliderInstance).noUiSlider.get() as Array<string>;
+            let startRange = getHTMLElement(document.querySelector('.price-filter-start-range'));
+            let finishRange = getHTMLElement(document.querySelector('.price-filter-finish-range'));
+            startRange.textContent = `£${value[0]}`;
+            finishRange.textContent = `£${value[1]}`;
+        });
     }
 }

@@ -4,7 +4,6 @@ import Settings from '../../interface/settings';
 import Products from '../../interface/products';
 import ComponentBuilder from '../../view/componentBuilder';
 import getHTMLElement from '../../../utils/getHTMLElement';
-import getHTMLMetaElement from '../../../utils/getHTMLMetaElement';
 import getElement from '../../../utils/getElement';
 
 export default class Component {
@@ -82,7 +81,6 @@ export default class Component {
         }
         return node;
     }
-
     insertAll(node: Node = this.getNode(), ...nodeList: Array<Node>) {
         var loop = function (node: Node) {
             do {
@@ -98,4 +96,23 @@ export default class Component {
         loop(node);
         return node;
     }
+
+    // getComponent(node = this.getNode()) {
+    //     let loop = function (node: Node) {
+    //         do {
+    //             if ((node as Element).tagName == 'TEMPLATE') {
+    //                 let templateValue = ((node as HTMLMetaElement).content as unknown as { textContent: string })
+    //                     .textContent;
+
+    //                 if ((node as HTMLElement).dataset.marker == templateValue) {
+    //                     node.parentNode!.appendChild(componentList(templateValue));
+    //                     node.parentNode?.removeChild(node);
+    //                 }
+    //             }
+    //             if (node.hasChildNodes()) loop(node.firstChild!);
+    //         } while ((node = node.nextSibling!));
+    //     };
+    //     loop(node);
+    //     return node;
+    // }
 }

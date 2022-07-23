@@ -41,14 +41,36 @@ export default class RangeFilterComponent extends Component {
         //     console.log(value);
         // });
 
+        let label = getHTMLElement(getHTMLElement(node).getElementsByClassName('price-filter-label')[0]);
+        let filter = getHTMLElement(getHTMLElement(node).getElementsByClassName('poped')[0]);
+        let filterLabel = getHTMLElement(getHTMLElement(node).getElementsByClassName('price-filter-label')[1]);
+
+        document.addEventListener('click', (e) => {
+            const withinBoundaries = e.composedPath().includes(node);
+
+            if (!withinBoundaries) {
+                label.classList.remove('hide');
+                filter.classList.add('hide');
+            }
+        });
+
+        filterLabel.addEventListener('click', () => {
+            label.classList.remove('hide');
+            filter.classList.add('hide');
+        });
+
+        label.addEventListener('click', () => {
+            label.classList.add('hide');
+            filter.classList.remove('hide');
+        });
+
         slider.addEventListener('click', () => {
             let value = (slider as noUiSliderInstance).noUiSlider.get() as Array<string>;
             let catalog = getHTMLElement(document.querySelector('.catalog'));
-            let startRange = getHTMLElement(document.querySelector('.price-filter-start-range'));
-            let finishRange = getHTMLElement(document.querySelector('.price-filter-finish-range'));
-            startRange.textContent = `£${value[0]}`;
-            finishRange.textContent = `£${value[1]}`;
             this.updateComponent(catalog, 'catalog', ...value);
+            let clearButton = document.querySelector('.clear-filter')!;
+            clearButton.classList.add('show');
+            clearButton.classList.remove('hide');
         });
 
         return node;

@@ -2,26 +2,46 @@
 
 .poped.filter{
   display: flex;
+  position: absolute;
   gap: 12px;
   flex-direction: column;
   width: 176px;
   padding: 12px;
+  z-index: 1;
   background: $grey-3;
+  transform: translate(-68px, -37px);
+  transition: $transition-1;
   .price-filter-label{
-    display: flex;
-    justify-content: center;
-    color: $black-1;
-    font: $jost-13-regular;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    background-color: inherit;
+    padding-right: 24px;
   }
-  .price-filter-wrapper{
+  .price-range-wrapper{
     display: flex;
     justify-content: space-between;
     font: $jost-14-regular;
     color: $grey-1;
   }
+}
+.poped{
+  .price-filter-label{
+    background-image: url("./assets/img/chevron_up.svg");
+    background-position: 63% center;
+  }
+}
+
+.price-filter-label{
+  display: flex;
+  z-index: 1;
+  justify-content: center;
+  color: $black-1;
+  font: $jost-13-regular;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding-right: 15px;
+  background-image: url(./assets/img/chevron_down.svg);
+  background-repeat: no-repeat;
+  background-position: 120% center;
+  background-size: 20px;
+  cursor: pointer;
 }
 
  .noUi-target,

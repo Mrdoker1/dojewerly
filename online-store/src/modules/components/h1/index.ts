@@ -5,7 +5,7 @@ import getElement from '../../../utils/getElement';
 
 export default class H1Component extends Component {
     name: string;
-    constructor(temp: string = template, name: string) {
+    constructor(temp: string = template, name: string = 'Example') {
         super(temp);
         this.marker = 'h1';
         this.name = name;
