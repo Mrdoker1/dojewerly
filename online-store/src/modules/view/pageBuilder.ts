@@ -10,7 +10,6 @@ interface noUiSliderInstance extends HTMLElement {
     noUiSlider: noUiSlider.API;
 }
 
-
 export default class PageBuilder extends Builder {
     constructor() {
         super();
@@ -47,8 +46,8 @@ export default class PageBuilder extends Builder {
             let value = (slider as noUiSliderInstance).noUiSlider.get() as Array<string>;
             let startRange = getHTMLElement(document.querySelector('.price-filter-start-range'));
             let finishRange = getHTMLElement(document.querySelector('.price-filter-finish-range'));
-            startRange.textContent = `£${value[0]}`;
-            finishRange.textContent = `£${value[1]}`;
+            startRange.textContent = `${settings.currency.default}${value[0]}`;
+            finishRange.textContent = `${settings.currency.default}${value[1]}`;
         });
     }
 }

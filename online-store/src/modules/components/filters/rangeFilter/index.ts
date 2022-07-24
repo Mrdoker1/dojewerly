@@ -36,11 +36,6 @@ export default class RangeFilterComponent extends Component {
             }),
         });
 
-        // slider.addEventListener('mousedown', () => {
-        //     let value = (slider as noUiSliderInstance).noUiSlider.get() as Array<string>;
-        //     console.log(value);
-        // });
-
         let label = getHTMLElement(getHTMLElement(node).getElementsByClassName('price-filter-label')[0]);
         let filter = getHTMLElement(getHTMLElement(node).getElementsByClassName('poped')[0]);
         let filterLabel = getHTMLElement(getHTMLElement(node).getElementsByClassName('price-filter-label')[1]);
@@ -69,8 +64,7 @@ export default class RangeFilterComponent extends Component {
             let catalog = getHTMLElement(document.querySelector('.catalog'));
             this.updateComponent(catalog, 'catalog', ...value);
             let clearButton = document.querySelector('.clear-filter')!;
-            clearButton.classList.add('show');
-            clearButton.classList.remove('hide');
+            clearButton.classList.remove('disable');
         });
 
         return node;

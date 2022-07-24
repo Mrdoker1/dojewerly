@@ -42,8 +42,7 @@ export default class FilterComponent extends Component {
         component.addEventListener('change', () => {
             let clearButton = document.querySelector('.clear-filter')!;
             let catalog = getHTMLElement(document.querySelector('.catalog'));
-            clearButton.classList.add('show');
-            clearButton.classList.remove('hide');
+            clearButton.classList.remove('disable');
 
             switch (component.id) {
                 case 'materialFilter':

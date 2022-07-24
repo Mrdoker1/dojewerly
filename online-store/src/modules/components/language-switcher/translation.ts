@@ -26,6 +26,8 @@ export const i18Obj: { [key: string]: { [key: string]: string } } = {
         typeFilter2: 'Ring',
         typeFilter3: 'Earring',
         typeFilter4: 'Brooch',
+        rangeFilter: 'Price',
+        clearFilterButton: 'Clear',
         showMoreButton: 'Show more',
     },
     ru: {
@@ -55,6 +57,8 @@ export const i18Obj: { [key: string]: { [key: string]: string } } = {
         typeFilter2: 'Кольца',
         typeFilter3: 'Серьги',
         typeFilter4: 'Броши',
+        rangeFilter: 'Цена',
+        clearFilterButton: 'Очистить',
         showMoreButton: 'Показать еще',
     },
     pl: {
@@ -84,6 +88,8 @@ export const i18Obj: { [key: string]: { [key: string]: string } } = {
         typeFilter2: 'Pierścienie',
         typeFilter3: 'Kolczyki',
         typeFilter4: 'Broszki',
+        rangeFilter: 'Cenę',
+        clearFilterButton: 'Wyczyść',
         showMoreButton: 'Pokaż więcej',
     },
 };

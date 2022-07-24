@@ -4,16 +4,34 @@ import Component from '../component';
 import translate from './translation';
 
 export default class LanguageSwitcherComponent extends Component {
-    constructor(temp: string = template) {
+    language: string;
+    constructor(temp: string = template, lang: string) {
         super(temp);
         this.marker = 'language-switcher';
+        this.language = lang;
         this.node = this.getNode();
     }
     getNode(): Node {
         let node = super.getNode();
         let component = (node as HTMLElement).getElementsByClassName('language-key')[0] as HTMLSelectElement;
+
+        document.addEventListener('pageBuilded', () => {
+            this.translatePage(this.language);
+            switch (this.language) {
+                case 'en':
+                    component.value = '0';
+                    break;
+                case 'ru':
+                    component.value = '1';
+                    break;
+                case 'pl':
+                    component.value = '2';
+                    break;
+            }
+        });
+
         component.addEventListener('change', () => {
-            console.log('Language changed');
+            console.log(`Language changed - ${component.value}`);
             switch (component.value) {
                 case '0':
                     this.setLanguage('en');
@@ -45,6 +63,7 @@ export default class LanguageSwitcherComponent extends Component {
         });
     }
     setLanguage(language: string) {
+        window.localStorage.setItem('language', language);
         this.translatePage(language);
     }
     translatePage(language: string) {

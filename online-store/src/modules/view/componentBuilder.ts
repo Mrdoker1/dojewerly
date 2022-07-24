@@ -46,18 +46,22 @@ export default class ComponentBuilder extends Builder {
         let productList = [];
 
         for (const key in this.data.en.products) {
-            let product = new ProductComponent(undefined, data.en.products[key], settings.roots.products.assets.images);
+            let product = new ProductComponent(
+                undefined,
+                data.en.products[key],
+                settings.currency.default,
+                settings.roots.products.assets.images
+            );
             productList.push(product.node);
         }
         return catalog.insertAll(undefined, ...productList);
     }
     createHeader() {
         let header = new HeaderComponent();
-        let langSwitcher = new LanguageSwitcherComponent();
-        return header.insert(undefined, langSwitcher.node);
+        return header.node;
     }
     createFooter() {
-        let langSwitcher = new LanguageSwitcherComponent();
+        let langSwitcher = new LanguageSwitcherComponent(undefined, this.settings.language.default);
         let footer = new FooterComponent();
         return footer.insert(undefined, langSwitcher.node);
     }

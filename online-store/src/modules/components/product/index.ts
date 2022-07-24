@@ -10,7 +10,7 @@ import getHTMLImageElement from '../../../utils/getHTMLImageElement';
 
 export default class ProductComponent extends Component {
     marker: string;
-    constructor(temp: string = template, productData: Product, assetsRoot: string) {
+    constructor(temp: string = template, productData: Product, currency: string, assetsRoot: string) {
         super(temp);
         this.marker = 'product';
         this.template = `<div class="product">
@@ -18,7 +18,7 @@ export default class ProductComponent extends Component {
             <div class="product-wrapper">
                 <div class="product-name">${productData.name}</div>
                 <div class="product-info">${productData.props.info}</div>
-                <div class="product-price">£${productData.price}</div>
+                <div class="product-price">${currency}${productData.price}</div>
             </div>
         </div>`;
         this.node = this.getProductNode(assetsRoot, productData);

@@ -21,18 +21,15 @@ export default class FiltersComponent extends Component {
         document.addEventListener('pageBuilded', () => {
             for (let filter of filters) {
                 if (filter.selectedIndex != 0) {
-                    clearButton.classList.add('show');
-                    clearButton.classList.remove('hide');
+                    clearButton.classList.remove('disable');
                 } else {
-                    clearButton.classList.remove('show');
-                    clearButton.classList.add('hide');
+                    clearButton.classList.add('disable');
                 }
             }
         });
 
         clearButton.addEventListener('click', () => {
-            clearButton.classList.remove('show');
-            clearButton.classList.add('hide');
+            clearButton.classList.add('disable');
             for (let filter of filters) {
                 filter.selectedIndex = 0;
             }

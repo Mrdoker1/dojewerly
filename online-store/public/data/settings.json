@@ -9,6 +9,9 @@
         }
     },
     "language": {
-        "default": "en"
+        "default": "ru"
+    },
+    "currency": {
+        "default": "£"
     }
 }

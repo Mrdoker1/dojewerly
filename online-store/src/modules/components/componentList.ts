@@ -26,7 +26,7 @@ export default function componentList(componentName: string) {
         case 'filters':
             return new FiltersComponent().getNode();
         case 'language-switcher':
-            return new LanguageSwitcherComponent().getNode();
+           // return new LanguageSwitcherComponent().getNode();
         case 'product':
         //return new ProductComponent().getComponent();
         case 'h1':

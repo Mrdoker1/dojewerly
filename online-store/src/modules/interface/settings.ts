@@ -1,5 +1,4 @@
 export default interface Settings {
-    type: string;
     roots: {
         products: {
             data: string;
@@ -10,6 +9,9 @@ export default interface Settings {
         };
     };
     language: {
+        default: string;
+    };
+    currency: {
         default: string;
     };
 }

@@ -15,6 +15,7 @@ export default class SearchComponent extends Component {
     getNode(): Node {
         let node = super.getNode();
         let search = (node as HTMLElement).getElementsByClassName('search-field')[0] as HTMLInputElement;
+        let icon = (node as HTMLElement).getElementsByClassName('search-icon')[0] as HTMLInputElement;
 
         document.addEventListener('pageBuilded', () => {
             search.focus();
@@ -22,8 +23,29 @@ export default class SearchComponent extends Component {
 
         search.addEventListener('input', (e) => {
             let catalog = document.querySelector('.catalog') as HTMLElement;
+
+            if (search.value !== '') {
+                icon.style.background = 'url("./assets/img/close.svg")';
+            } else {
+                icon.style.background = 'url("./assets/img/search.svg")';
+            }
+
             this.updateComponent(catalog, 'catalog', search.value);
         });
+
+        icon.addEventListener('click', (e) => {
+            let catalog = document.querySelector('.catalog') as HTMLElement;
+
+            if (search.value !== '') {
+                search.value = '';
+                icon.style.background = 'url("./assets/img/search.svg")';
+                search.focus();
+            } else {
+            }
+
+            this.updateComponent(catalog, 'catalog', search.value);
+        });
+
         return node;
     }
 

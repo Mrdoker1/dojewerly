@@ -819,6 +819,10 @@ button.system:hover {
   pointer-events: initial;
 }
 
+.disable {
+  display: none !important;
+}
+
 /* clears the 'X' from Internet Explorer */
 input[type=search]::-ms-clear {
   display: none;

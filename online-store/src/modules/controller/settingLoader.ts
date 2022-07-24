@@ -11,8 +11,12 @@ export default class SettingLoader extends Loader {
             .then(super.errorHandler)
             .then((res: Response) => res.json())
             .then((data: Settings) => {
-                const products: ProductLoader = new ProductLoader(data);
-                products.run();
+                let language = window.localStorage.getItem('language');
+                if (language) {
+                    data.language.default = language;
+                }
+                const productLoader: ProductLoader = new ProductLoader(data);
+                productLoader.run();
             })
             .catch((err: Error) => {
                 console.error(err);
