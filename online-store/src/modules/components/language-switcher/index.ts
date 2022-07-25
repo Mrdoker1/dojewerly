@@ -1,7 +1,8 @@
 import './style.scss';
 import template from './index.html';
 import Component from '../component';
-import translate from './translation';
+import translate from '../translation';
+import getHTMLSelectElement from '../../../utils/getHTMLSelectElement';
 
 export default class LanguageSwitcherComponent extends Component {
     language: string;
@@ -32,6 +33,15 @@ export default class LanguageSwitcherComponent extends Component {
 
         component.addEventListener('change', () => {
             console.log(`Language changed - ${component.value}`);
+
+            let switchers = document.querySelectorAll('.language-key')!;
+
+            switchers.forEach((switcher) => {
+                if (switcher != component) {
+                    getHTMLSelectElement(switcher).value = component.value;
+                }
+            });
+
             switch (component.value) {
                 case '0':
                     this.setLanguage('en');
@@ -64,6 +74,8 @@ export default class LanguageSwitcherComponent extends Component {
     }
     setLanguage(language: string) {
         window.localStorage.setItem('language', language);
+        let catalog: HTMLElement = document.querySelector('.catalog')!;
+        this.updateComponent(catalog, 'catalog');
         this.translatePage(language);
     }
     translatePage(language: string) {

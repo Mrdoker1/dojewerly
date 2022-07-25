@@ -1,12 +1,14 @@
 import './style.scss';
-import Component from '../../component';
+
 import materialTemplate from './material.html';
 import genderTemplate from './gender.html';
 import stockTemplate from './stock.html';
 import typeTemplate from './type.html';
+
+import Component from '../../component';
 import SettingLoader from '../../../controller/settingLoader';
 import Settings from '../../../interface/settings';
-import Products from '../../../interface/products';
+import ProductList from '../../../interface/productList';
 import ComponentBuilder from '../../../view/componentBuilder';
 import getHTMLElement from '../../../../utils/getHTMLElement';
 import getSelectElement from '../../../../utils/getHTMLSelectElement';
@@ -63,76 +65,75 @@ export default class FilterComponent extends Component {
     }
 
     updateComponent(node: HTMLElement, component: string, ...args: Array<string>) {
-        let callback = (settings: Settings, products: Products) => {
-            let builder = new ComponentBuilder(products, settings);
-
-            for (const key in products.en.products) {
+        let callback = (settings: Settings, productList: ProductList) => {
+            for (const key in productList) {
                 if (args[0] == 'materialFilter') {
                     switch (args[1]) {
                         case '1':
-                            if (products.en.products[key].props.material != 'silver') {
-                                delete products.en.products[key];
+                            if (productList[key].props.material != 'silver') {
+                                delete productList[key];
                             }
                             break;
                         case '2':
-                            if (products.en.products[key].props.material != 'gold') {
-                                delete products.en.products[key];
+                            if (productList[key].props.material != 'gold') {
+                                delete productList[key];
                             }
                             break;
                         case '3':
-                            if (products.en.products[key].props.material != 'steel') {
-                                delete products.en.products[key];
+                            if (productList[key].props.material != 'steel') {
+                                delete productList[key];
                             }
                     }
                 }
                 if (args[0] == 'genderFilter') {
                     switch (args[1]) {
                         case '1':
-                            if (products.en.products[key].props.gender != 'man') {
-                                delete products.en.products[key];
+                            if (productList[key].props.gender != 'man') {
+                                delete productList[key];
                             }
                             break;
                         case '2':
-                            if (products.en.products[key].props.gender != 'woman') {
-                                delete products.en.products[key];
+                            if (productList[key].props.gender != 'woman') {
+                                delete productList[key];
                             }
                             break;
                     }
                 }
                 if (args[0] == 'stockFilter') {
-                    if (products.en.products[key].stock > 0 && args[1] == '2') {
-                        delete products.en.products[key];
-                    } else if (products.en.products[key].stock >= 0 && args[1] == '1') {
-                        delete products.en.products[key];
-                    } else if (products.en.products[key].stock <= 0 && args[1] == '0') {
-                        delete products.en.products[key];
+                    if (productList[key].stock > 0 && args[1] == '2') {
+                        delete productList[key];
+                    } else if (productList[key].stock >= 0 && args[1] == '1') {
+                        delete productList[key];
+                    } else if (productList[key].stock <= 0 && args[1] == '0') {
+                        delete productList[key];
                     }
                 }
                 if (args[0] == 'typeFilter') {
                     switch (args[1]) {
                         case '1':
-                            if (products.en.products[key].props.type != 'barrette') {
-                                delete products.en.products[key];
+                            if (productList[key].props.type != 'barrette') {
+                                delete productList[key];
                             }
                             break;
                         case '2':
-                            if (products.en.products[key].props.type != 'ring') {
-                                delete products.en.products[key];
+                            if (productList[key].props.type != 'ring') {
+                                delete productList[key];
                             }
                             break;
                         case '3':
-                            if (products.en.products[key].props.type != 'earring') {
-                                delete products.en.products[key];
+                            if (productList[key].props.type != 'earring') {
+                                delete productList[key];
                             }
                             break;
                         case '4':
-                            if (products.en.products[key].props.type != 'brooch') {
-                                delete products.en.products[key];
+                            if (productList[key].props.type != 'brooch') {
+                                delete productList[key];
                             }
                             break;
                     }
                 }
             }
+            let builder = new ComponentBuilder(productList, settings);
             node.parentNode!.replaceChild(builder.build(component)!, node);
             const event = new CustomEvent('componentUpdated', {
                 detail: {

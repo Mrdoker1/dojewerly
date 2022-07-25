@@ -29,6 +29,7 @@ export const i18Obj: { [key: string]: { [key: string]: string } } = {
         rangeFilter: 'Price',
         clearFilterButton: 'Clear',
         showMoreButton: 'Show more',
+        emptyCatalog: 'No products found :( Try changing your search terms.',
     },
     ru: {
         searchPlaceholder: 'Поиск',
@@ -60,6 +61,7 @@ export const i18Obj: { [key: string]: { [key: string]: string } } = {
         rangeFilter: 'Цена',
         clearFilterButton: 'Очистить',
         showMoreButton: 'Показать еще',
+        emptyCatalog: 'Товары не найдены :( Попробуйте изменить условия поиска.',
     },
     pl: {
         searchPlaceholder: 'Szukaj',
@@ -91,6 +93,7 @@ export const i18Obj: { [key: string]: { [key: string]: string } } = {
         rangeFilter: 'Cenę',
         clearFilterButton: 'Wyczyść',
         showMoreButton: 'Pokaż więcej',
+        emptyCatalog: 'Nie znaleziono produktów :( Spróbuj zmienić wyszukiwane hasła.',
     },
 };
 

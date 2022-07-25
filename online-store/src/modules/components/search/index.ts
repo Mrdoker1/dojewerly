@@ -3,7 +3,7 @@ import Component from '../component';
 import template from './index.html';
 import SettingLoader from '../../controller/settingLoader';
 import Settings from '../../interface/settings';
-import Products from '../../interface/products';
+import ProductList from '../../interface/productList';
 import ComponentBuilder from '../../view/componentBuilder';
 
 export default class SearchComponent extends Component {
@@ -50,17 +50,17 @@ export default class SearchComponent extends Component {
     }
 
     updateComponent(node: HTMLElement, component: string, ...args: Array<string>) {
-        let callback = (settings: Settings, products: Products) => {
-            for (const key in products.en.products) {
-                let productName = products.en.products[key].name.toLowerCase();
-                let productInfo = products.en.products[key].props.info.toLowerCase();
+        let callback = (settings: Settings, productList: ProductList) => {
+            for (const key in productList) {
+                let productName = productList[key].name.toLowerCase();
+                let productInfo = productList[key].props.info.toLowerCase();
 
                 if (!productName.includes(args[0].toLowerCase()) && !productInfo.includes(args[0].toLowerCase())) {
-                    delete products.en.products[key];
+                    delete productList[key];
                 }
             }
 
-            let builder = new ComponentBuilder(products, settings);
+            let builder = new ComponentBuilder(productList, settings);
             node.parentNode!.replaceChild(builder.build(component)!, node);
             const event = new CustomEvent('componentUpdated', {
                 detail: {

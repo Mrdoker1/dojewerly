@@ -17,7 +17,12 @@ export default class ProductLoader extends Loader {
             .then((res: Response) => res.json())
             .then((productData: Products) => {
                 let builder = new PageBuilder();
-                builder.createCatalogPage(productData, this.settings);
+                let language = window.localStorage.getItem('language');
+                if (language) {
+                    builder.createCatalogPage(productData[language].products, this.settings);
+                } else {
+                    builder.createCatalogPage(productData[this.settings.language.default].products, this.settings);
+                }
             })
             .catch((err: Error) => {
                 console.error(err);
@@ -30,7 +35,12 @@ export default class ProductLoader extends Loader {
             .then((res: Response) => res.json())
             .then((productData: Products) => {
                 this.callbacks.forEach((callback) => {
-                    callback(this.settings, productData);
+                    let language = window.localStorage.getItem('language');
+                    if (language) {
+                        callback(this.settings, productData[language].products);
+                    } else {
+                        callback(this.settings, productData[this.settings.language.default].products);
+                    }
                 });
             })
             .catch((err: Error) => {

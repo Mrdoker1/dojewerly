@@ -1,7 +1,7 @@
 import Builder from './builder';
 import ComponentBuilder from './componentBuilder';
 import CatalogPage from '../pages/catalogPage';
-import Products from '../interface/products';
+import ProductList from '../interface/productList';
 import Settings from '../interface/settings';
 import Notification from '../components/notification';
 import getHTMLElement from '../../utils/getHTMLElement';
@@ -14,13 +14,13 @@ export default class PageBuilder extends Builder {
     constructor() {
         super();
     }
-    build(component: string, data?: Products, settings?: Settings) {
+    build(component: string, data?: ProductList, settings?: Settings) {
         switch (component) {
             case 'catalog-page':
                 return this.createCatalogPage(data!, settings!);
         }
     }
-    createCatalogPage(data: Products, settings: Settings) {
+    createCatalogPage(data: ProductList, settings: Settings) {
         let builder = new ComponentBuilder(data, settings);
         let page = new CatalogPage();
         let temp = page.insert(

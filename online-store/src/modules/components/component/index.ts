@@ -1,7 +1,7 @@
 import template from './index.html';
 import SettingLoader from '../../controller/settingLoader';
 import Settings from '../../interface/settings';
-import Products from '../../interface/products';
+import ProductList from '../../interface/productList';
 import ComponentBuilder from '../../view/componentBuilder';
 import getHTMLElement from '../../../utils/getHTMLElement';
 import getElement from '../../../utils/getElement';
@@ -19,14 +19,15 @@ export default class Component {
         this.node = this.getNode();
     }
     updateComponent(node: HTMLElement, component: string, ...args: Array<string>) {
-        let callback = (settings: Settings, products: Products) => {
-            let builder = new ComponentBuilder(products, settings);
+        let callback = (settings: Settings, productList: ProductList) => {
+            let builder = new ComponentBuilder(productList, settings);
             node.parentNode!.replaceChild(builder.build(component)!, node);
             const event = new CustomEvent('componentUpdated', {
                 detail: {
                     component: `${component}`,
                 },
             });
+
             document.dispatchEvent(event);
         };
         let settings: SettingLoader = new SettingLoader();
@@ -36,9 +37,9 @@ export default class Component {
         const temp = document.createRange().createContextualFragment(this.template);
         return temp;
     }
-    getNode(): Node {
+    getNode(template = this.template): Node {
         const element = document.createElement('div');
-        element.innerHTML = this.template;
+        element.innerHTML = template;
         getHTMLElement(element.childNodes[0]).dataset.marker = this.marker;
         return element.childNodes[0];
     }

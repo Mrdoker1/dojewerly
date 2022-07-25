@@ -1,13 +1,15 @@
 import './style.scss';
 import Component from '../../component';
 import template from './index.html';
+import emptyTemplate from '../filter/empty.html';
 import ComponentBuilder from '../../../view/componentBuilder';
 import getHTMLElement from '../../../../utils/getHTMLElement';
 import SettingLoader from '../../../controller/settingLoader';
 import Settings from '../../../interface/settings';
-import Products from '../../../interface/products';
+import ProductList from '../../../interface/productList';
 import * as noUiSlider from 'nouislider';
 const wNumb = require('wnumb');
+import translate from '../../translation';
 
 interface noUiSliderInstance extends HTMLElement {
     noUiSlider: noUiSlider.API;
@@ -71,16 +73,18 @@ export default class RangeFilterComponent extends Component {
     }
 
     updateComponent(node: HTMLElement, component: string, ...args: Array<string>) {
-        let callback = (settings: Settings, products: Products) => {
-            let builder = new ComponentBuilder(products, settings);
+        let callback = (settings: Settings, productList: ProductList) => {
+            let builder = new ComponentBuilder(productList, settings);
 
-            for (const key in products.en.products) {
-                let price = products.en.products[key].price;
+            for (const key in productList) {
+                let price = productList[key].price;
                 if (price < parseInt(args[0]) || price > parseInt(args[1])) {
-                    delete products.en.products[key];
+                    delete productList[key];
                 }
             }
+
             node.parentNode!.replaceChild(builder.build(component)!, node);
+
             const event = new CustomEvent('componentUpdated', {
                 detail: {
                     component: `${component}`,

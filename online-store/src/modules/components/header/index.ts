@@ -4,8 +4,7 @@ import './style.scss';
 import PageBuilder from '../../view/pageBuilder';
 import SettingLoader from '../../controller/settingLoader';
 import Settings from '../../interface/settings';
-import Products from '../../interface/products';
-import ComponentBuilder from '../../view/componentBuilder';
+import ProductList from '../../interface/productList';
 
 export default class HeaderComponent extends Component {
     constructor(temp: string = template) {
@@ -21,10 +20,10 @@ export default class HeaderComponent extends Component {
         search.addEventListener('click', () => {
             //window.location.href = '';
 
-            let callback = (settings: Settings, products: Products) => {
+            let callback = (settings: Settings, productList: ProductList) => {
                 document.body.innerHTML = '';
                 let builder = new PageBuilder();
-                builder.createCatalogPage(products, settings);
+                builder.createCatalogPage(productList, settings);
             };
 
             let settings: SettingLoader = new SettingLoader();

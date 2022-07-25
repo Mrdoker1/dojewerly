@@ -1,4 +1,5 @@
 export default interface Product {
+    [key: string]: string | number | {};
     name: string;
     price: number;
     stock: number;

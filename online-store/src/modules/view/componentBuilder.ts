@@ -1,7 +1,7 @@
 import Builder from './builder';
 
 /*Interfaces*/
-import Products from '../interface/products';
+import ProductList from '../interface/productList';
 import Settings from '../interface/settings';
 
 /*Components*/
@@ -18,10 +18,14 @@ import FilterComponent from '../components/filters/filter';
 import RangeFilterComponent from '../components/filters/rangeFilter';
 import SearchComponent from '../components/search';
 
+import getHTMLElement from '../../utils/getHTMLElement';
+
+import translate from '../components/translation';
+
 export default class ComponentBuilder extends Builder {
-    data: Products;
+    data: ProductList;
     settings: Settings;
-    constructor(data: Products, settings: Settings) {
+    constructor(data: ProductList, settings: Settings) {
         super();
         this.data = data;
         this.settings = settings;
@@ -41,24 +45,38 @@ export default class ComponentBuilder extends Builder {
         }
     }
 
-    createCatalog(data: Products = this.data, settings: Settings = this.settings) {
-        let catalog = new CatalogComponent();
-        let productList = [];
+    createCatalog(data: ProductList = this.data, settings: Settings = this.settings) {
+        let catalog = new CatalogComponent(undefined, Object.keys(data).length, 9);
 
-        for (const key in this.data.en.products) {
-            let product = new ProductComponent(
-                undefined,
-                data.en.products[key],
-                settings.currency.default,
-                settings.roots.products.assets.images
-            );
-            productList.push(product.node);
+        if (Object.keys(data).length > 0) {
+            let productList = [];
+            for (const key in this.data) {
+                let product = new ProductComponent(
+                    undefined,
+                    data[key],
+                    settings.currency.default,
+                    settings.roots.products.assets.images
+                );
+                productList.push(product.node);
+            }
+            return catalog.insertAll(undefined, ...productList);
+        } else {
+            let language = window.localStorage.getItem('language');
+            let emptyNode = catalog.getEmptyTemplateNode();
+            let note = getHTMLElement(getHTMLElement(emptyNode).getElementsByClassName('emptyCatalog')[0]);
+
+            if (language) {
+                note.textContent = translate[language].emptyCatalog;
+            } else {
+                note.textContent = translate[settings.language.default].emptyCatalog;
+            }
+            return emptyNode;
         }
-        return catalog.insertAll(undefined, ...productList);
     }
     createHeader() {
         let header = new HeaderComponent();
-        return header.node;
+        let langSwitcher = new LanguageSwitcherComponent(undefined, this.settings.language.default);
+        return header.insert(undefined, langSwitcher.node);
     }
     createFooter() {
         let langSwitcher = new LanguageSwitcherComponent(undefined, this.settings.language.default);

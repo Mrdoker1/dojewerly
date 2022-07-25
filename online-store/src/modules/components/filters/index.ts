@@ -38,7 +38,6 @@ export default class FiltersComponent extends Component {
 
             let slider = getHTMLElement(document.querySelector('.price-slider'));
             (slider as noUiSliderInstance).noUiSlider.reset();
-
         });
         return node;
     }

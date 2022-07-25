@@ -20,13 +20,13 @@ export default function componentList(componentName: string) {
         case 'footer':
             return new FooterComponent().getNode();
         case 'catalog':
-            return new CatalogComponent().getNode();
+            //return new CatalogComponent().getNode();
         case 'navigation':
             return new NavigationComponent().getNode();
         case 'filters':
             return new FiltersComponent().getNode();
         case 'language-switcher':
-           // return new LanguageSwitcherComponent().getNode();
+        // return new LanguageSwitcherComponent().getNode();
         case 'product':
         //return new ProductComponent().getComponent();
         case 'h1':
