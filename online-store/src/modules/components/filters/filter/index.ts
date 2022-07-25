@@ -65,7 +65,7 @@ export default class FilterComponent extends Component {
     }
 
     updateComponent(node: HTMLElement, component: string, ...args: Array<string>) {
-        let callback = (settings: Settings, productList: ProductList) => {
+        let callback = (settings: Settings, productList: ProductList, language: string) => {
             for (const key in productList) {
                 if (args[0] == 'materialFilter') {
                     switch (args[1]) {
@@ -138,6 +138,7 @@ export default class FilterComponent extends Component {
             const event = new CustomEvent('componentUpdated', {
                 detail: {
                     component: `${component}`,
+                    language: `${language}`,
                 },
             });
             document.dispatchEvent(event);

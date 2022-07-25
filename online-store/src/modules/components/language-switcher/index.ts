@@ -88,5 +88,13 @@ export default class LanguageSwitcherComponent extends Component {
                 element.textContent = translate[language][data];
             }
         });
+
+        const event = new CustomEvent('pageTranslated', {
+            detail: {
+                language: `${language}`,
+            },
+        });
+
+        document.dispatchEvent(event);
     }
 }

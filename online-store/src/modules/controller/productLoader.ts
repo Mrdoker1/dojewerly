@@ -37,9 +37,13 @@ export default class ProductLoader extends Loader {
                 this.callbacks.forEach((callback) => {
                     let language = window.localStorage.getItem('language');
                     if (language) {
-                        callback(this.settings, productData[language].products);
+                        callback(this.settings, productData[language].products, language);
                     } else {
-                        callback(this.settings, productData[this.settings.language.default].products);
+                        callback(
+                            this.settings,
+                            productData[this.settings.language.default].products,
+                            this.settings.language.default
+                        );
                     }
                 });
             })

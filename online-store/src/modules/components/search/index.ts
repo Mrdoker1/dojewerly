@@ -50,7 +50,7 @@ export default class SearchComponent extends Component {
     }
 
     updateComponent(node: HTMLElement, component: string, ...args: Array<string>) {
-        let callback = (settings: Settings, productList: ProductList) => {
+        let callback = (settings: Settings, productList: ProductList, language: string) => {
             for (const key in productList) {
                 let productName = productList[key].name.toLowerCase();
                 let productInfo = productList[key].props.info.toLowerCase();
@@ -61,13 +61,16 @@ export default class SearchComponent extends Component {
             }
 
             let builder = new ComponentBuilder(productList, settings);
-            node.parentNode!.replaceChild(builder.build(component)!, node);
-            const event = new CustomEvent('componentUpdated', {
-                detail: {
-                    component: `${component}`,
-                },
-            });
-            document.dispatchEvent(event);
+            if (node.parentNode) {
+                node.parentNode!.replaceChild(builder.build(component)!, node);
+                const event = new CustomEvent('componentUpdated', {
+                    detail: {
+                        component: `${component}`,
+                        language: `${language}`,
+                    },
+                });
+                document.dispatchEvent(event);
+            }
         };
         let settings: SettingLoader = new SettingLoader();
         settings.load('data/settings.json', callback);

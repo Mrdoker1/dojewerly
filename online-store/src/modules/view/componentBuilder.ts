@@ -46,7 +46,7 @@ export default class ComponentBuilder extends Builder {
     }
 
     createCatalog(data: ProductList = this.data, settings: Settings = this.settings) {
-        let catalog = new CatalogComponent(undefined, Object.keys(data).length, 9);
+        let catalog = new CatalogComponent(undefined, Object.keys(data).length, 9, settings.language.default);
 
         if (Object.keys(data).length > 0) {
             let productList = [];

@@ -73,7 +73,7 @@ export default class RangeFilterComponent extends Component {
     }
 
     updateComponent(node: HTMLElement, component: string, ...args: Array<string>) {
-        let callback = (settings: Settings, productList: ProductList) => {
+        let callback = (settings: Settings, productList: ProductList, language: string) => {
             let builder = new ComponentBuilder(productList, settings);
 
             for (const key in productList) {
@@ -88,6 +88,7 @@ export default class RangeFilterComponent extends Component {
             const event = new CustomEvent('componentUpdated', {
                 detail: {
                     component: `${component}`,
+                    language: `${language}`,
                 },
             });
             document.dispatchEvent(event);
