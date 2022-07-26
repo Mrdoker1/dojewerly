@@ -9,6 +9,10 @@
     font: $jost-13-regular;
     letter-spacing: 0.1em;
     text-transform: uppercase;
+    z-index: 3;
+    .burger-icon{
+        display: none;
+    }
     .account-icon{
         position: relative;
         .product-counter{
@@ -42,4 +46,23 @@
             }
         }
     }
+
+    @media screen and (max-width: $tablet)  {
+        .burger-icon{
+            display: block;
+        }
+        .navigation{
+            ul{
+                li{
+                    &:not(:nth-last-child(2)){
+                        display: none;
+                    }
+                    &:hover{
+                    }
+                }
+            }
+        }
+    }
+
+
 }

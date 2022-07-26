@@ -9,7 +9,6 @@ import Settings from '../../../interface/settings';
 import ProductList from '../../../interface/productList';
 import * as noUiSlider from 'nouislider';
 const wNumb = require('wnumb');
-import translate from '../../translation';
 
 interface noUiSliderInstance extends HTMLElement {
     noUiSlider: noUiSlider.API;

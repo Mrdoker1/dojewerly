@@ -1,8 +1,8 @@
 @import '../../../variables.scss';
 
 .product{
-    min-width: 370px;
-    min-height: 370px;
+    min-width: 200px;
+    min-height: 200px;
     display: flex;
     flex-direction: column;
     gap: 10px;
@@ -34,4 +34,8 @@
             letter-spacing: 1px;
         }
     }
+}
+
+@media screen and (max-width: $tablet)  {
+    
 }

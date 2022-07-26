@@ -17,6 +17,7 @@ import FiltersComponent from '../components/filters';
 import FilterComponent from '../components/filters/filter';
 import RangeFilterComponent from '../components/filters/rangeFilter';
 import SearchComponent from '../components/search';
+import BurgerComponent from '../components/burger';
 
 import getHTMLElement from '../../utils/getHTMLElement';
 
@@ -42,6 +43,8 @@ export default class ComponentBuilder extends Builder {
                 return this.createNavigation(props[0]);
             case 'filter':
                 return this.createFilters();
+            case 'burger':
+                return this.createBurger();
         }
     }
 
@@ -107,5 +110,11 @@ export default class ComponentBuilder extends Builder {
             rangeFilter.node,
             search.node
         );
+    }
+    createBurger() {
+        let burger = new BurgerComponent();
+        let langSwitcher = new LanguageSwitcherComponent(undefined, this.settings.language.default);
+        return burger.insert(undefined, langSwitcher.node);
+
     }
 }

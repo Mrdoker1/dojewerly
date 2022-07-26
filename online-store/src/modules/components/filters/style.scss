@@ -11,3 +11,11 @@
         gap: 40px;
     }
 }
+
+@media screen and (max-width: $tablet)  {
+    .filters{
+        .filters-list{
+            flex-direction: column;
+        }
+    }
+}

@@ -25,6 +25,7 @@ export default class PageBuilder extends Builder {
         let page = new CatalogPage();
         let temp = page.insert(
             undefined,
+            builder.build('burger')!,
             builder.build('header')!,
             builder.build('navigation', 'Catalog')!,
             builder.build('filter')!,
