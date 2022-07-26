@@ -186,7 +186,7 @@
   text-transform: uppercase;
 }
 .footer .footer-links-additional {
-  color: #161412;
+  color: #65635F;
   font: normal 400 10px/25px "Jost";
   letter-spacing: 0.1em;
   text-transform: uppercase;
@@ -715,7 +715,7 @@ h1 {
 
 @media screen and (max-width: 768px) {
   .burger-menu {
-    transition: 0.5s ease-in-out;
+    transition: 0.1s linear;
     position: absolute;
     display: flex;
     margin: 0 auto;
@@ -737,7 +737,7 @@ h1 {
     gap: 20px;
     list-style-type: none;
     flex-direction: column;
-    margin-bottom: 50vh;
+    margin-bottom: 30vh;
   }
   .burger-menu ul li {
     cursor: pointer;

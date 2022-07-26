@@ -27,7 +27,7 @@ export default class HeaderComponent extends Component {
                 burgerMenu.classList.remove('hide');
                 body.style.overflow = 'hidden';
                 header.style.position = 'absolute';
-                header.style.width = '91%';
+                header.style.width = 'calc(100% - 40px)';
                 burger.style.background = 'url("./assets/img/close.svg")';
             } else {
                 burgerMenu.classList.add('hide');

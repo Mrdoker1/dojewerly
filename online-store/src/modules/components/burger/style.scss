@@ -7,7 +7,7 @@
 
 @media screen and (max-width: $tablet)  {
     .burger-menu{
-        transition: $transition-2;
+        transition: $transition-1;
         position: absolute;
         display: flex;
         margin: 0 auto;
@@ -28,7 +28,7 @@
             gap: 20px;
             list-style-type: none;
             flex-direction: column;
-            margin-bottom: 50vh;
+            margin-bottom: 30vh;
             li{
                 cursor: pointer;
                 transition: $transition-1;
