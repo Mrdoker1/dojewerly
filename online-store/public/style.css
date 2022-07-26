@@ -10,8 +10,8 @@
   !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[1].use[1]!./node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[1].use[2]!./src/modules/components/product/style.scss ***!
   \********************************************************************************************************************************************************************************************/
 .product {
-  min-width: 370px;
-  min-height: 370px;
+  min-width: 200px;
+  min-height: 200px;
   display: flex;
   flex-direction: column;
   gap: 10px;
@@ -110,6 +110,10 @@
   font: normal 400 13px/25px "Jost";
   letter-spacing: 0.1em;
   text-transform: uppercase;
+  z-index: 3;
+}
+.header .burger-icon {
+  display: none;
 }
 .header .account-icon {
   position: relative;
@@ -142,11 +146,19 @@
 .header .navigation ul li:hover {
   filter: invert(89%) sepia(0%) saturate(76%) hue-rotate(174deg) brightness(92%) contrast(84%);
 }
+@media screen and (max-width: 768px) {
+  .header .burger-icon {
+    display: block;
+  }
+  .header .navigation ul li:not(:nth-last-child(2)) {
+    display: none;
+  }
+}
 /*!*******************************************************************************************************************************************************************************************!*\
   !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[1].use[1]!./node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[1].use[2]!./src/modules/components/footer/style.scss ***!
   \*******************************************************************************************************************************************************************************************/
 .footer {
-  height: 170px;
+  padding: 30px 0;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -179,6 +191,13 @@
   letter-spacing: 0.1em;
   text-transform: uppercase;
 }
+
+@media screen and (max-width: 768px) {
+  .footer .footer-links-main ul {
+    gap: 10px;
+    flex-direction: column;
+  }
+}
 /*!********************************************************************************************************************************************************************************************!*\
   !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[1].use[1]!./node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[1].use[2]!./src/modules/components/catalog/style.scss ***!
   \********************************************************************************************************************************************************************************************/
@@ -198,6 +217,12 @@
 }
 .catalog button.shadow {
   margin: 40px auto;
+}
+
+@media screen and (max-width: 768px) {
+  .catalog .catalog-wrapper {
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  }
 }
 /*!******************************************************************************************************************************************************************************************************!*\
   !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[1].use[1]!./node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[1].use[2]!./src/modules/components/language-switcher/style.scss ***!
@@ -231,7 +256,7 @@ h1 {
   !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[1].use[1]!./node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[1].use[2]!./src/modules/components/navigation/style.scss ***!
   \***********************************************************************************************************************************************************************************************/
 .navigation {
-  margin: 30px 0;
+  padding: 30px 0;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -251,6 +276,12 @@ h1 {
   display: flex;
   align-items: center;
   gap: 40px;
+}
+
+@media screen and (max-width: 768px) {
+  .filters .filters-list {
+    flex-direction: column;
+  }
 }
 /*!***************************************************************************************************************************************************************************************************!*\
   !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[1].use[1]!./node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[1].use[2]!./src/modules/components/filters/filter/style.scss ***!
@@ -676,6 +707,47 @@ h1 {
   filter: none;
 }
 /*!*******************************************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[1].use[1]!./node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[1].use[2]!./src/modules/components/burger/style.scss ***!
+  \*******************************************************************************************************************************************************************************************/
+.burger-menu {
+  display: none;
+}
+
+@media screen and (max-width: 768px) {
+  .burger-menu {
+    transition: 0.5s ease-in-out;
+    position: absolute;
+    display: flex;
+    margin: 0 auto;
+    width: 100%;
+    height: 100%;
+    color: #161412;
+    font: normal 400 13px/25px "Jost";
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    justify-content: center;
+    background-color: #F4F4F2;
+    z-index: 2;
+    overflow: hidden;
+    align-items: center;
+  }
+  .burger-menu ul {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    list-style-type: none;
+    flex-direction: column;
+    margin-bottom: 50vh;
+  }
+  .burger-menu ul li {
+    cursor: pointer;
+    transition: 0.1s linear;
+  }
+  .burger-menu ul li:hover {
+    filter: invert(89%) sepia(0%) saturate(76%) hue-rotate(174deg) brightness(92%) contrast(84%);
+  }
+}
+/*!*******************************************************************************************************************************************************************************************!*\
   !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[1].use[1]!./node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[1].use[2]!./src/modules/pages/catalogPage/style.scss ***!
   \*******************************************************************************************************************************************************************************************/
 
@@ -685,10 +757,6 @@ h1 {
 * {
   margin: 0;
   padding: 0;
-}
-
-body {
-  z-index: -100;
 }
 
 .dox-icon {
@@ -720,6 +788,12 @@ body {
   width: 10px;
   height: 20px;
   background: url("./assets/img/chevron_down.svg") center no-repeat;
+}
+
+.burger-icon {
+  width: 24px;
+  height: 24px;
+  background: url("./assets/img/burger.svg") center no-repeat;
 }
 
 .wrapper {
@@ -807,6 +881,25 @@ button.system:hover {
   border: 1px solid #161412;
 }
 
+button {
+  transition: 0.1s linear;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4px 80px;
+  background: #161412;
+  color: #F4F4F2;
+  height: 40px;
+  font: normal 400 13px/25px "Jost";
+  border: 1px solid #161412;
+  border-radius: 4px;
+}
+button:hover {
+  color: #161412;
+  background-color: #F4F4F2;
+  border: 1px solid #161412;
+}
+
 .hide-content *:not(:nth-child(-n+9)) {
   display: none;
 }
@@ -848,4 +941,10 @@ input[type=search]::-webkit-search-cancel-button,
 input[type=search]::-webkit-search-results-button,
 input[type=search]::-webkit-search-results-decoration {
   display: none;
+}
+
+@media screen and (max-width: 1180px) {
+  .wrapper {
+    margin: 0 20px;
+  }
 }
