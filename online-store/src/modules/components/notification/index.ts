@@ -27,14 +27,21 @@ export default class NotificationComponent extends Component {
         let message = (node as HTMLElement).getElementsByClassName('notification-message')[0] as HTMLElement;
         message.textContent = this.message;
 
+        document.addEventListener('pageBuilded', () => {
+            const header = document.querySelector('.header')! as HTMLElement;
+            header.style.top = `${header.style.top + 40}px`;
+        });
+
         close.addEventListener('click', () => {
             (node as HTMLElement).remove();
+            const header = document.querySelector('.header')! as HTMLElement;
+            let size = parseInt(header.style.top.replace('\\d+', '')) - 40;
+            header.style.top = `${size}px`;
         });
 
         node.addEventListener('click', () => {
             (node as HTMLElement).remove();
         });
-
         return node;
     }
     show() {

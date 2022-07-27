@@ -32,6 +32,10 @@ export default class PageBuilder extends Builder {
             builder.build('catalog')!,
             builder.build('footer')!
         );
+
+        let notification = new Notification(undefined, 'top', 'Working in progress');
+        notification.show();
+
         document.querySelector('body')!.appendChild(temp);
         const event = new CustomEvent('pageBuilded', {
             detail: {
@@ -39,8 +43,6 @@ export default class PageBuilder extends Builder {
             },
         });
         document.dispatchEvent(event);
-        let notification = new Notification(undefined, 'top', 'Working in progress');
-        notification.show();
 
         let slider = getHTMLElement(document.querySelector('.price-slider'));
         (slider as noUiSliderInstance).noUiSlider.on('update', () => {

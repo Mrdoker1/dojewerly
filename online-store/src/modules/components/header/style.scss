@@ -1,7 +1,9 @@
 @import '../../../variables.scss';
 
 .header{
-    height: 94px;
+    position: sticky;
+    top: 0;
+    height: 70px;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -10,6 +12,7 @@
     letter-spacing: 0.1em;
     text-transform: uppercase;
     z-index: 3;
+    background-color: $white;
     .burger-icon{
         display: none;
     }
@@ -48,6 +51,8 @@
     }
 
     @media screen and (max-width: $tablet)  {
+        .header{
+        }
         .burger-icon{
             display: block;
         }
