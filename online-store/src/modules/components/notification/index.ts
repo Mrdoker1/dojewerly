@@ -5,6 +5,7 @@ import popupNotification from './popup.html';
 
 export default class NotificationComponent extends Component {
     message: string;
+    type: string;
     constructor(temp: string = topNotification, type: string, message: string) {
         switch (type) {
             case 'top':
@@ -18,6 +19,7 @@ export default class NotificationComponent extends Component {
         }
         super(temp);
         this.marker = 'footer';
+        this.type = type;
         this.message = message;
         this.node = this.getNode();
     }
@@ -27,19 +29,19 @@ export default class NotificationComponent extends Component {
         let message = (node as HTMLElement).getElementsByClassName('notification-message')[0] as HTMLElement;
         message.textContent = this.message;
 
-        document.addEventListener('pageBuilded', () => {
-            const header = document.querySelector('.header')! as HTMLElement;
-            header.style.top = `${header.style.top + 40}px`;
-        });
+        if (this.type == 'top') {
+            document.addEventListener('pageBuilded', () => {
+                const header = document.querySelector('.header')! as HTMLElement;
+                header.style.top = `${header.style.top + 40}px`;
+            });
 
+            close.addEventListener('click', () => {
+                const header = document.querySelector('.header')! as HTMLElement;
+                let size = parseInt(header.style.top.replace('\\d+', '')) - 40;
+                header.style.top = `${size}px`;
+            });
+        }
         close.addEventListener('click', () => {
-            (node as HTMLElement).remove();
-            const header = document.querySelector('.header')! as HTMLElement;
-            let size = parseInt(header.style.top.replace('\\d+', '')) - 40;
-            header.style.top = `${size}px`;
-        });
-
-        node.addEventListener('click', () => {
             (node as HTMLElement).remove();
         });
         return node;
