@@ -10,15 +10,14 @@
   !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[1].use[1]!./node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[1].use[2]!./src/modules/components/product/style.scss ***!
   \********************************************************************************************************************************************************************************************/
 .product {
-  min-width: 200px;
-  min-height: 200px;
+  min-width: 140px;
+  min-height: 140px;
   display: flex;
   flex-direction: column;
   gap: 10px;
 }
 .product .product-image {
   transition: 0.5s ease-in-out;
-  height: 370px;
   width: 100%;
   object-fit: cover;
   background-size: cover;
@@ -43,6 +42,25 @@
 .product .product-wrapper .product-price {
   font: normal 400 16px/24px "Jost";
   letter-spacing: 1px;
+}
+
+@media screen and (max-width: 768px) {
+  .product .product-wrapper {
+    gap: 0;
+  }
+  .product .product-wrapper .product-name {
+    font: normal 400 12px/24px "Jost";
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+  .product .product-wrapper .product-info {
+    font: normal 400 12px/24px "Jost";
+    line-height: 16px;
+  }
+  .product .product-wrapper .product-price {
+    margin-top: 4px;
+    font: normal 400 14px/19px "Jost";
+  }
 }
 /*!*************************************************************************************************************************************************************************************************!*\
   !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[1].use[1]!./node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[1].use[2]!./src/modules/components/notification/style.scss ***!
@@ -138,24 +156,24 @@
   height: 30px;
   background: url("./assets/img/logo.svg") no-repeat;
 }
-.header .navigation ul {
+.header .menu-navigation ul {
   display: flex;
   align-items: center;
   gap: 40px;
   list-style-type: none;
 }
-.header .navigation ul li {
+.header .menu-navigation ul li {
   cursor: pointer;
   transition: 0.1s linear;
 }
-.header .navigation ul li:hover {
+.header .menu-navigation ul li:hover {
   filter: invert(89%) sepia(0%) saturate(76%) hue-rotate(174deg) brightness(92%) contrast(84%);
 }
 @media screen and (max-width: 768px) {
   .header .burger-icon {
     display: block;
   }
-  .header .navigation ul li:not(:nth-last-child(2)) {
+  .header .menu-navigation ul li:not(:nth-last-child(2)) {
     display: none;
   }
 }
@@ -225,8 +243,13 @@
 }
 
 @media screen and (max-width: 768px) {
+  .catalog {
+    margin-bottom: 0px;
+  }
   .catalog .catalog-wrapper {
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    row-gap: 20px;
+    column-gap: 8px;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
   }
 }
 /*!******************************************************************************************************************************************************************************************************!*\
@@ -239,6 +262,12 @@
 h1 {
   font: normal 500 52px/63px "Cormorant";
   color: #161412;
+}
+
+@media screen and (max-width: 768px) {
+  h1 {
+    font: normal 500 29px/37px "Cormorant";
+  }
 }
 /*!************************************************************************************************************************************************************************************************!*\
   !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[1].use[1]!./node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[1].use[2]!./src/modules/components/breadcrumbs/style.scss ***!
@@ -257,6 +286,12 @@ h1 {
 .breadcrumbs ul li:not(:last-child)::after {
   content: "/";
 }
+
+@media screen and (max-width: 768px) {
+  .breadcrumbs {
+    display: none;
+  }
+}
 /*!***********************************************************************************************************************************************************************************************!*\
   !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[1].use[1]!./node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[1].use[2]!./src/modules/components/navigation/style.scss ***!
   \***********************************************************************************************************************************************************************************************/
@@ -267,6 +302,13 @@ h1 {
   justify-content: center;
   flex-direction: column;
   gap: 20px;
+}
+
+@media screen and (max-width: 768px) {
+  .navigation {
+    padding-bottom: 20px;
+    padding-top: 10px;
+  }
 }
 /*!********************************************************************************************************************************************************************************************!*\
   !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[1].use[1]!./node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[1].use[2]!./src/modules/components/filters/style.scss ***!
@@ -282,10 +324,31 @@ h1 {
   align-items: center;
   gap: 40px;
 }
+.filters .filter-icon {
+  display: none;
+}
 
 @media screen and (max-width: 768px) {
+  .filters {
+    flex-direction: column-reverse;
+    gap: 20px;
+    border: solid #65635F 1px;
+    border-radius: 4px;
+    padding: 4px;
+    position: sticky;
+    background-color: #ffffff;
+    top: 110px;
+  }
+  .filters *:not(:last-child) {
+    display: none;
+  }
   .filters .filters-list {
     flex-direction: column;
+    padding-bottom: 10px;
+    gap: 20px;
+  }
+  .filters .filter-icon {
+    display: block;
   }
 }
 /*!***************************************************************************************************************************************************************************************************!*\
@@ -800,6 +863,12 @@ h1 {
   background: url("./assets/img/burger.svg") center no-repeat;
 }
 
+.filter-icon {
+  width: 100%;
+  height: 36px;
+  background: url("./assets/img/filter.svg") center no-repeat;
+}
+
 .wrapper {
   max-width: 1180px;
   margin: 0 auto;
@@ -912,6 +981,10 @@ button:hover {
   display: flex;
 }
 
+.show-filter *:not(:last-child) {
+  display: flex;
+}
+
 .hide {
   opacity: 0;
   pointer-events: none;
@@ -950,5 +1023,10 @@ input[type=search]::-webkit-search-results-decoration {
 @media screen and (max-width: 1180px) {
   .wrapper {
     margin: 0 20px;
+  }
+}
+@media screen and (max-width: 768px) {
+  .wrapper {
+    margin: 0 14px;
   }
 }

@@ -31,7 +31,6 @@ body {
   height: 24px;
   background: url("./assets/img/close.svg") center no-repeat;
 }
-
 .chevron_down-icon{
   width: 10px;
   height: 20px;
@@ -41,6 +40,11 @@ body {
   width: 24px;
   height: 24px;
   background: url("./assets/img/burger.svg") center no-repeat;
+}
+.filter-icon{
+  width: 100%;
+  height: 36px;
+  background: url("./assets/img/filter.svg") center no-repeat;
 }
 
 .wrapper{
@@ -155,6 +159,12 @@ button {
   display: flex;
 }
 
+.show-filter {
+  *:not(:last-child) {
+    display: flex;
+  }
+}
+
 .hide {
   opacity: 0;
   pointer-events: none;
@@ -181,5 +191,11 @@ input[type="search"]::-webkit-search-results-decoration { display: none; }
 @media screen and (max-width: $desktop)  {
   .wrapper {
       margin: 0 20px;
+  }
+}
+
+@media screen and (max-width: $tablet)  {
+  .wrapper {
+      margin: 0 14px;
   }
 }

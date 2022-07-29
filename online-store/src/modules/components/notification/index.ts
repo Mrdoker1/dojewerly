@@ -32,13 +32,27 @@ export default class NotificationComponent extends Component {
         if (this.type == 'top') {
             document.addEventListener('pageBuilded', () => {
                 const header = document.querySelector('.header')! as HTMLElement;
-                header.style.top = `${header.style.top + 40}px`;
+                console.log(header.style.top);
+                if (header) {
+                    header.style.top = `${40}px`;
+                }
+                const filters = document.querySelector('.filters')! as HTMLElement;
+                if (filters) {
+                    filters.style.top = `${110}px`;
+                }
             });
 
             close.addEventListener('click', () => {
                 const header = document.querySelector('.header')! as HTMLElement;
-                let size = parseInt(header.style.top.replace('\\d+', '')) - 40;
-                header.style.top = `${size}px`;
+                if (header) {
+                    let size = parseInt(header.style.top.replace('\\d+', '')) - 40;
+                    header.style.top = `${size}px`;
+                }
+                const filters = document.querySelector('.filters')! as HTMLElement;
+                if (filters) {
+                    let size = parseInt(filters.style.top.replace('\\d+', '')) - 40;
+                    filters.style.top = `${size}px`;
+                }
             });
         }
         close.addEventListener('click', () => {

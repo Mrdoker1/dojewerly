@@ -16,7 +16,12 @@ export default class FiltersComponent extends Component {
     getNode(): Node {
         let node = super.getNode();
         let clearButton = getHTMLElement(node).getElementsByClassName('clear-filter')[0];
+        let filterIcon = getHTMLElement(node).getElementsByClassName('filter-icon')[0];
         let filters = getHTMLElement(node).getElementsByClassName('filter-key') as unknown as Array<HTMLSelectElement>;
+
+        filterIcon.addEventListener('click', () => {
+            (node as HTMLElement).classList.toggle('show-filter');
+        });
 
         document.addEventListener('pageBuilded', () => {
             for (let filter of filters) {

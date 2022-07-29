@@ -10,12 +10,31 @@
         align-items: center;
         gap: 40px;
     }
+    .filter-icon{
+        display: none;
+    }
 }
 
 @media screen and (max-width: $tablet)  {
     .filters{
+        flex-direction: column-reverse;
+        gap: 20px;
+        border: solid $grey-1 1px;
+        border-radius: 4px;
+        padding: 4px;
+        position: sticky;
+        background-color: $white;
+        top: 110px;
+        *:not(:last-child) {
+            display: none;
+          }
         .filters-list{
             flex-direction: column;
+            padding-bottom: 10px;
+            gap: 20px;
+        }
+        .filter-icon{
+            display: block;
         }
     }
 }

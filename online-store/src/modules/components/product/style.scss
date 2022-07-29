@@ -1,14 +1,13 @@
 @import '../../../variables.scss';
 
 .product{
-    min-width: 200px;
-    min-height: 200px;
+    min-width: 140px;
+    min-height: 140px;
     display: flex;
     flex-direction: column;
     gap: 10px;
     .product-image{
         transition: $transition-2;
-        height: 370px;
         width: 100%;
         object-fit: cover;
         &:hover{
@@ -37,5 +36,24 @@
 }
 
 @media screen and (max-width: $tablet)  {
-    
+    .product{
+        .product-image{
+        }
+        .product-wrapper{
+            gap: 0;
+            .product-name{
+                font: $jost-12-regular;
+                letter-spacing: 0.1em;
+                text-transform: uppercase;
+            }
+            .product-info{
+                font: $jost-12-regular;
+                line-height: 16px;
+            }
+            .product-price{
+                margin-top: 4px;
+                font: $jost-14-regular;
+            }
+        }
+    }
 }
