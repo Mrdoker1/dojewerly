@@ -163,6 +163,9 @@ button {
   *:not(:last-child) {
     display: flex;
   }
+  & .filter-icon{
+    filter: invert(41%) sepia(6%) saturate(296%) hue-rotate(2deg) brightness(89%) contrast(88%);
+  }
 }
 
 .hide {

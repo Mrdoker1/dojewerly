@@ -24,6 +24,17 @@
         .catalog-wrapper{
             row-gap: 20px;
             column-gap: 8px;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        }
+    }
+}
+
+@media screen and (max-width: $mobile)  {
+    .catalog{
+        margin-bottom: 0px;
+        .catalog-wrapper{
+            row-gap: 20px;
+            column-gap: 12px;
             grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
         }
     }

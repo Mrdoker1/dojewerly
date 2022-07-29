@@ -249,6 +249,16 @@
   .catalog .catalog-wrapper {
     row-gap: 20px;
     column-gap: 8px;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  }
+}
+@media screen and (max-width: 440px) {
+  .catalog {
+    margin-bottom: 0px;
+  }
+  .catalog .catalog-wrapper {
+    row-gap: 20px;
+    column-gap: 12px;
     grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
   }
 }
@@ -329,7 +339,7 @@ h1 {
   display: none;
 }
 
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 920px) {
   .filters {
     flex-direction: column-reverse;
     gap: 20px;
@@ -984,6 +994,9 @@ button:hover {
 
 .show-filter *:not(:last-child) {
   display: flex;
+}
+.show-filter .filter-icon {
+  filter: invert(41%) sepia(6%) saturate(296%) hue-rotate(2deg) brightness(89%) contrast(88%);
 }
 
 .hide {
