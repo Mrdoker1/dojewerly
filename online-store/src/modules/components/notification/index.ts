@@ -55,6 +55,12 @@ export default class NotificationComponent extends Component {
                 }
             });
         }
+
+        if (this.type == 'popup') {
+            let image = (node as HTMLElement).getElementsByClassName('notification-image')[0] as HTMLSelectElement;
+            image.style.background = 'url("./assets/img/search.svg")';
+        }
+
         close.addEventListener('click', () => {
             (node as HTMLElement).remove();
         });

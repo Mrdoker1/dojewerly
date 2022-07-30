@@ -228,7 +228,7 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  margin: 40px 0;
+  padding: 40px 0;
 }
 .catalog .catalog-wrapper {
   max-width: inherit;
@@ -243,9 +243,6 @@
 }
 
 @media screen and (max-width: 1180px) {
-  .catalog {
-    margin-bottom: 0px;
-  }
   .catalog .catalog-wrapper {
     row-gap: 20px;
     column-gap: 8px;
@@ -253,7 +250,7 @@
 }
 @media screen and (max-width: 768px) {
   .catalog {
-    margin-bottom: 0px;
+    padding-bottom: 10px;
   }
   .catalog .catalog-wrapper {
     row-gap: 20px;
@@ -261,9 +258,6 @@
   }
 }
 @media screen and (max-width: 470px) {
-  .catalog {
-    margin-bottom: 0px;
-  }
   .catalog .catalog-wrapper {
     row-gap: 20px;
     column-gap: 12px;
@@ -887,7 +881,7 @@ h1 {
 
 .filter-icon {
   width: 100%;
-  height: 36px;
+  height: 30px;
   background: url("./assets/img/filter.svg") center no-repeat;
 }
 

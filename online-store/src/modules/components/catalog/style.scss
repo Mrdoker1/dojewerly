@@ -4,7 +4,7 @@
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    margin: 40px 0;
+    padding: 40px 0;
     .catalog-wrapper{
         max-width: inherit;
         display: grid;
@@ -21,7 +21,6 @@
 
 @media screen and (max-width: $desktop)  {
     .catalog{
-        margin-bottom: 0px;
         .catalog-wrapper{
             row-gap: 20px;
             column-gap: 8px;
@@ -32,7 +31,7 @@
 
 @media screen and (max-width: $tablet)  {
     .catalog{
-        margin-bottom: 0px;
+        padding-bottom: 10px;
         .catalog-wrapper{
             row-gap: 20px;
             column-gap: 8px;
@@ -43,7 +42,6 @@
 
 @media screen and (max-width: $mobile)  {
     .catalog{
-        margin-bottom: 0px;
         .catalog-wrapper{
             row-gap: 20px;
             column-gap: 12px;
