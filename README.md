@@ -6,3 +6,20 @@
 > [Design](https://www.figma.com/file/rbLt4cru33melj0pt5EbvQ/Design-2-dojewerly.com-Shop?node-id=0%3A1)  
 > 
 > [Deploy](https://mrdoker1.github.io/dojewerly/online-store/public/)
+
+## Roadmap
+
+- Stage 1 (Basic MVP)
+  - **Homepage**
+  - **Catalog**
+  - **Product Page**
+  - **Adaptive**
+  - **Language Switch**
+- Stage 2 (Managing & Statistic)
+  - **Admin Panel**
+  - **Google/Yandex analytics**
+- Stage 3 (Extended MVP)
+- **Authentication**
+- **User Dashboard**
+- **Cart**
+- **Checkout**
