@@ -50,7 +50,7 @@ export default class ComponentBuilder extends Builder {
             case 'burger':
                 return this.createBurger();
             case 'product-section':
-                return this.createProductSection(props[0], this.settings.roots.products.assets.images);
+                return this.createProductSection(props[0], this.settings.roots.products.assets.images, this.settings);
         }
     }
 
@@ -122,10 +122,10 @@ export default class ComponentBuilder extends Builder {
         let langSwitcher = new LanguageSwitcherComponent(undefined, this.settings.language.default);
         return burger.insert(undefined, langSwitcher.node);
     }
-    createProductSection(productID: string, assetRoot: string) {
+    createProductSection(productID: string, assetRoot: string, settings: Settings) {
         let product: Product = this.data[productID];
         let section = new ProductSectionComponent();
-        let details = new ProductDetailsComponent(undefined, product);
+        let details = new ProductDetailsComponent(undefined, product, settings);
         let gallery = new ProductGalleryComponent(undefined, assetRoot, productID);
         return section.insert(undefined, gallery.node, details.node);
     }

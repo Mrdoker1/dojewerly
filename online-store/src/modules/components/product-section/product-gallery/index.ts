@@ -26,6 +26,7 @@ export default class ProductGalleryComponent extends Component {
                 node.appendChild(image);
             });
         }
+
         return node;
     }
 }
