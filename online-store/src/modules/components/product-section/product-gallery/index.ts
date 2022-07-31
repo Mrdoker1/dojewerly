@@ -16,14 +16,16 @@ export default class ProductGalleryComponent extends Component {
     getNode(): Node {
         let node = super.getNode();
         const images = [];
-        for (let i = 1; i <= 4; i++) {
-            const image = new Image();
-            image.setAttribute('src', `${this.assetRoot}${this.productID}/${i}.jpg`);
-            images.push(image);
+        if (this.productID) {
+            for (let i = 1; i <= 4; i++) {
+                const image = new Image();
+                image.setAttribute('src', `${this.assetRoot}${this.productID}/${i}.jpg`);
+                images.push(image);
+            }
+            images.forEach((image) => {
+                node.appendChild(image);
+            });
         }
-        images.forEach((image) => {
-            node.appendChild(image);
-        });
         return node;
     }
 }

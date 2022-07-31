@@ -43,8 +43,7 @@ export default class ProductComponent extends Component {
         });
 
         node.addEventListener('click', (e) => {
-
-            this.showProduct(productData);
+            this.showProduct(productData.props.id);
 
             // let cart: Cart = this.getCartInfo();
 
@@ -99,10 +98,10 @@ export default class ProductComponent extends Component {
         return cart;
     }
 
-    showProduct(productData: Product) {
+    showProduct(productID: number) {
         let callback = (settings: Settings, productList: ProductList) => {
             let builder = new PageBuilder();
-            builder.build('product-page', productList, settings);
+            builder.build('product-page', productList, settings, `${productID}`);
         };
         let settings: SettingLoader = new SettingLoader();
         settings.load('data/settings.json', callback);

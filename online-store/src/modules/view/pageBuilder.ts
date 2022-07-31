@@ -15,7 +15,7 @@ export default class PageBuilder extends Builder {
     constructor() {
         super();
     }
-    build(component: string, data?: ProductList, settings?: Settings) {
+    build(component: string, data?: ProductList, settings?: Settings, ...props: Array<string>) {
         let body = document.querySelector('body')!;
         switch (component) {
             case 'catalog-page':
@@ -27,7 +27,7 @@ export default class PageBuilder extends Builder {
                 this.callBuildEvent(component);
                 break;
             case 'product-page':
-                let product = this.createProductPage(data!, settings!, '1');
+                let product = this.createProductPage(data!, settings!, props[0]);
                 body.innerHTML = '';
                 this.setTopNotification();
                 body.appendChild(product);
