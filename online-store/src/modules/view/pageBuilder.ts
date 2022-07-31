@@ -16,11 +16,23 @@ export default class PageBuilder extends Builder {
         super();
     }
     build(component: string, data?: ProductList, settings?: Settings) {
+        let body = document.querySelector('body')!;
         switch (component) {
             case 'catalog-page':
-                return this.createCatalogPage(data!, settings!);
+                let catalog = this.createCatalogPage(data!, settings!);
+                body.innerHTML = '';
+                this.setTopNotification();
+                body.appendChild(catalog);
+                this.setSlider(settings!);
+                this.callBuildEvent(component);
+                break;
             case 'product-page':
-                return this.createProductPage(data!, settings!, '1');
+                let product = this.createProductPage(data!, settings!, '1');
+                body.innerHTML = '';
+                this.setTopNotification();
+                body.appendChild(product);
+                this.callBuildEvent(component);
+                break;
         }
     }
     createCatalogPage(data: ProductList, settings: Settings) {
@@ -35,26 +47,7 @@ export default class PageBuilder extends Builder {
             builder.build('catalog')!,
             builder.build('footer')!
         );
-
-        let notification = new Notification(undefined, 'top', 'Working in progress');
-        notification.show();
-
-        document.querySelector('body')!.appendChild(temp);
-        const event = new CustomEvent('pageBuilded', {
-            detail: {
-                component: `catalog-page`,
-            },
-        });
-        document.dispatchEvent(event);
-
-        let slider = getHTMLElement(document.querySelector('.price-slider'));
-        (slider as noUiSliderInstance).noUiSlider.on('update', () => {
-            let value = (slider as noUiSliderInstance).noUiSlider.get() as Array<string>;
-            let startRange = getHTMLElement(document.querySelector('.price-filter-start-range'));
-            let finishRange = getHTMLElement(document.querySelector('.price-filter-finish-range'));
-            startRange.textContent = `${settings.currency.default}${value[0]}`;
-            finishRange.textContent = `${settings.currency.default}${value[1]}`;
-        });
+        return temp;
     }
     createProductPage(data: ProductList, settings: Settings, productID: string) {
         let builder = new ComponentBuilder(data, settings);
@@ -66,16 +59,28 @@ export default class PageBuilder extends Builder {
             builder.build('product-section', productID)!,
             builder.build('footer')!
         );
-
-        let notification = new Notification(undefined, 'top', 'Working in progress');
-        notification.show();
-
-        document.querySelector('body')!.appendChild(temp);
+        return temp;
+    }
+    callBuildEvent(component: string) {
         const event = new CustomEvent('pageBuilded', {
             detail: {
-                component: `catalog-page`,
+                component: component,
             },
         });
         document.dispatchEvent(event);
+    }
+    setTopNotification() {
+        let notification = new Notification(undefined, 'top', 'Working in progress');
+        notification.show();
+    }
+    setSlider(settings: Settings) {
+        let slider = getHTMLElement(document.querySelector('.price-slider'));
+        (slider as noUiSliderInstance).noUiSlider.on('update', () => {
+            let value = (slider as noUiSliderInstance).noUiSlider.get() as Array<string>;
+            let startRange = getHTMLElement(document.querySelector('.price-filter-start-range'));
+            let finishRange = getHTMLElement(document.querySelector('.price-filter-finish-range'));
+            startRange.textContent = `${settings.currency.default}${value[0]}`;
+            finishRange.textContent = `${settings.currency.default}${value[1]}`;
+        });
     }
 }

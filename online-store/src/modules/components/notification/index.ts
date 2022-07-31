@@ -32,7 +32,6 @@ export default class NotificationComponent extends Component {
         if (this.type == 'top') {
             document.addEventListener('pageBuilded', () => {
                 const header = document.querySelector('.header')! as HTMLElement;
-                console.log(header.style.top);
                 if (header) {
                     header.style.top = `${40}px`;
                 }

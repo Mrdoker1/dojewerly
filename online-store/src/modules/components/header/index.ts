@@ -51,7 +51,7 @@ export default class HeaderComponent extends Component {
             let callback = (settings: Settings, productList: ProductList) => {
                 document.body.innerHTML = '';
                 let builder = new PageBuilder();
-                builder.createCatalogPage(productList, settings);
+                builder.build('catalog-page', productList, settings);
                 const filters = document.querySelector('.filters')! as HTMLElement;
                 const searchField = document.querySelector('.search-field')! as HTMLElement;
                 filters.classList.add('show-filter');

@@ -127,7 +127,6 @@ export default class ComponentBuilder extends Builder {
         let section = new ProductSectionComponent();
         let details = new ProductDetailsComponent(undefined, product);
         let gallery = new ProductGalleryComponent(undefined, assetRoot, productID);
-        console.log(section.insert(undefined, gallery.node, details.node));
         return section.insert(undefined, gallery.node, details.node);
     }
 }

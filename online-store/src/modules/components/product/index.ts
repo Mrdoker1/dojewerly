@@ -5,6 +5,10 @@ import '../../../assets/img/products/example/1.jpg';
 import Product from '../../interface/product';
 import Cart from '../../interface/cart';
 import Notification from '../../components/notification';
+import PageBuilder from '../../view/pageBuilder';
+import SettingLoader from '../../controller/settingLoader';
+import Settings from '../../interface/settings';
+import ProductList from '../../interface/productList';
 import getElement from '../../../utils/getElement';
 import getHTMLImageElement from '../../../utils/getHTMLImageElement';
 
@@ -39,23 +43,26 @@ export default class ProductComponent extends Component {
         });
 
         node.addEventListener('click', (e) => {
-            let cart: Cart = this.getCartInfo();
 
-            if (cart.products.length >= 20 && cart.products.indexOf(productData.props.id) == -1) {
-                let notification = new Notification(undefined, 'popup', "You can't add more than 20 products in cart");
-                notification.show();
-            } else {
-                if (cart.products.indexOf(productData.props.id) == -1) {
-                    console.log(`Product ${productData.props.id} added to Shopping cart!`);
-                    cart.products.push(productData.props.id);
-                    window.localStorage.setItem('cart', JSON.stringify(cart));
-                } else {
-                    console.log(`Product ${productData.props.id} removed from Shopping cart!`);
-                    cart.products.splice(cart.products.indexOf(productData.props.id), 1);
-                    window.localStorage.setItem('cart', JSON.stringify(cart));
-                }
-                this.updateView(productData, component, cart);
-            }
+            this.showProduct(productData);
+
+            // let cart: Cart = this.getCartInfo();
+
+            // if (cart.products.length >= 20 && cart.products.indexOf(productData.props.id) == -1) {
+            //     let notification = new Notification(undefined, 'popup', "You can't add more than 20 products in cart");
+            //     notification.show();
+            // } else {
+            //     if (cart.products.indexOf(productData.props.id) == -1) {
+            //         console.log(`Product ${productData.props.id} added to Shopping cart!`);
+            //         cart.products.push(productData.props.id);
+            //         window.localStorage.setItem('cart', JSON.stringify(cart));
+            //     } else {
+            //         console.log(`Product ${productData.props.id} removed from Shopping cart!`);
+            //         cart.products.splice(cart.products.indexOf(productData.props.id), 1);
+            //         window.localStorage.setItem('cart', JSON.stringify(cart));
+            //     }
+            //     this.updateView(productData, component, cart);
+            // }
         });
 
         return node;
@@ -90,5 +97,14 @@ export default class ProductComponent extends Component {
         }
 
         return cart;
+    }
+
+    showProduct(productData: Product) {
+        let callback = (settings: Settings, productList: ProductList) => {
+            let builder = new PageBuilder();
+            builder.build('product-page', productList, settings);
+        };
+        let settings: SettingLoader = new SettingLoader();
+        settings.load('data/settings.json', callback);
     }
 }
