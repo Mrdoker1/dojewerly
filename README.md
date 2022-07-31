@@ -21,5 +21,6 @@
 - Stage 3 (Extended MVP)
 - **Authentication**
 - **User Dashboard**
+- Stage 4 (Extended MVP)
 - **Cart**
 - **Checkout**
