@@ -29,7 +29,7 @@ export default class ProductDetailsComponent extends Component {
             id.textContent = `Item No.: ${this.product.props.id}`;
             description.textContent = `${this.product.props.description}`;
             price.textContent = `${this.settings.currency.default} ${this.product.price}`;
-            stock.textContent = `${this.product.stock} in stock`;
+            stock.textContent = this.product.stock >= 0 ? `${this.product.stock} in stock` : `Preorder`;
         }
         return node;
     }

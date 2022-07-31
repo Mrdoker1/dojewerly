@@ -30,6 +30,14 @@ export default class ProductComponent extends Component {
     getProductNode(assetsRoot: string, productData: Product): Node {
         let node = super.getNode();
         let component = getHTMLImageElement(getElement(node).getElementsByClassName('product-image')[0]);
+
+        let url = `${assetsRoot}${productData.props.id}/main.jpg`;
+        if (this.imageExists(url)) {
+            component.src = url;
+        } else {
+            component.src = `./assets/img/no-image.svg`;
+        }
+
         component.src = `${assetsRoot}${productData.props.id}/main.jpg`;
 
         document.addEventListener('pageBuilded', () => {
@@ -105,5 +113,12 @@ export default class ProductComponent extends Component {
         };
         let settings: SettingLoader = new SettingLoader();
         settings.load('data/settings.json', callback);
+    }
+
+    imageExists(image_url: string) {
+        var http = new XMLHttpRequest();
+        http.open('HEAD', image_url, false);
+        http.send();
+        return http.status != 404;
     }
 }
