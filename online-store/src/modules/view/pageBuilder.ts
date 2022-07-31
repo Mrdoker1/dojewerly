@@ -18,6 +18,8 @@ export default class PageBuilder extends Builder {
         switch (component) {
             case 'catalog-page':
                 return this.createCatalogPage(data!, settings!);
+            case 'product-page':
+                return this.createProductPage(data!, settings!, 1);
         }
     }
     createCatalogPage(data: ProductList, settings: Settings) {
@@ -53,4 +55,5 @@ export default class PageBuilder extends Builder {
             finishRange.textContent = `${settings.currency.default}${value[1]}`;
         });
     }
+    createProductPage(data: ProductList, settings: Settings, productID: number) {}
 }

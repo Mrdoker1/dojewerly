@@ -20,7 +20,7 @@ export default function componentList(componentName: string) {
         case 'footer':
             return new FooterComponent().getNode();
         case 'catalog':
-            //return new CatalogComponent().getNode();
+        //return new CatalogComponent().getNode();
         case 'navigation':
             return new NavigationComponent().getNode();
         case 'filters':
@@ -30,7 +30,7 @@ export default function componentList(componentName: string) {
         case 'product':
         //return new ProductComponent().getComponent();
         case 'h1':
-            return new H1Component().getNode();
+        //return new H1Component().getNode();
         case 'breadcrumbs':
             return new BreadcrumbsComponent().getNode();
         case 'material-filter':

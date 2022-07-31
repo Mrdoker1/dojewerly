@@ -86,9 +86,10 @@ export default class ComponentBuilder extends Builder {
         let footer = new FooterComponent();
         return footer.insert(undefined, langSwitcher.node);
     }
-    createNavigation(h1Name: string) {
+    createNavigation(page: string) {
         let breadcrumbs = new BreadcrumbsComponent();
-        let h1 = new H1Component(undefined, h1Name);
+        let h1 = new H1Component(undefined, page);
+
         let navigation = new NavigationComponent();
         let node = navigation.insert(undefined, h1.node, breadcrumbs.node);
         return node;
@@ -115,6 +116,5 @@ export default class ComponentBuilder extends Builder {
         let burger = new BurgerComponent();
         let langSwitcher = new LanguageSwitcherComponent(undefined, this.settings.language.default);
         return burger.insert(undefined, langSwitcher.node);
-
     }
 }
