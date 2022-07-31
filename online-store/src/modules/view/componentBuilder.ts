@@ -124,7 +124,7 @@ export default class ComponentBuilder extends Builder {
     }
     createProductSection(productID: string, assetRoot: string, settings: Settings) {
         let product: Product = this.data[productID];
-        let section = new ProductSectionComponent();
+        let section = new ProductSectionComponent(undefined, product.name);
         let details = new ProductDetailsComponent(undefined, product, settings);
         let gallery = new ProductGalleryComponent(undefined, assetRoot, productID);
         return section.insert(undefined, gallery.node, details.node);

@@ -18,12 +18,14 @@ export default class ProductDetailsComponent extends Component {
     getNode(): Node {
         let node = super.getNode();
         if (this.product) {
+            let header = (node as HTMLElement).getElementsByClassName('product-details-header')[0];
             let material = (node as HTMLElement).getElementsByClassName('product-details-material-text')[0];
             let gender = (node as HTMLElement).getElementsByClassName('product-details-gender-text')[0];
             let id = (node as HTMLElement).getElementsByClassName('product-details-id-text')[0];
             let description = (node as HTMLElement).getElementsByClassName('product-details-description')[0];
             let price = (node as HTMLElement).getElementsByClassName('product-details-price')[0];
             let stock = (node as HTMLElement).getElementsByClassName('product-details-stock')[0];
+            header.textContent = this.product.name;
             material.textContent = `Material: ${this.product.props.material}`;
             gender.textContent = `Gender: ${this.product.props.gender}`;
             id.textContent = `Item No.: ${this.product.props.id}`;
