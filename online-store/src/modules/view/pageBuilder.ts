@@ -1,6 +1,7 @@
 import Builder from './builder';
 import ComponentBuilder from './componentBuilder';
 import CatalogPage from '../pages/catalogPage';
+import ProductPage from '../pages/productPage';
 import ProductList from '../interface/productList';
 import Settings from '../interface/settings';
 import Notification from '../components/notification';
@@ -19,7 +20,7 @@ export default class PageBuilder extends Builder {
             case 'catalog-page':
                 return this.createCatalogPage(data!, settings!);
             case 'product-page':
-                return this.createProductPage(data!, settings!, 1);
+                return this.createProductPage(data!, settings!, '1');
         }
     }
     createCatalogPage(data: ProductList, settings: Settings) {
@@ -55,5 +56,26 @@ export default class PageBuilder extends Builder {
             finishRange.textContent = `${settings.currency.default}${value[1]}`;
         });
     }
-    createProductPage(data: ProductList, settings: Settings, productID: number) {}
+    createProductPage(data: ProductList, settings: Settings, productID: string) {
+        let builder = new ComponentBuilder(data, settings);
+        let page = new ProductPage();
+        let temp = page.insert(
+            undefined,
+            builder.build('burger')!,
+            builder.build('header')!,
+            builder.build('product-section', productID)!,
+            builder.build('footer')!
+        );
+
+        let notification = new Notification(undefined, 'top', 'Working in progress');
+        notification.show();
+
+        document.querySelector('body')!.appendChild(temp);
+        const event = new CustomEvent('pageBuilded', {
+            detail: {
+                component: `catalog-page`,
+            },
+        });
+        document.dispatchEvent(event);
+    }
 }

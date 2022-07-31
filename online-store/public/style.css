@@ -169,11 +169,15 @@
 .header .menu-navigation ul li:hover {
   filter: invert(89%) sepia(0%) saturate(76%) hue-rotate(174deg) brightness(92%) contrast(84%);
 }
+
 @media screen and (max-width: 768px) {
+  .header {
+    height: 50px;
+  }
   .header .burger-icon {
     display: block;
   }
-  .header .menu-navigation ul li:not(:nth-last-child(2)) {
+  .menu-navigation ul li:not(:nth-last-child(2)) {
     display: none;
   }
 }
@@ -353,7 +357,7 @@ h1 {
     padding: 4px;
     position: sticky;
     background-color: #ffffff;
-    top: 110px;
+    top: 90px;
   }
   .filters *:not(:last-child) {
     display: none;
@@ -830,8 +834,138 @@ h1 {
     filter: invert(89%) sepia(0%) saturate(76%) hue-rotate(174deg) brightness(92%) contrast(84%);
   }
 }
+/*!****************************************************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[1].use[1]!./node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[1].use[2]!./src/modules/components/product-section/style.scss ***!
+  \****************************************************************************************************************************************************************************************************/
+.product-section {
+  padding: 60px 0;
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+}
+.product-section .product-details-heading.mobile {
+  display: none;
+}
+
+@media screen and (max-width: 470px) {
+  .product-section {
+    flex-direction: column;
+    padding-top: 20px;
+  }
+  .product-section .product-details-heading.mobile {
+    display: flex;
+    align-items: center;
+  }
+}
+/*!********************************************************************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[1].use[1]!./node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[1].use[2]!./src/modules/components/product-section/product-details/style.scss ***!
+  \********************************************************************************************************************************************************************************************************************/
+.product-details-heading {
+  display: flex;
+  gap: 10px;
+  flex-direction: column;
+}
+.product-details-heading .product-details-nav {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  cursor: pointer;
+  color: #161412;
+  font: normal 400 13px/25px "Jost";
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.product-details-wrapper {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+}
+.product-details-wrapper .product-details {
+  position: sticky;
+  top: 170px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  max-width: 400px;
+  height: fit-content;
+}
+.product-details-wrapper .product-details .product-details-description {
+  color: #65635F;
+  font: normal 400 14px/19px "Jost";
+}
+.product-details-wrapper .product-details .product-details-price-wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: #65635F;
+}
+.product-details-wrapper .product-details .product-details-price-wrapper .product-details-price {
+  color: #161412;
+  font: normal 400 21px/24px "Jost";
+}
+.product-details-wrapper .product-details .product-details-price-wrapper .product-details-stock {
+  font: normal 400 14px/19px "Jost";
+}
+.product-details-wrapper .product-details ul {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 14px;
+  font: normal 400 14px/19px "Jost";
+  list-style-type: none;
+  color: #65635F;
+}
+.product-details-wrapper .product-details ul li {
+  display: flex;
+  gap: 8px;
+}
+
+@media screen and (max-width: 470px) {
+  .product-details-heading {
+    display: none;
+    gap: 4px;
+  }
+  .product-details-heading .product-details-nav {
+    font: normal 400 10px/25px "Jost";
+  }
+  .product-details-wrapper .product-details ul {
+    gap: 8px;
+  }
+}
+/*!********************************************************************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[1].use[1]!./node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[1].use[2]!./src/modules/components/product-section/product-gallery/style.scss ***!
+  \********************************************************************************************************************************************************************************************************************/
+.product-gallery {
+  grid-template-columns: auto;
+  display: grid;
+  flex-direction: column;
+  max-width: inherit;
+  gap: 20px;
+  width: 100%;
+}
+.product-gallery img {
+  width: 100%;
+  height: auto;
+}
+
+@media screen and (max-width: 470px) {
+  .product-gallery {
+    overflow-x: auto;
+    display: grid;
+    grid-auto-flow: column;
+  }
+  .product-gallery img {
+    width: 300px;
+    height: 300px;
+  }
+}
 /*!*******************************************************************************************************************************************************************************************!*\
   !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[1].use[1]!./node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[1].use[2]!./src/modules/pages/catalogPage/style.scss ***!
+  \*******************************************************************************************************************************************************************************************/
+
+/*!*******************************************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[1].use[1]!./node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[1].use[2]!./src/modules/pages/productPage/style.scss ***!
   \*******************************************************************************************************************************************************************************************/
 
 /*!**********************************************************************************************************************************************************************!*\
@@ -885,6 +1019,30 @@ h1 {
   background: url("./assets/img/filter.svg") center no-repeat;
 }
 
+.arrowLeft-icon {
+  width: 16px;
+  height: 16px;
+  background: url("./assets/img/arrowLeft.svg") center no-repeat;
+}
+
+.product-icon {
+  width: 16px;
+  height: 16px;
+  background: url("./assets/img/product.svg") center no-repeat;
+}
+
+.gender-icon {
+  width: 16px;
+  height: 16px;
+  background: url("./assets/img/gender.svg") center no-repeat;
+}
+
+.material-icon {
+  width: 16px;
+  height: 16px;
+  background: url("./assets/img/material.svg") center no-repeat;
+}
+
 .wrapper {
   max-width: 1180px;
   margin: 0 auto;
@@ -929,13 +1087,39 @@ input:focus {
   box-shadow: inset 0px -2px 0px #65635F;
 }
 
+hr.solid {
+  border-top: 1px solid #F4F4F2;
+}
+
 button {
   cursor: pointer;
-  border-radius: 2px;
+  transition: 0.1s linear;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4px 80px;
+  background: #161412;
+  color: #F4F4F2;
+  height: 40px;
+  font: normal 400 13px/25px "Jost";
+  border: 1px solid #161412;
+  border-radius: 4px;
+}
+button:hover {
+  color: #161412;
+  background-color: transparent;
+  border: 1px solid #161412;
+}
+
+button.large {
+  padding: 0 40px;
+  height: 48px;
+  font: normal 400 16px/24px "Jost";
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
 }
 
 button.shadow {
-  transition: 0.1s linear;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -953,7 +1137,6 @@ button.shadow:hover {
 }
 
 button.system {
-  transition: 0.1s linear;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -967,25 +1150,6 @@ button.system {
 button.system:hover {
   color: #F4F4F2;
   background-color: #161412;
-  border: 1px solid #161412;
-}
-
-button {
-  transition: 0.1s linear;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 4px 80px;
-  background: #161412;
-  color: #F4F4F2;
-  height: 40px;
-  font: normal 400 13px/25px "Jost";
-  border: 1px solid #161412;
-  border-radius: 4px;
-}
-button:hover {
-  color: #161412;
-  background-color: #F4F4F2;
   border: 1px solid #161412;
 }
 

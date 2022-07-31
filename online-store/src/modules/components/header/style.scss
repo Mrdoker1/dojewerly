@@ -49,25 +49,22 @@
             }
         }
     }
+}
 
-    @media screen and (max-width: $tablet)  {
-        .header{
-        }
+@media screen and (max-width: $tablet)  {
+    .header{
+        height: 50px;
         .burger-icon{
             display: block;
         }
-        .menu-navigation{
-            ul{
-                li{
-                    &:not(:nth-last-child(2)){
-                        display: none;
-                    }
-                    &:hover{
-                    }
+    }
+    .menu-navigation{
+        ul{
+            li{
+                &:not(:nth-last-child(2)){
+                    display: none;
                 }
             }
         }
     }
-
-
 }

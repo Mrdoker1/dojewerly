@@ -19,9 +19,11 @@ export default class ProductLoader extends Loader {
                 let builder = new PageBuilder();
                 let language = window.localStorage.getItem('language');
                 if (language) {
-                    builder.createCatalogPage(productData[language].products, this.settings);
+                    //builder.createCatalogPage(productData[language].products, this.settings);
+                    builder.createProductPage(productData[language].products, this.settings, '1');
                 } else {
-                    builder.createCatalogPage(productData[this.settings.language.default].products, this.settings);
+                    //builder.createCatalogPage(productData[this.settings.language.default].products, this.settings);
+                    builder.createProductPage(productData[this.settings.language.default].products, this.settings, '1');
                 }
             })
             .catch((err: Error) => {

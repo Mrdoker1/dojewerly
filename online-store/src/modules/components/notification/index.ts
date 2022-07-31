@@ -38,7 +38,7 @@ export default class NotificationComponent extends Component {
                 }
                 const filters = document.querySelector('.filters')! as HTMLElement;
                 if (filters) {
-                    filters.style.top = `${110}px`;
+                    filters.style.top = `${90}px`;
                 }
             });
 

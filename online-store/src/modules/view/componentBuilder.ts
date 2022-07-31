@@ -2,6 +2,7 @@ import Builder from './builder';
 
 /*Interfaces*/
 import ProductList from '../interface/productList';
+import Product from '../interface/product';
 import Settings from '../interface/settings';
 
 /*Components*/
@@ -18,6 +19,9 @@ import FilterComponent from '../components/filters/filter';
 import RangeFilterComponent from '../components/filters/rangeFilter';
 import SearchComponent from '../components/search';
 import BurgerComponent from '../components/burger';
+import ProductSectionComponent from '../components/product-section';
+import ProductDetailsComponent from '../components/product-section/product-details';
+import ProductGalleryComponent from '../components/product-section/product-gallery';
 
 import getHTMLElement from '../../utils/getHTMLElement';
 
@@ -45,6 +49,8 @@ export default class ComponentBuilder extends Builder {
                 return this.createFilters();
             case 'burger':
                 return this.createBurger();
+            case 'product-section':
+                return this.createProductSection(props[0], this.settings.roots.products.assets.images);
         }
     }
 
@@ -89,7 +95,6 @@ export default class ComponentBuilder extends Builder {
     createNavigation(page: string) {
         let breadcrumbs = new BreadcrumbsComponent();
         let h1 = new H1Component(undefined, page);
-
         let navigation = new NavigationComponent();
         let node = navigation.insert(undefined, h1.node, breadcrumbs.node);
         return node;
@@ -116,5 +121,13 @@ export default class ComponentBuilder extends Builder {
         let burger = new BurgerComponent();
         let langSwitcher = new LanguageSwitcherComponent(undefined, this.settings.language.default);
         return burger.insert(undefined, langSwitcher.node);
+    }
+    createProductSection(productID: string, assetRoot: string) {
+        let product: Product = this.data[productID];
+        let section = new ProductSectionComponent();
+        let details = new ProductDetailsComponent(undefined, product);
+        let gallery = new ProductGalleryComponent(undefined, assetRoot, productID);
+        console.log(section.insert(undefined, gallery.node, details.node));
+        return section.insert(undefined, gallery.node, details.node);
     }
 }
