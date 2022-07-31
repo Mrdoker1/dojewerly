@@ -19,8 +19,8 @@
   - **Admin Panel**
   - **Google/Yandex analytics**
 - Stage 3 (Extended MVP)
-- **Authentication**
-- **User Dashboard**
+  - **Authentication**
+  - **User Dashboard**
 - Stage 4 (Extended MVP)
-- **Cart**
-- **Checkout**
+  - **Cart**
+  - **Checkout**
