@@ -60,7 +60,15 @@ export default class RangeFilterComponent extends Component {
             filter.classList.remove('hide');
         });
 
-        slider.addEventListener('click', () => {
+        slider.addEventListener('mouseup', () => {
+            let value = (slider as noUiSliderInstance).noUiSlider.get() as Array<string>;
+            let catalog = getHTMLElement(document.querySelector('.catalog'));
+            this.updateComponent(catalog, 'catalog', ...value);
+            let clearButton = document.querySelector('.clear-filter')!;
+            clearButton.classList.remove('disable');
+        });
+
+        slider.addEventListener('touchend', () => {
             let value = (slider as noUiSliderInstance).noUiSlider.get() as Array<string>;
             let catalog = getHTMLElement(document.querySelector('.catalog'));
             this.updateComponent(catalog, 'catalog', ...value);
