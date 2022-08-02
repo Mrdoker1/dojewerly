@@ -2,16 +2,21 @@ import template from './index.html';
 import Component from '../../component';
 import Product from '../../../interface/product';
 import Settings from '../../../interface/settings';
+import PageBuilder from '../../../view/pageBuilder';
+import ProductList from '../../../interface/productList';
+import SettingLoader from '../../../controller/settingLoader';
 import './style.scss';
 
 export default class ProductDetailsComponent extends Component {
     product: Product;
     settings: Settings;
-    constructor(temp: string = template, product: Product, settings: Settings) {
+    prevPage: string;
+    constructor(temp: string = template, product: Product, settings: Settings, prevPage: string) {
         super(temp);
         this.marker = 'product-details';
         this.product = product;
         this.settings = settings;
+        this.prevPage = prevPage;
         this.node = this.getNode();
     }
 
@@ -32,6 +37,17 @@ export default class ProductDetailsComponent extends Component {
             description.textContent = `${this.product.props.description}`;
             price.textContent = `${this.settings.currency.default} ${this.product.price}`;
             stock.textContent = this.product.stock >= 0 ? `${this.product.stock} in stock` : `Preorder`;
+
+            let nav = (node as HTMLElement).getElementsByClassName('product-details-nav')[0];
+
+            nav.addEventListener('click', () => {
+                let callback = (settings: Settings, productList: ProductList) => {
+                    let builder = new PageBuilder();
+                    builder.build(this.prevPage, productList, settings);
+                };
+                let settings: SettingLoader = new SettingLoader();
+                settings.load('data/settings.json', callback);
+            });
         }
         return node;
     }

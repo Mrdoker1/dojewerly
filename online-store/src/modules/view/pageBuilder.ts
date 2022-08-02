@@ -27,7 +27,7 @@ export default class PageBuilder extends Builder {
                 this.callBuildEvent(component);
                 break;
             case 'product-page':
-                let product = this.createProductPage(data!, settings!, props[0]);
+                let product = this.createProductPage(data!, settings!, props[0], props[1]);
                 body.innerHTML = '';
                 this.setTopNotification();
                 body.appendChild(product);
@@ -49,14 +49,14 @@ export default class PageBuilder extends Builder {
         );
         return temp;
     }
-    createProductPage(data: ProductList, settings: Settings, productID: string) {
+    createProductPage(data: ProductList, settings: Settings, productID: string, prevPage: string) {
         let builder = new ComponentBuilder(data, settings);
         let page = new ProductPage();
         let temp = page.insert(
             undefined,
             builder.build('burger')!,
             builder.build('header')!,
-            builder.build('product-section', productID)!,
+            builder.build('product-section', productID, prevPage)!,
             builder.build('footer')!
         );
         return temp;

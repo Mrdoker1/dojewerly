@@ -50,7 +50,12 @@ export default class ComponentBuilder extends Builder {
             case 'burger':
                 return this.createBurger();
             case 'product-section':
-                return this.createProductSection(props[0], this.settings.roots.products.assets.images, this.settings);
+                return this.createProductSection(
+                    props[0],
+                    props[1],
+                    this.settings.roots.products.assets.images,
+                    this.settings
+                );
         }
     }
 
@@ -64,7 +69,8 @@ export default class ComponentBuilder extends Builder {
                     undefined,
                     data[key],
                     settings.currency.default,
-                    settings.roots.products.assets.images
+                    settings.roots.products.assets.images,
+                    'catalog-page'
                 );
                 productList.push(product.node);
             }
@@ -122,10 +128,10 @@ export default class ComponentBuilder extends Builder {
         let langSwitcher = new LanguageSwitcherComponent(undefined, this.settings.language.default);
         return burger.insert(undefined, langSwitcher.node);
     }
-    createProductSection(productID: string, assetRoot: string, settings: Settings) {
+    createProductSection(productID: string, prevPage: string, assetRoot: string, settings: Settings) {
         let product: Product = this.data[productID];
-        let section = new ProductSectionComponent(undefined, product.name);
-        let details = new ProductDetailsComponent(undefined, product, settings);
+        let section = new ProductSectionComponent(undefined, product.name, prevPage);
+        let details = new ProductDetailsComponent(undefined, product, settings, prevPage);
         let gallery = new ProductGalleryComponent(undefined, assetRoot, productID);
         return section.insert(undefined, gallery.node, details.node);
     }

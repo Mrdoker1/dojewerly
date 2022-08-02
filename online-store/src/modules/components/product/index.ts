@@ -14,7 +14,8 @@ import getHTMLImageElement from '../../../utils/getHTMLImageElement';
 
 export default class ProductComponent extends Component {
     marker: string;
-    constructor(temp: string = template, productData: Product, currency: string, assetsRoot: string) {
+    page: string;
+    constructor(temp: string = template, productData: Product, currency: string, assetsRoot: string, page: string) {
         super(temp);
         this.marker = 'product';
         this.template = `<div class="product">
@@ -25,6 +26,7 @@ export default class ProductComponent extends Component {
                 <div class="product-price">${currency}${productData.price}</div>
             </div>
         </div>`;
+        this.page = page;
         this.node = this.getProductNode(assetsRoot, productData);
     }
     getProductNode(assetsRoot: string, productData: Product): Node {
@@ -51,7 +53,7 @@ export default class ProductComponent extends Component {
         });
 
         node.addEventListener('click', (e) => {
-            this.showProduct(productData.props.id);
+            this.showProduct(productData.props.id, this.page);
 
             // let cart: Cart = this.getCartInfo();
 
@@ -106,10 +108,10 @@ export default class ProductComponent extends Component {
         return cart;
     }
 
-    showProduct(productID: number) {
+    showProduct(productID: number, page: string) {
         let callback = (settings: Settings, productList: ProductList) => {
             let builder = new PageBuilder();
-            builder.build('product-page', productList, settings, `${productID}`);
+            builder.build('product-page', productList, settings, `${productID}`, page);
         };
         let settings: SettingLoader = new SettingLoader();
         settings.load('data/settings.json', callback);
