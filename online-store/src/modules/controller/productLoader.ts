@@ -2,7 +2,6 @@ import Loader from './loader';
 import Settings from '../interface/settings';
 import Products from '../interface/products';
 import PageBuilder from '../view/pageBuilder';
-import LoaderComponent from '../components/loader';
 
 export default class ProductLoader extends Loader {
     settings: Settings;

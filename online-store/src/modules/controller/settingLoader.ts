@@ -6,8 +6,7 @@ import LoaderComponent from '../components/loader';
 export default class SettingLoader extends Loader {
     constructor(...callbacks: Array<Function>) {
         super(...callbacks);
-        let loader = new LoaderComponent();
-        loader.displayLoading();
+        this.showLoad();
     }
     async run(url: string) {
         await fetch(url)
@@ -36,5 +35,10 @@ export default class SettingLoader extends Loader {
             .catch((err: Error) => {
                 console.error(err);
             });
+    }
+
+    showLoad() {
+        let loader = new LoaderComponent();
+        loader.displayLoading();
     }
 }

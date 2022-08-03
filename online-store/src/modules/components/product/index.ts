@@ -4,7 +4,7 @@ import template from './index.html';
 import '../../../assets/img/products/example/1.jpg';
 import Product from '../../interface/product';
 import Cart from '../../interface/cart';
-import Notification from '../../components/notification';
+import LoaderComponent from '../../components/loader';
 import PageBuilder from '../../view/pageBuilder';
 import SettingLoader from '../../controller/settingLoader';
 import Settings from '../../interface/settings';

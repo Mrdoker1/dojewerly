@@ -19,7 +19,6 @@ export default class LoaderComponent extends Component {
         document.addEventListener('pageBuilded', () => {
             const loader = document.querySelector('.page-loader-div');
             loader?.remove();
-            console.log('deleted');
         });
 
         return node;
@@ -27,6 +26,5 @@ export default class LoaderComponent extends Component {
 
     displayLoading() {
         document.body.appendChild(this.node);
-        console.log('added');
     }
 }
