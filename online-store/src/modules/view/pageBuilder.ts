@@ -35,6 +35,7 @@ export default class PageBuilder extends Builder {
                 this.callBuildEvent(component);
                 break;
         }
+        window.scrollTo(0, 0);
     }
     createCatalogPage(data: ProductList, settings: Settings) {
         let builder = new ComponentBuilder(data, settings);

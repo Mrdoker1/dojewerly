@@ -15,17 +15,18 @@ export default class LoaderComponent extends Component {
         // document.addEventListener('loaderStatusUpdated', (e: CustomEventInit) => {
         //     status.style.width = `${e.detail.percent}px`;
         // });
+
+        document.addEventListener('pageBuilded', () => {
+            const loader = document.querySelector('.page-loader-div');
+            loader?.remove();
+            console.log('deleted');
+        });
+
         return node;
     }
 
     displayLoading() {
         document.body.appendChild(this.node);
         console.log('added');
-    }
-
-    hideLoading() {
-        const loader = document.querySelector('.page-loader-div');
-        loader?.parentNode?.removeChild;
-        console.log('deleted');
     }
 }

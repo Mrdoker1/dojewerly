@@ -28,8 +28,6 @@ export default class ProductLoader extends Loader {
                     //builder.createCatalogPage(productData[this.settings.language.default].products, this.settings);
                     //builder.build('product-page', productData[this.settings.language.default].products, this.settings);
                 }
-                let loader = new LoaderComponent();
-                loader.hideLoading();
             })
             .catch((err: Error) => {
                 console.error(err);
@@ -53,8 +51,6 @@ export default class ProductLoader extends Loader {
                         );
                     }
                 });
-                let loader = new LoaderComponent();
-                loader.hideLoading();
             })
             .catch((err: Error) => {
                 console.error(err);
