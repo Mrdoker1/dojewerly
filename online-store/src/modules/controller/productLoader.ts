@@ -13,9 +13,6 @@ export default class ProductLoader extends Loader {
         this.productsURL = settings.roots.products.data;
     }
     async run(url: string = this.productsURL) {
-        let loader = new LoaderComponent();
-        loader.displayLoading();
-
         await fetch(url)
             .then(super.errorHandler)
             .then((res: Response) => res.json())
@@ -31,6 +28,7 @@ export default class ProductLoader extends Loader {
                     //builder.createCatalogPage(productData[this.settings.language.default].products, this.settings);
                     //builder.build('product-page', productData[this.settings.language.default].products, this.settings);
                 }
+                let loader = new LoaderComponent();
                 loader.hideLoading();
             })
             .catch((err: Error) => {
@@ -39,9 +37,6 @@ export default class ProductLoader extends Loader {
     }
 
     async load(url: string = this.productsURL) {
-        let loader = new LoaderComponent();
-        loader.displayLoading();
-
         await fetch(url)
             .then(super.errorHandler)
             .then((res: Response) => res.json())
@@ -58,6 +53,7 @@ export default class ProductLoader extends Loader {
                         );
                     }
                 });
+                let loader = new LoaderComponent();
                 loader.hideLoading();
             })
             .catch((err: Error) => {

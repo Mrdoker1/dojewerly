@@ -19,12 +19,13 @@ export default class LoaderComponent extends Component {
     }
 
     displayLoading() {
-        document.body.prepend(this.node);
+        document.body.appendChild(this.node);
+        console.log('added');
     }
 
     hideLoading() {
-        // if (this.node) {
-        //     document.removeChild(this.node);
-        // }
+        const loader = document.querySelector('.page-loader-div');
+        loader?.parentNode?.removeChild;
+        console.log('deleted');
     }
 }
