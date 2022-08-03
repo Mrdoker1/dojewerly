@@ -21,10 +21,15 @@ export default class LoaderComponent extends Component {
             loader?.remove();
         });
 
+        document.addEventListener('componentUpdated', () => {
+            const loader = document.querySelector('.page-loader-div');
+            loader?.remove();
+        });
+
         return node;
     }
 
     displayLoading() {
-        document.body.appendChild(this.node);
+        document.body.prepend(this.getFragment());
     }
 }
