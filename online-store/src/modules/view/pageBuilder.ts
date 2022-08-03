@@ -6,6 +6,7 @@ import ProductList from '../interface/productList';
 import Settings from '../interface/settings';
 import Notification from '../components/notification';
 import getHTMLElement from '../../utils/getHTMLElement';
+import LoaderComponent from '../components/loader';
 import * as noUiSlider from 'nouislider';
 interface noUiSliderInstance extends HTMLElement {
     noUiSlider: noUiSlider.API;

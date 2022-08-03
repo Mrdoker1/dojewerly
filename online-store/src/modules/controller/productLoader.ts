@@ -2,6 +2,7 @@ import Loader from './loader';
 import Settings from '../interface/settings';
 import Products from '../interface/products';
 import PageBuilder from '../view/pageBuilder';
+import LoaderComponent from '../components/loader';
 
 export default class ProductLoader extends Loader {
     settings: Settings;
@@ -12,6 +13,9 @@ export default class ProductLoader extends Loader {
         this.productsURL = settings.roots.products.data;
     }
     async run(url: string = this.productsURL) {
+        let loader = new LoaderComponent();
+        loader.displayLoading();
+
         await fetch(url)
             .then(super.errorHandler)
             .then((res: Response) => res.json())
@@ -27,6 +31,7 @@ export default class ProductLoader extends Loader {
                     //builder.createCatalogPage(productData[this.settings.language.default].products, this.settings);
                     //builder.build('product-page', productData[this.settings.language.default].products, this.settings);
                 }
+                loader.hideLoading();
             })
             .catch((err: Error) => {
                 console.error(err);
@@ -34,6 +39,9 @@ export default class ProductLoader extends Loader {
     }
 
     async load(url: string = this.productsURL) {
+        let loader = new LoaderComponent();
+        loader.displayLoading();
+
         await fetch(url)
             .then(super.errorHandler)
             .then((res: Response) => res.json())
@@ -50,6 +58,7 @@ export default class ProductLoader extends Loader {
                         );
                     }
                 });
+                loader.hideLoading();
             })
             .catch((err: Error) => {
                 console.error(err);
