@@ -1002,6 +1002,7 @@ h1 {
   display: flex;
   align-items: center;
   flex-direction: column;
+  gap: 6px;
 }
 .page-loader-div .page-loader-wrapper .page-loader {
   width: 100px;
@@ -1019,6 +1020,7 @@ h1 {
 }
 .page-loader-div .page-loader-wrapper .page-loader-text {
   text-align: center;
+  color: #65635F;
   font: normal 400 12px/24px "Jost";
 }
 
