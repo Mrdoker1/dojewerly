@@ -17,6 +17,13 @@
         align-items: center;
         flex-direction: column;
         gap:6px;
+        .logo-icon{
+            animation: linear infinite;
+            animation-name: animation2;
+            animation-iteration-count: infinite;
+            animation-duration: 2s;
+            padding-bottom: 12px;
+        }
         .page-loader{
             width: 100px;
             height: 4px;
@@ -26,7 +33,7 @@
                 height: 100%;
                 background-color:$black-1;
                 animation: linear infinite;
-                animation-name: animation;
+                animation-name: animation1;
                 animation-iteration-count: infinite;
                 animation-duration: 3s;
             }
@@ -39,7 +46,7 @@
     }
 }
 
-@keyframes animation {
+@keyframes animation1 {
     0% {
         width: 0px;
     }
@@ -48,5 +55,17 @@
     }
     0% {
         width: 0px;
+    }
+}
+
+@keyframes animation2 {
+    0% {
+        opacity: 30%;
+    }
+    50% {
+        opacity: 100%;
+    }
+    100% {
+        opacity: 30%;
     }
 }

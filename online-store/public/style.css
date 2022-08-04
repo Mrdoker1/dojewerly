@@ -1004,6 +1004,13 @@ h1 {
   flex-direction: column;
   gap: 6px;
 }
+.page-loader-div .page-loader-wrapper .logo-icon {
+  animation: linear infinite;
+  animation-name: animation2;
+  animation-iteration-count: infinite;
+  animation-duration: 2s;
+  padding-bottom: 12px;
+}
 .page-loader-div .page-loader-wrapper .page-loader {
   width: 100px;
   height: 4px;
@@ -1014,7 +1021,7 @@ h1 {
   height: 100%;
   background-color: #161412;
   animation: linear infinite;
-  animation-name: animation;
+  animation-name: animation1;
   animation-iteration-count: infinite;
   animation-duration: 3s;
 }
@@ -1024,7 +1031,7 @@ h1 {
   font: normal 400 12px/24px "Jost";
 }
 
-@keyframes animation {
+@keyframes animation1 {
   0% {
     width: 0px;
   }
@@ -1033,6 +1040,17 @@ h1 {
   }
   0% {
     width: 0px;
+  }
+}
+@keyframes animation2 {
+  0% {
+    opacity: 30%;
+  }
+  50% {
+    opacity: 100%;
+  }
+  100% {
+    opacity: 30%;
   }
 }
 /*!**********************************************************************************************************************************************************************!*\
@@ -1114,6 +1132,12 @@ h1 {
   width: 45px;
   height: 60px;
   background: url("./assets/img/loader.gif") center no-repeat;
+}
+
+.logo-icon {
+  width: 45px;
+  height: 60px;
+  background: url("./assets/img/logo.svg") center no-repeat;
 }
 
 .wrapper {

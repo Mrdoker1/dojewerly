@@ -71,6 +71,11 @@ body {
   height: 60px;
   background: url("./assets/img/loader.gif") center no-repeat;
 }
+.logo-icon{
+  width: 45px;
+  height: 60px;
+  background: url("./assets/img/logo.svg") center no-repeat;
+}
 
 .wrapper{
     max-width: $desktop;
