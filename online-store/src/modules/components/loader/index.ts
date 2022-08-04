@@ -30,7 +30,7 @@ export default class LoaderComponent extends Component {
             loader?.remove();
         });
 
-        document.addEventListener('languageChanged', () => {
+        document.addEventListener('pageTranslated', () => {
             const loader = document.querySelector('.page-loader-div');
             loader?.remove();
         });

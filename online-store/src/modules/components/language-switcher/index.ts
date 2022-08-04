@@ -34,14 +34,6 @@ export default class LanguageSwitcherComponent extends Component {
         component.addEventListener('change', () => {
             console.log(`Language changed - ${component.value}`);
 
-            const event = new CustomEvent('languageChanged', {
-                detail: {
-                    language: `${component.value}`,
-                },
-            });
-
-            document.dispatchEvent(event);
-
             let switchers = document.querySelectorAll('.language-key')!;
 
             switchers.forEach((switcher) => {
