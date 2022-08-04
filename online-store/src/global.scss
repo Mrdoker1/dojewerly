@@ -66,6 +66,11 @@ body {
   height: 16px;
   background: url("./assets/img/material.svg") center no-repeat;
 }
+.loader-icon{
+  width: 45px;
+  height: 60px;
+  background: url("./assets/img/loader.gif") center no-repeat;
+}
 
 .wrapper{
     max-width: $desktop;
