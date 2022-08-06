@@ -11,10 +11,10 @@
 
 - Stage 1 (Basic MVP)
   - **Homepage**
-  - **Catalog**
-  - **Product Page**
-  - **Adaptive**
-  - **Language Switch**
+  - ✅ **Catalog**
+  - ✅ **Product Page**
+  - ✅ **Adaptive**
+  - ✅ **Language Switch**
 - Stage 2 (Managing & Statistic)
   - **Admin Panel**
   - **Google/Yandex analytics**
