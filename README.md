@@ -17,6 +17,7 @@
   - ✅ **Adaptive**
   - ✅ **Language Switch**
 - Stage 2 (Managing & Statistic)
+  - **Router**
   - **Admin Panel**
   - **Google/Yandex analytics**
 - Stage 3 (Extended MVP)
