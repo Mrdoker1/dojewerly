@@ -11,6 +11,7 @@
 
 - Stage 1 (Basic MVP)
   - **Homepage**
+  - **Collections**
   - ✅ **Catalog**
   - ✅ **Product Page**
   - ✅ **Adaptive**
@@ -22,5 +23,6 @@
   - **Authentication**
   - **User Dashboard**
 - Stage 4 (Extended MVP)
+  - **Do X**
   - **Cart**
   - **Checkout**
