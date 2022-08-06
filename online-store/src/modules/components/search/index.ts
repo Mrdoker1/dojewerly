@@ -72,7 +72,7 @@ export default class SearchComponent extends Component {
                 document.dispatchEvent(event);
             }
         };
-        let settings: SettingLoader = new SettingLoader();
+        let settings: SettingLoader = new SettingLoader(false);
         settings.load('data/settings.json', callback);
     }
 }

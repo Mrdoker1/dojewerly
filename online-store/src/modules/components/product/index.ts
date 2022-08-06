@@ -113,7 +113,7 @@ export default class ProductComponent extends Component {
             let builder = new PageBuilder();
             builder.build('product-page', productList, settings, `${productID}`, page);
         };
-        let settings: SettingLoader = new SettingLoader();
+        let settings: SettingLoader = new SettingLoader(true);
         settings.load('data/settings.json', callback);
     }
 

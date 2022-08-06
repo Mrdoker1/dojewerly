@@ -31,7 +31,7 @@ export default class Component {
 
             document.dispatchEvent(event);
         };
-        let settings: SettingLoader = new SettingLoader();
+        let settings: SettingLoader = new SettingLoader(true);
         settings.load('data/settings.json', callback);
     }
     getFragment(): DocumentFragment {

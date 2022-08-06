@@ -58,7 +58,7 @@ export default class HeaderComponent extends Component {
                 searchField.focus();
             };
 
-            let settings: SettingLoader = new SettingLoader();
+            let settings: SettingLoader = new SettingLoader(true);
             settings.load('data/settings.json', callback);
         });
         return node;

@@ -45,7 +45,7 @@ export default class ProductDetailsComponent extends Component {
                     let builder = new PageBuilder();
                     builder.build(this.prevPage, productList, settings);
                 };
-                let settings: SettingLoader = new SettingLoader();
+                let settings: SettingLoader = new SettingLoader(true);
                 settings.load('data/settings.json', callback);
             });
         }

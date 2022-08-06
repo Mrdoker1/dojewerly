@@ -4,9 +4,11 @@ import Settings from '../interface/settings';
 import LoaderComponent from '../components/loader';
 
 export default class SettingLoader extends Loader {
-    constructor(...callbacks: Array<Function>) {
+    constructor(showLoader: Boolean, ...callbacks: Array<Function>) {
         super(...callbacks);
-        this.showLoad();
+        if (showLoader == true) {
+            this.showLoad();
+        }
     }
     async run(url: string) {
         await fetch(url)
