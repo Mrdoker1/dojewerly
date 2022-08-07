@@ -18,7 +18,7 @@ export default class LoaderComponent extends Component {
         //     status.style.width = `${e.detail.percent}px`;
         // });
 
-       // video.src = './assets/video/loader.mp4';
+        // video.src = './assets/video/loader.mp4';
 
         document.addEventListener('pageBuilded', () => {
             const loader = document.querySelector('.page-loader-div');

@@ -2,6 +2,7 @@ import Builder from './builder';
 import ComponentBuilder from './componentBuilder';
 import CatalogPage from '../pages/catalogPage';
 import ProductPage from '../pages/productPage';
+import HomePage from '../pages/homePage';
 import ProductList from '../interface/productList';
 import Settings from '../interface/settings';
 import Notification from '../components/notification';
@@ -17,21 +18,23 @@ export default class PageBuilder extends Builder {
         super();
     }
     build(component: string, data?: ProductList, settings?: Settings, ...props: Array<string>) {
-        let body = document.querySelector('body')!;
+        document.body.innerHTML = '';
+        this.setTopNotification();
         switch (component) {
             case 'catalog-page':
                 let catalog = this.createCatalogPage(data!, settings!);
-                body.innerHTML = '';
-                this.setTopNotification();
-                body.appendChild(catalog);
+                document.body.appendChild(catalog);
                 this.setSlider(settings!);
                 this.callBuildEvent(component);
                 break;
             case 'product-page':
                 let product = this.createProductPage(data!, settings!, props[0], props[1]);
-                body.innerHTML = '';
-                this.setTopNotification();
-                body.appendChild(product);
+                document.body.appendChild(product);
+                this.callBuildEvent(component);
+                break;
+            case 'home-page':
+                let home = this.createHomePage(data!, settings!);
+                document.body.appendChild(home);
                 this.callBuildEvent(component);
                 break;
         }
@@ -61,6 +64,12 @@ export default class PageBuilder extends Builder {
             builder.build('product-section', productID, prevPage)!,
             builder.build('footer')!
         );
+        return temp;
+    }
+    createHomePage(data: ProductList, settings: Settings) {
+        let builder = new ComponentBuilder(data, settings);
+        let page = new HomePage();
+        let temp = page.insert(undefined, builder.build('burger')!, builder.build('header')!, builder.build('footer')!);
         return temp;
     }
     callBuildEvent(component: string) {

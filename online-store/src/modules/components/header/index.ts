@@ -18,6 +18,15 @@ export default class HeaderComponent extends Component {
         let node = super.getNode();
         const search = (node as HTMLElement).getElementsByClassName('search-icon')[0] as HTMLElement;
         const burger = (node as HTMLElement).getElementsByClassName('burger-icon')[0] as HTMLElement;
+        const logo = (node as HTMLElement).getElementsByClassName('logo')[0] as HTMLElement;
+
+        document.addEventListener('scroll', ()=> {
+            if (document.body.scrollTop > 50 || document.documentElement.scrollTop > 50) {
+                (node as HTMLElement).style.backgroundColor = '#fff';
+            } else {
+                (node as HTMLElement).style.backgroundColor = 'transparent';
+            }
+        });
 
         burger.addEventListener('click', () => {
             const burgerMenu = document.querySelector('.burger-menu')! as HTMLElement;
@@ -49,7 +58,6 @@ export default class HeaderComponent extends Component {
             //window.location.href = '';
             enableScroll();
             let callback = (settings: Settings, productList: ProductList) => {
-                document.body.innerHTML = '';
                 let builder = new PageBuilder();
                 builder.build('catalog-page', productList, settings);
                 const filters = document.querySelector('.filters')! as HTMLElement;
@@ -61,6 +69,17 @@ export default class HeaderComponent extends Component {
             let settings: SettingLoader = new SettingLoader(true);
             settings.load('data/settings.json', callback);
         });
+
+        logo.addEventListener('click', () => {
+            let callback = (settings: Settings, productList: ProductList) => {
+                let builder = new PageBuilder();
+                builder.build('home-page', productList, settings);
+            };
+
+            let settings: SettingLoader = new SettingLoader(true);
+            settings.load('data/settings.json', callback);
+        });
+
         return node;
     }
 }

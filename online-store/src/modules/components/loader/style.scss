@@ -18,7 +18,7 @@
         flex-direction: column;
         gap:6px;
         .logo-icon{
-            animation: linear infinite;
+            animation: ease-in infinite;
             animation-name: animation2;
             animation-iteration-count: infinite;
             animation-duration: 2s;
