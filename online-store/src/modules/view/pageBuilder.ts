@@ -74,6 +74,8 @@ export default class PageBuilder extends Builder {
             builder.build('header', 'Home')!,
             builder.build('hero')!,
             builder.build('slider')!,
+            builder.build('banner', 'left')!,
+            builder.build('banner', 'right')!,
             builder.build('instagram')!,
             builder.build('footer')!
         );

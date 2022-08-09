@@ -1,0 +1,86 @@
+@import '../../../variables.scss';
+
+.banner-wrapper {
+    transition: $transition-1;
+    width: 100%;
+    height: 380px;
+    display: flex;
+    margin: 40px 0;
+    cursor: pointer;
+    background-repeat: no-repeat;
+    background-size: contain;
+    &.banner-right:hover{
+        filter: brightness(80%)
+    }
+    &.banner-left:hover{
+        filter: brightness(120%)
+    }
+    .banner-text{
+        max-width: 380px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        gap: 30px;
+        .banner-head-text{
+            .banner-heading{
+                font: $cormorant-52-medium;
+            }
+            .banner-subheading{
+                letter-spacing: 0.1em;
+                text-transform: uppercase;
+                font: $jost-13-regular;
+            }
+        }
+        .banner-description{
+            font: $jost-14-regular;
+        }
+    }
+}
+
+@media screen and (max-width: $tablet)  {
+    .banner-wrapper {
+        height: 240px;
+        &.banner-right:hover{
+        }
+        &.banner-left:hover{
+        }
+        .banner-text{
+            .banner-head-text{
+                .banner-heading{
+                    font: $cormorant-29-medium;
+                }
+                .banner-subheading{
+                    font: $jost-13-regular;
+                }
+            }
+            .banner-description{
+                font: $jost-14-regular;
+            }
+        }
+    }
+}
+
+@media screen and (max-width: $mobile)  {
+    .banner-wrapper {
+        height: 200px;
+        &.banner-right{
+        }
+        &.banner-left{
+        }
+        .banner-text{
+            //backdrop-filter: blur(4px);
+            padding: 0 !important;
+            margin-left: 20px;
+            .banner-head-text{
+                .banner-heading{
+                }
+                .banner-subheading{
+                    font: $jost-13-regular;
+                }
+            }
+            .banner-description{
+                font: $jost-14-regular;
+            }
+        }
+    }
+}

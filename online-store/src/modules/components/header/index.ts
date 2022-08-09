@@ -22,6 +22,9 @@ export default class HeaderComponent extends Component {
         const burger = (node as HTMLElement).getElementsByClassName('burger-icon')[0] as HTMLElement;
         const logo = (node as HTMLElement).getElementsByClassName('logo')[0] as HTMLElement;
         const wrapper = (node as HTMLElement).getElementsByClassName('header-wrapper')[0] as HTMLElement;
+        const barrette = (node as HTMLElement).getElementsByClassName('menu-barrette')[0] as HTMLElement;
+        const rings = (node as HTMLElement).getElementsByClassName('menu-rings')[0] as HTMLElement;
+        const brooch = (node as HTMLElement).getElementsByClassName('menu-brooch')[0] as HTMLElement;
 
         if (this.page == 'Home') {
             console.log('Home');
@@ -31,6 +34,51 @@ export default class HeaderComponent extends Component {
             (node as HTMLElement).style.width = 'calc(100vw)';
             wrapper.style.padding = '0 20px';
         }
+
+        barrette.addEventListener('click', () => {
+            let callback = (settings: Settings, productList: ProductList) => {
+                for (const key in productList) {
+                    if (productList[key].props.type != 'barrette') {
+                        delete productList[key];
+                    }
+                }
+                let builder = new PageBuilder();
+                builder.build('catalog-page', productList, settings);
+            };
+
+            let settings: SettingLoader = new SettingLoader(true);
+            settings.load('data/settings.json', callback);
+        });
+
+        rings.addEventListener('click', () => {
+            let callback = (settings: Settings, productList: ProductList) => {
+                for (const key in productList) {
+                    if (productList[key].props.type != 'ring') {
+                        delete productList[key];
+                    }
+                }
+                let builder = new PageBuilder();
+                builder.build('catalog-page', productList, settings);
+            };
+
+            let settings: SettingLoader = new SettingLoader(true);
+            settings.load('data/settings.json', callback);
+        });
+
+        brooch.addEventListener('click', () => {
+            let callback = (settings: Settings, productList: ProductList) => {
+                for (const key in productList) {
+                    if (productList[key].props.type != 'brooch') {
+                        delete productList[key];
+                    }
+                }
+                let builder = new PageBuilder();
+                builder.build('catalog-page', productList, settings);
+            };
+
+            let settings: SettingLoader = new SettingLoader(true);
+            settings.load('data/settings.json', callback);
+        });
 
         document.addEventListener('scroll', () => {
             if (document.body.scrollTop > 50 || document.documentElement.scrollTop > 50) {

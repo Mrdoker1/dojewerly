@@ -7,6 +7,7 @@ import Settings from '../interface/settings';
 
 /*Components*/
 import ProductComponent from '../components/product';
+import BannerComponent from '../components/banner';
 import InstagramComponent from '../components/instagram';
 import HeroComponent from '../components/hero';
 import SliderComponent from '../components/slider';
@@ -58,6 +59,8 @@ export default class ComponentBuilder extends Builder {
                 return this.createProductSlider();
             case 'instagram':
                 return this.createInstagramSection();
+            case 'banner':
+                return this.createBannerSection(props[0]);
             case 'product-section':
                 return this.createProductSection(
                     props[0],
@@ -149,8 +152,8 @@ export default class ComponentBuilder extends Builder {
         return hero.node;
     }
     createInstagramSection() {
-        let insta = new InstagramComponent();
-        return insta.node;
+        let instagram = new InstagramComponent();
+        return instagram.node;
     }
     createProductSlider() {
         let slider = new SliderComponent();
@@ -173,5 +176,9 @@ export default class ComponentBuilder extends Builder {
         }
 
         return slider.insertAll(undefined, ...products);
+    }
+    createBannerSection(type: string) {
+        let banner = new BannerComponent(undefined, type);
+        return banner.node;
     }
 }

@@ -8,11 +8,17 @@
         font: $cormorant-14-medium;
         list-style-type: none;
         color: $black-1;
+        li{
+            cursor: pointer;
+        }
         li:first-child{
             color: $grey-1;
         }
         li:not(:last-child)::after{
             content: '/';
+        }
+        li:hover {
+            box-shadow: inset 0px -1px 0px #161412;
         }
     }
 }
