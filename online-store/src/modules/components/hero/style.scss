@@ -1,0 +1,87 @@
+@import '../../../variables.scss';
+
+.hero-section {
+    width: 100%;
+    height: 630px;
+    overflow: hidden;
+    position: relative;
+    .hero-heading{
+        position: absolute;
+        display: flex;
+        flex-direction: column;
+        background: transparent;
+        width: 100%;
+        height: 100%;
+        justify-content: center;
+        align-items: center;
+        z-index: 1;
+        gap: 40px;
+        text-align: center;
+        font: $cormorant-52-medium;
+        .hero-buttons {
+            width: 300px;
+            display: flex;
+            align-items: center;
+            flex-direction: column;
+            gap: 12px;
+        }
+    }
+    .video-wrapper{
+        position: relative;
+        &:after {
+            content: "";
+            display: block;    
+            width: 100%;
+            height: 630px;    
+            position: absolute;
+            top: 0;      
+            left: 0;   
+            //background: radial-gradient(56.67% 56.67% at 50% 43.33%, rgba(255, 255, 255, 0) 0%, #F4F4F2 100%), rgba(244, 244, 242, 0.1);
+            background: rgba(244, 244, 242, 0.6);
+        }
+        #hero-video{
+            object-fit: cover;
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+            width: 100%;
+            height: 100%;
+        }
+    }
+}
+
+@media screen and (max-width: $desktop)  {
+    .hero-section {
+        height: 500px;
+        #hero-video{
+            transform: scale(2, 2);
+        }
+    }
+}
+
+@media screen and (max-width: $bigTablet)  {
+    .hero-section {
+        height: 500px;
+        .hero-heading{
+            gap: 20px;
+        }
+        #hero-video{
+            transform: scale(2.2, 2.7);
+        }
+    }
+}
+
+@media screen and (max-width: $mobile)  {
+    .hero-section {
+        height: 300px;
+        .hero-heading{
+            margin-top: 80px;
+            justify-content: flex-start;
+            gap: 20px;
+            font: $cormorant-29-medium;
+        }
+        #hero-video{
+            transform: scale(2, 2);
+        }
+    }
+}  

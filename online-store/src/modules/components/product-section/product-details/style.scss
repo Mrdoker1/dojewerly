@@ -66,6 +66,15 @@
   }
 }
 
+
+@media screen and (max-width: $tablet)  {
+  .product-details-wrapper{
+    .product-details{
+      top: 100px;
+    }
+  }
+}
+
 @media screen and (max-width: $mobile)  {
   .product-details-heading{
     display: none;

@@ -10,6 +10,15 @@
 body {
 }
 
+h1 {
+  font: $cormorant-52-medium;
+}
+
+h2 {
+  text-align: center;
+  font: $cormorant-29-medium;
+}
+
 .dox-icon{
   width: 60px;
   height: 94px;
@@ -131,10 +140,9 @@ button {
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 4px 80px;
+  padding: 4px 0;
   background: $black-1;
   color: $grey-3;
-  height: 40px;
   font: $jost-13-regular;
   border: 1px solid $black-1;
   border-radius: 4px;
@@ -146,17 +154,34 @@ button {
 }
 
 button.large {
-  padding: 0 40px;
-  height: 48px;
+  width: 100%;
+  max-width: 400px;
+  height: inherit;
+  min-height: 48px;
   font: $jost-16-regular;
   letter-spacing: 0.1em;
   text-transform: uppercase;
 }
 
+button.no-border {
+  display: flex;
+  align-items: center;
+  background: none;
+  height: 38px;
+  color: $black-1;
+  font: $jost-15-regular;
+  border: none;
+  border-radius: 0;
+  width: fit-content;
+  padding: 0;
+  &:hover {
+    box-shadow: inset 0px -1px 0px $black-1;
+  }
+}
+
 button.shadow {
   display: flex;
   align-items: center;
-  justify-content: center;
   padding: 0 40px;
   background: none;
   color: $black-1;
@@ -173,7 +198,6 @@ button.shadow {
 button.system {
   display: flex;
   align-items: center;
-  justify-content: center;
   padding: 4px 18px;
   background: none;
   color: $black-1;
@@ -255,8 +279,16 @@ textarea {
   .wrapper {
       margin: 0 14px;
   }
+  button.large {
+    font: $jost-12-regular;
+    height: auto;
+  }
+  h1 {
+    font: $cormorant-29-medium;
+  }
 }
 
 @media screen and (max-width: $mobile)  {
+
 }
 

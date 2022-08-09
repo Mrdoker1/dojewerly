@@ -7,6 +7,9 @@ import Settings from '../interface/settings';
 
 /*Components*/
 import ProductComponent from '../components/product';
+import InstagramComponent from '../components/instagram';
+import HeroComponent from '../components/hero';
+import SliderComponent from '../components/slider';
 import HeaderComponent from '../components/header';
 import FooterComponent from '../components/footer';
 import CatalogComponent from '../components/catalog';
@@ -38,7 +41,7 @@ export default class ComponentBuilder extends Builder {
     build(component: string, ...props: Array<string>) {
         switch (component) {
             case 'header':
-                return this.createHeader();
+                return this.createHeader(props[0]);
             case 'footer':
                 return this.createFooter();
             case 'catalog':
@@ -49,6 +52,12 @@ export default class ComponentBuilder extends Builder {
                 return this.createFilters();
             case 'burger':
                 return this.createBurger();
+            case 'hero':
+                return this.createHeroSection();
+            case 'slider':
+                return this.createProductSlider();
+            case 'instagram':
+                return this.createInstagramSection();
             case 'product-section':
                 return this.createProductSection(
                     props[0],
@@ -88,8 +97,8 @@ export default class ComponentBuilder extends Builder {
             return emptyNode;
         }
     }
-    createHeader() {
-        let header = new HeaderComponent();
+    createHeader(page: string = '') {
+        let header = new HeaderComponent(undefined, page);
         let langSwitcher = new LanguageSwitcherComponent(undefined, this.settings.language.default);
         return header.insert(undefined, langSwitcher.node);
     }
@@ -134,5 +143,35 @@ export default class ComponentBuilder extends Builder {
         let details = new ProductDetailsComponent(undefined, product, settings, prevPage);
         let gallery = new ProductGalleryComponent(undefined, assetRoot, productID);
         return section.insert(undefined, gallery.node, details.node);
+    }
+    createHeroSection() {
+        let hero = new HeroComponent();
+        return hero.node;
+    }
+    createInstagramSection() {
+        let insta = new InstagramComponent();
+        return insta.node;
+    }
+    createProductSlider() {
+        let slider = new SliderComponent();
+        let products = [];
+        if (Object.keys(this.data).length > 0) {
+            for (const key in this.data) {
+                const product = new ProductComponent(
+                    undefined,
+                    this.data[key],
+                    this.settings.currency.default,
+                    this.settings.roots.products.assets.images,
+                    'home-page'
+                );
+
+                const slide = document.createElement('div');
+                slide.classList.add('swiper-slide');
+                slide.appendChild(product.node);
+                products.push(slide);
+            }
+        }
+
+        return slider.insertAll(undefined, ...products);
     }
 }

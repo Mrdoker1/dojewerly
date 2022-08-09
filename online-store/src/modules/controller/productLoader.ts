@@ -19,13 +19,9 @@ export default class ProductLoader extends Loader {
                 let builder = new PageBuilder();
                 let language = window.localStorage.getItem('language');
                 if (language) {
-                    //builder.createCatalogPage(productData[language].products, this.settings);
-                    builder.build('catalog-page', productData[language].products, this.settings);
-                    //builder.build('product-page', productData[language].products, this.settings);
+                    builder.build('home-page', productData[language].products, this.settings);
                 } else {
-                    builder.build('catalog-page', productData[this.settings.language.default].products, this.settings);
-                    //builder.createCatalogPage(productData[this.settings.language.default].products, this.settings);
-                    //builder.build('product-page', productData[this.settings.language.default].products, this.settings);
+                    builder.build('home-page', productData[this.settings.language.default].products, this.settings);
                 }
             })
             .catch((err: Error) => {

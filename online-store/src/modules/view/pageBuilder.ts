@@ -7,7 +7,6 @@ import ProductList from '../interface/productList';
 import Settings from '../interface/settings';
 import Notification from '../components/notification';
 import getHTMLElement from '../../utils/getHTMLElement';
-import LoaderComponent from '../components/loader';
 import * as noUiSlider from 'nouislider';
 interface noUiSliderInstance extends HTMLElement {
     noUiSlider: noUiSlider.API;
@@ -46,7 +45,7 @@ export default class PageBuilder extends Builder {
         let temp = page.insert(
             undefined,
             builder.build('burger')!,
-            builder.build('header')!,
+            builder.build('header', 'Catalog')!,
             builder.build('navigation', 'Catalog')!,
             builder.build('filter')!,
             builder.build('catalog')!,
@@ -60,7 +59,7 @@ export default class PageBuilder extends Builder {
         let temp = page.insert(
             undefined,
             builder.build('burger')!,
-            builder.build('header')!,
+            builder.build('header', 'Product')!,
             builder.build('product-section', productID, prevPage)!,
             builder.build('footer')!
         );
@@ -69,7 +68,15 @@ export default class PageBuilder extends Builder {
     createHomePage(data: ProductList, settings: Settings) {
         let builder = new ComponentBuilder(data, settings);
         let page = new HomePage();
-        let temp = page.insert(undefined, builder.build('burger')!, builder.build('header')!, builder.build('footer')!);
+        let temp = page.insert(
+            undefined,
+            builder.build('burger')!,
+            builder.build('header', 'Home')!,
+            builder.build('hero')!,
+            builder.build('slider')!,
+            builder.build('instagram')!,
+            builder.build('footer')!
+        );
         return temp;
     }
     callBuildEvent(component: string) {

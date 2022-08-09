@@ -8,9 +8,11 @@ import Settings from '../../interface/settings';
 import ProductList from '../../interface/productList';
 
 export default class HeaderComponent extends Component {
-    constructor(temp: string = template) {
+    page: string;
+    constructor(temp: string = template, page: string) {
         super(temp);
         this.marker = 'header';
+        this.page = page;
         this.node = this.getNode();
     }
 
@@ -19,8 +21,18 @@ export default class HeaderComponent extends Component {
         const search = (node as HTMLElement).getElementsByClassName('search-icon')[0] as HTMLElement;
         const burger = (node as HTMLElement).getElementsByClassName('burger-icon')[0] as HTMLElement;
         const logo = (node as HTMLElement).getElementsByClassName('logo')[0] as HTMLElement;
+        const wrapper = (node as HTMLElement).getElementsByClassName('header-wrapper')[0] as HTMLElement;
 
-        document.addEventListener('scroll', ()=> {
+        if (this.page == 'Home') {
+            console.log('Home');
+            (node as HTMLElement).style.position = 'fixed';
+            (node as HTMLElement).style.transform = 'translateX(-50%)';
+            (node as HTMLElement).style.left = '50%';
+            (node as HTMLElement).style.width = 'calc(100vw)';
+            wrapper.style.padding = '0 20px';
+        }
+
+        document.addEventListener('scroll', () => {
             if (document.body.scrollTop > 50 || document.documentElement.scrollTop > 50) {
                 (node as HTMLElement).style.backgroundColor = '#fff';
             } else {

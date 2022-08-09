@@ -3,8 +3,8 @@
 .header{
     position: sticky;
     top: 0;
-    transition: $transition-1;
     z-index: 3;
+    transition: $transition-1;
     .header-wrapper{
         height: 70px;
         display: flex;
@@ -56,17 +56,10 @@
     }
 }
 
-@media screen and (max-width: $desktop)  {
-    .header-wrapper {
-        margin: 0 20px;
-    }
-}
-
 @media screen and (max-width: $tablet)  {
     .header{
         .header-wrapper{
             height: 50px;
-            margin: 0 14px;
         }
         .burger-icon{
             display: block;

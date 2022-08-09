@@ -16,7 +16,7 @@ import SearchComponent from '../components/search';
 export default function componentList(componentName: string) {
     switch (componentName) {
         case 'header':
-            return new HeaderComponent().getNode();
+        //return new HeaderComponent().getNode();
         case 'footer':
             return new FooterComponent().getNode();
         case 'catalog':

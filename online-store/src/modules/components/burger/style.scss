@@ -28,6 +28,9 @@
             list-style-type: none;
             flex-direction: column;
             margin-bottom: 40%;
+            .burger-menu-button{
+                width: 140px;
+            }
             li{
                 cursor: pointer;
                 transition: $transition-1;
