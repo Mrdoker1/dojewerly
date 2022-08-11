@@ -4,6 +4,7 @@ import PageBuilder from '../../view/pageBuilder';
 import SettingLoader from '../../controller/settingLoader';
 import Settings from '../../interface/settings';
 import ProductList from '../../interface/productList';
+import { disableScroll, enableScroll } from '../scrollControl';
 import './style.scss';
 
 export default class BurgerComponent extends Component {
@@ -20,6 +21,7 @@ export default class BurgerComponent extends Component {
         const brooch = (node as HTMLElement).getElementsByClassName('menu-brooch')[0] as HTMLElement;
 
         barrette.addEventListener('click', () => {
+            enableScroll();
             let callback = (settings: Settings, productList: ProductList) => {
                 for (const key in productList) {
                     if (productList[key].props.type != 'barrette') {
@@ -35,6 +37,7 @@ export default class BurgerComponent extends Component {
         });
 
         rings.addEventListener('click', () => {
+            enableScroll();
             let callback = (settings: Settings, productList: ProductList) => {
                 for (const key in productList) {
                     if (productList[key].props.type != 'ring') {
@@ -50,6 +53,7 @@ export default class BurgerComponent extends Component {
         });
 
         brooch.addEventListener('click', () => {
+            enableScroll();
             let callback = (settings: Settings, productList: ProductList) => {
                 for (const key in productList) {
                     if (productList[key].props.type != 'brooch') {
@@ -63,7 +67,6 @@ export default class BurgerComponent extends Component {
             let settings: SettingLoader = new SettingLoader(true);
             settings.load('data/settings.json', callback);
         });
-
 
         return node;
     }

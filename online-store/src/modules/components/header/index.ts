@@ -90,7 +90,6 @@ export default class HeaderComponent extends Component {
 
         burger.addEventListener('click', () => {
             const burgerMenu = document.querySelector('.burger-menu')! as HTMLElement;
-            const body = document.querySelector('body')!;
             const header = document.querySelector('.header')! as HTMLElement;
             if (burgerMenu.classList.contains('hide')) {
                 burgerMenu.classList.remove('hide');

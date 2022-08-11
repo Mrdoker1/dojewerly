@@ -68,6 +68,7 @@
   \*******************************************************************************************************************************************************************************************/
 .banner-wrapper {
   transition: 0.1s linear;
+  position: relative;
   width: 100%;
   height: 380px;
   display: flex;
@@ -75,6 +76,12 @@
   cursor: pointer;
   background-repeat: no-repeat;
   background-size: contain;
+}
+.banner-wrapper .banner-background {
+  position: absolute;
+  opacity: 0;
+  width: 100%;
+  height: 100%;
 }
 .banner-wrapper.banner-right:hover {
   filter: brightness(80%);
@@ -88,6 +95,7 @@
   flex-direction: column;
   justify-content: center;
   gap: 30px;
+  z-index: 1;
 }
 .banner-wrapper .banner-text .banner-head-text .banner-heading {
   font: normal 500 52px/63px "Cormorant";
@@ -118,6 +126,9 @@
 @media screen and (max-width: 470px) {
   .banner-wrapper {
     height: 200px;
+  }
+  .banner-wrapper .banner-background {
+    opacity: 50%;
   }
   .banner-wrapper .banner-text {
     padding: 0 !important;

@@ -2,6 +2,7 @@
 
 .banner-wrapper {
     transition: $transition-1;
+    position: relative;
     width: 100%;
     height: 380px;
     display: flex;
@@ -9,6 +10,12 @@
     cursor: pointer;
     background-repeat: no-repeat;
     background-size: contain;
+    .banner-background{
+        position: absolute;
+        opacity: 0;
+        width: 100%;
+        height: 100%;
+    }
     &.banner-right:hover{
         filter: brightness(80%)
     }
@@ -21,6 +28,7 @@
         flex-direction: column;
         justify-content: center;
         gap: 30px;
+        z-index: 1;
         .banner-head-text{
             .banner-heading{
                 font: $cormorant-52-medium;
@@ -63,6 +71,9 @@
 @media screen and (max-width: $mobile)  {
     .banner-wrapper {
         height: 200px;
+        .banner-background{
+            opacity: 50%;
+        }
         &.banner-right{
         }
         &.banner-left{
