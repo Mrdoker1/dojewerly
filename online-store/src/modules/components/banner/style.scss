@@ -17,7 +17,7 @@
         height: 100%;
     }
     &.banner-right:hover{
-        filter: brightness(80%)
+        filter: brightness(90%)
     }
     &.banner-left:hover{
         filter: brightness(120%)
@@ -45,9 +45,12 @@
     }
 }
 
-@media screen and (max-width: $tablet)  {
+@media screen and (max-width: $bigTablet)  {
     .banner-wrapper {
         height: 240px;
+        .banner-background{
+            opacity: 50%;
+        }
         &.banner-right:hover{
         }
         &.banner-left:hover{
@@ -72,14 +75,12 @@
     .banner-wrapper {
         height: 200px;
         .banner-background{
-            opacity: 50%;
         }
         &.banner-right{
         }
         &.banner-left{
         }
         .banner-text{
-            //backdrop-filter: blur(4px);
             padding: 0 !important;
             margin-left: 20px;
             .banner-head-text{

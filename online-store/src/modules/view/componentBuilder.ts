@@ -4,8 +4,12 @@ import Builder from './builder';
 import ProductList from '../interface/productList';
 import Product from '../interface/product';
 import Settings from '../interface/settings';
+import Collections from '../interface/collections';
+import Collection from '../interface/collection';
 
 /*Components*/
+import CollectionsComponent from '../components/collections';
+import CollectionComponent from '../components/collections/collection';
 import ProductComponent from '../components/product';
 import BannerComponent from '../components/banner';
 import InstagramComponent from '../components/instagram';
@@ -61,7 +65,9 @@ export default class ComponentBuilder extends Builder {
                 return this.createInstagramSection();
             case 'banner':
                 return this.createBannerSection(props[0]);
-            case 'product-section':
+            case 'collections':
+                return this.createCollectionsSection();
+            case 'product':
                 return this.createProductSection(
                     props[0],
                     props[1],
@@ -180,5 +186,23 @@ export default class ComponentBuilder extends Builder {
     createBannerSection(type: string) {
         let banner = new BannerComponent(undefined, type);
         return banner.node;
+    }
+    async createCollectionsSection() {
+        let collections = new CollectionsComponent();
+
+        async function getCollections(): Promise<Collections> {
+            const response = await fetch('../../data/collections.json');
+            return response.json();
+        }
+
+        let collectionList = await getCollections().then((collections) => {
+            const list: Array<Node> = [];
+            for (let key in collections) {
+                const collection = new CollectionComponent(undefined, collections[key]);
+                list.push(collection.node);
+            }
+            return list;
+        });
+        return collections.insertAll(undefined, ...collectionList);
     }
 }

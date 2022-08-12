@@ -50,7 +50,7 @@ export default class SearchComponent extends Component {
     }
 
     updateComponent(node: HTMLElement, component: string, ...args: Array<string>) {
-        let callback = (settings: Settings, productList: ProductList, language: string) => {
+        let callback = async (settings: Settings, productList: ProductList, language: string) => {
             for (const key in productList) {
                 let productName = productList[key].name.toLowerCase();
                 let productInfo = productList[key].props.info.toLowerCase();
@@ -62,7 +62,7 @@ export default class SearchComponent extends Component {
 
             let builder = new ComponentBuilder(productList, settings);
             if (node.parentNode) {
-                node.parentNode!.replaceChild(builder.build(component)!, node);
+                node.parentNode!.replaceChild(await builder.build(component)!, node);
                 const event = new CustomEvent('componentUpdated', {
                     detail: {
                         component: `${component}`,

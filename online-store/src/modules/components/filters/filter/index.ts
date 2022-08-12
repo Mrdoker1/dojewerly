@@ -65,7 +65,7 @@ export default class FilterComponent extends Component {
     }
 
     updateComponent(node: HTMLElement, component: string, ...args: Array<string>) {
-        let callback = (settings: Settings, productList: ProductList, language: string) => {
+        let callback = async (settings: Settings, productList: ProductList, language: string) => {
             for (const key in productList) {
                 if (args[0] == 'materialFilter') {
                     switch (args[1]) {
@@ -134,7 +134,7 @@ export default class FilterComponent extends Component {
                 }
             }
             let builder = new ComponentBuilder(productList, settings);
-            node.parentNode!.replaceChild(builder.build(component)!, node);
+            node.parentNode!.replaceChild(await builder.build(component)!, node);
             const event = new CustomEvent('componentUpdated', {
                 detail: {
                     component: `${component}`,

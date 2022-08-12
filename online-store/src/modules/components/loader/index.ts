@@ -1,7 +1,6 @@
 import template from './index.html';
 import Component from '../component';
 import translate from '../../components/translation';
-import getVideoElement from '../../../utils/getVideoElement';
 import './style.scss';
 
 export default class LoaderComponent extends Component {
@@ -13,12 +12,6 @@ export default class LoaderComponent extends Component {
 
     getNode(): Node {
         let node = super.getNode();
-        //let video = getVideoElement((node as HTMLElement).getElementsByClassName('loader-video')[0]);
-        // document.addEventListener('loaderStatusUpdated', (e: CustomEventInit) => {
-        //     status.style.width = `${e.detail.percent}px`;
-        // });
-
-        // video.src = './assets/video/loader.mp4';
 
         document.addEventListener('pageBuilded', () => {
             const loader = document.querySelector('.page-loader-div');

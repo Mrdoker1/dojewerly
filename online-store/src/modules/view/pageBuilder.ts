@@ -16,68 +16,69 @@ export default class PageBuilder extends Builder {
     constructor() {
         super();
     }
-    build(component: string, data?: ProductList, settings?: Settings, ...props: Array<string>) {
+    async build(component: string, data?: ProductList, settings?: Settings, ...props: Array<string>) {
         document.body.innerHTML = '';
         this.setTopNotification();
         switch (component) {
             case 'catalog-page':
                 let catalog = this.createCatalogPage(data!, settings!);
-                document.body.appendChild(catalog);
+                document.body.appendChild(await catalog);
                 this.setSlider(settings!);
                 this.callBuildEvent(component);
                 break;
             case 'product-page':
                 let product = this.createProductPage(data!, settings!, props[0], props[1]);
-                document.body.appendChild(product);
+                document.body.appendChild(await product);
                 this.callBuildEvent(component);
                 break;
             case 'home-page':
                 let home = this.createHomePage(data!, settings!);
-                document.body.appendChild(home);
+                document.body.appendChild(await home);
                 this.callBuildEvent(component);
                 break;
         }
         window.scrollTo(0, 0);
     }
-    createCatalogPage(data: ProductList, settings: Settings) {
+    async createCatalogPage(data: ProductList, settings: Settings) {
         let builder = new ComponentBuilder(data, settings);
         let page = new CatalogPage();
         let temp = page.insert(
             undefined,
-            builder.build('burger')!,
-            builder.build('header', 'Catalog')!,
-            builder.build('navigation', 'Catalog')!,
-            builder.build('filter')!,
-            builder.build('catalog')!,
-            builder.build('footer')!
+            await builder.build('burger')!,
+            await builder.build('header', 'Catalog')!,
+            await builder.build('navigation', 'Catalog')!,
+            await builder.build('filter')!,
+            await builder.build('catalog')!,
+            await builder.build('footer')!
         );
         return temp;
     }
-    createProductPage(data: ProductList, settings: Settings, productID: string, prevPage: string) {
+    async createProductPage(data: ProductList, settings: Settings, productID: string, prevPage: string) {
         let builder = new ComponentBuilder(data, settings);
         let page = new ProductPage();
         let temp = page.insert(
             undefined,
-            builder.build('burger')!,
-            builder.build('header', 'Product')!,
-            builder.build('product-section', productID, prevPage)!,
-            builder.build('footer')!
+            await builder.build('burger')!,
+            await builder.build('header', 'Product')!,
+            await builder.build('product', productID, prevPage)!,
+            await builder.build('footer')!
         );
         return temp;
     }
-    createHomePage(data: ProductList, settings: Settings) {
+    async createHomePage(data: ProductList, settings: Settings) {
         let builder = new ComponentBuilder(data, settings);
         let page = new HomePage();
         let temp = page.insert(
             undefined,
-            builder.build('burger')!,
-            builder.build('header', 'Home')!,
-            builder.build('hero')!,
-            builder.build('slider')!,
-            builder.build('banner', 'left')!,
-            builder.build('banner', 'right')!,
-            builder.build('instagram')!,
-            builder.build('footer')!
+            await builder.build('burger')!,
+            await builder.build('header', 'Home')!,
+            await builder.build('hero')!,
+            await builder.build('slider')!,
+            await builder.build('collections')!,
+            await builder.build('banner', 'left')!,
+            await builder.build('banner', 'right')!,
+            await builder.build('instagram')!,
+            await builder.build('footer')!
         );
         return temp;
     }

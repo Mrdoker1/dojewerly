@@ -6,6 +6,87 @@
   !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[1].use[1]!./node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[1].use[2]!./src/global.scss (1) ***!
   \**********************************************************************************************************************************************************************/
 @import url(https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap);
+/*!************************************************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[1].use[1]!./node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[1].use[2]!./src/modules/components/collections/style.scss ***!
+  \************************************************************************************************************************************************************************************************/
+.collections-wrapper {
+  background-color: #F4F4F2;
+  padding: 40px 0;
+}
+.collections-wrapper .collections-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font: normal 400 13px/25px "Jost";
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin-bottom: 20px;
+}
+.collections-wrapper .collections {
+  display: grid;
+  gap: 20px;
+  grid-template-columns: 1fr 1fr 1fr;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+@media screen and (max-width: 768px) {
+  .collections-wrapper .collections {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+@media screen and (max-width: 470px) {
+  .collections-wrapper .collections {
+    grid-template-columns: 1fr;
+  }
+}
+/*!***********************************************************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[1].use[1]!./node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[1].use[2]!./src/modules/components/collections/collection/style.scss ***!
+  \***********************************************************************************************************************************************************************************************************/
+.collection-wrapper {
+  position: relative;
+  background-color: #ffffff;
+  border-radius: 4px;
+  overflow: hidden;
+  transition: 0.1s linear;
+  display: flex;
+  flex-direction: row;
+  cursor: pointer;
+  filter: drop-shadow(2px 2px 4px rgba(0, 0, 0, 0.14));
+}
+.collection-wrapper:hover .collection-preview {
+  filter: opacity(70%);
+}
+.collection-wrapper .collection-preview {
+  transition: 0.1s linear;
+  background-color: #C4C4C4;
+  height: 100%;
+  width: 80px;
+  background-size: cover;
+}
+.collection-wrapper:hover {
+  filter: drop-shadow(0px 4px 16px rgba(0, 0, 0, 0.08));
+}
+.collection-wrapper .collection-data {
+  padding: 14px;
+  padding-left: 40px;
+  z-index: 1;
+}
+.collection-wrapper .collection-data .collection-name {
+  color: #161412;
+  font: normal 400 16px/24px "Jost";
+  text-transform: uppercase;
+}
+.collection-wrapper .collection-data .collection-description {
+  font: normal 400 14px/19px "Jost";
+  color: #65635F;
+}
+
+@media screen and (max-width: 920px) {
+  .collection-wrapper .collection-data .collection-name {
+    font: normal 400 13px/25px "Jost";
+  }
+}
 /*!********************************************************************************************************************************************************************************************!*\
   !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[1].use[1]!./node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[1].use[2]!./src/modules/components/product/style.scss ***!
   \********************************************************************************************************************************************************************************************/
@@ -84,7 +165,7 @@
   height: 100%;
 }
 .banner-wrapper.banner-right:hover {
-  filter: brightness(80%);
+  filter: brightness(90%);
 }
 .banner-wrapper.banner-left:hover {
   filter: brightness(120%);
@@ -109,9 +190,12 @@
   font: normal 400 14px/19px "Jost";
 }
 
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 920px) {
   .banner-wrapper {
     height: 240px;
+  }
+  .banner-wrapper .banner-background {
+    opacity: 50%;
   }
   .banner-wrapper .banner-text .banner-head-text .banner-heading {
     font: normal 500 29px/37px "Cormorant";
@@ -126,9 +210,6 @@
 @media screen and (max-width: 470px) {
   .banner-wrapper {
     height: 200px;
-  }
-  .banner-wrapper .banner-background {
-    opacity: 50%;
   }
   .banner-wrapper .banner-text {
     padding: 0 !important;
@@ -172,11 +253,13 @@
 }
 .instagram-gallery img:hover {
   filter: brightness(80%);
+  transform: scale(1.1);
 }
 
 .instagram-image-wrapper {
   position: relative;
   display: inherit;
+  overflow: hidden;
 }
 .instagram-image-wrapper:hover .instagram-icon {
   opacity: 80%;

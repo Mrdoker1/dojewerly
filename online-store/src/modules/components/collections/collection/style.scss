@@ -1,0 +1,65 @@
+@import '../../../../variables.scss';
+
+.collection-wrapper{
+    position: relative;
+    background-color: $white;
+    border-radius: 4px;
+    overflow: hidden;
+    transition: $transition-1;
+    display: flex;
+    flex-direction: row;
+    cursor: pointer;
+    filter: $shadow-2;
+    &:hover{
+        .collection-preview {
+            //filter: grayscale(100%);
+            filter: opacity(70%);
+        }
+    }
+    .collection-preview {
+        transition: $transition-1;
+        background-color: $grey-2;
+        height: 100%;
+        width: 80px;
+        //position: absolute;
+        //filter: blur(3px);
+        background-size: cover;
+    }
+    &:hover{
+        filter: $shadow-1;
+    }
+    .collection-data{
+        padding: 14px;
+        padding-left: 40px;
+        z-index: 1;
+        .collection-name{
+            color: $black-1;
+            font: $jost-16-regular;
+            text-transform: uppercase;
+        }
+        .collection-description{
+            font: $jost-14-regular;
+            color: $grey-1;
+        }
+    }
+}
+
+@media screen and (max-width: $bigTablet)  {
+    .collection-wrapper{
+        &:hover{
+            .collection-preview {
+            }
+        }
+        .collection-preview {
+        }
+        &:hover{
+        }
+        .collection-data{
+            .collection-name{
+                font: $jost-13-regular;
+            }
+            .collection-description{
+            }
+        }
+    }
+}

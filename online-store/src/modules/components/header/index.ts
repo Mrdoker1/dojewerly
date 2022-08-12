@@ -130,6 +130,7 @@ export default class HeaderComponent extends Component {
         });
 
         logo.addEventListener('click', () => {
+            enableScroll();
             let callback = (settings: Settings, productList: ProductList) => {
                 let builder = new PageBuilder();
                 builder.build('home-page', productList, settings);

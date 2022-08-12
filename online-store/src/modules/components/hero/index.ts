@@ -16,6 +16,11 @@ export default class HeroComponent extends Component {
         let node = super.getNode();
         let catalogButton = (node as HTMLElement).getElementsByClassName('hero-search-catalog')[0];
         let careGuideButton = (node as HTMLElement).getElementsByClassName('hero-care-guide')[0];
+        let video = (node as HTMLElement).getElementsByClassName('hero-video')[0] as HTMLVideoElement;
+
+        document.addEventListener('pageBuilded', () => {
+            video.src = './assets/video/hero.mp4';
+        });
 
         catalogButton.addEventListener('click', () => {
             let callback = (settings: Settings, productList: ProductList) => {
