@@ -191,7 +191,7 @@ export default class ComponentBuilder extends Builder {
         let collections = new CollectionsComponent();
 
         async function getCollections(): Promise<Collections> {
-            const response = await fetch('./data/collections.json');
+            const response = await fetch('data/collections.json');
             if (response) {
                 return response.json();
             } else {
