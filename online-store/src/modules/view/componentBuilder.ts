@@ -191,8 +191,12 @@ export default class ComponentBuilder extends Builder {
         let collections = new CollectionsComponent();
 
         async function getCollections(): Promise<Collections> {
-            const response = await fetch('../../data/collections.json');
-            return response.json();
+            const response = await fetch('./data/collections.json');
+            if (response) {
+                return response.json();
+            } else {
+                return {};
+            }
         }
 
         let collectionList = await getCollections().then((collections) => {
@@ -203,6 +207,7 @@ export default class ComponentBuilder extends Builder {
             }
             return list;
         });
+
         return collections.insertAll(undefined, ...collectionList);
     }
 }
