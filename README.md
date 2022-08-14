@@ -10,7 +10,7 @@
 ## Roadmap
 
 - Stage 1 (Basic MVP)
-  - **Homepage**
+  - ✅ **Homepage**
   - **Collections**
   - ✅ **Catalog**
   - ✅ **Product Page**
