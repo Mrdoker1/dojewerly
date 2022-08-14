@@ -5,7 +5,7 @@
     height: 630px;
     overflow: hidden;
     position: relative;
-    .hero-heading{
+    .hero-content{
         position: absolute;
         display: flex;
         flex-direction: column;
@@ -17,7 +17,10 @@
         z-index: 1;
         gap: 40px;
         text-align: center;
-        font: $cormorant-52-medium;
+        .hero-heading{
+            max-width: 800px;
+            font: $cormorant-52-medium;
+        }
         .hero-buttons {
             width: 300px;
             display: flex;

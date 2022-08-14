@@ -4,6 +4,7 @@ export default interface Collection {
     items: Array<Number>;
     preview: string;
     description: {
+        [key: string]: string;
         en: string;
         ru: string;
         pl: string;

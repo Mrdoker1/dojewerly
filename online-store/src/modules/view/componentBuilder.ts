@@ -199,10 +199,15 @@ export default class ComponentBuilder extends Builder {
             }
         }
 
+        let language = window.localStorage.getItem('language');
+        if (!language) {
+            language = this.settings.language.default;
+        }
+
         let collectionList = await getCollections().then((collections) => {
             const list: Array<Node> = [];
             for (let key in collections) {
-                const collection = new CollectionComponent(undefined, collections[key]);
+                const collection = new CollectionComponent(undefined, collections[key], language || 'en');
                 list.push(collection.node);
             }
             return list;

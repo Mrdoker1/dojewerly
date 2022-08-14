@@ -34,7 +34,8 @@
         .collection-name{
             color: $black-1;
             font: $jost-16-regular;
-            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            //text-transform: uppercase;
         }
         .collection-description{
             font: $jost-14-regular;
