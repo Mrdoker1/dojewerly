@@ -55,20 +55,37 @@
 @media screen and (max-width: $desktop)  {
     .hero-section {
         height: 500px;
-        #hero-video{
-            transform: scale(2, 2);
+        .hero-content{
+            .hero-heading{
+            }
+            .hero-buttons {
+            }
+        }
+        .video-wrapper{
+            &:after {
+            }
+            #hero-video{
+                transform: scale(2, 2);
+            }
         }
     }
 }
 
 @media screen and (max-width: $bigTablet)  {
     .hero-section {
-        height: 500px;
-        .hero-heading{
+        .hero-content{
             gap: 20px;
+            .hero-heading{
+            }
+            .hero-buttons {
+            }
         }
-        #hero-video{
-            transform: scale(2.2, 2.7);
+        .video-wrapper{
+            &:after {
+            }
+            #hero-video{
+                transform: scale(2.2, 2.7);
+            }
         }
     }
 }
@@ -76,14 +93,21 @@
 @media screen and (max-width: $mobile)  {
     .hero-section {
         height: 300px;
-        .hero-heading{
+        .hero-content{
             margin-top: 80px;
             justify-content: flex-start;
-            gap: 20px;
-            font: $cormorant-29-medium;
+            .hero-heading{
+                font: $cormorant-29-medium;
+            }
+            .hero-buttons {
+            }
         }
-        #hero-video{
-            transform: scale(2, 2);
+        .video-wrapper{
+            &:after {
+            }
+            #hero-video{
+                transform: scale(2, 2);
+            }
         }
     }
 }  

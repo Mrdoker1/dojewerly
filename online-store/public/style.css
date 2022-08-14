@@ -360,18 +360,15 @@
   .hero-section {
     height: 500px;
   }
-  .hero-section #hero-video {
+  .hero-section .video-wrapper #hero-video {
     transform: scale(2, 2);
   }
 }
 @media screen and (max-width: 920px) {
-  .hero-section {
-    height: 500px;
-  }
-  .hero-section .hero-heading {
+  .hero-section .hero-content {
     gap: 20px;
   }
-  .hero-section #hero-video {
+  .hero-section .video-wrapper #hero-video {
     transform: scale(2.2, 2.7);
   }
 }
@@ -379,13 +376,14 @@
   .hero-section {
     height: 300px;
   }
-  .hero-section .hero-heading {
+  .hero-section .hero-content {
     margin-top: 80px;
     justify-content: flex-start;
-    gap: 20px;
+  }
+  .hero-section .hero-content .hero-heading {
     font: normal 500 29px/37px "Cormorant";
   }
-  .hero-section #hero-video {
+  .hero-section .video-wrapper #hero-video {
     transform: scale(2, 2);
   }
 }
