@@ -15,7 +15,7 @@
   - ✅ **Catalog**
   - ✅ **Product Page**
   - ✅ **Adaptive**
-  - ✅ **Language Switch**
+  - ✅ **Language Switch(+Translation)**
 - Stage 2 (Managing & Statistic)
   - **Router**
   - **Admin Panel**
