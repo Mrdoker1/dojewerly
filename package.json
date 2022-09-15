@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "",
   "engines": {
-    "node": "12.20.x"
+    "node": "18.x"
   },
   "main": "index.js",
   "scripts": {
@@ -12,7 +12,7 @@
     "build": "webpack --config ./webpack.config.js --env mode=prod",
     "lint": "eslint . --fix --ext .ts",
     "heroku-prebuild": "npm install --dev",
-    "heroku-postbuild": "webpack -p && npm run build"
+    "heroku-postbuild": "npm run build"
   },
   "author": "Mrdoker",
   "license": "ISC",
