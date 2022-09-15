@@ -67,11 +67,12 @@ module.exports = {
                 loader: 'file-loader',
                 type: 'javascript/auto',
                 options: {
-                    outputPath: (url, resourcePath, context) => {
-                        let relativePath = path.relative(context, resourcePath);
-                        let targetPath = relativePath.substring(relativePath.indexOf(`\\`) + 1);
-                        return targetPath;
-                    },
+                    name: '/assets/[name].[ext]',
+                    // outputPath: (url, resourcePath, context) => {
+                    //     let relativePath = path.relative(context, resourcePath);
+                    //     let targetPath = relativePath.substring(relativePath.indexOf(`\\`) + 1);
+                    //     return targetPath;
+                    // },
                 },
             },
             {
@@ -79,11 +80,12 @@ module.exports = {
                 loader: 'file-loader',
                 type: 'javascript/auto',
                 options: {
-                    outputPath: (url, resourcePath, context) => {
-                        let relativePath = path.relative(context, resourcePath);
-                        let targetPath = relativePath.substring(relativePath.indexOf(`\\`) + 1);
-                        return targetPath;
-                    },
+                    name: '/data/[name].[ext]',
+                    // outputPath: (url, resourcePath, context) => {
+                    //     let relativePath = path.relative(context, resourcePath);
+                    //     let targetPath = relativePath.substring(relativePath.indexOf(`\\`) + 1);
+                    //     return targetPath;
+                    // },
                 },
             },
             {
