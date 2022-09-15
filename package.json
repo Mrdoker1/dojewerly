@@ -9,7 +9,7 @@
   "scripts": {
     "watch": "webpack --watch",
     "server": "webpack serve --open --config ./webpack.config.js --env mode=dev",
-    "build": "webpack --config ./webpack.config.js --env mode=prod",
+    "build": "webpack --config ./webpack.config.js",
     "lint": "eslint . --fix --ext .ts",
     "heroku-prebuild": "npm install --dev",
     "heroku-postbuild": "npm run build"
