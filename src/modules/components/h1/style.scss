@@ -1,0 +1,13 @@
+@import '../../../variables.scss';
+
+h1 {
+    font: $cormorant-52-medium;
+    color: $black-1;
+}
+
+
+@media screen and (max-width: $tablet)  {
+    h1{
+        font: $cormorant-29-medium;
+    }
+}

@@ -1,0 +1,47 @@
+@import '../../../variables.scss';
+
+.product-slider{
+  margin-bottom: 40px
+}
+
+.swiper {
+    width: 100%;
+    height: inherit;
+  }
+
+  .swiper-slide {
+    text-align: center;
+    font-size: 18px;
+    background: #fff;
+  }
+
+  .swiper-slide img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+.slider-heading {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 40px 0;
+    gap: 4px;
+  .product-slider-subheading{
+    font: $jost-14-regular;
+    color: $grey-1;
+  }
+}
+
+@media screen and (max-width: $tablet)  {
+  .slider-heading {
+    padding: 20px 0;
+  }
+}
+
+@media screen and (max-width: $mobile)  {
+  .slider-heading {
+    padding: 40px 0;
+  }
+}
