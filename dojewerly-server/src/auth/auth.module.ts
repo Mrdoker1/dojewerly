@@ -1,23 +1,38 @@
 import { Module } from '@nestjs/common';
 import { JwtModule } from '@nestjs/jwt';
-import { PassportModule } from '@nestjs/passport';
+import { ConfigModule, ConfigService } from '@nestjs/config';
 import { AuthService } from './auth.service';
 import { AuthController } from './auth.controller';
-import { UserModule } from '../users/user/user.module';
+import { UserModule } from '../user/user.module';
 import { JwtStrategy } from './jwt.strategy';
-import { ConfigModule } from '@nestjs/config';
+import { LocalStrategy } from './local.strategy';
+import { JwtAuthGuard } from './jwt-auth.guard';
+import { StorageService } from './storage.service';
 
 @Module({
   imports: [
-    ConfigModule.forRoot(), // Добавляем этот модуль для загрузки переменных среды
+    ConfigModule.forRoot(),
     UserModule,
-    PassportModule,
-    JwtModule.register({
-      secret: process.env.JWT_SECRET, // Используем переменную среды вместо жестко закодированного значения
-      signOptions: { expiresIn: '1h' },
+    JwtModule.registerAsync({
+      imports: [ConfigModule],
+      useFactory: async (configService: ConfigService) => {
+        const secret = configService.get('JWT_SECRET');
+        console.log('JWT_SECRET:', secret); // Выводим значение секретного ключа в консоль
+        return {
+          secret,
+          signOptions: { expiresIn: '1h' },
+        };
+      },
+      inject: [ConfigService],
     }),
   ],
-  providers: [AuthService, JwtStrategy],
+  providers: [
+    AuthService,
+    JwtStrategy,
+    LocalStrategy,
+    JwtAuthGuard,
+    StorageService,
+  ],
   controllers: [AuthController],
 })
 export class AuthModule {}
