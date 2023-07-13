@@ -9,21 +9,36 @@
 
 ## Roadmap
 
+Frontend
 - Stage 1 (Basic MVP)
+  - **Router**
   - ✅ **Homepage**
   - **Collections**
-  - ✅ **Catalog**
-  - ✅ **Product Page**
-  - ✅ **Adaptive**
-  - ✅ **Language Switch(+Translation)**
+  - **Catalog**
+  - **Product Page**
+  - **Adaptive**
+  - **Language Switch(+Translation)**
 - Stage 2 (Managing & Statistic)
-  - **Router**
   - **Admin Panel**
   - **Google/Yandex analytics**
-- Stage 3 (Extended MVP)
-  - **Authentication**
+- Stage 3 (Extended MVP #1)
   - **User Dashboard**
-- Stage 4 (Extended MVP)
+- Stage 4 (Extended MVP #2)
   - **Do X**
   - **Cart**
   - **Checkout**
+
+Backend
+- Stage 1 (MVP)
+  - **Main**
+  - **Collections**
+  - ✅ **Users**
+  - ✅ **Authentication**
+  - **Catalog**
+  - **Collections**
+  - **Favourites**
+- Stage 2 (Extended MVP)
+  - **Orders**
+  - **Do X**
+
+![Group 2](https://github.com/Mrdoker1/dojewerly/assets/26232484/38c918ae-c1dc-4816-bf52-6410f56e2eed)
