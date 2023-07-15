@@ -12,10 +12,10 @@ import {
 } from '@nestjs/swagger';
 
 class LoginDto {
-  @ApiProperty({ example: 'test', description: 'Username' })
+  @ApiProperty({ example: 'admin', description: 'Username' })
   username: string;
 
-  @ApiProperty({ example: 'test', description: 'Password' })
+  @ApiProperty({ example: 'admin', description: 'Password' })
   password: string;
 }
 
