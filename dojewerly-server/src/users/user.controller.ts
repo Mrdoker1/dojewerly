@@ -16,7 +16,7 @@ import {
   UpdateUserDto,
 } from '../dto/user.dto';
 import { UserDocument } from './user.model';
-import { UserRole } from './user.model';
+import { UserRole } from '../enum/enums';
 import { Roles } from '../auth/roles.decorator';
 import { RolesGuard } from '../auth/roles.guard';
 import { Req } from '@nestjs/common';
