@@ -5,7 +5,7 @@ export function setupSwagger(app: INestApplication) {
   // Настройка Swagger
   const options = new DocumentBuilder()
     .setTitle('DoJewerly')
-    .setDescription('Customer API')
+    .setDescription('NestJS MVP stage#1 API')
     .setVersion('0.1')
     .addBearerAuth() // Добавление поддержки Bearer-токена
     .build();

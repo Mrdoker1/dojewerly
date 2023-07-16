@@ -76,10 +76,13 @@ export class UserController {
   @Get(':id/public')
   async getUserPublicData(
     @Param('id') id: string,
-  ): Promise<Partial<UserDocument>> {
+  ): Promise<{ username: string; favorites: string[] }> {
     const user = await this.userService.findById(id);
-    // Возвращаем только публичные данные пользователя
-    return { username: user.username };
+    // Возвращаем публичные данные пользователя и список избранных товаров
+    return {
+      username: user.username,
+      favorites: user.favorites.map((id) => id.toString()),
+    };
   }
 
   @Post('register')
