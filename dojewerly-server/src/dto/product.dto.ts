@@ -34,6 +34,11 @@ export class CreateProductDto {
   };
 }
 
+export class CreateProductWithImagesDto extends CreateProductDto {
+  @ApiProperty({ type: 'string', format: 'binary', isArray: true })
+  images: any[];
+}
+
 export class UpdateProductDto {
   @ApiPropertyOptional({ example: 'Bird Earrings', description: 'Name' })
   name: string;
@@ -66,4 +71,9 @@ export class UpdateProductDto {
     gender: string;
     type: string;
   };
+}
+
+export class UpdateProductWithImagesDto extends UpdateProductDto {
+  @ApiPropertyOptional({ type: 'string', format: 'binary', isArray: true })
+  images: any[];
 }

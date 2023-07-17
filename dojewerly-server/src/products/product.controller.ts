@@ -7,25 +7,54 @@ import {
   Get,
   NotFoundException,
   Put,
-  BadRequestException,
   UseGuards,
   Query,
+  UploadedFiles,
+  InternalServerErrorException,
 } from '@nestjs/common';
+import { existsSync, mkdirSync } from 'fs';
+import * as fs from 'fs';
+import { extname, join, normalize } from 'path';
+import { UseInterceptors } from '@nestjs/common';
 import { ProductsService } from './product.service';
-import { CreateProductDto, UpdateProductDto } from '../dto/product.dto';
-import { ProductDocument } from './product.model';
+import { unlink } from 'fs';
 import {
-  ApiBadRequestResponse,
+  CreateProductWithImagesDto,
+  UpdateProductWithImagesDto,
+} from '../dto/product.dto';
+import { ProductDocument } from './product.model';
+import { diskStorage } from 'multer';
+import {
   ApiBearerAuth,
+  ApiBody,
+  ApiConsumes,
   ApiOperation,
   ApiQuery,
-  ApiResponse,
   ApiTags,
 } from '@nestjs/swagger';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 import { UserRole } from '../enum/enums';
 import { Roles } from '../auth/roles.decorator';
 import { RolesGuard } from '../auth/roles.guard';
+import { FilesInterceptor } from '@nestjs/platform-express';
+
+const uploadFolder = './uploads';
+
+// Создайте папку, если она не существует
+if (!existsSync(uploadFolder)) {
+  mkdirSync(uploadFolder);
+}
+
+const storage = diskStorage({
+  destination: uploadFolder,
+  filename: (req, file, cb) => {
+    const randomName = Array(32)
+      .fill(null)
+      .map(() => Math.round(Math.random() * 16).toString(16))
+      .join('');
+    return cb(null, `${randomName}${extname(file.originalname)}`);
+  },
+});
 
 @ApiTags('Catalog')
 @Controller('products')
@@ -60,14 +89,23 @@ export class ProductsController {
   }
 
   @Post()
-  @ApiOperation({ summary: 'Create a new product (only available to admin)' })
+  @ApiConsumes('multipart/form-data')
+  @ApiBody({ type: CreateProductWithImagesDto })
+  @ApiOperation({
+    summary: 'Создание нового продукта (доступно только администратору)',
+  })
   @ApiBearerAuth()
   @UseGuards(JwtAuthGuard, RolesGuard)
   @Roles(UserRole.ADMIN)
+  @UseInterceptors(FilesInterceptor('images', 20, { storage }))
   async createProduct(
-    @Body() createProductDto: CreateProductDto,
+    @UploadedFiles() images,
+    @Body() createProductDto: CreateProductWithImagesDto,
   ): Promise<ProductDocument> {
-    return this.productsService.createProduct(createProductDto);
+    const imageURLs = images.map((file) => file.filename);
+
+    const productDtoWithImages = { ...createProductDto, imageURLs };
+    return this.productsService.createProduct(productDtoWithImages);
   }
 
   @Delete(':id')
@@ -80,18 +118,133 @@ export class ProductsController {
   }
 
   @Put(':id')
-  @ApiOperation({ summary: 'Update product by id (only available to admin)' })
+  @ApiConsumes('multipart/form-data')
+  @ApiBody({ type: UpdateProductWithImagesDto })
+  @ApiOperation({
+    summary: 'Обновление продукта по id (доступно только администратору)',
+  })
   @ApiBearerAuth()
   @UseGuards(JwtAuthGuard, RolesGuard)
   @Roles(UserRole.ADMIN)
+  @UseInterceptors(FilesInterceptor('images', 20, { storage }))
   async updateProduct(
     @Param('id') id: string,
-    @Body() updateProductDto: UpdateProductDto,
+    @UploadedFiles() images,
+    @Body() updateProductDto: UpdateProductWithImagesDto,
   ): Promise<void> {
     const product = await this.productsService.findById(id);
     if (!product) {
-      throw new NotFoundException('Product not found');
+      throw new NotFoundException('Продукт не найден');
     }
-    await this.productsService.updateProduct(id, updateProductDto);
+
+    const imageURLs = images.map((file) => file.filename);
+
+    const productDtoWithImages = { ...updateProductDto, imageURLs };
+    await this.productsService.updateProduct(id, productDtoWithImages);
+  }
+
+  @Put(':id/images')
+  @ApiConsumes('multipart/form-data')
+  @ApiBody({
+    description: 'List of product images',
+    schema: {
+      type: 'object',
+      properties: {
+        images: {
+          type: 'array',
+          items: {
+            type: 'string',
+            format: 'binary',
+          },
+        },
+      },
+    },
+  })
+  @ApiOperation({ summary: 'Добавление изображений к продукту' })
+  @ApiBearerAuth()
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @Roles(UserRole.ADMIN)
+  @UseInterceptors(FilesInterceptor('images', 20, { storage }))
+  async addImagesToProduct(
+    @Param('id') id: string,
+    @UploadedFiles() images,
+  ): Promise<void> {
+    const product = await this.productsService.findById(id);
+    if (!product) {
+      throw new NotFoundException('Продукт не найден');
+    }
+
+    const imageURLs = images.map((file) => file.filename);
+
+    // Добавляем новые URL-ы изображений к существующим
+    const productData = product as unknown as { imageURLs: string[] };
+    const updatedProductDto = {
+      name: product.name,
+      price: product.price,
+      stock: product.stock,
+      props: product.props,
+      imageURLs: [...productData.imageURLs, ...imageURLs],
+    };
+    await this.productsService.updateProduct(id, updatedProductDto);
+  }
+
+  @Delete(':id/images')
+  @ApiOperation({ summary: 'Удаление изображения продукта' })
+  @ApiBearerAuth()
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @Roles(UserRole.ADMIN)
+  @ApiBody({
+    schema: {
+      type: 'object',
+      properties: {
+        imageUrl: {
+          type: 'string',
+        },
+      },
+    },
+  })
+  async deleteProductImage(
+    @Param('id') id: string,
+    @Body() deleteImageDto: { imageUrl: string },
+  ): Promise<void> {
+    const product = await this.productsService.findById(id);
+    if (!product) {
+      throw new NotFoundException('Продукт не найден');
+    }
+
+    // Удаляем URL изображения из списка
+    const updatedProductDto = {
+      name: product.name,
+      price: product.price,
+      stock: product.stock,
+      props: product.props,
+      imageURLs: product.imageURLs.filter(
+        (url) => url !== deleteImageDto.imageUrl,
+      ),
+    };
+    await this.productsService.updateProduct(id, updatedProductDto);
+
+    // Обработка пути к файлу с использованием функции normalize
+    const filePath = join(uploadFolder, deleteImageDto.imageUrl);
+    console.log(filePath);
+
+    // Удаляем файл изображения с сервера
+    try {
+      await fs.promises.unlink(filePath);
+    } catch (err) {
+      console.error(`Ошибка при удалении файла: ${err.message}`);
+      throw new InternalServerErrorException('Ошибка при удалении файла');
+    }
+  }
+
+  @Get(':id/images')
+  @ApiOperation({ summary: 'Получение всех изображений продукта' })
+  async getProductImages(@Param('id') id: string): Promise<string[]> {
+    const product = await this.productsService.findById(id);
+    if (!product) {
+      throw new NotFoundException('Продукт не найден');
+    }
+
+    return product.imageURLs;
   }
 }
