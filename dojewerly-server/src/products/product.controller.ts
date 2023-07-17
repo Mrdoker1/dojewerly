@@ -14,10 +14,9 @@ import {
 } from '@nestjs/common';
 import { existsSync, mkdirSync } from 'fs';
 import * as fs from 'fs';
-import { extname, join, normalize } from 'path';
+import { extname, join } from 'path';
 import { UseInterceptors } from '@nestjs/common';
 import { ProductsService } from './product.service';
-import { unlink } from 'fs';
 import {
   CreateProductWithImagesDto,
   UpdateProductWithImagesDto,
@@ -92,7 +91,7 @@ export class ProductsController {
   @ApiConsumes('multipart/form-data')
   @ApiBody({ type: CreateProductWithImagesDto })
   @ApiOperation({
-    summary: 'Создание нового продукта (доступно только администратору)',
+    summary: 'Create a new product (only available to the administrator)',
   })
   @ApiBearerAuth()
   @UseGuards(JwtAuthGuard, RolesGuard)
@@ -121,7 +120,7 @@ export class ProductsController {
   @ApiConsumes('multipart/form-data')
   @ApiBody({ type: UpdateProductWithImagesDto })
   @ApiOperation({
-    summary: 'Обновление продукта по id (доступно только администратору)',
+    summary: 'Product update by id (only available to the administrator)',
   })
   @ApiBearerAuth()
   @UseGuards(JwtAuthGuard, RolesGuard)
@@ -134,7 +133,7 @@ export class ProductsController {
   ): Promise<void> {
     const product = await this.productsService.findById(id);
     if (!product) {
-      throw new NotFoundException('Продукт не найден');
+      throw new NotFoundException('Product not found');
     }
 
     const imageURLs = images.map((file) => file.filename);
@@ -160,7 +159,7 @@ export class ProductsController {
       },
     },
   })
-  @ApiOperation({ summary: 'Добавление изображений к продукту' })
+  @ApiOperation({ summary: 'Adding Images to a Product' })
   @ApiBearerAuth()
   @UseGuards(JwtAuthGuard, RolesGuard)
   @Roles(UserRole.ADMIN)
@@ -171,7 +170,7 @@ export class ProductsController {
   ): Promise<void> {
     const product = await this.productsService.findById(id);
     if (!product) {
-      throw new NotFoundException('Продукт не найден');
+      throw new NotFoundException('Product not found');
     }
 
     const imageURLs = images.map((file) => file.filename);
@@ -189,7 +188,7 @@ export class ProductsController {
   }
 
   @Delete(':id/images')
-  @ApiOperation({ summary: 'Удаление изображения продукта' })
+  @ApiOperation({ summary: 'Remove product image' })
   @ApiBearerAuth()
   @UseGuards(JwtAuthGuard, RolesGuard)
   @Roles(UserRole.ADMIN)
@@ -209,7 +208,7 @@ export class ProductsController {
   ): Promise<void> {
     const product = await this.productsService.findById(id);
     if (!product) {
-      throw new NotFoundException('Продукт не найден');
+      throw new NotFoundException('Product not found');
     }
 
     // Удаляем URL изображения из списка
@@ -232,17 +231,17 @@ export class ProductsController {
     try {
       await fs.promises.unlink(filePath);
     } catch (err) {
-      console.error(`Ошибка при удалении файла: ${err.message}`);
-      throw new InternalServerErrorException('Ошибка при удалении файла');
+      console.error(`Error while deleting file: ${err.message}`);
+      throw new InternalServerErrorException('Error when deleting a file');
     }
   }
 
   @Get(':id/images')
-  @ApiOperation({ summary: 'Получение всех изображений продукта' })
+  @ApiOperation({ summary: 'Get all product images' })
   async getProductImages(@Param('id') id: string): Promise<string[]> {
     const product = await this.productsService.findById(id);
     if (!product) {
-      throw new NotFoundException('Продукт не найден');
+      throw new NotFoundException('Product not found');
     }
 
     return product.imageURLs;
