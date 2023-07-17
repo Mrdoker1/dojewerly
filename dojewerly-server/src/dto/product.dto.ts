@@ -13,12 +13,13 @@ export class CreateProductDto {
   @ApiProperty({
     example: {
       id: 2,
-      info: "It is engraved with a wrapped candy",
-      description: "Dynamic and elusive abstraction and texture. Plays between the lines of chaos and serenity. Perfect fit for modern and contemporary styled interiors.",
-      part: "arms",
-      material: "silver",
-      gender: "unisex",
-      type: "earring",
+      info: 'It is engraved with a wrapped candy',
+      description:
+        'Dynamic and elusive abstraction and texture. Plays between the lines of chaos and serenity. Perfect fit for modern and contemporary styled interiors.',
+      part: 'arms',
+      material: 'silver',
+      gender: 'unisex',
+      type: 'earring',
     },
     description: 'Props',
   })
@@ -46,12 +47,13 @@ export class UpdateProductDto {
   @ApiPropertyOptional({
     example: {
       id: 2,
-      info: "It is engraved with a wrapped candy",
-      description: "Dynamic and elusive abstraction and texture. Plays between the lines of chaos and serenity. Perfect fit for modern and contemporary styled interiors.",
-      part: "arms",
-      material: "silver",
-      gender: "unisex",
-      type: "earring",
+      info: 'It is engraved with a wrapped candy',
+      description:
+        'Dynamic and elusive abstraction and texture. Plays between the lines of chaos and serenity. Perfect fit for modern and contemporary styled interiors.',
+      part: 'arms',
+      material: 'silver',
+      gender: 'unisex',
+      type: 'earring',
     },
     description: 'Props',
   })
