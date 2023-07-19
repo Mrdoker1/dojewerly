@@ -32,7 +32,8 @@ Backend
 - Stage 1 (MVP)
   - **Main**
   - **Collections**
-  - ✅ **Users**
+  - **Users**
+    - GDPR
   - ✅ **Authentication**
   - **Catalog**
   - **Collections**
