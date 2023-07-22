@@ -3,6 +3,7 @@ import { Route, Routes } from 'react-router-dom';
 import Layout from '../Layout/Layout';
 import HomePage from '../../pages/Homepage/HomePage';
 import Catalog from '../../pages/Catalog/Catalog';
+import ProductPage from '../../pages/ProductPage/ProductPage';
 import NoPage from '../../pages/NoPage/NoPage';
 
 const AppRouter = memo(() => {
@@ -12,7 +13,8 @@ const AppRouter = memo(() => {
       <Routes>
         <Route path="/" element={<Layout />}>
           <Route index element={<HomePage />} />
-          <Route path="catalog" element={<Catalog />} />
+          <Route path="/catalog" element={<Catalog />} />
+          <Route path="/product/:id" element={<ProductPage />} />
           <Route path="*" element={<NoPage />} />
         </Route>
       </Routes>
