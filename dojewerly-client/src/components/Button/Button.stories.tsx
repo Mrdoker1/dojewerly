@@ -8,7 +8,7 @@ export default {
     text: { control: 'text' },
     size: { control: 'radio', options: ['default', 'large'] },
   },
-  tags: ['autodocs'], // Добавлено свойство tags для автогенерации документации
+ tags: ['autodocs'], // Добавлено свойство tags для автогенерации документации
 };
 
 export const SmallButton = {
