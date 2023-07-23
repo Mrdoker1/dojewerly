@@ -1,11 +1,11 @@
 import React, { memo } from 'react';
 
-const Header = () => {
+const Header = memo(() => {
   return (
-    <>
-    <div>Header</div>
-    </>
+    <div>
+      Header
+    </div>
   );
-};
+});
 
 export default Header;
