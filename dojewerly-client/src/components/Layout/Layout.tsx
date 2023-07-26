@@ -8,7 +8,7 @@ const Layout = memo(() => {
   return (
     <>
       <Header />
-      <Outlet></Outlet>
+        <Outlet></Outlet>
       <Footer />
     </>
   );
