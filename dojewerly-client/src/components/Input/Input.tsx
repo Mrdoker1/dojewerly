@@ -1,5 +1,6 @@
 import React, { useEffect, useState, useMemo } from 'react';
 import styles from './Input.module.css';
+import icons from '../../assets/icons/icons';
 
 export interface InputProps {
   /** Вызывается при клике на инпут */
@@ -24,9 +25,11 @@ export interface InputProps {
   hasError?: boolean; 
   /** Сообщение, которое будет отображаться под инпутом */
   message?: string;
+  /** Иконка, отображаемая справа от текста инпута */
+  iconRight?: keyof typeof icons;
 }
 
-const Input: React.FC<InputProps> = ({ onChange, value, type, disabled, children, label, defaultValue, placeholder, hasError, message  }) => {
+const Input: React.FC<InputProps> = ({ onChange, value, type, disabled, children, label, defaultValue, placeholder, hasError, message, iconRight  }) => {
     const [inputValue, setInputValue] = useState(value || defaultValue);
     const [isFocused, setIsFocused] = useState(false);
   
@@ -48,6 +51,8 @@ const Input: React.FC<InputProps> = ({ onChange, value, type, disabled, children
     const handleBlur = () => {
       setIsFocused(false);
     };
+
+    const IconRight = iconRight ? icons[iconRight] : null;
   
     return (
       <div className={`${styles.container} ${hasError ? styles.error : ''}`}>
@@ -63,6 +68,7 @@ const Input: React.FC<InputProps> = ({ onChange, value, type, disabled, children
             onBlur={handleBlur}
           />
           {children}
+          {IconRight && <IconRight className={styles.icon} />}
         </div>
         <div className={`${styles.message} ${hasError ? styles.errorText : ''}`}>{message}</div>
       </div>

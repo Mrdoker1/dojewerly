@@ -1,3 +1,4 @@
+import icons from '../../assets/icons/icons';
 import Button from './Button';
 
 export default {
@@ -11,8 +12,8 @@ export default {
     type: { control: 'radio', options: ['button', 'submit', 'reset'] },
     customColor: { control: 'color' },
     variant: { control: 'radio', options: ['primary', 'secondary', 'text'] },
-    iconLeft: { control: 'text' },
-    iconRight: { control: 'text' },
+    iconLeft: { control: 'select', options: Object.keys(icons) },
+    iconRight: { control: 'select', options: Object.keys(icons) },
   },
   tags: ['autodocs'],
 };

@@ -1,9 +1,9 @@
 import React, { memo, useState } from 'react';
-import styles from './SignUpForm.module.css';
+import styles from './SignInForm.module.css';
 import Input from '../Input/Input'
 import Button from '../Button/Button';
 
-const SignUpForm = memo(() => {
+const SignInForm = memo(() => {
 
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
@@ -70,4 +70,4 @@ const SignUpForm = memo(() => {
   );
 });
 
-export default SignUpForm;
+export default SignInForm;
