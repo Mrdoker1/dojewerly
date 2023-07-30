@@ -1,0 +1,127 @@
+.button {
+  /* Общие стили для всех кнопок */
+  display: flex;
+  height: 40px;
+  padding: 0px 20px;
+  justify-content: center;
+  align-items: center;
+  align-self: stretch;
+  border-radius: 4px;
+  cursor: pointer;
+  /* text-transform: uppercase; */
+  letter-spacing: 1px;
+  /* transition: background-color var(--transition-1), color var(--transition-1); */
+  transition: all var(--transition-1);
+}
+
+.fullWidth {
+  width: 100%;
+}
+
+.noHover:hover {
+  border: none !important;
+  filter: brightness(0.8);
+}
+
+/* Button types */
+
+.primary {
+  background: var(--black-1);
+  color: var(--grey-3);
+}
+
+.primary:hover {
+  background-color: transparent;
+  border: 1px solid var(--black-1);
+  color: var(--black-1);
+}
+
+.secondary {
+  background: none;
+  color: var(--black-1);
+  border: 1px solid var(--grey-1);
+}
+
+.secondary:hover {
+  background-color: var(--black-1);
+  color: var(--grey-3);
+  border: 1px solid var(--black-1);
+}
+
+.text {
+  background: none;
+  color: var(--grey-1);
+}
+
+.text:hover {
+  background: none;
+  color: var(--black-1);
+}
+
+/* Button sizes */
+
+.small {
+  font: var(--jost-13-regular);
+}
+
+.default {
+  font: var(--jost-16-regular);
+  height: 48px;
+}
+
+.large {
+  font: var(--jost-21-regular);
+  height: 48px;
+}
+
+.primary .icon {
+  fill: var(--grey-3);
+}
+
+.secondary .icon {
+  fill: var(--black-1);
+}
+
+.text .icon {
+  fill: var(--grey-1);
+}
+
+
+/* Ховер-стили для иконок */
+
+.primary:hover .icon {
+  fill: var(--black-1);
+}
+
+.secondary:hover .icon {
+  fill: var(--grey-3);
+}
+
+.text:hover .icon {
+  fill: var(--black-1);
+}
+
+/* Icon styles */
+
+.small .icon {
+  width: 24px;
+  height: 24px;
+}
+
+.default .icon {
+  width: 32px;
+  height: 32px;
+}
+
+.large .icon {
+  width: 44px;
+  height: 44px;
+}
+
+/* Disabled styles */
+
+.button:disabled {
+  opacity: 0.65;
+  cursor: not-allowed;
+  pointer-events: none;
+}

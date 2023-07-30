@@ -1,4 +1,6 @@
 import React from 'react';
+import icons from '../../assets/icons/icons';
+import styles from './Button.module.css'; // Импортируем стили из модуля
 
 export interface ButtonProps {
   /** Вызывается при клике на кнопку */
@@ -6,19 +8,46 @@ export interface ButtonProps {
   /** Текст кнопки */
   text?: string;
   /** Размер кнопки */
-  size?: 'default' | 'large'; // новое свойство
+  size?: 'small' | 'default' | 'large';
   /** Если `true`, кнопка будет недоступна */
   disabled?: boolean;
+  /** Тип кнопки */
+  type?: 'button' | 'submit' | 'reset';
   /** Дочерние элементы кнопки */
-  children: React.ReactNode;
+  children?: React.ReactNode;
+  /** Вариант кнопки */
+  variant?: 'primary' | 'secondary' | 'text';
+  /** На всю ширину */
+  fullWidth?: boolean;
+  /** Кастомный цвет*/
+  customColor?: string,
+  /** Иконка, отображаемая слева от текста кнопки */
+  iconLeft?: keyof typeof icons;
+  /** Иконка, отображаемая справа от текста кнопки */
+  iconRight?: keyof typeof icons;
 }
 
-const Button: React.FC<ButtonProps> = ({ onClick, text, size, disabled, children }) => {
-  const buttonStyle = size === 'large' ? { fontSize: '2em' } : { fontSize: '1em' };
+const Button: React.FC<ButtonProps> = ({ type= 'button', text, size = 'small', onClick, disabled, fullWidth, customColor, iconLeft, iconRight, children, variant= 'primary', }) => {
+  const IconLeft = iconLeft ? icons[iconLeft] : null;
+  const IconRight = iconRight ? icons[iconRight] : null;
+
+  const buttonStyles = (customColor && variant === 'primary')
+  ? { backgroundColor: customColor, color: '#fff' }
+  : {};
+  
+const iconStyles = (customColor && variant === 'primary')
+  ? { fill: '#fff' }
+  : {};
+
+const buttonClass = customColor 
+  ? `${styles.button} ${styles[variant]} ${styles[size]} ${fullWidth ? styles.fullWidth : ''} ${styles.noHover}`
+  : `${styles.button} ${styles[variant]} ${styles[size]} ${fullWidth ? styles.fullWidth : ''}`;
 
   return (
-    <button onClick={onClick} disabled={disabled} style={buttonStyle}>
+    <button onClick={onClick} disabled={disabled} style={buttonStyles} className={buttonClass}>
+      {IconLeft && <IconLeft style={iconStyles} className={styles.icon} />}
       {text}
+      {IconRight && <IconRight style={iconStyles} className={styles.icon} />}
       {children}
     </button>
   );

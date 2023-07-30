@@ -1,0 +1,60 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  font: var(--jost-15-regular);
+}
+
+label {
+  color: var(--grey-1);
+}
+
+.inputStyle {
+  display: flex;
+  height: 40px;
+  padding: 0px 12px;
+  align-items: center;
+  gap: 12px;
+  align-self: stretch;
+  border-radius: 2px;
+  background: var(--grey-3);
+  position: relative;
+}
+
+.inputStyle input {
+  flex: 1;
+  border: none;
+  background: transparent;
+  outline: none;
+}
+
+.inputStyle::before {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: var(--grey-2);
+  transition: all var(--transition-1);
+}
+
+/* При фокусе */
+.inputStyle.inputFocus::before {
+  background-color: black;
+}
+
+/* При наличии ошибки */
+.inputStyle.inputError::before {
+  background-color: red;
+}
+
+.message {
+  /* стили для вашего сообщения */
+  color: var(--grey-1);
+  font: var(--jost-12-regular);
+}
+
+.errorText {
+  color: red;  /* сообщение будет красным, когда есть ошибка */
+}
