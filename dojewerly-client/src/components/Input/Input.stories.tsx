@@ -14,7 +14,7 @@ export default {
     type: { control: 'radio', options: ['Text', 'Password'] },
     hasError: { control: 'boolean' },
     message: { control: 'text' },
-    iconRight: { control: 'select', options: Object.keys(icons) },
+    iconRight: { control: 'select', options: [''].concat(Object.keys(icons)) },
   },
  tags: ['autodocs'], // Добавлено свойство tags для автогенерации документации
 };

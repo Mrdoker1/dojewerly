@@ -12,8 +12,8 @@ export default {
     type: { control: 'radio', options: ['button', 'submit', 'reset'] },
     customColor: { control: 'color' },
     variant: { control: 'radio', options: ['primary', 'secondary', 'text'] },
-    iconLeft: { control: 'select', options: Object.keys(icons) },
-    iconRight: { control: 'select', options: Object.keys(icons) },
+    iconLeft: { control: 'select', options: [''].concat(Object.keys(icons)) },
+    iconRight: { control: 'select', options: [''].concat(Object.keys(icons)) },
   },
   tags: ['autodocs'],
 };
@@ -68,7 +68,7 @@ export const ButtonWithLeftIcon = {
     type: 'button',
     customColor: '',
     variant: 'primary',
-    iconLeft: 'leftIcon',
+    iconLeft: 'arrowLeft',
   },
 };
 
@@ -81,7 +81,7 @@ export const ButtonWithRightIcon = {
     type: 'button',
     customColor: '',
     variant: 'secondary',
-    iconRight: 'rightIcon',
+    iconRight: 'arrowRight',
   },
 };
 
@@ -94,7 +94,7 @@ export const ButtonWithTwoIcons = {
     type: 'button',
     customColor: '',
     variant: 'primary',
-    iconLeft: 'leftIcon',
-    iconRight: 'rightIcon',
+    iconLeft: 'arrowLeft',
+    iconRight: 'arrowRight',
   },
 };
