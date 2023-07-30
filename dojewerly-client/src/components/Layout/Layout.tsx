@@ -2,14 +2,17 @@ import Header from '../Header/Header';
 import Footer from '../Footer/Footer';
 import React, { memo } from 'react';
 import { Outlet } from 'react-router-dom';
+import styles from './Layout.module.css';
 
 const Layout = memo(() => {
 
   return (
     <>
-      <Header />
-        <Outlet></Outlet>
-      <Footer />
+      <div className={styles.container}>
+        <Header />
+          <Outlet></Outlet>
+        <Footer />
+      </div>
     </>
   );
 });

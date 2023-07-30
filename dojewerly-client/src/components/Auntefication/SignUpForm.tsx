@@ -1,9 +1,9 @@
 import React, { memo, useState } from 'react';
-import cl from './SignUp.module.css';
-import Input from '../../components/Input/Input'
-import Button from '../../components/Button/Button';
+import styles from './SignUpForm.module.css';
+import Input from '../Input/Input'
+import Button from '../Button/Button';
 
-const SignUp = memo(() => {
+const SignUpForm = memo(() => {
 
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
@@ -31,11 +31,7 @@ const SignUp = memo(() => {
 
   return (
     <>
-      <div className={cl.container}>
-        <h1>Welcome back! *Username*</h1>
-        <div className={cl.description}>Please register or sign in.</div>
-
-        <form onSubmit={handleSubmit}>
+        <form className={styles.container} onSubmit={handleSubmit}>
           <Input 
             type="text"
             label="Email Address"
@@ -61,13 +57,17 @@ const SignUp = memo(() => {
               setIsPasswordValid(true); // Reset the error flag when the user starts typing in the field
             }}
           />
-
-        <Button type="submit" size="small" fullWidth={true}  text="SIGN IN" />
+          <div className={styles.buttonsContainer}>
+            <Button type="submit" size="small" fullWidth={true}  text="SIGN IN" />
+            <div className={styles.smallText}>Or continue with</div>
+            <div className={styles.socialContainer}>
+              <Button type="button" size="small" fullWidth={true}  text="FACEBOOK" customColor='#3C5B96'/>
+              <Button type="button" size="small" fullWidth={true}  text="GOOGLE" customColor='#4688F1'/>
+            </div>
+          </div>
         </form>
-        <Button type="button" variant="text" size="small" fullWidth={true}  text="CREATE AN ACCOUNT" iconRight="arrowRight"/>
-      </div>
     </>
   );
 });
 
-export default SignUp;
+export default SignUpForm;
