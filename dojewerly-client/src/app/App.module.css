@@ -22,6 +22,8 @@ body, html {
     --grey-2: #C4C4C4;
     --grey-3: #F4F4F2;
     --white: #ffffff;
+    --google: #4688F1;
+    --facebook: #3C5B96;
     
     /* Effects */
     --transition-1: .1s linear;

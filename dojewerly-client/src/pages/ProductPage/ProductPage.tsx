@@ -8,7 +8,9 @@ const ProductPage = memo(() => {
   return (
     <>
       <main className="">
-        <div>ProductPage {path}</div>
+        <div>
+          ProductPage {path}
+        </div>
       </main>
     </>
   );

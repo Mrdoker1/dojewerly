@@ -7,19 +7,6 @@
     gap: 10px;
 }
 
-.smallText{
-    font: var(--jost-14-regular);
-    color: var(--grey-2);
-}
-
-.socialContainer{
-    display: flex;
-    width: 100%;
-    flex-direction: row;
-    align-items: center;
-    gap: 20px;
-}
-
 .buttonsContainer{
     display: flex;
     gap: 16px;

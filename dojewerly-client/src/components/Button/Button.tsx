@@ -19,7 +19,7 @@ export interface ButtonProps {
   variant?: 'primary' | 'secondary' | 'text';
   /** На всю ширину */
   fullWidth?: boolean;
-  /** Кастомный цвет*/
+  /** Кастомный цвет, может быть HEX кодом или переменной типа --color*/
   customColor?: string,
   /** Иконка, отображаемая слева от текста кнопки */
   iconLeft?: keyof typeof icons;
@@ -27,12 +27,17 @@ export interface ButtonProps {
   iconRight?: keyof typeof icons;
 }
 
-const Button: React.FC<ButtonProps> = ({ type= 'button', text, size = 'small', onClick, disabled, fullWidth, customColor, iconLeft, iconRight, children, variant= 'primary', }) => {
+const Button: React.FC<ButtonProps> = ({type= 'button', text, size = 'small', onClick, disabled, fullWidth, customColor, iconLeft, iconRight, children, variant= 'primary', }) => {
   const IconLeft = iconLeft ? icons[iconLeft] : null;
   const IconRight = iconRight ? icons[iconRight] : null;
 
   const buttonStyles = (customColor && variant === 'primary')
-  ? { backgroundColor: customColor, color: '#fff' }
+  ? { 
+      backgroundColor: customColor.startsWith('--') 
+      ? `var(${customColor})` 
+      : customColor,
+      color: '#fff' 
+    }
   : {};
   
 const iconStyles = (customColor && variant === 'primary')
@@ -44,11 +49,15 @@ const buttonClass = customColor
   : `${styles.button} ${styles[variant]} ${styles[size]} ${fullWidth ? styles.fullWidth : ''}`;
 
   return (
-    <button onClick={onClick} disabled={disabled} style={buttonStyles} className={buttonClass}>
-      {IconLeft && <IconLeft style={iconStyles} className={styles.icon} />}
-      {text}
-      {IconRight && <IconRight style={iconStyles} className={styles.icon} />}
-      {children}
+    <button
+      onClick={onClick}
+      disabled={disabled}
+      style={buttonStyles}
+      className={buttonClass}>
+        {IconLeft && <IconLeft style={iconStyles} className={styles.icon} />}
+        {text}
+        {IconRight && <IconRight style={iconStyles} className={styles.icon} />}
+        {children}
     </button>
   );
 };

@@ -1,7 +1,9 @@
 import React, { memo, useState } from 'react';
 import styles from './SignInForm.module.css';
+import variables from '../../variables.module.css';
 import Input from '../Input/Input'
 import Button from '../Button/Button';
+import SocialButtons from '../SocialButtons/SocialButtons';
 
 const SignInForm = memo(() => {
 
@@ -58,12 +60,17 @@ const SignInForm = memo(() => {
             }}
           />
           <div className={styles.buttonsContainer}>
-            <Button type="submit" size="small" fullWidth={true}  text="SIGN IN" />
-            <div className={styles.smallText}>Or continue with</div>
-            <div className={styles.socialContainer}>
-              <Button type="button" size="small" fullWidth={true}  text="FACEBOOK" customColor='#3C5B96'/>
-              <Button type="button" size="small" fullWidth={true}  text="GOOGLE" customColor='#4688F1'/>
+            <Button
+              type="submit"
+              size="small"
+              fullWidth={true}
+              text="SIGN IN"/>
+            <div
+              className={variables.description}
+              style={{color: 'var(--grey-2)'}}>
+              Or continue with
             </div>
+            <SocialButtons />
           </div>
         </form>
     </>
