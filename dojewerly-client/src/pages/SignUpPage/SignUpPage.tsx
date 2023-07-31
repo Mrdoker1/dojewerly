@@ -1,12 +1,12 @@
 import React, { memo } from 'react';
-import styles from './SignInPage.module.css';
+import styles from './SignUpPage.module.css';
 import variables from '../../variables.module.css'
-import SignInForm from '../../components/Auntefication/SignInForm';
+import SignUpForm from '../../components/Auntefication/SignUpForm';
 import Button from '../../components/Button/Button';
-import banner from '../../assets/images/banner-1.jpg';
+import banner from '../../assets/images/banner-2.jpg';
 import { Link } from 'react-router-dom';
 
-const SignInPage = memo(() => {
+const SignUpPage = memo(() => {
 
   return (
     <>
@@ -16,22 +16,22 @@ const SignInPage = memo(() => {
         </div>
         <div className={styles.form}>
           <div className={styles.heading}>
-            <h1>Hello, Let's Sign In</h1>
+            <h1>Create New Account</h1>
             <div
               className={variables.description}
               style={{color: 'var(--grey-1)'}}>
-                Please sign in to your DoJewerly Account.
+                Register New DoJeverly Account.
               </div>
           </div>
-          <SignInForm />
-          <Link to="/signup">
+          <SignUpForm />
+          <Link to="/signin">
             <Button
-              type="button"
-              variant="text"
-              size="small"
-              fullWidth={true} 
-              text="CREATE NEW ACCOUNT"
-              iconRight="arrowRight"/>
+                type="button"
+                variant="text"
+                size="small"
+                fullWidth={true} 
+                text="SIGNIN TO ACCOUNT"
+                iconRight="arrowRight"/>
           </Link>
         </div>
       </div>
@@ -39,4 +39,4 @@ const SignInPage = memo(() => {
   );
 });
 
-export default SignInPage;
+export default SignUpPage;

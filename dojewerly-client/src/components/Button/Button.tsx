@@ -50,6 +50,7 @@ const buttonClass = customColor
 
   return (
     <button
+      type={type}
       onClick={onClick}
       disabled={disabled}
       style={buttonStyles}
