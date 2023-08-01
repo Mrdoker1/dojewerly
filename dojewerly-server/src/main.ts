@@ -8,6 +8,6 @@ async function bootstrap() {
     origin: '*', // или замените '*' на домены, которые должны иметь доступ
   });
   setupSwagger(app);
-  await app.listen(3000);
+  await app.listen(4000);
 }
 bootstrap();

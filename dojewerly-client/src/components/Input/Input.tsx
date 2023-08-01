@@ -10,8 +10,6 @@ export interface InputProps {
   /** Значение инпута */
   value?: string;
   /** Дефолтное значение инпута */
-  defaultValue?: string;
-  /** Подсказка, которая будет отображаться, когда в инпуте нет данных */
   placeholder?: string;
   /** Заголовок/лейбл инпута */
   label?: string;
@@ -29,8 +27,8 @@ export interface InputProps {
   iconRight?: keyof typeof icons;
 }
 
-const Input: React.FC<InputProps> = ({ onChange, value, type, disabled, children, label, defaultValue, placeholder, hasError, message, iconRight  }) => {
-    const [inputValue, setInputValue] = useState(value || defaultValue);
+const Input: React.FC<InputProps> = ({ onChange, value, type, disabled, children, label, placeholder, hasError, message, iconRight  }) => {
+    const [inputValue, setInputValue] = useState(value);
     const [isFocused, setIsFocused] = useState(false);
   
     useEffect(() => {

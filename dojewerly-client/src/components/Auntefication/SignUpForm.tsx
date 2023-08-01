@@ -4,6 +4,10 @@ import variables from '../../variables.module.css';
 import Input from '../Input/Input'
 import Button from '../Button/Button';
 import SocialButtons from '../SocialButtons/SocialButtons';
+import { useDispatch, useSelector } from 'react-redux';
+import { AppDispatch, RootState } from '../../app/store';
+import { registerUser } from '../../app/reducers/authSlice';
+import ErrorMessage from '../Messages/ErrorMessage/ErrorMessage';
 
 const SignUpForm = memo(() => {
 
@@ -11,6 +15,9 @@ const SignUpForm = memo(() => {
   const [password, setPassword] = useState('');
   const [isUsernameValid, setIsUsernameValid] = useState(true);
   const [isPasswordValid, setIsPasswordValid] = useState(true);
+
+  const dispatch = useDispatch<AppDispatch>();
+  const auth = useSelector((state: RootState) => state.auth);
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -26,9 +33,8 @@ const SignUpForm = memo(() => {
       return;
     }
 
-    // If all fields are filled, you can send data to the server or perform other actions
-    console.log('Submitted:', { username, password });
-    // Then, you could send the data to the server to check the user's login or perform another logic.
+    // Dispatch the registerUser action
+    dispatch(registerUser({ username, password }));
   };
 
   return (
@@ -70,6 +76,7 @@ const SignUpForm = memo(() => {
               style={{color: 'var(--grey-2)'}}>
               Or register using
             </div>
+            <ErrorMessage message={auth.error} />
             <SocialButtons />
           </div>
         </form>

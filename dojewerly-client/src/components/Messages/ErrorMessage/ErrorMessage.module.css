@@ -1,0 +1,10 @@
+.errorMessage {
+  border: 1px solid red;
+  box-sizing: border-box;
+  border-radius: 5px;
+  padding: 6px 12px;
+  background-color: rgb(253, 231, 235);
+  color: red;
+  font: var(--jost-12-regular);
+  width: 100%;
+}

@@ -1,0 +1,15 @@
+.userMenu {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    position: absolute;
+    right: 0;
+    background-color: var(--white);
+    border: 1px solid var(--grey-2);
+    border-radius: 5px;
+    padding: 10px;
+  }
+  
+  .menuItem {
+    font: var(--jost-12-regular);
+  }

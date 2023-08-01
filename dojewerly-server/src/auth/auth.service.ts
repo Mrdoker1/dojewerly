@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { UserService } from '../users/user.service';
 import { UserDocument } from '../users/user.model';
@@ -18,12 +18,14 @@ export class AuthService {
     password: string,
   ): Promise<UserDocument | null> {
     const user = await this.userService.findByUsername(username);
-    if (user && user.password === password) {
-      console.log('User validation successful, username:', user.username); // Логирование успешной проверки пользователя
-      return user;
+    if (!user) {
+      throw new UnauthorizedException('User not found');
     }
-    console.log('User validation failed, username:', user.username); // Логирование неудачной проверки пользователя
-    return null;
+    if (user.password !== password) {
+      throw new UnauthorizedException('Invalid password');
+    }
+    console.log('User validation successful, username:', user.username); 
+    return user;
   }
 
   async login(user: UserDocument): Promise<{ token: string }> {

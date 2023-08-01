@@ -1,9 +1,14 @@
-import React, { memo, useState } from 'react';
+import React, { memo, useEffect, useState } from 'react';
 import styles from './SignInForm.module.css';
 import variables from '../../variables.module.css';
 import Input from '../Input/Input'
 import Button from '../Button/Button';
 import SocialButtons from '../SocialButtons/SocialButtons';
+import { useDispatch, useSelector } from 'react-redux';
+import { AppDispatch, RootState } from '../../app/store';
+import { loginUser, clearError } from '../../app/reducers/authSlice';
+import ErrorMessage from '../Messages/ErrorMessage/ErrorMessage';
+import { useNavigate } from 'react-router-dom';
 
 const SignInForm = memo(() => {
 
@@ -11,6 +16,16 @@ const SignInForm = memo(() => {
   const [password, setPassword] = useState('');
   const [isUsernameValid, setIsUsernameValid] = useState(true);
   const [isPasswordValid, setIsPasswordValid] = useState(true);
+
+  const dispatch = useDispatch<AppDispatch>();
+  const auth = useSelector((state: RootState) => state.auth);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    return () => {
+      dispatch(clearError());
+    };
+  }, [dispatch]);
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -26,9 +41,12 @@ const SignInForm = memo(() => {
       return;
     }
 
-    // If all fields are filled, you can send data to the server or perform other actions
-    console.log('Submitted:', { username, password });
-    // Then, you could send the data to the server to check the user's login or perform another logic.
+    // Dispatch the registerUser action
+    dispatch(loginUser({ username, password })).then((result) => {
+      if (result.type === 'auth/login/fulfilled') {
+        navigate("/dashboard"); // Используйте navigate для перенаправления на страницу /dashboard
+      }
+    });
   };
 
   return (
@@ -71,6 +89,7 @@ const SignInForm = memo(() => {
               Or continue with
             </div>
             <SocialButtons />
+            <ErrorMessage message={auth.error} />
           </div>
         </form>
     </>
