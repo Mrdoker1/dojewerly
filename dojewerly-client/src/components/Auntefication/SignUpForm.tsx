@@ -8,6 +8,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, RootState } from '../../app/store';
 import { registerUser } from '../../app/reducers/authSlice';
 import ErrorMessage from '../Messages/ErrorMessage/ErrorMessage';
+import { useNavigate } from 'react-router-dom';
 
 const SignUpForm = memo(() => {
 
@@ -18,6 +19,7 @@ const SignUpForm = memo(() => {
 
   const dispatch = useDispatch<AppDispatch>();
   const auth = useSelector((state: RootState) => state.auth);
+  const navigate = useNavigate();
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -34,7 +36,11 @@ const SignUpForm = memo(() => {
     }
 
     // Dispatch the registerUser action
-    dispatch(registerUser({ username, password }));
+    dispatch(registerUser({ username, password })).then((result) => {
+      if (result.type === 'auth/register/fulfilled') {
+        navigate("/dashboard"); // Используйте navigate для перенаправления на страницу /dashboard
+      }
+    });
   };
 
   return (
