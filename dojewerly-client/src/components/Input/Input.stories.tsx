@@ -6,6 +6,8 @@ export default {
   argTypes: {
     onChange: { action: 'changed' },
     onClick: { action: 'clicked' },
+    iconRightClick: { action: 'clicked' },
+    iconLeftClick: { action: 'clicked' },
     disabled: { control: 'boolean' },
     value: { control: 'text' },
     placeholder: { control: 'text' },
@@ -14,6 +16,7 @@ export default {
     hasError: { control: 'boolean' },
     message: { control: 'text' },
     iconRight: { control: 'select', options: [''].concat(Object.keys(icons)) },
+    iconLeft: { control: 'select', options: [''].concat(Object.keys(icons)) },
   },
  tags: ['autodocs'], // Добавлено свойство tags для автогенерации документации
 };

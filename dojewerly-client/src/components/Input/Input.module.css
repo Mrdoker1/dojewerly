@@ -15,6 +15,13 @@ label {
   width: 32px;
   height: 32px;
   color: var(--grey-1);
+  cursor: pointer;
+}
+
+.icon:hover{
+  border-radius:8px;
+  transition: all var(--transition-1);
+  background-color: var(--grey-2);
 }
 
 .inputStyle {
