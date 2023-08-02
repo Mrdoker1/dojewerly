@@ -17,7 +17,7 @@ const Header: React.FC = () => {
   const dispatch = useDispatch<AppDispatch>();
 
   const handleAccountClick = () => {
-    console.log(auth.token);
+    console.log('Token:', auth.token);
     if (auth.token) {
       setIsMenuOpen(!isMenuOpen);
     } else {

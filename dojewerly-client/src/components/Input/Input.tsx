@@ -25,9 +25,15 @@ export interface InputProps {
   message?: string;
   /** Иконка, отображаемая справа от текста инпута */
   iconRight?: keyof typeof icons;
+  /** Иконка, отображаемая слева от текста инпута */
+  iconLeft?: keyof typeof icons;
+  /** Вызывается при клике на иконку справа */
+  iconRightClick?: () => void;
+  /** Вызывается при клике на иконку слева */
+  iconLeftClick?: () => void;
 }
 
-const Input: React.FC<InputProps> = ({ onChange, value, type, disabled, children, label, placeholder, hasError, message, iconRight  }) => {
+const Input: React.FC<InputProps> = ({ onChange, value, type, disabled, children, label, placeholder, hasError, message, iconRight, iconRightClick, iconLeft, iconLeftClick  }) => {
     const [inputValue, setInputValue] = useState(value);
     const [isFocused, setIsFocused] = useState(false);
   
@@ -50,12 +56,28 @@ const Input: React.FC<InputProps> = ({ onChange, value, type, disabled, children
       setIsFocused(false);
     };
 
-    const IconRight = iconRight ? icons[iconRight] : null;
+    const handleIconRightClick = (event: React.MouseEvent) => {
+      event.preventDefault();
+      if (iconRightClick) {
+        iconRightClick();
+      }
+    };
   
+    const handleIconLeftClick = (event: React.MouseEvent) => {
+      event.preventDefault();
+      if (iconLeftClick) {
+        iconLeftClick();
+      }
+    };
+
+    const IconRight = iconRight ? icons[iconRight] : null;
+    const IconLeft = iconLeft ? icons[iconLeft] : null;
+
     return (
       <div className={`${styles.container} ${hasError ? styles.error : ''}`}>
         <label>{label}</label>
         <div className={`${styles.inputStyle} ${isFocused ? styles.inputFocus : ''} ${hasError ? styles.inputError : ''}`}>
+          {IconLeft && <IconLeft onClick={handleIconLeftClick} className={styles.icon} />}
           <input
             onChange={handleChange}
             value={inputValue}
@@ -66,7 +88,7 @@ const Input: React.FC<InputProps> = ({ onChange, value, type, disabled, children
             onBlur={handleBlur}
           />
           {children}
-          {IconRight && <IconRight className={styles.icon} />}
+          {IconRight && <IconRight onClick={handleIconRightClick} className={styles.icon} />}
         </div>
         <div className={`${styles.message} ${hasError ? styles.errorText : ''}`}>{message}</div>
       </div>

@@ -3,6 +3,7 @@ import { JwtService } from '@nestjs/jwt';
 import { UserService } from '../users/user.service';
 import { UserDocument } from '../users/user.model';
 import { StorageService } from './storage.service';
+import { TokenService } from './token.service';
 
 @Injectable()
 export class AuthService {
@@ -11,6 +12,7 @@ export class AuthService {
     private userService: UserService,
     private jwtService: JwtService,
     private storageService: StorageService,
+    private tokenService: TokenService,
   ) {}
 
   async validateUser(
@@ -31,12 +33,20 @@ export class AuthService {
   async login(user: UserDocument): Promise<{ token: string }> {
     const payload = { username: user.username, sub: user.id, roles: user.role };
     const token = this.jwtService.sign(payload);
-    this.storageService.setItem(this.TOKEN_KEY, token);
+    await this.tokenService.create(token, user.id);
     return { token };
   }
 
-  async logout(): Promise<void> {
+  async logout(token: string): Promise<void> {
+    await this.tokenService.delete(token);
     this.storageService.removeItem(this.TOKEN_KEY);
     console.log('User logged out'); // Логирование выхода пользователя
+  }
+
+  async validateToken(token: string): Promise<void> {
+    const tokenExists = await this.tokenService.exists(token);
+    if (!tokenExists) {
+      throw new UnauthorizedException('Token is not valid');
+    }
   }
 }

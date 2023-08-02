@@ -8,16 +8,22 @@ import { JwtStrategy } from './jwt.strategy';
 import { LocalStrategy } from './local.strategy';
 import { JwtAuthGuard } from './jwt-auth.guard';
 import { StorageService } from './storage.service';
+import { MongooseModule } from '@nestjs/mongoose';
+import { Token, TokenSchema } from './token.model';
+import { TokenService } from './token.service';
 
 @Module({
   imports: [
     ConfigModule.forRoot(),
     UserModule,
     JwtModule.registerAsync({
-      imports: [ConfigModule],
+      imports: [
+        ConfigModule,
+        MongooseModule.forFeature([{ name: Token.name, schema: TokenSchema }]),
+      ],
       useFactory: async (configService: ConfigService) => {
         const secret = configService.get('JWT_SECRET');
-        console.log('JWT_SECRET:', secret); // Выводим значение секретного ключа в консоль
+        console.log('JWT_SECRET:', secret);
         return {
           secret,
           signOptions: { expiresIn: '1h' },
@@ -25,6 +31,7 @@ import { StorageService } from './storage.service';
       },
       inject: [ConfigService],
     }),
+    MongooseModule.forFeature([{ name: Token.name, schema: TokenSchema }]), // Add this line
   ],
   providers: [
     AuthService,
@@ -32,6 +39,7 @@ import { StorageService } from './storage.service';
     LocalStrategy,
     JwtAuthGuard,
     StorageService,
+    TokenService,
   ],
   controllers: [AuthController],
 })

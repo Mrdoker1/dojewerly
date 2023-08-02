@@ -16,10 +16,15 @@ const SignUpForm = memo(() => {
   const [password, setPassword] = useState('');
   const [isUsernameValid, setIsUsernameValid] = useState(true);
   const [isPasswordValid, setIsPasswordValid] = useState(true);
+  const [showPassword, setShowPassword] = useState(false);
 
   const dispatch = useDispatch<AppDispatch>();
   const auth = useSelector((state: RootState) => state.auth);
   const navigate = useNavigate();
+
+  const handleShowPassword = () => {
+    setShowPassword(!showPassword);
+  };
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -58,14 +63,15 @@ const SignUpForm = memo(() => {
               setIsUsernameValid(true); // Reset the error flag when the user starts typing in the field
             }}
           />
-
           <Input 
-            type="password"
+            type={showPassword ? "text" : "password"}
             label="Password"
             value={password}
             placeholder='Enter password'
             hasError={!isPasswordValid}
             message={!isPasswordValid ? 'Please enter a valid password.' : ''}
+            iconRight={showPassword ? "eyeOff" : "eyeOn"}
+            iconRightClick={handleShowPassword}
             onChange={(e) => {
               setPassword(e.target.value);
               setIsPasswordValid(true); // Reset the error flag when the user starts typing in the field

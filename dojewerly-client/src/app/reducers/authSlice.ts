@@ -92,6 +92,31 @@ export const logoutUser = createAsyncThunk(
   }
 );
 
+export const validateToken = createAsyncThunk(
+  'auth/validate',
+  async (_, thunkAPI) => {
+    const token = localStorage.getItem('token');
+    if (!token) {
+      throw new Error('No session');
+    }
+
+    const response = await fetch('http://localhost:4000/auth/validate', {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
+      }
+    });
+
+    if (!response.ok) {
+      const data = await response.json();
+      throw new Error(data.message || 'Failed to validate token');
+    }
+
+    return token;
+  }
+);
+
 // Then, create the slice
 export const authSlice = createSlice({
     name: 'auth',
@@ -152,6 +177,18 @@ export const authSlice = createSlice({
           state.status = 'failed';
           state.token = null;
           localStorage.removeItem('token'); // Remove the token from localStorage even if the request was rejected
+        })
+        .addCase(validateToken.pending, (state) => {
+          state.status = 'loading';
+        })
+        .addCase(validateToken.fulfilled, (state, action: PayloadAction<string>) => {
+          state.status = 'succeeded';
+          state.token = action.payload;
+        })
+        .addCase(validateToken.rejected, (state, action) => {
+          state.status = 'failed';
+          state.token = null;
+          localStorage.removeItem('token'); // Remove the token from localStorage if validation failed
         });
     },
   });

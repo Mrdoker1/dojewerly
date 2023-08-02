@@ -1,4 +1,4 @@
-import { Controller, Post, Request, UseGuards } from '@nestjs/common';
+import { Controller, Get, Post, Request, UseGuards } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { LocalAuthGuard } from './local-auth.guard';
 import { JwtAuthGuard } from './jwt-auth.guard';
@@ -40,15 +40,26 @@ export class AuthController {
   @ApiBearerAuth()
   @UseGuards(LocalAuthGuard)
   async login(@Request() req): Promise<TokenDto> {
-    const token = await this.authService.login(req.user);
-    return token;
+    const { token } = await this.authService.login(req.user);
+    return { token };
   }
 
   @Post('logout')
   @ApiOperation({ summary: 'Logout and invalidate JWT token' })
   @ApiBearerAuth()
   @UseGuards(JwtAuthGuard)
-  async logout(): Promise<void> {
-    await this.authService.logout();
+  async logout(@Request() req): Promise<void> {
+    await this.authService.logout(req.headers.authorization.split(' ')[1]);
+  }
+
+  @Get('validate')
+  @ApiOperation({ summary: 'Validate JWT token' })
+  @ApiBearerAuth()
+  @UseGuards(JwtAuthGuard)
+  async validate(@Request() req): Promise<{ status: string }> {
+    await this.authService.validateToken(
+      req.headers.authorization.split(' ')[1],
+    );
+    return { status: 'Token is valid' };
   }
 }
