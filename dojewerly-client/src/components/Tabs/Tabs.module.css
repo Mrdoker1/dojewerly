@@ -1,0 +1,17 @@
+.tabs {
+  display: flex;
+}
+
+.tab {
+  cursor: pointer;
+}
+
+.line {
+  width: 100%;
+  height: 1px;
+  background-color: #ccc; /* Change this to the color you want */
+}
+
+.content {
+  padding: 16px;
+}

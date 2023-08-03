@@ -25,9 +25,11 @@ export interface ButtonProps {
   iconLeft?: keyof typeof icons;
   /** Иконка, отображаемая справа от текста кнопки */
   iconRight?: keyof typeof icons;
+  /** Дополнительные классы стилей для кнопки */
+  className?: string;
 }
 
-const Button: React.FC<ButtonProps> = ({type= 'button', text, size = 'small', onClick, disabled, fullWidth, customColor, iconLeft, iconRight, children, variant= 'primary', }) => {
+const Button: React.FC<ButtonProps> = ({type= 'button', text, size = 'small', onClick, disabled, fullWidth, customColor, iconLeft, iconRight, children, variant= 'primary', className }) => {
   const IconLeft = iconLeft ? icons[iconLeft] : null;
   const IconRight = iconRight ? icons[iconRight] : null;
 
@@ -44,9 +46,9 @@ const iconStyles = (customColor && variant === 'primary')
   ? { fill: '#fff' }
   : {};
 
-const buttonClass = customColor 
-  ? `${styles.button} ${styles[variant]} ${styles[size]} ${fullWidth ? styles.fullWidth : ''} ${styles.noHover}`
-  : `${styles.button} ${styles[variant]} ${styles[size]} ${fullWidth ? styles.fullWidth : ''}`;
+  const buttonClass = customColor 
+  ? `${styles.button} ${styles[variant]} ${styles[size]} ${fullWidth ? styles.fullWidth : ''} ${styles.noHover} ${className}`
+  : `${styles.button} ${styles[variant]} ${styles[size]} ${fullWidth ? styles.fullWidth : ''} ${className}`;
 
   return (
     <button

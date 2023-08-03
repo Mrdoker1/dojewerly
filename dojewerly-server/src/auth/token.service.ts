@@ -21,6 +21,7 @@ export class TokenService {
   }
 
   async exists(token: string): Promise<boolean> {
-    return await this.tokenModel.exists({ token });
+    const doc = await this.tokenModel.findOne({ token });
+    return Boolean(doc);
   }
 }
