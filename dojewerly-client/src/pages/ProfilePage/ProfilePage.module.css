@@ -1,0 +1,19 @@
+.container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 50px;
+  padding-top: 20px;
+}
+
+.form {
+  display: flex;
+  flex-direction: row;
+  gap: 40px;
+  padding-bottom: 10px;
+}
+
+p {
+  color: var(--grey-1);
+}

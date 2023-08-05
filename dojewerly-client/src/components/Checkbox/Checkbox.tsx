@@ -9,9 +9,11 @@ export interface CheckboxProps {
   label?: string;
   /** Если `true`, чекбокс будет выбран */
   checked?: boolean;
+  /** Если `true`, чекбокс будет отключен */
+  disabled?: boolean;
 }
 
-const Checkbox: React.FC<CheckboxProps> = ({ label, checked = false, onChange }) => {
+const Checkbox: React.FC<CheckboxProps> = ({ label, checked = false, disabled = false, onChange }) => {
   const [isChecked, setIsChecked] = useState(checked);
   
   useEffect(() => {
@@ -34,6 +36,7 @@ const Checkbox: React.FC<CheckboxProps> = ({ label, checked = false, onChange })
         checked={isChecked}
         onChange={handleCheckboxChange}
         className={styles.checkboxInput}
+        disabled={disabled}
       />
       <span className={`${styles.checkboxCustom} ${isChecked ? styles.checked : ''}`}>
         {isChecked && <Icon className={styles.icon} />}

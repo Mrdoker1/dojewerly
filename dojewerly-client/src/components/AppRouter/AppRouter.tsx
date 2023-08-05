@@ -1,7 +1,7 @@
-import React, { memo } from 'react';
+import React, { memo, useEffect, useState } from 'react';
 import { Route, Routes } from 'react-router-dom';
-import { useSelector } from 'react-redux';
-import { RootState } from '../../app/store';
+import { useDispatch, useSelector } from 'react-redux';
+import { AppDispatch, RootState } from '../../app/store';
 import Layout from '../Layout/Layout';
 import HomePage from '../../pages/HomePage/HomePage';
 import Catalog from '../../pages/Catalog/Catalog';
@@ -11,10 +11,24 @@ import NoPage from '../../pages/NoPage/NoPage';
 import SignUpPage from '../../pages/SignUpPage/SignUpPage';
 import DashboardPage from '../../pages/DashboardPage/DashboardPage';
 import ProtectedRoute from './ProtectedRoute/ProtectedRoute';
+import { checkUserSession } from '../../app/reducers/authSlice';
 
 const AppRouter = memo(() => {
   const auth = useSelector((state: RootState) => state.auth);
   const isUserLoggedIn = Boolean(auth.token);
+  const dispatch = useDispatch<AppDispatch>();
+  const [isChecking, setIsChecking] = useState(true);
+
+  useEffect(() => {
+    dispatch(checkUserSession())
+      .then(() => setIsChecking(false))
+      .catch(() => setIsChecking(false));
+  }, [dispatch]);
+
+  if (isChecking) {
+    return <div>Loading...</div>;  // Или любой другой компонент загрузки
+  }
+  
 
   return (
     <>

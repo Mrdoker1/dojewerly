@@ -56,7 +56,6 @@
   }
   
   .menuNavigation li:hover {
-    fill: var(--grey-1);
     color: var(--grey-1);
     /* Добавьте стили для .menuNavigation li:hover здесь */
   }

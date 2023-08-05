@@ -19,6 +19,14 @@ export class UpdateProfileDto {
 
   @ApiPropertyOptional({ example: 'pa$$w0rd', description: 'Password' })
   password: string;
+
+  @ApiPropertyOptional({
+    example: { email: true },
+    description: 'Settings object',
+    type: 'object',
+    additionalProperties: true,
+  })
+  settings: { email: boolean };
 }
 
 export class CreateUserDto {

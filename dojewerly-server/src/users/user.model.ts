@@ -9,6 +9,7 @@ export interface User extends Document {
   password: string;
   role: UserRole;
   favorites: Types.ObjectId[];
+  settings: { email: boolean };
 }
 
 @Schema()
@@ -24,6 +25,10 @@ export class User {
 
   @Prop({ type: [Types.ObjectId], default: [] })
   favorites: Types.ObjectId[];
+
+  @Prop({ type: { email: Boolean }, default: {} })
+  settings: { email: boolean };
 }
 
 export const UserSchema = SchemaFactory.createForClass(User);
+export { UserRole };

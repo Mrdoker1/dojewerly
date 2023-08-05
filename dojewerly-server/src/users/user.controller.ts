@@ -7,6 +7,8 @@ import {
   Get,
   NotFoundException,
   Put,
+  Req,
+  Patch,
   BadRequestException,
 } from '@nestjs/common';
 import { UserService } from './user.service';
@@ -19,7 +21,6 @@ import { UserDocument } from './user.model';
 import { UserRole } from '../enum/enums';
 import { Roles } from '../auth/roles.decorator';
 import { RolesGuard } from '../auth/roles.guard';
-import { Req } from '@nestjs/common';
 
 import { Request, UseGuards } from '@nestjs/common';
 import {
@@ -140,14 +141,33 @@ export class UserController {
   @ApiBearerAuth()
   @UseGuards(JwtAuthGuard)
   async updateOwnAccount(
-    @Request() req, // Обновлено: указывается тип `any` для объекта `req`
+    @Request() req,
     @Body() updateProfileDto: UpdateProfileDto,
-  ): Promise<void> {
-    const { username, password } = updateProfileDto;
-    if (!username && !password) {
+  ): Promise<UserDocument> {
+    const { username, password, settings } = updateProfileDto;
+    if (!username && !password && settings === undefined) {
       throw new BadRequestException('No fields to update');
     }
-    await this.userService.updateProfile(req.user.id, username, password);
+    const user = await this.userService.updateProfile(
+      req.user.id,
+      username,
+      password,
+      settings,
+    );
+    return user;
+  }
+
+  @Patch('me')
+  @ApiOperation({
+    summary: 'Partially update own account information (if authorized)',
+  })
+  @ApiBearerAuth()
+  @UseGuards(JwtAuthGuard)
+  async patchOwnAccount(
+    @Request() req,
+    @Body() updateProfileDto: UpdateProfileDto,
+  ): Promise<UserDocument> {
+    return this.userService.patchProfile(req.user.id, updateProfileDto);
   }
 
   @Put(':id')

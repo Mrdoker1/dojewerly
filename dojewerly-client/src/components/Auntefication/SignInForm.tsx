@@ -7,7 +7,7 @@ import SocialButtons from '../SocialButtons/SocialButtons';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, RootState } from '../../app/store';
 import { loginUser, clearError } from '../../app/reducers/authSlice';
-import ErrorMessage from '../Messages/ErrorMessage/ErrorMessage';
+import NotificationMessage from '../Messages/NotificationMessage/NotificationMessage';
 import { useNavigate } from 'react-router-dom';
 
 const SignInForm = memo(() => {
@@ -96,7 +96,7 @@ const SignInForm = memo(() => {
               Or continue with
             </div>
             <SocialButtons />
-            <ErrorMessage message={auth.error} />
+            {auth.error && <NotificationMessage type="error" message={auth.error} />}
           </div>
         </form>
     </>

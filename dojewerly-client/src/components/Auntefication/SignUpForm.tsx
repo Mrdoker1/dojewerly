@@ -7,7 +7,7 @@ import SocialButtons from '../SocialButtons/SocialButtons';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, RootState } from '../../app/store';
 import { registerUser } from '../../app/reducers/authSlice';
-import ErrorMessage from '../Messages/ErrorMessage/ErrorMessage';
+import NotificationMessage from '../Messages/NotificationMessage/NotificationMessage';
 import { useNavigate } from 'react-router-dom';
 
 const SignUpForm = memo(() => {
@@ -88,7 +88,7 @@ const SignUpForm = memo(() => {
               style={{color: 'var(--grey-2)'}}>
               Or register using
             </div>
-            <ErrorMessage message={auth.error} />
+            {auth.error && <NotificationMessage type="error" message={auth.error} />}
             <SocialButtons />
           </div>
         </form>

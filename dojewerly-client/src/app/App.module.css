@@ -67,6 +67,12 @@ body, html {
     line-height: 63px;
   }
 
+  h2 {
+    font: var(--jost-21-regular);
+    line-height: 24px;
+    color: var(--black-1);
+  }
+
   ul, ol {
     list-style: none;
   }

@@ -1,8 +1,12 @@
-import { Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { User, UserDocument, UserRole } from './user.model';
-import { CreateUserDto, UpdateUserDto } from '../dto/user.dto';
+import {
+  CreateUserDto,
+  UpdateProfileDto,
+  UpdateUserDto,
+} from '../dto/user.dto';
 import { ForbiddenException } from '@nestjs/common';
 
 @Injectable()
@@ -47,6 +51,13 @@ export class UserService {
   }
 
   async updateUser(id: string, updateUserDto: UpdateUserDto): Promise<void> {
+    const { username } = updateUserDto;
+    if (username) {
+      const existingUser = await this.findByUsername(username);
+      if (existingUser && String(existingUser._id) !== id) {
+        throw new BadRequestException('Username is already taken');
+      }
+    }
     await this.userModel.findByIdAndUpdate(id, updateUserDto).exec();
   }
 
@@ -54,7 +65,37 @@ export class UserService {
     id: string,
     username: string,
     password: string,
-  ): Promise<void> {
-    await this.userModel.findByIdAndUpdate(id, { username, password }).exec();
+    settings: { email: boolean },
+  ): Promise<UserDocument> {
+    if (username) {
+      const existingUser = await this.findByUsername(username);
+      if (existingUser && String(existingUser._id) !== id) {
+        throw new BadRequestException('Username is already taken');
+      }
+    }
+    const user = await this.userModel
+      .findByIdAndUpdate(id, { username, password, settings }, { new: true })
+      .exec();
+    return user; // return the updated document
+  }
+
+  async patchProfile(
+    id: string,
+    updateProfileDto: Partial<UpdateProfileDto>,
+  ): Promise<UserDocument> {
+    const { username } = updateProfileDto;
+    if (username) {
+      const existingUser = await this.findByUsername(username);
+      if (existingUser && String(existingUser._id) !== id) {
+        throw new BadRequestException('Username is already taken');
+      }
+    }
+    const updates = Object.keys(updateProfileDto)
+      .filter((key) => updateProfileDto[key] !== undefined)
+      .reduce((obj, key) => {
+        obj[key] = updateProfileDto[key];
+        return obj;
+      }, {});
+    return this.userModel.findByIdAndUpdate(id, updates, { new: true }).exec();
   }
 }

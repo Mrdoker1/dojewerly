@@ -1,8 +1,8 @@
-import ErrorMessage from './ErrorMessage';
+import SucessMessage from './SucessMessage';
 import icons from '../../../assets/icons/icons';
 
 export default {
-  component: ErrorMessage,
+  component: SucessMessage,
   argTypes: {
     message: { control: 'text' },
     iconRight: {
@@ -17,7 +17,7 @@ export default {
   tags: ['autodocs'], // Добавлено свойство tags для автогенерации документации
 };
 
-export const DefaultErrorMessage = {
+export const DefaultSucessMessage = {
   args: {
     message: 'Error message',
     iconRight: 'close',

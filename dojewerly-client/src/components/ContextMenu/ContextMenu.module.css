@@ -11,9 +11,9 @@
   
   .menuItem {
     text-transform: none;
-    font: var(--jost-12-regular);
     display: flex;
     align-items: center; /* Выравнивание пунктов меню по центру */
+    min-height: 24px;
   }
 
   .icon {
@@ -30,6 +30,7 @@
     padding: 0;
     cursor: pointer;
     text-decoration: none;
+    letter-spacing: 0;
     color: inherit;
   }
   

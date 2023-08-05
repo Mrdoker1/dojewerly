@@ -7,6 +7,7 @@ import { ReactComponent as Dox } from './dox.svg';
 import { ReactComponent as Search } from './search.svg';
 import { ReactComponent as Account } from './account.svg';
 import { ReactComponent as Checkmark } from './checkmark.svg'
+import { ReactComponent as Close } from './close.svg'
 
 const icons = {
   arrowLeft: ArrowLeft,
@@ -18,6 +19,7 @@ const icons = {
   search: Search,
   account: Account,
   checkmark: Checkmark,
+  close: Close,
   // Добавьте сюда больше иконок при необходимости
 };
 

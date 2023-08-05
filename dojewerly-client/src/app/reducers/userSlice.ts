@@ -7,6 +7,9 @@ export interface User {
   __v: number;
   role: string;
   favorites: string[];
+  settings: {
+    email: boolean;
+  }
 }
 
 interface UserState {
@@ -48,6 +51,69 @@ export const getUserProfile = createAsyncThunk(
   }
 );
 
+export const updateUserProfile = createAsyncThunk(
+  'user/updateUserProfile',
+  async ({ username, password, settings }: { username: string; password: string; settings?: { email: boolean } }, thunkAPI) => {
+    const token = localStorage.getItem('token');
+    if (!token) {
+      throw new Error('No session');
+    }
+
+    const response = await fetch('http://localhost:4000/users/me', {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`,
+      },
+      body: JSON.stringify({
+        username,
+        password,
+        settings,
+      }),
+    });
+
+    if (!response.ok) {
+      const data = await response.json();
+      throw new Error(data.message || 'Failed to update user profile');
+    }
+
+    if (response.headers.get('content-length') === '0') {
+      return {};
+    } else {
+      const data = await response.json();
+      return data;
+    }
+  }
+);
+
+export const patchUserProfile = createAsyncThunk(
+  'user/patchUserProfile',
+  async (update: { username?: string; password?: string; settings?: { email: boolean } }, thunkAPI) => {
+    const token = localStorage.getItem('token');
+    if (!token) {
+      throw new Error('No session');
+    }
+
+    const response = await fetch('http://localhost:4000/users/me', {
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`,
+      },
+      body: JSON.stringify(update),
+    });
+
+    if (!response.ok) {
+      const data = await response.json();
+      throw new Error(data.message || 'Failed to patch user profile');
+    }
+
+    const data = await response.json();
+
+    return data;
+  }
+);
+
 export const userSlice = createSlice({
   name: 'user',
   initialState,
@@ -64,7 +130,30 @@ export const userSlice = createSlice({
       .addCase(getUserProfile.rejected, (state, action) => {
         state.status = 'failed';
         state.error = action.error.message || null;
+      })
+      .addCase(updateUserProfile.pending, (state) => {
+        state.status = 'loading';
+      })
+      .addCase(updateUserProfile.fulfilled, (state, action: PayloadAction<User>) => {
+        state.status = 'succeeded';
+        state.user = action.payload;
+      })
+      .addCase(updateUserProfile.rejected, (state, action) => {
+        state.status = 'failed';
+        state.error = action.error.message || null;
+      })
+      .addCase(patchUserProfile.pending, (state) => {
+        state.status = 'loading';
+      })
+      .addCase(patchUserProfile.fulfilled, (state, action: PayloadAction<User>) => {
+        state.status = 'succeeded';
+        state.user = action.payload;
+      })
+      .addCase(patchUserProfile.rejected, (state, action) => {
+        state.status = 'failed';
+        state.error = action.error.message || null;
       });
+      
   },
 });
 
