@@ -1,9 +1,15 @@
-import SucessMessage from './SucessMessage';
+import NotificationMessage from '../NotificationMessage/NotificationMessage';
 import icons from '../../../assets/icons/icons';
 
 export default {
-  component: SucessMessage,
+  component: NotificationMessage,
   argTypes: {
+    type: {
+      control: {
+        type: 'select',
+        options: ['error', 'sucess'],
+      },
+    },
     message: { control: 'text' },
     iconRight: {
       control: {
@@ -13,6 +19,7 @@ export default {
     },
     timeout: { control: 'number' },
     iconRightClick: { action: 'Icon clicked' },
+    absolute: { control: 'boolean' }
   },
   tags: ['autodocs'], // Добавлено свойство tags для автогенерации документации
 };
