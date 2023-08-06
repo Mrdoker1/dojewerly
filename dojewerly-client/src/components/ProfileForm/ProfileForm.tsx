@@ -24,6 +24,20 @@ const ProfileForm: React.FC = () => {
         setUsername(user?.username || '');
     }, [user]);
 
+    const handleNewPasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setNewPassword(e.target.value);
+        if (e.target.value === confirmPassword && passwordMismatchError) {
+            setPasswordMismatchError('');
+        }
+    };
+
+    const handleConfirmPasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setConfirmPassword(e.target.value);
+        if (e.target.value === newPassword && passwordMismatchError) {
+            setPasswordMismatchError('');
+        }
+    };
+
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
 
@@ -53,7 +67,6 @@ const ProfileForm: React.FC = () => {
             }
         })
         .catch((error) => {
-            console.log(error);
             setError(error.message || 'Something went wrong');
             setTimeout(() => setError(null), messageTimeout);
         });
@@ -86,7 +99,7 @@ const ProfileForm: React.FC = () => {
                 />
             }
             <h2>Your Information</h2>
-            <form onSubmit={handleSubmit}>
+            <form onSubmit={handleSubmit} className={styles.form}>
                 <Input
                     label="Email Address"
                     type="text"
@@ -100,7 +113,7 @@ const ProfileForm: React.FC = () => {
                     placeholder='Enter new password'
                     iconRight={showPassword ? "eyeOff" : "eyeOn"}
                     iconRightClick={handleShowPassword}
-                    onChange={(e) => setNewPassword(e.target.value)}
+                    onChange={handleNewPasswordChange}
                     hasError={!!passwordMismatchError}
                     message={passwordMismatchError}
                 />
@@ -111,7 +124,7 @@ const ProfileForm: React.FC = () => {
                     placeholder='Enter new password'
                     iconRight={showPassword ? "eyeOff" : "eyeOn"}
                     iconRightClick={handleShowPassword}
-                    onChange={(e) => setConfirmPassword(e.target.value)}
+                    onChange={handleConfirmPasswordChange}
                     hasError={!!passwordMismatchError}
                     message={passwordMismatchError}
                 />
