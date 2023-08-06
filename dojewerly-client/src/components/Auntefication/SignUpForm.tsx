@@ -88,7 +88,7 @@ const SignUpForm = memo(() => {
               style={{color: 'var(--grey-2)'}}>
               Or register using
             </div>
-            {auth.error && <NotificationMessage type="error" message={auth.error} />}
+            {auth.error && <NotificationMessage type="error" key={Date.now()} message={auth.error} iconRight='close' />}
             <SocialButtons />
           </div>
         </form>

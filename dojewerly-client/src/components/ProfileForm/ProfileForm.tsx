@@ -18,6 +18,7 @@ const ProfileForm: React.FC = () => {
 
     const [error, setError] = useState<string | null>(null);
     const [successMessage, setSuccessMessage] = useState<string | null>(null);
+    const messageTimeout = 3000;
 
     useEffect(() => {
         setUsername(user?.username || '');
@@ -45,12 +46,16 @@ const ProfileForm: React.FC = () => {
         .then((result) => {
             if (updateUserProfile.fulfilled.match(result)) {
                 setSuccessMessage('Profile updated successfully!');
-                setTimeout(() => setSuccessMessage(null), 3000);
+                setTimeout(() => setSuccessMessage(null), messageTimeout);
+            } else if (updateUserProfile.rejected.match(result)) {
+                setError(result.error.message || 'Something went wrong');
+                setTimeout(() => setError(null), messageTimeout);
             }
         })
         .catch((error) => {
-            setError(error.message);
-            setTimeout(() => setError(null), 3000);
+            console.log(error);
+            setError(error.message || 'Something went wrong');
+            setTimeout(() => setError(null), messageTimeout);
         });
     };
 
@@ -62,15 +67,18 @@ const ProfileForm: React.FC = () => {
         <div className={styles.info}>
             {error && 
                 <NotificationMessage 
-                    type="error" 
+                    type="error"
+                    key={Date.now()}
                     message={error} 
                     iconRight='close' 
                     iconRightClick={() => setError(null)} 
+                    absolute={true}
                 />
             }
             {successMessage && 
                 <NotificationMessage 
-                    type="success" 
+                    type="success"
+                    key={Date.now()}
                     message={successMessage} 
                     iconRight='close' 
                     iconRightClick={() => setSuccessMessage(null)} 

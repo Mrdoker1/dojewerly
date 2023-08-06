@@ -96,7 +96,7 @@ const SignInForm = memo(() => {
               Or continue with
             </div>
             <SocialButtons />
-            {auth.error && <NotificationMessage type="error" message={auth.error} />}
+            {auth.error && <NotificationMessage type="error" key={Date.now()} message={auth.error} iconRight='close' />}
           </div>
         </form>
     </>

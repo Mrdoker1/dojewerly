@@ -1,6 +1,7 @@
 .successMessage, .errorMessage {
     display: flex;
     justify-content: space-between;
+    box-sizing: border-box;
     align-items: center;
     border-radius: 5px;
     padding: 6px 12px;

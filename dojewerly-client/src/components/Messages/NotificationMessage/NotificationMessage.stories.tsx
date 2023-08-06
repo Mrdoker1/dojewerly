@@ -19,15 +19,30 @@ export default {
     },
     timeout: { control: 'number' },
     iconRightClick: { action: 'Icon clicked' },
-    absolute: { control: 'boolean' }
+    absolute: { control: 'boolean' },
+    visible: { control: 'boolean' }
   },
   tags: ['autodocs'], // Добавлено свойство tags для автогенерации документации
 };
 
-export const DefaultSucessMessage = {
+export const DefaultErrorMessage = {
   args: {
     message: 'Error message',
+    type: 'error',
     iconRight: 'close',
     timeout: 0,
+    visible: true,
+    absolute: false,
+  },
+};
+
+export const DefaultSucessMessage = {
+  args: {
+    message: 'Sucess message',
+    type: 'success',
+    iconRight: 'close',
+    timeout: 0,
+    visible: true,
+    absolute: false,
   },
 };

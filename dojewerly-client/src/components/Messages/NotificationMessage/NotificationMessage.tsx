@@ -17,19 +17,20 @@ export interface NotificationMessageProps {
   timeout?: number;
   /** Показывать поверх */
   absolute?: boolean;
+  /** Показывать сообщение */
+  visible?: boolean
 }
 
-const NotificationMessage: React.FC<NotificationMessageProps> = ({ type, message, iconRight, iconRightClick, timeout, absolute }) => {
-  const [isVisible, setIsVisible] = useState(true);
+const NotificationMessage: React.FC<NotificationMessageProps> = ({ type, message, iconRight, iconRightClick, timeout, absolute, visible = true }) => {
+  const [isVisible, setIsVisible] = useState(visible);
   const IconRight = iconRight ? icons[iconRight] : null;
+  const containerStyle = absolute ? styles.absoluteContainer : '';
+  const messageStyle = type === 'success' ? styles.successMessage : styles.errorMessage;
 
   const handleClose = (event: React.MouseEvent) => {
     event.preventDefault();
     setIsVisible(false);
-  };
-
-  const containerStyle = absolute ? styles.absoluteContainer : '';
-  const messageStyle = type === 'success' ? styles.successMessage : styles.errorMessage;
+};
 
   useEffect(() => {
     if (timeout) {
@@ -39,6 +40,10 @@ const NotificationMessage: React.FC<NotificationMessageProps> = ({ type, message
       return () => clearTimeout(timer);
     }
   }, [timeout]);
+
+  useEffect(() => {
+    setIsVisible(visible);  // Обновляем состояние isVisible при изменении prop visible
+  }, [visible]);
 
   if (!isVisible || !message) {
     return null;
