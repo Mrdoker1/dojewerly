@@ -6,6 +6,7 @@ import Input from '../../components/Input/Input';
 import Button from '../../components/Button/Button';
 import styles from './ProfileForm.module.css';
 import NotificationMessage from '../../components/Messages/NotificationMessage/NotificationMessage';
+import PasswordInput from '../Input/PasswordInput/PasswordInput';
 
 const ProfileForm: React.FC = () => {
     const dispatch = useDispatch<AppDispatch>();
@@ -13,7 +14,6 @@ const ProfileForm: React.FC = () => {
     const [username, setUsername] = useState(user?.username || '');
     const [newPassword, setNewPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
-    const [showPassword, setShowPassword] = useState(false);
     const [passwordMismatchError, setPasswordMismatchError] = useState('');
 
     const [error, setError] = useState<string | null>(null);
@@ -72,10 +72,6 @@ const ProfileForm: React.FC = () => {
         });
     };
 
-    const handleShowPassword = () => {
-        setShowPassword(!showPassword);
-    };
-
     return (
         <div className={styles.info}>
             {error && 
@@ -106,7 +102,7 @@ const ProfileForm: React.FC = () => {
                     value={username}
                     onChange={(e) => setUsername(e.target.value)}
                 />
-                <Input
+                {/* <Input
                     label="Password"
                     type={showPassword ? "text" : "password"}
                     value={newPassword}
@@ -124,6 +120,22 @@ const ProfileForm: React.FC = () => {
                     placeholder='Enter new password'
                     iconRight={showPassword ? "eyeOff" : "eyeOn"}
                     iconRightClick={handleShowPassword}
+                    onChange={handleConfirmPasswordChange}
+                    hasError={!!passwordMismatchError}
+                    message={passwordMismatchError}
+                /> */}
+                <PasswordInput
+                    label="Password"
+                    value={newPassword}
+                    placeholder="Enter new password"
+                    onChange={handleNewPasswordChange}
+                    hasError={!!passwordMismatchError}
+                    message={passwordMismatchError}
+                />
+                <PasswordInput
+                    label="Confirm Password"
+                    value={confirmPassword}
+                    placeholder="Enter new password"
                     onChange={handleConfirmPasswordChange}
                     hasError={!!passwordMismatchError}
                     message={passwordMismatchError}

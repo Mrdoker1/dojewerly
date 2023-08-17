@@ -9,6 +9,7 @@ import { AppDispatch, RootState } from '../../app/store';
 import { loginUser, clearError } from '../../app/reducers/authSlice';
 import NotificationMessage from '../Messages/NotificationMessage/NotificationMessage';
 import { useNavigate } from 'react-router-dom';
+import PasswordInput from '../Input/PasswordInput/PasswordInput';
 
 const SignInForm = memo(() => {
 
@@ -16,7 +17,6 @@ const SignInForm = memo(() => {
   const [password, setPassword] = useState('');
   const [isUsernameValid, setIsUsernameValid] = useState(true);
   const [isPasswordValid, setIsPasswordValid] = useState(true);
-  const [showPassword, setShowPassword] = useState(false);
 
   const dispatch = useDispatch<AppDispatch>();
   const auth = useSelector((state: RootState) => state.auth);
@@ -27,10 +27,6 @@ const SignInForm = memo(() => {
       dispatch(clearError());
     };
   }, [dispatch]);
-
-  const handleShowPassword = () => {
-    setShowPassword(!showPassword);
-  };
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -49,7 +45,8 @@ const SignInForm = memo(() => {
 
     // Dispatch the registerUser action
     dispatch(loginUser({ username, password })).then((result) => {
-      if (result.type === 'auth/login/fulfilled') {
+      console.log('Login result:', result.meta.requestStatus);
+      if (result.meta.requestStatus === 'fulfilled') {
         navigate("/dashboard"); // Используйте navigate для перенаправления на страницу /dashboard
       }
     });
@@ -70,20 +67,17 @@ const SignInForm = memo(() => {
               setIsUsernameValid(true); // Reset the error flag when the user starts typing in the field
             }}
           />
-        <Input 
-          type={showPassword ? "text" : "password"}
-          label="Password"
-          value={password}
-          placeholder='Enter password'
-          hasError={!isPasswordValid}
-          message={!isPasswordValid ? 'Please enter a valid password.' : ''}
-          iconRight={showPassword ? "eyeOff" : "eyeOn"}
-          iconRightClick={handleShowPassword}
-          onChange={(e) => {
-            setPassword(e.target.value);
-            setIsPasswordValid(true); // Reset the error flag when the user starts typing in the field
-          }}
-        />
+          <PasswordInput
+            label="Password"
+            value={password}
+            placeholder="Enter password"
+            hasError={!isPasswordValid}
+            message={!isPasswordValid ? 'Please enter a valid password.' : ''}
+            onChange={(e) => {
+              setPassword(e.target.value);
+              setIsPasswordValid(true);
+            }}
+          />
           <div className={styles.buttonsContainer}>
             <Button
               type="submit"
