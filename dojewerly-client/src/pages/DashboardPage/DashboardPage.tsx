@@ -3,12 +3,9 @@ import { useSelector, useDispatch } from 'react-redux';
 import { AppDispatch, RootState } from '../../app/store';
 import { getUserProfile } from '../../app/reducers/userSlice';
 import Tabs from '../../components/Tabs/Tabs';
-import Tab from '../../components/Tabs/Tab/Tab';
 import variables from '../../variables.module.css';
 import styles from './DashboardPage.module.css';
-import ProfilePage from '../ProfilePage/ProfilePage';
-import ProductCreationPage from '../../pages/ProductCreationPage/ProductCreationPage';
-import CollectionCreationPage from '../../pages/CollectionCreationPage/CollectionCreationPage';
+import { Outlet } from 'react-router-dom';
 
 const DashboardPage = () => {
   const dispatch = useDispatch<AppDispatch>();
@@ -21,24 +18,15 @@ const DashboardPage = () => {
     }
   }, [dispatch, token]); // Зависимость от токена
 
-
   const tabs = [
-    <Tab title="Profile" key="profile">
-      <ProfilePage />
-    </Tab>,
-    <Tab title="Favourites" key="favourites">
-      <p>Content for Favourites</p>
-    </Tab>,
+    { title: 'Profile', route: '/dashboard/profile' },
+    { title: 'Favourites', route: '/dashboard/favourites' },
   ];
 
   if (user?.role === 'admin') {
     tabs.push(
-      <Tab title="Products" key="products">
-        <ProductCreationPage />
-      </Tab>,
-      <Tab title="Collections" key="products">
-        <CollectionCreationPage />
-      </Tab>
+      { title: 'Products', route: '/dashboard/products' },
+      { title: 'Collections', route: '/dashboard/collections' },
     );
   }
 
@@ -48,7 +36,10 @@ const DashboardPage = () => {
         <h1>Welcome back, {user?.username}!</h1>
         <p className={variables.description}>Enjoy shopping with ease and happiness.</p>
       </div>
-      <Tabs activeTab="Profile">{tabs}</Tabs>
+      <Tabs tabs={tabs} />
+      <div className={styles.content}>
+        <Outlet />
+      </div>
     </main>
   );
 };

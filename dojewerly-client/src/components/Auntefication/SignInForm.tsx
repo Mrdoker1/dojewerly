@@ -47,7 +47,7 @@ const SignInForm = memo(() => {
     dispatch(loginUser({ username, password })).then((result) => {
       console.log('Login result:', result.meta.requestStatus);
       if (result.meta.requestStatus === 'fulfilled') {
-        navigate("/dashboard"); // Используйте navigate для перенаправления на страницу /dashboard
+        navigate("/dashboard/profile"); // Используйте navigate для перенаправления на страницу /dashboard
       }
     });
   };

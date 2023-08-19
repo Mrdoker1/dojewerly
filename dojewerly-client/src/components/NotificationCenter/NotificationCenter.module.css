@@ -1,0 +1,10 @@
+.container {
+  position: fixed;
+  top: 20px; /* Отступ сверху */
+  right: 20px; /* Отступ справа */
+  z-index: 1000;
+  min-width: 200px;
+  gap: 10px; /* Это создает промежуток между нотификациями */
+  display: flex; /* Устанавливаем flex или grid, чтобы свойство gap работало */
+  flex-direction: column; /* Выстраиваем нотификации вертикально */
+}

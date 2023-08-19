@@ -101,8 +101,11 @@ export class ProductsController {
     @UploadedFiles() images,
     @Body() createProductDto: CreateProductWithImagesDto,
   ): Promise<ProductDocument> {
+    // Преобразуем строку в объект, если она представлена в виде строки
+    if (typeof createProductDto.props === 'string') {
+      createProductDto.props = JSON.parse(createProductDto.props);
+    }
     const imageURLs = images.map((file) => file.filename);
-
     const productDtoWithImages = { ...createProductDto, imageURLs };
     return this.productsService.createProduct(productDtoWithImages);
   }
@@ -113,6 +116,23 @@ export class ProductsController {
   @UseGuards(JwtAuthGuard, RolesGuard)
   @Roles(UserRole.ADMIN)
   async deleteProduct(@Param('id') id: string): Promise<void> {
+    const product = await this.productsService.findById(id);
+    if (product) {
+      // Удаляем все изображения, связанные с этим продуктом
+      product.imageURLs.forEach((imageUrl) => {
+        const imagePath = join(uploadFolder, imageUrl);
+        try {
+          if (existsSync(imagePath)) {
+            fs.unlinkSync(imagePath);
+          }
+        } catch (err) {
+          console.error(
+            `Error while deleting image at ${imagePath}: ${err.message}`,
+          );
+          // Здесь можно дополнительно обработать ошибку, если это необходимо
+        }
+      });
+    }
     await this.productsService.deleteProduct(id);
   }
 
@@ -132,6 +152,10 @@ export class ProductsController {
     @Body() updateProductDto: UpdateProductWithImagesDto,
   ): Promise<void> {
     const product = await this.productsService.findById(id);
+    // Преобразуем строку в объект, если она представлена в виде строки
+    if (typeof updateProductDto.props === 'string') {
+      updateProductDto.props = JSON.parse(updateProductDto.props);
+    }
     if (!product) {
       throw new NotFoundException('Product not found');
     }

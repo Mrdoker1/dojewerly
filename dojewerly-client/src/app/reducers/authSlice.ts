@@ -1,10 +1,12 @@
 import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
 
+const apiUrl = process.env.REACT_APP_API_URL;
+
 // First, create the thunk
 export const registerUser = createAsyncThunk(
   'auth/register',
   async ({ username, password }: { username: string; password: string; }, thunkAPI) => {
-    const response = await fetch('http://localhost:4000/users/register', {
+    const response = await fetch(`${apiUrl}/users/register`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -30,7 +32,7 @@ export const registerUser = createAsyncThunk(
 export const loginUser = createAsyncThunk(
   'auth/login',
   async ({ username, password }: { username: string; password: string; }, thunkAPI) => {
-    const response = await fetch('http://localhost:4000/auth/login', {
+    const response = await fetch(`${apiUrl}/auth/login`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -72,7 +74,7 @@ export const logoutUser = createAsyncThunk(
       throw new Error('No session');
     }
 
-    const response = await fetch('http://localhost:4000/auth/logout', {
+    const response = await fetch(`${apiUrl}/auth/logout`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -100,7 +102,7 @@ export const validateToken = createAsyncThunk(
       throw new Error('No session');
     }
 
-    const response = await fetch('http://localhost:4000/auth/validate', {
+    const response = await fetch(`${apiUrl}/auth/validate`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',

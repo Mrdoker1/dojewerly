@@ -10,8 +10,12 @@ import SignInPage from '../../pages/SignInPage/SignInPage';
 import NoPage from '../../pages/NoPage/NoPage';
 import SignUpPage from '../../pages/SignUpPage/SignUpPage';
 import DashboardPage from '../../pages/DashboardPage/DashboardPage';
+import ProfilePage from '../../pages/ProfilePage/ProfilePage';
+import ProductCreationPage from '../../pages/ProductCreationPage/ProductCreationPage';
+import CollectionCreationPage from '../../pages/CollectionCreationPage/CollectionCreationPage';
 import ProtectedRoute from './ProtectedRoute/ProtectedRoute';
 import { checkUserSession } from '../../app/reducers/authSlice';
+import AdminProtectedRoute from './AdminProtectedRoute/AdminProtectedRoute';
 
 const AppRouter = memo(() => {
   const auth = useSelector((state: RootState) => state.auth);
@@ -26,9 +30,8 @@ const AppRouter = memo(() => {
   }, [dispatch]);
 
   if (isChecking) {
-    return <div>Loading...</div>;  // Или любой другой компонент загрузки
+    return <div>Loading...</div>; // Или любой другой компонент загрузки
   }
-  
 
   return (
     <>
@@ -38,7 +41,16 @@ const AppRouter = memo(() => {
           <Route path="/catalog" element={<Catalog />} />
           <Route path="/signin" element={<SignInPage />} />
           <Route path="/signup" element={<SignUpPage />} />
-          <Route path="/dashboard" element={ <ProtectedRoute isAllowed={isUserLoggedIn} redirectPath="/signin" children={<DashboardPage />} />} />
+          <Route path="/dashboard" element={<ProtectedRoute isAllowed={isUserLoggedIn} redirectPath="/signin" children={<DashboardPage />} />}>
+            <Route path="profile" element={<ProfilePage />} />
+            <Route path="favourites" element={<p>Content for Favourites</p>} />
+            <Route path="products" element={<AdminProtectedRoute />}>
+              <Route index element={<ProductCreationPage />} />
+            </Route>
+            <Route path="collections" element={<AdminProtectedRoute />}>
+              <Route index element={<CollectionCreationPage />} />
+            </Route>
+          </Route>
           <Route path="/product/:id" element={<ProductPage />} />
           <Route path="*" element={<NoPage />} />
         </Route>

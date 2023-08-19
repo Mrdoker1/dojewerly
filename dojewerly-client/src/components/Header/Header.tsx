@@ -34,7 +34,7 @@ const Header: React.FC = () => {
     const menuItems: MenuItem[] = [
       {
         label: 'Dashboard',
-        link: '/dashboard', // Перенаправление на /dashboard при клике
+        link: '/dashboard/profile', // Перенаправление на /dashboard при клике
       },
       {
         label: 'Logout',

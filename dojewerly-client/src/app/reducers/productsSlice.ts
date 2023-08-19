@@ -1,8 +1,10 @@
 import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
 
+const apiUrl = process.env.REACT_APP_API_URL;
+
 // Define the Product type
 export interface Product {
-  id: string;
+  _id: string;
   name: string;
   price: number;
   stock: number;
@@ -18,14 +20,30 @@ export interface Product {
   imageURLs: string[];
 }
 
+// Определяем тип для параметров запроса
+interface FetchAllProductsParams {
+  sort?: string;
+  order?: string;
+  q?: string;
+  page?: number;
+  limit?: number;
+}
+
 // Async action to create a new product
 export const createProduct = createAsyncThunk(
   'products/create',
   async (productData: Product, thunkAPI) => {
-    const response = await fetch('http://localhost:4000/products', {
+    const token = localStorage.getItem('token');
+
+    if (!token) {
+      throw new Error('No session');
+    }
+
+    const response = await fetch(`${apiUrl}/products`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
       },
       body: JSON.stringify(productData)
     });
@@ -44,10 +62,17 @@ export const createProduct = createAsyncThunk(
 export const updateProduct = createAsyncThunk(
   'products/update',
   async ({ id, productData }: { id: string; productData: Product; }, thunkAPI) => {
-    const response = await fetch(`http://localhost:4000/products/${id}`, {
+    const token = localStorage.getItem('token');
+
+    if (!token) {
+      throw new Error('No session');
+    }
+
+    const response = await fetch(`${apiUrl}/products/${id}`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
       },
       body: JSON.stringify(productData)
     });
@@ -65,8 +90,17 @@ export const updateProduct = createAsyncThunk(
 export const deleteProduct = createAsyncThunk(
   'products/delete',
   async (id: string, thunkAPI) => {
-    const response = await fetch(`http://localhost:4000/products/${id}`, {
+    const token = localStorage.getItem('token'); // Получение токена
+
+    if (!token) {
+      throw new Error('No session'); // Проверка наличия токена
+    }
+
+    const response = await fetch(`${apiUrl}/products/${id}`, {
       method: 'DELETE',
+      headers: {
+        'Authorization': `Bearer ${token}` // Добавление заголовка авторизации
+      }
     });
 
     if (!response.ok) {
@@ -75,6 +109,34 @@ export const deleteProduct = createAsyncThunk(
     }
 
     return id; // Return the deleted product's ID
+  }
+);
+
+export const fetchAllProducts = createAsyncThunk(
+  'products/fetchAll',
+  async (queryParams: FetchAllProductsParams, thunkAPI) => {
+    try {
+      // Деструктуризация параметров запроса
+      const { sort, order, q, page, limit } = queryParams;
+
+      // Формирование строки запроса с использованием деструктуризации и шаблонных строк
+      const queryString = Object.entries({ sort, order, q, page, limit })
+        .filter(([, value]) => value !== undefined)
+        .map(([key, value]) => `${key}=${value}`)
+        .join('&');
+
+      const url = `${apiUrl}/products?${queryString}`;
+      const response = await fetch(url);
+
+      if (!response.ok) {
+        const data = await response.json();
+        throw new Error(data.message || 'Не удалось загрузить продукты');
+      }
+
+      return await response.json(); // Предполагая, что ответ содержит массив продуктов
+    } catch (error) {
+      throw new Error('Не удалось загрузить продукты');
+    }
   }
 );
 
@@ -102,14 +164,25 @@ export const productsSlice = createSlice({
       })
       .addCase(updateProduct.fulfilled, (state, action: PayloadAction<{ id: string; productData: Product }>) => {
         state.status = 'succeeded';
-        const productIndex = state.products.findIndex((prod) => prod.id === action.payload.id);
+        const productIndex = state.products.findIndex((prod) => prod._id === action.payload.id);
         if (productIndex > -1) {
           state.products[productIndex] = action.payload.productData;
         }
       })
       .addCase(deleteProduct.fulfilled, (state, action: PayloadAction<string>) => {
         state.status = 'succeeded';
-        state.products = state.products.filter((prod) => prod.id !== action.payload);
+        state.products = state.products.filter((prod) => prod._id !== action.payload);
+      })
+      .addCase(fetchAllProducts.pending, (state) => {
+        state.status = 'loading';
+      })
+      .addCase(fetchAllProducts.fulfilled, (state, action: PayloadAction<Product[]>) => {
+        state.status = 'succeeded';
+        state.products = action.payload;
+      })
+      .addCase(fetchAllProducts.rejected, (state) => {
+        state.status = 'failed';
+        state.error = 'Failed to fetch products';
       });
   },
 });

@@ -8,9 +8,15 @@ import { AuthModule } from './auth/auth.module';
 import { UserModule } from './users/user.module';
 import { CollectionsModule } from './collections/collections.module';
 import { FavouritesModule } from './favourites/favourites.module';
+import { ServeStaticModule } from '@nestjs/serve-static';
+import { join } from 'path';
 
 @Module({
   imports: [
+    ServeStaticModule.forRoot({
+      rootPath: join(__dirname, '..', 'uploads'), // для обслуживания файлов из папки uploads
+      serveRoot: '/uploads', // URL-путь для доступа к файлам
+    }),
     DatabaseModule,
     AuthModule,
     UserModule,

@@ -19,7 +19,6 @@ export default {
     },
     timeout: { control: 'number' },
     iconRightClick: { action: 'Icon clicked' },
-    absolute: { control: 'boolean' },
     visible: { control: 'boolean' }
   },
   tags: ['autodocs'], // Добавлено свойство tags для автогенерации документации
@@ -32,7 +31,6 @@ export const DefaultErrorMessage = {
     iconRight: 'close',
     timeout: 0,
     visible: true,
-    absolute: false,
   },
 };
 
@@ -43,6 +41,5 @@ export const DefaultSucessMessage = {
     iconRight: 'close',
     timeout: 0,
     visible: true,
-    absolute: false,
   },
 };

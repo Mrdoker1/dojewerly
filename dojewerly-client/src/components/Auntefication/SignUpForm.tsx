@@ -40,7 +40,7 @@ const SignUpForm = memo(() => {
     dispatch(registerUser({ username, password })).then((result) => {
       console.log('Create account:', result.meta.requestStatus);
       if (result.meta.requestStatus === 'fulfilled') {
-        navigate("/dashboard"); // Используйте navigate для перенаправления на страницу /dashboard
+        navigate("/dashboard/profile"); // Используйте navigate для перенаправления на страницу /dashboard
       }
     });
   };
