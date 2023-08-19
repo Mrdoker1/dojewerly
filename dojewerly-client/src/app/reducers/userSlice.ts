@@ -96,7 +96,7 @@ export const patchUserProfile = createAsyncThunk(
       throw new Error('No session');
     }
 
-    const response = await fetch(`${apiUrl}4000/users/me`, {
+    const response = await fetch(`${apiUrl}/users/me`, {
       method: 'PATCH',
       headers: {
         'Content-Type': 'application/json',

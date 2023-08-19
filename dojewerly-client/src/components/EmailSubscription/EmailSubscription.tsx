@@ -5,6 +5,7 @@ import { patchUserProfile } from '../../app/reducers/userSlice';
 import Checkbox from '../../components/Checkbox/Checkbox';
 import styles from './EmailSubscription.module.css';
 import variables from '../../variables.module.css';
+import { addNotification } from '../../app/reducers/notificationSlice';
 
 const EmailSubscription: React.FC = () => {
     const dispatch = useDispatch<AppDispatch>();
@@ -13,7 +14,38 @@ const EmailSubscription: React.FC = () => {
 
     const handleSubscriptionChange = (newSubscription: boolean) => {
         setSubscription(newSubscription);
-        dispatch(patchUserProfile({ settings: { email: newSubscription } }));
+        dispatch(patchUserProfile({ settings: { email: newSubscription } }))
+          .then((result) => {
+            if (patchUserProfile.fulfilled.match(result)) {
+              // Успешное обновление подписки
+              dispatch(addNotification({
+                id: Date.now(),
+                type: 'success',
+                message: 'Subscription updated successfully!',
+                iconRight: 'close',
+                timeout: 3000,
+              }));
+            } else if (patchUserProfile.rejected.match(result)) {
+              // Ошибка при обновлении подписки
+              dispatch(addNotification({
+                id: Date.now(),
+                type: 'error',
+                message: result.error.message || 'Something went wrong',
+                iconRight: 'close',
+                timeout: 3000,
+              }));
+            }
+          })
+          .catch((error) => {
+            // Обработка ошибки на стороне клиента
+            dispatch(addNotification({
+              id: Date.now(),
+              type: 'error',
+              message: error.message || 'Something went wrong',
+              iconRight: 'close',
+              timeout: 3000,
+            }));
+          });
     };
 
     useEffect(() => {
