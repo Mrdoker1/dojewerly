@@ -1,14 +1,13 @@
 import React, { useEffect } from 'react';
 import AdminProductListItem from './AdminProductListItem/AdminProductListItem';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchAllProducts } from '../../app/reducers/productsSlice';
-import { AppDispatch, RootState } from '../../app/store';
+import { fetchAllProducts } from '../../../app/reducers/productsSlice';
+import { AppDispatch, RootState } from '../../../app/store';
 import styles from './AdminProductList.module.css'; // Импортируем стили
 
 const AdminProductList: React.FC = () => {
   const dispatch = useDispatch<AppDispatch>();
   const productList = useSelector((state: RootState) => state.products.products);
-  const apiUrl = process.env.REACT_APP_API_URL;
 
   useEffect(() => {
     dispatch(fetchAllProducts({}));
@@ -28,7 +27,7 @@ const AdminProductList: React.FC = () => {
           name={product.name}
           description={product.props.info}
           price={product.price}
-          imageUrl={`${apiUrl}/uploads/${product.imageURLs[0]}`}
+          imageUrl={product.imageURLs[0]}
         />
       ))}
     </div>

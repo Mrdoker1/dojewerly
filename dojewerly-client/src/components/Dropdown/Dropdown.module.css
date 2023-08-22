@@ -1,0 +1,67 @@
+.container {
+  position: relative;
+  font: var(--jost-15-regular);
+}
+
+.label {
+  color: var(--grey-1);
+  margin-bottom: 8px;
+}
+
+.dropdown {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 12px;
+  border-radius: 2px;
+  background: var(--grey-3);
+  border-bottom: 2px solid var(--grey-2);
+  cursor: pointer;
+  transition: all var(--transition-1);
+}
+
+.dropdown:hover {
+  border-bottom-color: var(--grey-4);
+}
+
+.icon-right {
+  width: 16px;
+  height: 16px;
+  color: var(--grey-1);
+}
+
+.options {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 100%;
+  border-radius: 2px;
+  background: var(--grey-3);
+  border-bottom: 2px solid var(--grey-2);
+  z-index: 10;
+}
+
+.option {
+  padding: 8px 12px;
+  cursor: pointer;
+  transition: all var(--transition-1);
+}
+
+.option:hover {
+  background-color: var(--grey-2);
+}
+
+.error {
+  border-color: red;
+}
+
+.message {
+  margin-top: 4px;
+  color: var(--grey-1);
+  font: var(--jost-12-regular);
+}
+
+.errorText {
+  color: red;
+}

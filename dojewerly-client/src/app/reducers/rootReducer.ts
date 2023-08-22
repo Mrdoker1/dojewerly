@@ -4,6 +4,7 @@ import authReducer from './authSlice';
 import userReducer from './userSlice';
 import productReducer from './productsSlice';
 import notificationReducer from './notificationSlice';
+import userDashboardReducer from './userDashboardSlice';
 
 const rootReducer = combineReducers({
   counter: counterReducer,
@@ -11,6 +12,7 @@ const rootReducer = combineReducers({
   user: userReducer,
   products: productReducer,
   notification: notificationReducer,
+  userDashboard: userDashboardReducer,
 });
 
 export type RootState = ReturnType<typeof rootReducer>;

@@ -140,6 +140,65 @@ export const fetchAllProducts = createAsyncThunk(
   }
 );
 
+// Async action to add an image to a product
+export const addImagesToProduct = createAsyncThunk(
+  'products/addImages',
+  async ({ id, images }: { id: string; images: FileList; }, thunkAPI) => {
+    const token = localStorage.getItem('token');
+    if (!token) {
+      throw new Error('No session');
+    }
+
+    const formData = new FormData();
+    for (let i = 0; i < images.length; i++) {
+      formData.append('images', images[i]);
+    }
+
+    const response = await fetch(`${apiUrl}/products/${id}/images`, {
+      method: 'PUT',
+      headers: {
+        'Authorization': `Bearer ${token}`
+      },
+      body: formData
+    });
+
+    if (!response.ok) {
+      const data = await response.json();
+      throw new Error(data.message || 'Failed to add images');
+    }
+
+    const updatedProduct = await response.json();
+    return { id, updatedProduct };
+  }
+);
+
+// Async action to remove an image from a product
+export const deleteProductImage = createAsyncThunk(
+  'products/removeImage',
+  async ({ id, imageUrl }: { id: string; imageUrl: string; }, thunkAPI) => {
+    const token = localStorage.getItem('token');
+    if (!token) {
+      throw new Error('No session');
+    }
+
+    const response = await fetch(`${apiUrl}/products/${id}/images`, {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
+      },
+      body: JSON.stringify({ imageUrl })
+    });
+
+    if (!response.ok) {
+      const data = await response.json();
+      throw new Error(data.message || 'Failed to remove image');
+    }
+
+    return { id, imageUrl };
+  }
+);
+
 // Then, create the slice
 export const productsSlice = createSlice({
   name: 'products',
@@ -183,6 +242,20 @@ export const productsSlice = createSlice({
       .addCase(fetchAllProducts.rejected, (state) => {
         state.status = 'failed';
         state.error = 'Failed to fetch products';
+      })
+      .addCase(addImagesToProduct.fulfilled, (state, action: PayloadAction<{ id: string; updatedProduct: { imageURLs: string[] } }>) => {
+        const productIndex = state.products.findIndex((prod) => prod._id === action.payload.id);
+        if (productIndex > -1) {
+          state.products[productIndex].imageURLs = action.payload.updatedProduct.imageURLs;
+        }
+      })
+      .addCase(deleteProductImage.fulfilled, (state, action: PayloadAction<{ id: string; imageUrl: string }>) => {
+        const productIndex = state.products.findIndex((prod) => prod._id === action.payload.id);
+        if (productIndex > -1) {
+          state.products[productIndex].imageURLs = state.products[productIndex].imageURLs.filter(
+            (url) => url !== action.payload.imageUrl
+          );
+        }
       });
   },
 });

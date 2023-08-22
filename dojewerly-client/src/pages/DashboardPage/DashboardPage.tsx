@@ -19,14 +19,14 @@ const DashboardPage = () => {
   }, [dispatch, token]); // Зависимость от токена
 
   const tabs = [
-    { title: 'Profile', route: '/dashboard/profile' },
-    { title: 'Favourites', route: '/dashboard/favourites' },
+    { title: 'PROFILE', route: '/dashboard/profile' },
+    { title: 'FAVOURITES', route: '/dashboard/favourites' },
   ];
 
   if (user?.role === 'admin') {
     tabs.push(
-      { title: 'Products', route: '/dashboard/products' },
-      { title: 'Collections', route: '/dashboard/collections' },
+      { title: 'PRODUCTS', route: '/dashboard/products' },
+      { title: 'COLLECTIONS', route: '/dashboard/collections' },
     );
   }
 

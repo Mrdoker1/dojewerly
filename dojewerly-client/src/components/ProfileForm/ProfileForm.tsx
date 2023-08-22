@@ -112,7 +112,7 @@ const ProfileForm: React.FC = () => {
           hasError={!!passwordMismatchError}
           message={passwordMismatchError}
         />
-        <Button type="submit" variant="secondary">Save</Button>
+        <Button type="submit" variant="secondary">SAVE</Button>
       </form>
     </div>
   );

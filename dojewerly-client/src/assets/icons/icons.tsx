@@ -11,10 +11,15 @@ import { ReactComponent as Close } from './close.svg'
 import { ReactComponent as Trash } from './trash.svg'
 import { ReactComponent as NoImageL } from './no-image-L.svg'
 import { ReactComponent as NoImageS } from './no-image-S.svg'
+import { ReactComponent as ArrowUp } from './arrow-up.svg'
+import { ReactComponent as ArrowDown } from './arrow-down.svg'
+import { ReactComponent as UploadImage } from './uploadImage.svg'
 
 const icons = {
   arrowLeft: ArrowLeft,
   arrowRight: ArrowRight,
+  arrowUp: ArrowUp,
+  arrowDown: ArrowDown,
   eyeOff: EyeOff,
   eyeOn: EyeOn,
   logo: Logo,
@@ -26,6 +31,7 @@ const icons = {
   trash: Trash,
   noImageL: NoImageL,
   noImageS: NoImageS,
+  uploadImage: UploadImage,
   // Добавьте сюда больше иконок при необходимости
 };
 

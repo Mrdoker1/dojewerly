@@ -191,7 +191,8 @@ export class ProductsController {
   async addImagesToProduct(
     @Param('id') id: string,
     @UploadedFiles() images,
-  ): Promise<void> {
+  ): Promise<{ imageURLs: string[] }> {
+    // обновляем тип возвращаемого значения
     const product = await this.productsService.findById(id);
     if (!product) {
       throw new NotFoundException('Product not found');
@@ -209,6 +210,8 @@ export class ProductsController {
       imageURLs: [...productData.imageURLs, ...imageURLs],
     };
     await this.productsService.updateProduct(id, updatedProductDto);
+
+    return { imageURLs: updatedProductDto.imageURLs }; // возвращаем обновленные URL-адреса изображений
   }
 
   @Delete(':id/images')

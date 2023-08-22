@@ -1,11 +1,12 @@
 import React from 'react';
-import { useDispatch } from 'react-redux';
-import { deleteProduct } from '../../../app/reducers/productsSlice';
-import { addNotification } from '../../../app/reducers/notificationSlice'; // Импортируйте экшн
-import { AppDispatch } from '../../../app/store';
+import { useDispatch, useSelector } from 'react-redux';
+import { deleteProduct } from '../../../../app/reducers/productsSlice';
+import { addNotification } from '../../../../app/reducers/notificationSlice'; // Импортируйте экшн
+import { AppDispatch, RootState } from '../../../../app/store';
 import styles from './AdminProductListItem.module.css';
-import icons from '../../../assets/icons/icons';
-import noImageIcon from '../../../assets/icons/no-image-S.svg';
+import icons from '../../../../assets/icons/icons';
+import { deselectProduct, selectProduct } from '../../../../app/reducers/userDashboardSlice';
+import ProductImage from '../../../Product/ProductImage/ProductImage';
 
 interface AdminProductListItemProps {
   id: string;
@@ -23,11 +24,22 @@ const AdminProductListItem: React.FC<AdminProductListItemProps> = ({
   imageUrl,
 }) => {
   const dispatch = useDispatch<AppDispatch>();
-  const TrashIcon = icons['trash'];
+  const TrashIcon = icons.trash;
+
+  const handleSelectProduct = () => {
+    dispatch(selectProduct(id)); // Вызов действия для установки выбранного продукта
+  };
+
+  const selectedProductId = useSelector((state: RootState) => state.userDashboard.selectedProductId);
+
+  const containerClassNames = selectedProductId === id
+  ? `${styles.container} ${styles.selected}`
+  : styles.container;
 
   const handleDelete = async () => {
     try {
       await dispatch(deleteProduct(id)).unwrap();
+      dispatch(deselectProduct());
       // Отправляем успешное уведомление
       dispatch(addNotification({
         id: Date.now(),
@@ -48,19 +60,12 @@ const AdminProductListItem: React.FC<AdminProductListItemProps> = ({
     }
   };
 
-  const handleImageError = (e: React.SyntheticEvent<HTMLImageElement>) => {
-    const target = e.target as HTMLImageElement;
-    target.onerror = null;
-    target.src = noImageIcon;
-  };
-
   return (
-    <div className={styles.container}>
-      <img
-        src={imageUrl || noImageIcon}
+    <div className={containerClassNames} onClick={handleSelectProduct}>
+      <ProductImage
+        imageUrl={imageUrl} // Теперь передаём только имя файла изображения
         alt={name}
         className={styles.image}
-        onError={handleImageError}
       />
       <div className={styles.productInfo}>
         <h3 className={styles.productName}>{name}</h3>

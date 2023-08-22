@@ -62,3 +62,7 @@
   border-radius: 8px;
   background-color: var(--grey-2);
 }
+
+.selected {
+  border: 1px solid var(--grey-1); /* или другой цвет для темного бордера */
+}
