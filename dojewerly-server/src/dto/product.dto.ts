@@ -16,10 +16,10 @@ export class CreateProductDto {
       info: 'It is engraved with a wrapped candy',
       description:
         'Dynamic and elusive abstraction and texture. Plays between the lines of chaos and serenity. Perfect fit for modern and contemporary styled interiors.',
-      part: 'arms',
-      material: 'silver',
-      gender: 'unisex',
-      type: 'earring',
+      availability: 'Availiable',
+      material: 'Silver',
+      gender: 'Unisex',
+      type: 'Earring',
     },
     description: 'Props',
   })
@@ -27,7 +27,7 @@ export class CreateProductDto {
     id: number;
     info: string;
     description: string;
-    part: string;
+    availability: string;
     material: string;
     gender: string;
     type: string;
@@ -55,10 +55,10 @@ export class UpdateProductDto {
       info: 'It is engraved with a wrapped candy',
       description:
         'Dynamic and elusive abstraction and texture. Plays between the lines of chaos and serenity. Perfect fit for modern and contemporary styled interiors.',
-      part: 'arms',
-      material: 'silver',
-      gender: 'unisex',
-      type: 'earring',
+      availability: 'Availiable',
+      material: 'Silver',
+      gender: 'Unisex',
+      type: 'Earring',
     },
     description: 'Props',
   })
@@ -66,7 +66,7 @@ export class UpdateProductDto {
     id: number;
     info: string;
     description: string;
-    part: string;
+    availability: string;
     material: string;
     gender: string;
     type: string;
@@ -76,4 +76,9 @@ export class UpdateProductDto {
 export class UpdateProductWithImagesDto extends UpdateProductDto {
   @ApiPropertyOptional({ type: 'string', format: 'binary', isArray: true })
   images: any[];
+}
+
+export class UpdateImagesOrderDto {
+  @ApiProperty({ type: 'string', isArray: true })
+  imageURLs: string[];
 }

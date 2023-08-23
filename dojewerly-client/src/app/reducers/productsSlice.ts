@@ -12,7 +12,7 @@ export interface Product {
     id: number;
     info: string;
     description: string;
-    part: string;
+    availability: string;
     material: string;
     gender: string;
     type: string;
@@ -199,6 +199,32 @@ export const deleteProductImage = createAsyncThunk(
   }
 );
 
+export const updateImagesOrder = createAsyncThunk(
+  'products/updateImagesOrder',
+  async ({ id, imagesOrder }: { id: string; imagesOrder: string[]; }, thunkAPI) => {
+    const token = localStorage.getItem('token');
+    if (!token) {
+      throw new Error('No session');
+    }
+
+    const response = await fetch(`${apiUrl}/products/${id}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
+      },
+      body: JSON.stringify({ imageURLs: imagesOrder })
+    });
+
+    if (!response.ok) {
+      const data = await response.json();
+      throw new Error(data.message || 'Failed to update images order');
+    }
+
+    return { id, imagesOrder };
+  }
+);
+
 // Then, create the slice
 export const productsSlice = createSlice({
   name: 'products',
@@ -256,7 +282,13 @@ export const productsSlice = createSlice({
             (url) => url !== action.payload.imageUrl
           );
         }
-      });
+      })
+      .addCase(updateImagesOrder.fulfilled, (state, action: PayloadAction<{ id: string; imagesOrder: string[] }>) => {
+        const productIndex = state.products.findIndex((prod) => prod._id === action.payload.id);
+        if (productIndex > -1) {
+          state.products[productIndex].imageURLs = action.payload.imagesOrder;
+        }
+      })
   },
 });
 

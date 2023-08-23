@@ -1,5 +1,6 @@
 .button {
   /* Общие стили для всех кнопок */
+  width: fit-content;
   display: flex;
   height: 40px;
   padding: 0px 20px;
@@ -16,6 +17,7 @@
 }
 
 .fullWidth {
+  position: relative;
   width: 100%;
 }
 

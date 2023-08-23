@@ -6,7 +6,7 @@ export interface ProductProps {
   id: number;
   info: string;
   description: string;
-  part: string;
+  availability: string;
   material: string;
   gender: string;
   type: string;

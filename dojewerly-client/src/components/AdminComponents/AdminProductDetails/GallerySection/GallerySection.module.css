@@ -6,6 +6,7 @@
 }
 
 .imageContainer {
+  cursor: move;
   position: relative;
   box-sizing: border-box;
   width: 135px;
@@ -86,7 +87,7 @@
 }
 
 .uploadIcon {
-  height: 60px;
+  height: 48px;
   color: var(--grey-2);
 }
 

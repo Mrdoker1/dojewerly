@@ -23,23 +23,16 @@ const AdminProductDetails = () => {
 
   return (
     <form className={styles.container}>
-      <MainInformationSection 
-        name={selectedProduct.name}
-        image={selectedProduct.imageURLs[0]} 
-        price={selectedProduct.price} 
-        description={selectedProduct.props.info} 
-        setName={ () => console.log() }
-        setPrice={() => console.log() }
-        setDescription={() => console.log() } 
-      />
+      <MainInformationSection/>
       <GallerySection/>
-      <DetailsSection props={selectedProduct.props} setProps={() => console.log()}/>
+      <DetailsSection />
       <Button 
         text="SAVE" 
         type="submit"
         size="small"
         onClick={handleSave} 
-        variant="secondary" 
+        variant="secondary"
+        fullWidth={false}
       />
     </form>
   );

@@ -7,6 +7,7 @@ import ProductImage from '../../../Product/ProductImage/ProductImage';
 import { DndProvider, useDrag, useDrop } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 import icons from '../../../../assets/icons/icons';
+import { deleteImageFromOrder, setImagesOrder } from '../../../../app/reducers/userDashboardSlice';
 
 const DraggableImage: React.FC<{ imageUrl: string; index: number; moveImage: (from: number, to: number) => void; deleteImage: (index: number) => void; }> = ({
   imageUrl,
@@ -53,17 +54,31 @@ const GallerySection: React.FC = () => {
   const dispatch = useDispatch<AppDispatch>();
   const selectedProductId = useSelector((state: RootState) => state.userDashboard.selectedProductId);
   const selectedProduct = useSelector((state: RootState) => state.products.products.find(product => product._id === selectedProductId));
+  const imagesOrder = useSelector((state: RootState) => state.userDashboard.imagesOrder);
 
-  const images = selectedProduct?.imageURLs || [];
+  // Если в редюсере есть порядок изображений, используем его, иначе используем порядок из продукта
+  const images = imagesOrder.length ? imagesOrder : selectedProduct?.imageURLs || [];
 
   const moveImage = (fromIndex: number, toIndex: number) => {
-    // Здесь можно реализовать логику перетаскивания изображения
+    const newOrder = [...images];
+    const [movedImage] = newOrder.splice(fromIndex, 1);
+    newOrder.splice(toIndex, 0, movedImage);
+  
+    // Обновите Redux store с новым порядком изображений
+    dispatch(setImagesOrder(newOrder));
   };
 
   const deleteImage = (index: number) => {
     const imageUrl = images[index];
     if (selectedProductId && imageUrl) {
-      dispatch(deleteProductImage({ id: selectedProductId, imageUrl }));
+      dispatch(deleteProductImage({ id: selectedProductId, imageUrl }))
+        .unwrap()
+        .then(() => {
+          dispatch(deleteImageFromOrder(imageUrl)); // Удаление изображения из порядка
+        })
+        .catch(error => {
+          console.error('Failed to delete image:', error);
+        });
     }
   };
 

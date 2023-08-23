@@ -8,6 +8,7 @@ import { AuthModule } from './auth/auth.module';
 import { UserModule } from './users/user.module';
 import { CollectionsModule } from './collections/collections.module';
 import { FavouritesModule } from './favourites/favourites.module';
+import { CriteriaModule } from './catalog/criteria.module';
 import { ServeStaticModule } from '@nestjs/serve-static';
 import { join } from 'path';
 
@@ -23,6 +24,7 @@ import { join } from 'path';
     ProductModule,
     CollectionsModule,
     FavouritesModule,
+    CriteriaModule,
   ],
   controllers: [AppController, UserController],
   providers: [AppService],

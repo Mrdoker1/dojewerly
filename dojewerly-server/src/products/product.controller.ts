@@ -11,6 +11,8 @@ import {
   Query,
   UploadedFiles,
   InternalServerErrorException,
+  Patch,
+  BadRequestException,
 } from '@nestjs/common';
 import { existsSync, mkdirSync } from 'fs';
 import * as fs from 'fs';
@@ -19,6 +21,7 @@ import { UseInterceptors } from '@nestjs/common';
 import { ProductsService } from './product.service';
 import {
   CreateProductWithImagesDto,
+  UpdateImagesOrderDto,
   UpdateProductWithImagesDto,
 } from '../dto/product.dto';
 import { ProductDocument } from './product.model';
@@ -272,5 +275,41 @@ export class ProductsController {
     }
 
     return product.imageURLs;
+  }
+
+  @Patch(':id/updateImagesOrder')
+  @ApiOperation({ summary: 'Update product images order' })
+  @ApiBearerAuth()
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @Roles(UserRole.ADMIN)
+  async updateProductImagesOrder(
+    @Param('id') id: string,
+    @Body() updateImagesOrderDto: UpdateImagesOrderDto,
+  ): Promise<void> {
+    const product = await this.productsService.findById(id);
+    if (!product) {
+      throw new NotFoundException('Product not found');
+    }
+
+    const originalImageURLs = product.imageURLs;
+    const updatedImageURLs = updateImagesOrderDto.imageURLs;
+
+    // Проверяем, что длины массивов совпадают
+    if (originalImageURLs.length !== updatedImageURLs.length) {
+      throw new BadRequestException(
+        'Number of images does not match the original',
+      );
+    }
+
+    // Проверяем, что все элементы из обновленного массива присутствуют в оригинальном массиве
+    for (const imageUrl of updatedImageURLs) {
+      if (!originalImageURLs.includes(imageUrl)) {
+        throw new BadRequestException(
+          `Image ${imageUrl} not found in original images`,
+        );
+      }
+    }
+
+    await this.productsService.updateProductImagesOrder(id, updatedImageURLs);
   }
 }

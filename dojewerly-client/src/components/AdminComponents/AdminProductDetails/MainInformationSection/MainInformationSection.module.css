@@ -4,8 +4,8 @@
   }
   
   .productImage {
-    width: auto; /* Ширина изображения будет автоматической */
-    height: calc(2 * var(80px, 40px)); /* Высота изображения равна высоте двух строк ввода */
+    width: 145px;
+    height: 145px;
     margin-right: 20px; /* Отступ справа от изображения */
     max-width: 160px;
   }

@@ -14,6 +14,7 @@ import { ReactComponent as NoImageS } from './no-image-S.svg'
 import { ReactComponent as ArrowUp } from './arrow-up.svg'
 import { ReactComponent as ArrowDown } from './arrow-down.svg'
 import { ReactComponent as UploadImage } from './uploadImage.svg'
+import { ReactComponent as Empty } from './empty.svg'
 
 const icons = {
   arrowLeft: ArrowLeft,
@@ -32,6 +33,7 @@ const icons = {
   noImageL: NoImageL,
   noImageS: NoImageS,
   uploadImage: UploadImage,
+  empty: Empty,
   // Добавьте сюда больше иконок при необходимости
 };
 

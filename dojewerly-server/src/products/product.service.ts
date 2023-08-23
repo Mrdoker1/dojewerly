@@ -61,4 +61,11 @@ export class ProductsService {
   ): Promise<void> {
     await this.productModel.findByIdAndUpdate(id, updateProductDto).exec();
   }
+
+  async updateProductImagesOrder(
+    id: string,
+    imageURLs: string[],
+  ): Promise<void> {
+    await this.productModel.findByIdAndUpdate(id, { imageURLs }).exec();
+  }
 }

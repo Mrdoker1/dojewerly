@@ -2,12 +2,12 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 export interface UserDashboardState {
   selectedProductId: string | null;
-  // Другие свойства, которые могут потребоваться для дашборда
+  imagesOrder: string[]; // Состояние для хранения порядка изображений
 }
 
 const initialState: UserDashboardState = {
   selectedProductId: null,
-  // Инициализация других свойств
+  imagesOrder: [],
 };
 
 const userDashboardSlice = createSlice({
@@ -16,14 +16,21 @@ const userDashboardSlice = createSlice({
   reducers: {
     selectProduct: (state, action: PayloadAction<string>) => {
       state.selectedProductId = action.payload;
+      state.imagesOrder = []; // сброс порядка изображений
     },
     deselectProduct: (state) => {
       state.selectedProductId = null;
+      state.imagesOrder = [];
     },
-    // Другие действия, если потребуются
+    setImagesOrder: (state, action: PayloadAction<string[]>) => {
+      state.imagesOrder = action.payload;
+    },
+    deleteImageFromOrder: (state, action: PayloadAction<string>) => {
+      state.imagesOrder = state.imagesOrder.filter(url => url !== action.payload);
+    }
   },
 });
 
-export const { selectProduct, deselectProduct /* другие экспортируемые действия */ } = userDashboardSlice.actions;
+export const { selectProduct, deselectProduct, setImagesOrder, deleteImageFromOrder } = userDashboardSlice.actions;
 
 export default userDashboardSlice.reducer;

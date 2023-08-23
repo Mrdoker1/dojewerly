@@ -2,25 +2,25 @@ import React from 'react';
 import Input from "../../../Input/Input";
 import styles from './MainInformationSection.module.css';
 import ProductImage from '../../../Product/ProductImage/ProductImage';
+import { AppDispatch, RootState } from '../../../../app/store';
+import { useDispatch, useSelector } from 'react-redux';
 
 interface MainInformationProps {
-  name: string;
-  price: number;
-  description: string;
-  image: string;
-  setName: (value: string) => void;
-  setPrice: (value: number) => void;
-  setDescription: (value: string) => void;
 }
 
-const MainInformationSection: React.FC<MainInformationProps> = (props) => {
+const MainInformationSection: React.FC<MainInformationProps> = () => {
+  const dispatch = useDispatch<AppDispatch>();
+  const selectedProductId = useSelector((state: RootState) => state.userDashboard.selectedProductId);
+  const selectedProduct = useSelector((state: RootState) => state.products.products.find(product => product._id === selectedProductId));
+
+
   return (
     <>
     <h2>Main Information</h2>
     <div className={styles.container}>
       <ProductImage 
-        imageUrl={props.image} 
-        alt={props.name} 
+        imageUrl={selectedProduct?.imageURLs[0] || ''} 
+        alt={selectedProduct?.name || 'Product image'} 
         className={styles.productImage} 
       />
       <div className={styles.infoContainer}>
@@ -28,22 +28,19 @@ const MainInformationSection: React.FC<MainInformationProps> = (props) => {
           <Input 
             label="Name"
             placeholder="Product Name"
-            value={props.name} 
-            onChange={(e) => props.setName(e.target.value)} 
+            value={selectedProduct?.name} 
           />
           <Input 
             label="Price"
             placeholder="Price"
             type="number" 
-            value={props.price.toString()} 
-            onChange={(e) => props.setPrice(Number(e.target.value))} 
+            value={selectedProduct?.price.toString()} 
           />
         </div>
         <Input 
           label="Info"
           placeholder="Description" 
-          value={props.description} 
-          onChange={(e) => props.setDescription(e.target.value)} 
+          value={selectedProduct?.props.description} 
         />
       </div>
     </div>
