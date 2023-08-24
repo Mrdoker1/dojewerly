@@ -2,6 +2,21 @@ import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
 
 const apiUrl = process.env.REACT_APP_API_URL;
 
+export type ProductUpdatableProperties = 'name' | 'price' | 'stock' | 'props' | 'imageURLs' | ProductPropsUpdatableProperties;
+
+export type ProductPropsUpdatableProperties = 'id' | 'info' | 'description' | 'availability' | 'material' | 'gender' | 'type';
+
+export interface UpdateProductPropertyPayload {
+  productId: string;
+  property: ProductUpdatableProperties;
+  value: any; // или уточнить тип здесь, если он известен
+}
+
+interface PartialUpdatePayload {
+  id: string;
+  updates: Product;
+}
+
 // Define the Product type
 export interface Product {
   _id: string;
@@ -225,6 +240,29 @@ export const updateImagesOrder = createAsyncThunk(
   }
 );
 
+export const partialUpdateProduct = createAsyncThunk<Product, PartialUpdatePayload>(
+  'products/partialUpdate',
+  async ({ id, updates }, thunkAPI) => {
+    const token = localStorage.getItem('token');
+    if (!token) {
+      throw new Error('No session');
+    }
+    const response = await fetch(`${apiUrl}/products/${id}`, {
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
+      },
+      body: JSON.stringify(updates)
+    });
+    if (!response.ok) {
+      const data = await response.json();
+      throw new Error(data.message || 'Failed to update product');
+    }
+    return { id, ...updates };
+  }
+);
+
 // Then, create the slice
 export const productsSlice = createSlice({
   name: 'products',
@@ -233,7 +271,18 @@ export const productsSlice = createSlice({
     status: 'idle',
     error: null as string | null
   },
-  reducers: {},
+  reducers: {
+    updateProductProperty: (state, action: PayloadAction<UpdateProductPropertyPayload>) => {
+      const product = state.products.find(p => p._id === action.payload.productId);
+      if (product) {
+        if (action.payload.property === 'props') {
+          product.props = { ...product.props, ...action.payload.value };
+        } else {
+          (product as any)[action.payload.property] = action.payload.value;
+        }
+      }
+    }
+  },
   extraReducers: (builder) => {
     builder
       .addCase(createProduct.pending, (state) => {
@@ -289,7 +338,16 @@ export const productsSlice = createSlice({
           state.products[productIndex].imageURLs = action.payload.imagesOrder;
         }
       })
+      .addCase(partialUpdateProduct.fulfilled, (state, action: PayloadAction<Product>) => {
+        state.status = 'succeeded';
+        const productIndex = state.products.findIndex((prod) => prod._id === action.payload._id);
+        if (productIndex > -1) {
+          state.products[productIndex] = action.payload;
+        }
+      })
   },
 });
 
 export default productsSlice.reducer;
+
+export const { updateProductProperty } = productsSlice.actions;

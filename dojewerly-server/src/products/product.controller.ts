@@ -22,9 +22,10 @@ import { ProductsService } from './product.service';
 import {
   CreateProductWithImagesDto,
   UpdateImagesOrderDto,
+  UpdateProductDto,
   UpdateProductWithImagesDto,
 } from '../dto/product.dto';
-import { ProductDocument } from './product.model';
+import { Product, ProductDocument } from './product.model';
 import { diskStorage } from 'multer';
 import {
   ApiBearerAuth,
@@ -311,5 +312,16 @@ export class ProductsController {
     }
 
     await this.productsService.updateProductImagesOrder(id, updatedImageURLs);
+  }
+
+  @Patch(':id')
+  async partialUpdateProduct(
+    @Param('id') id: string,
+    @Body() partialUpdateProductDto: Partial<UpdateProductDto>,
+  ): Promise<Product> {
+    return await this.productsService.partialUpdate(
+      id,
+      partialUpdateProductDto,
+    );
   }
 }

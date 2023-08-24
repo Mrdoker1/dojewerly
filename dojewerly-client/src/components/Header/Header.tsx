@@ -36,6 +36,7 @@ const Header: React.FC = () => {
         label: 'Dashboard',
         link: '/dashboard/profile', // Перенаправление на /dashboard при клике
       },
+      { isDivider: true },
       {
         label: 'Logout',
         onClick: handleLogout, // Перенаправление на /logout при клике

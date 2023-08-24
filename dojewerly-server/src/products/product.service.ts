@@ -4,6 +4,7 @@ import { Model } from 'mongoose';
 import { Product, ProductDocument } from './product.model';
 import {
   CreateProductWithImagesDto,
+  UpdateProductDto,
   UpdateProductWithImagesDto,
 } from '../dto/product.dto';
 
@@ -67,5 +68,15 @@ export class ProductsService {
     imageURLs: string[],
   ): Promise<void> {
     await this.productModel.findByIdAndUpdate(id, { imageURLs }).exec();
+  }
+
+  async partialUpdate(
+    id: string,
+    partialUpdateProductDto: Partial<UpdateProductDto>,
+  ): Promise<Product> {
+    await this.productModel
+      .findByIdAndUpdate(id, partialUpdateProductDto)
+      .exec();
+    return this.productModel.findById(id).exec();
   }
 }

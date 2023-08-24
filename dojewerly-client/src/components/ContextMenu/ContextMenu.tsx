@@ -5,7 +5,7 @@ import icons from '../../assets/icons/icons';
 
 export interface MenuItem {
   /** Название пункта меню */
-  label: string;
+  label?: string;
   /** Ссылка, на которую будет перенаправляться пользователь при клике на пункт меню (необязательное поле) */
   link?: string;
   /** Функция обратного вызова, которая будет выполняться при клике на пункт меню (необязательное поле) */
@@ -14,6 +14,8 @@ export interface MenuItem {
   iconLeft?: keyof typeof icons;
   /** Ключ для выбора иконки справа от текста пункта меню (необязательное поле) */
   iconRight?: keyof typeof icons;
+  /** Если установлено в true, пункт меню будет служить разделителем (необязательное поле) */
+  isDivider?: boolean;
 }
 
 export interface ContextMenuProps {
@@ -25,27 +27,31 @@ const ContextMenu: React.FC<ContextMenuProps> = ({ items, className  }) => {
   return (
     <div className={`${styles.userMenu} ${className}`}>
       {items.map((item, index) => (
-        <div key={index} className={styles.menuItem}>
-          {item.iconLeft && icons[item.iconLeft] && (
-            <span className={styles.icon}>
-              {React.createElement(icons[item.iconLeft])}
-            </span>
-          )}
-          {item.link ? (
-            <Link to={item.link} className={styles.link}>
-              {item.label}
-            </Link>
-          ) : (
-            <button type="button" onClick={item.onClick} className={styles.button}>
-              {item.label}
-            </button>
-          )}
-          {item.iconRight && icons[item.iconRight] && (
-            <span className={styles.icon}>
-              {React.createElement(icons[item.iconRight])}
-            </span>
-          )}
-        </div>
+        item.isDivider ? (
+          <div key={index} className={styles.divider} />
+        ) : (
+          <div key={index} className={styles.menuItem}>
+            {item.iconLeft && icons[item.iconLeft] && (
+              <span className={styles.icon}>
+                {React.createElement(icons[item.iconLeft])}
+              </span>
+            )}
+            {item.link ? (
+              <Link to={item.link} className={styles.link}>
+                {item.label}
+              </Link>
+            ) : (
+              <button type="button" onClick={item.onClick} className={styles.button}>
+                {item.label}
+              </button>
+            )}
+            {item.iconRight && icons[item.iconRight] && (
+              <span className={styles.icon}>
+                {React.createElement(icons[item.iconRight])}
+              </span>
+            )}
+          </div>
+        )
       ))}
     </div>
   );

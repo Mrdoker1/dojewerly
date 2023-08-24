@@ -85,7 +85,14 @@ const GallerySection: React.FC = () => {
   const handleUploadImages = (event: React.ChangeEvent<HTMLInputElement>) => {
     const files = event.target.files;
     if (files && selectedProductId) {
-      dispatch(addImagesToProduct({ id: selectedProductId, images: files }));
+      dispatch(addImagesToProduct({ id: selectedProductId, images: files }))
+        .unwrap()
+        .then((updatedProduct) => {
+          if (updatedProduct && updatedProduct.updatedProduct) {
+            // Обновите imagesOrder в Redux после успешной загрузки изображения
+            dispatch(setImagesOrder(updatedProduct.updatedProduct.imageURLs));
+          }
+        });
     }
   };
 

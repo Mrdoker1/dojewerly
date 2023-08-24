@@ -17,6 +17,7 @@ body, html {
 
 :root {
     /* Colors */
+    --black: #000000;
     --black-1: #161412;
     --grey-1: #65635F;
     --grey-2: #C4C4C4;

@@ -5,13 +5,27 @@ import { fetchCatalogCriteria } from '../../../../app/reducers/catalogCriteriaSl
 import { AppDispatch, RootState } from '../../../../app/store'; // Путь к вашему хранилищу Redux
 import styles from './DetailsSection.module.css';
 import Input from '../../../Input/Input';
+import { ProductPropsUpdatableProperties, ProductUpdatableProperties, updateProductProperty } from '../../../../app/reducers/productsSlice';
 
 interface DetailsProps {}
 
 const DetailsSection: React.FC<DetailsProps> = () => {
     const dispatch = useDispatch<AppDispatch>();
     const catalogCriteria = useSelector((state: RootState) => state.catalogCriteria.criteria);
+    const selectedProductId = useSelector((state: RootState) => state.userDashboard.selectedProductId);
     const selectedProduct = useSelector((state: RootState) => state.products.products.find(product => product._id === state.userDashboard.selectedProductId));
+
+    const handleInputChange = (property: ProductUpdatableProperties, value: any, subProperty?: ProductPropsUpdatableProperties) => {
+      if (selectedProductId) {
+          if (property === 'props' && subProperty) {
+              const updatedProps = { ...selectedProduct?.props, [subProperty]: value };
+              dispatch(updateProductProperty({ productId: selectedProductId, property, value: updatedProps }));
+          } else {
+              dispatch(updateProductProperty({ productId: selectedProductId, property, value }));
+          }
+      }
+  };
+
 
     useEffect(() => {
       if (!catalogCriteria) {
@@ -28,12 +42,14 @@ const DetailsSection: React.FC<DetailsProps> = () => {
               label="ID"
               placeholder="Product ID" 
               value={selectedProduct?.props.id.toString()}
+              onChange={(e) => handleInputChange('props', Number(e.target.value), 'id')}
             />
             <Input 
               label="Amount in Stock"
               type='number'
               placeholder="In stock" 
               value={selectedProduct?.stock.toString()}
+              onChange={(e) => handleInputChange('stock', Number(e.target.value))}
             />
           </div>
           <div className={styles.inputContainer}>
@@ -41,11 +57,13 @@ const DetailsSection: React.FC<DetailsProps> = () => {
               label="Availability" 
               value={selectedProduct?.props.availability}
               options={catalogCriteria?.availability || []} 
+              onChange={(value) => handleInputChange('props', value, 'availability')}
             />
             <Dropdown 
               label="Material" 
               value={selectedProduct?.props.material}
               options={catalogCriteria?.materials || []} 
+              onChange={(value) => handleInputChange('props', value, 'material')}
             />
           </div>
           <div className={styles.inputContainer}>
@@ -53,17 +71,20 @@ const DetailsSection: React.FC<DetailsProps> = () => {
               label="Gender" 
               value={selectedProduct?.props.gender}
               options={catalogCriteria?.genders || []} 
+              onChange={(value) => handleInputChange('props', value, 'gender')}
             />
             <Dropdown 
               label="Type" 
               value={selectedProduct?.props.type}
               options={catalogCriteria?.types || []} 
+              onChange={(value) => handleInputChange('props', value, 'type')}
             />
           </div>
           <Input
             label="Description"
             placeholder="Description" 
-            value={selectedProduct?.props.description.toString()}
+            value={selectedProduct?.props.description}
+            onChange={(e) => handleInputChange('props', e.target.value, 'description')}
           />
         </div>
       </>

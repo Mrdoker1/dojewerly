@@ -1,4 +1,5 @@
 .container {
+    flex: 1; /* растягивает контейнер на все свободное пространство */
     max-width: 1180px;
     width: 100%;
     height: inherit;
