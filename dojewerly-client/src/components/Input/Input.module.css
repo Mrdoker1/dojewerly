@@ -14,7 +14,7 @@ label {
 .icon{
   width: 32px;
   height: 32px;
-  color: var(--grey-1);
+  color: var(--grey-2);
   cursor: pointer;
 }
 
@@ -22,6 +22,7 @@ label {
   border-radius:8px;
   transition: all var(--transition-1);
   background-color: var(--grey-2);
+  color: var(--grey-1);
 }
 
 .inputStyle {

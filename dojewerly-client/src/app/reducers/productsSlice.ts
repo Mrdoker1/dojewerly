@@ -19,7 +19,7 @@ interface PartialUpdatePayload {
 
 // Define the Product type
 export interface Product {
-  _id: string;
+  _id?: string;
   name: string;
   price: number;
   stock: number;

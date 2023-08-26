@@ -45,7 +45,7 @@
 .deleteIcon {
   width: 32px;
   height: 32px;
-  color: var(--grey-1);
+  color: var(--grey-2);
   cursor: pointer;
   transition: all var(--transition-1);
   position: absolute;
@@ -61,6 +61,7 @@
 .deleteIcon:hover {
   border-radius: 8px;
   background-color: var(--grey-2);
+  color: var(--grey-1);
 }
 
 .selected {

@@ -109,7 +109,7 @@ export class ProductsController {
     if (typeof createProductDto.props === 'string') {
       createProductDto.props = JSON.parse(createProductDto.props);
     }
-    const imageURLs = images.map((file) => file.filename);
+    const imageURLs = images ? images.map((file) => file.filename) : [];
     const productDtoWithImages = { ...createProductDto, imageURLs };
     return this.productsService.createProduct(productDtoWithImages);
   }

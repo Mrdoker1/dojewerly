@@ -9,7 +9,7 @@ interface ProductImageProps {
 
 const ProductImage: React.FC<ProductImageProps> = ({ imageUrl, alt, className }) => {
   const apiUrl = process.env.REACT_APP_API_URL; // Получаем базовый URL
-  const fullImageUrl = `${apiUrl}/uploads/${imageUrl}`; // Формируем полный URL
+  const fullImageUrl = imageUrl ? `${apiUrl}/uploads/${imageUrl}` : noImageIcon;
 
   const handleImageError = (e: React.SyntheticEvent<HTMLImageElement>) => {
     const target = e.target as HTMLImageElement;
@@ -19,7 +19,7 @@ const ProductImage: React.FC<ProductImageProps> = ({ imageUrl, alt, className })
 
   return (
     <img
-      src={fullImageUrl || noImageIcon}
+      src={fullImageUrl}
       alt={alt}
       className={className}
       onError={handleImageError}

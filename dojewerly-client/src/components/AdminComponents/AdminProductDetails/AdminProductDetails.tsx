@@ -32,14 +32,18 @@ const AdminProductDetails = () => {
       console.log(updatedProduct.imageURLs);
       console.log(imagesOrder);
   
-      dispatch(partialUpdateProduct({ id: updatedProduct._id, updates: updatedProduct }))
-        .unwrap()
-        .then(() => {
-          console.log('Product updated successfully');
-        })
-        .catch(error => {
-          console.error('Failed to update product:', error);
-        });
+      if (updatedProduct._id) {
+        dispatch(partialUpdateProduct({ id: updatedProduct._id, updates: updatedProduct }))
+          .unwrap()
+          .then(() => {
+            console.log('Product updated successfully');
+          })
+          .catch(error => {
+            console.error('Failed to update product:', error);
+          });
+      } else {
+        console.error('Product _id is undefined');
+      }
     }
   };
 
