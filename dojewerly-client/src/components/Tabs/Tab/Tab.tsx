@@ -16,7 +16,8 @@ export interface TabProps {
 const Tab: React.FC<TabProps> = ({ title, active = false, onClick, children }) => {
   return (
     <div>
-      <Button 
+      <Button
+        size='default'
         text={title} 
         onClick={onClick} 
         variant={active ? 'primary' : 'text'}

@@ -28,7 +28,7 @@ const SignUpPage = memo(() => {
             <Button
                 type="button"
                 variant="text"
-                size="small"
+                size="default"
                 fullWidth={true} 
                 text="SIGNIN TO ACCOUNT"
                 iconRight="arrowRight"/>

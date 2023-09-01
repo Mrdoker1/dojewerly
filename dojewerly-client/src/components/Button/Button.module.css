@@ -64,16 +64,17 @@
 /* Button sizes */
 
 .small {
-  font: var(--jost-13-regular);
+  font: var(--jost-12-regular);
+  height: 20px;
 }
 
 .default {
-  font: var(--jost-16-regular);
-  height: 48px;
+  font: var(--jost-12-regular);
+  height: 40px;
 }
 
 .large {
-  font: var(--jost-21-regular);
+  font: var(--jost-16-regular);
   height: 48px;
 }
 

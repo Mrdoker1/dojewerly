@@ -63,7 +63,7 @@ const AdminProductDetails = () => {
       <Button 
         text="SAVE" 
         type="submit"
-        size="small"
+        size="default"
         variant="secondary"
         fullWidth={false}
       />

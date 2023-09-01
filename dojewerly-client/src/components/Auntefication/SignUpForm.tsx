@@ -74,7 +74,7 @@ const SignUpForm = memo(() => {
           <div className={styles.buttonsContainer}>
             <Button
               type="submit"
-              size="small"
+              size="default"
               fullWidth={true}
               text="CREATE NEW ACCOUNT"/>
             <div

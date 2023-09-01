@@ -29,7 +29,7 @@ export interface ButtonProps {
   className?: string;
 }
 
-const Button: React.FC<ButtonProps> = ({type= 'button', text, size = 'small', onClick, disabled, fullWidth, customColor, iconLeft, iconRight, children, variant= 'primary', className }) => {
+const Button: React.FC<ButtonProps> = ({type= 'button', text, size = 'default', onClick, disabled, fullWidth, customColor, iconLeft, iconRight, children, variant= 'primary', className }) => {
   const IconLeft = iconLeft ? icons[iconLeft] : null;
   const IconRight = iconRight ? icons[iconRight] : null;
 

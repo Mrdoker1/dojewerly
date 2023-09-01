@@ -81,7 +81,7 @@ const SignInForm = memo(() => {
           <div className={styles.buttonsContainer}>
             <Button
               type="submit"
-              size="small"
+              size="default"
               fullWidth={true}
               text="SIGN IN"/>
             <div
