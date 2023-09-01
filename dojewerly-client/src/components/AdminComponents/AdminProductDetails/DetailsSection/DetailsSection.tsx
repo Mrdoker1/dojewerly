@@ -6,6 +6,7 @@ import { AppDispatch, RootState } from '../../../../app/store'; // Путь к �
 import styles from './DetailsSection.module.css';
 import Input from '../../../Input/Input';
 import { ProductPropsUpdatableProperties, ProductUpdatableProperties, updateProductProperty } from '../../../../app/reducers/productsSlice';
+import TextArea from '../../../TextArea/TextArea';
 
 interface DetailsProps {}
 
@@ -24,14 +25,25 @@ const DetailsSection: React.FC<DetailsProps> = () => {
               dispatch(updateProductProperty({ productId: selectedProductId, property, value }));
           }
       }
-  };
+    };
 
+  function createDropdownOptions(values: string[] | undefined) {
+    if (!values) {
+      return []
+    } 
+    return values.map(value => ({
+      label: value,
+      value: value,
+    }));
+  }
 
     useEffect(() => {
       if (!catalogCriteria) {
         dispatch(fetchCatalogCriteria());
       }
     }, [dispatch, catalogCriteria]);
+
+    console.log(selectedProduct?.props.availability);
 
     return (
       <>
@@ -56,13 +68,16 @@ const DetailsSection: React.FC<DetailsProps> = () => {
             <Dropdown 
               label="Availability" 
               value={selectedProduct?.props.availability}
-              options={catalogCriteria?.availability || []} 
+              //options={catalogCriteria?.availability || []}
+              options={createDropdownOptions(catalogCriteria?.availability) || []}
+              placeholder='Select an option...'
               onChange={(value) => handleInputChange('props', value, 'availability')}
             />
             <Dropdown 
               label="Material" 
               value={selectedProduct?.props.material}
-              options={catalogCriteria?.materials || []} 
+              options={createDropdownOptions(catalogCriteria?.materials) || []} 
+              placeholder='Select an option...'
               onChange={(value) => handleInputChange('props', value, 'material')}
             />
           </div>
@@ -70,17 +85,21 @@ const DetailsSection: React.FC<DetailsProps> = () => {
             <Dropdown 
               label="Gender" 
               value={selectedProduct?.props.gender}
-              options={catalogCriteria?.genders || []} 
+              //options={catalogCriteria?.genders || []}
+              options={createDropdownOptions(catalogCriteria?.genders) || []}
+              placeholder='Select an option...'
               onChange={(value) => handleInputChange('props', value, 'gender')}
             />
             <Dropdown 
               label="Type" 
               value={selectedProduct?.props.type}
-              options={catalogCriteria?.types || []} 
+              //options={catalogCriteria?.types || []} 
+              options={createDropdownOptions(catalogCriteria?.types) || []}     
+              placeholder='Select an option...'
               onChange={(value) => handleInputChange('props', value, 'type')}
             />
           </div>
-          <Input
+          <TextArea
             label="Description"
             placeholder="Description" 
             value={selectedProduct?.props.description}

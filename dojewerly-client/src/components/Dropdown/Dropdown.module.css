@@ -68,3 +68,7 @@
 .errorText {
   color: red;
 }
+
+.placeholder {
+  color: var(--grey-1);
+}

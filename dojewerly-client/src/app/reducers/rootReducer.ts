@@ -6,6 +6,7 @@ import productReducer from './productsSlice';
 import notificationReducer from './notificationSlice';
 import userDashboardReducer from './userDashboardSlice';
 import catalogCriteriaReducer from './catalogCriteriaSlice';
+import collectionsReducer from './collectionsSlice';
 
 const rootReducer = combineReducers({
   counter: counterReducer,
@@ -15,6 +16,7 @@ const rootReducer = combineReducers({
   notification: notificationReducer,
   userDashboard: userDashboardReducer,
   catalogCriteria: catalogCriteriaReducer,
+  collections: collectionsReducer,
 });
 
 export type RootState = ReturnType<typeof rootReducer>;
