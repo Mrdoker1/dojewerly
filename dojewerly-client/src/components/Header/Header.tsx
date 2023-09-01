@@ -61,7 +61,7 @@ const Header: React.FC = () => {
             <li><icons.search/></li>
             <li onClick={handleAccountClick}>
               <icons.account />
-              {isMenuOpen && <ContextMenu items={menuItems} className={variables.absolute}/>}
+              {isMenuOpen && <ContextMenu items={menuItems} className={variables.absolute} onClose={() => setIsMenuOpen(false)}/>}
             </li>
           </ul>
         </nav>

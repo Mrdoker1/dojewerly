@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import styles from './ContextMenu.module.css';
 import icons from '../../assets/icons/icons';
@@ -20,12 +20,31 @@ export interface MenuItem {
 
 export interface ContextMenuProps {
   items: MenuItem[];
+  onClose?: () => void;
   className?: string; 
 }
 
-const ContextMenu: React.FC<ContextMenuProps> = ({ items, className  }) => {
+const ContextMenu: React.FC<ContextMenuProps> = ({ items, onClose, className  }) => {
+
+  const menuRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
+        if (onClose) {
+          onClose();
+        }
+      }
+    };
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [onClose]);
+
+
   return (
-    <div className={`${styles.userMenu} ${className}`}>
+    <div ref={menuRef} className={`${styles.userMenu} ${className}`}>
       {items.map((item, index) => (
         item.isDivider ? (
           <div key={index} className={styles.divider} />
