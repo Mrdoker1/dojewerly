@@ -2,11 +2,11 @@ import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, RootState } from '../../app/store';
 import { updateUserProfile } from '../../app/reducers/userSlice';
-import { addNotification } from '../../app/reducers/notificationSlice'; // Импортируйте экшн
 import Input from '../../components/Input/Input';
 import Button from '../../components/Button/Button';
 import styles from './ProfileForm.module.css';
 import PasswordInput from '../Input/PasswordInput/PasswordInput';
+import { sendNotification } from '../NotificationCenter/notificationHelpers';
 
 const ProfileForm: React.FC = () => {
   const dispatch = useDispatch<AppDispatch>();
@@ -56,33 +56,15 @@ const ProfileForm: React.FC = () => {
     .then((result) => {
       if (updateUserProfile.fulfilled.match(result)) {
         // Отправляем успешное уведомление
-        dispatch(addNotification({
-          id: Date.now(),
-          type: 'success',
-          message: 'Profile updated successfully!',
-          iconRight: 'close', // Иконка для закрытия
-          timeout: 3000, // Время жизни уведомления
-        }));
+        sendNotification(dispatch, 'success', 'Profile updated successfully!');
       } else if (updateUserProfile.rejected.match(result)) {
         // Отправляем уведомление об ошибке
-        dispatch(addNotification({
-          id: Date.now(),
-          type: 'error',
-          message: result.error.message || 'Something went wrong',
-          iconRight: 'close', // Иконка для закрытия
-          timeout: 3000, // Время жизни уведомления
-        }));
+        sendNotification(dispatch, 'error', result.error.message || 'Something went wrong');
       }
     })
     .catch((error) => {
       // Отправляем уведомление об ошибке
-      dispatch(addNotification({
-        id: Date.now(),
-        type: 'error',
-        message: error.message || 'Something went wrong',
-        iconRight: 'close', // Иконка для закрытия
-        timeout: 3000, // Время жизни уведомления
-      }));
+      sendNotification(dispatch, 'error', error.message || 'Something went wrong');
     });
   };
 

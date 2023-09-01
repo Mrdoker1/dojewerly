@@ -7,7 +7,7 @@ import GallerySection from './GallerySection/GallerySection';
 import DetailsSection from './DetailsSection/DetailsSection';
 import Button from '../../Button/Button';
 import { partialUpdateProduct } from '../../../app/reducers/productsSlice';
-import { addNotification } from '../../../app/reducers/notificationSlice';
+import { sendNotification } from '../../NotificationCenter/notificationHelpers';
 
 const AdminProductDetails = () => {
   const selectedProductId = useSelector((state: RootState) => state.userDashboard.selectedProductId);
@@ -36,35 +36,17 @@ const AdminProductDetails = () => {
           .then(() => {
             console.log('Product updated successfully');
             // Уведомление об успешном обновлении
-            dispatch(addNotification({
-              id: Date.now(),
-              type: 'success',
-              message: 'Product updated successfully!',
-              iconRight: 'close',
-              timeout: 3000,
-            }));
+            sendNotification(dispatch, 'success', 'Product updated successfully!');
           })
           .catch(error => {
             console.error('Failed to update product:', error);
             // Уведомление о неудачном обновлении
-            dispatch(addNotification({
-              id: Date.now(),
-              type: 'error',
-              message: 'Failed to update product!',
-              iconRight: 'close',
-              timeout: 3000,
-            }));
+            sendNotification(dispatch, 'error', 'Failed to update product!');
           });
       } else {
         console.error('Product _id is undefined');
         // Уведомление о неудачном обновлении
-        dispatch(addNotification({
-          id: Date.now(),
-          type: 'error',
-          message: 'Product ID is undefined!',
-          iconRight: 'close',
-          timeout: 3000,
-        }));
+        sendNotification(dispatch, 'error', 'Product ID is undefined!');
       }
     }
   };
