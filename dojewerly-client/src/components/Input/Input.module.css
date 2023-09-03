@@ -21,7 +21,7 @@ label {
 .icon:hover{
   border-radius:8px;
   transition: all var(--transition-1);
-  background-color: var(--grey-2);
+  background-color: var(--grey-3);
   color: var(--grey-1);
 }
 
@@ -57,6 +57,10 @@ label {
 /* При наличии ошибки */
 .inputStyle.inputError {
   border-bottom-color: red;
+}
+
+.inputStyle:hover {
+  border-color: var(--black-1);
 }
 
 .message {

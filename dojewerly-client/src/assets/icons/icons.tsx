@@ -16,6 +16,7 @@ import { ReactComponent as ArrowDown } from './arrow-down.svg'
 import { ReactComponent as UploadImage } from './uploadImage.svg'
 import { ReactComponent as Empty } from './empty.svg'
 import { ReactComponent as Plus } from './plus.svg'
+import { ReactComponent as LogoText } from './logo-text.svg'
 
 const icons = {
   arrowLeft: ArrowLeft,
@@ -36,6 +37,7 @@ const icons = {
   uploadImage: UploadImage,
   empty: Empty,
   plus: Plus,
+  logoText: LogoText,
   // Добавьте сюда больше иконок при необходимости
 };
 

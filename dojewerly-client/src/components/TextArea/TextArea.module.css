@@ -54,6 +54,10 @@
     font: inherit; /* наследует шрифт от родительского элемента */
   }
   
+  .inputStyle:hover {
+    border-color: var(--black-1);
+  }
+  
   /* При фокусе */
   .inputStyle.inputFocus {
     border-bottom-color: black;

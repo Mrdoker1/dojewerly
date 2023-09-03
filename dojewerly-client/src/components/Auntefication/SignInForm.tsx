@@ -10,6 +10,7 @@ import { loginUser, clearError } from '../../app/reducers/authSlice';
 import NotificationMessage from '../Messages/NotificationMessage/NotificationMessage';
 import { useNavigate } from 'react-router-dom';
 import PasswordInput from '../Input/PasswordInput/PasswordInput';
+import icons from '../../assets/icons/icons';
 
 const SignInForm = memo(() => {
 
@@ -84,12 +85,12 @@ const SignInForm = memo(() => {
               size="default"
               fullWidth={true}
               text="SIGN IN"/>
-            <div
+            {/* <div
               className={variables.description}
               style={{color: 'var(--grey-2)'}}>
               Or continue with
             </div>
-            <SocialButtons />
+            <SocialButtons /> */}
             {auth.error && <NotificationMessage type="error" key={Date.now()} message={auth.error} iconRight='close' />}
           </div>
         </form>

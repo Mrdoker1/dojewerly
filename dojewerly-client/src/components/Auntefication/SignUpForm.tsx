@@ -48,6 +48,18 @@ const SignUpForm = memo(() => {
   return (
     <>
         <form className={styles.container} onSubmit={handleSubmit}>
+        <Input 
+            type="text"
+            label="Username"
+            value={username}
+            placeholder='Your name'
+            hasError={!isUsernameValid}
+            message={!isUsernameValid ? 'Please enter a valid username' : ''}
+            onChange={(e) => {
+              setUsername(e.target.value);
+              setIsUsernameValid(true); // Reset the error flag when the user starts typing in the field
+            }}
+          />
           <Input 
             type="text"
             label="Email Address"
@@ -77,13 +89,13 @@ const SignUpForm = memo(() => {
               size="default"
               fullWidth={true}
               text="CREATE NEW ACCOUNT"/>
-            <div
+            {/* <div
               className={variables.description}
               style={{color: 'var(--grey-2)'}}>
               Or register using
             </div>
+            <SocialButtons /> */}
             {auth.error && <NotificationMessage type="error" key={Date.now()} message={auth.error} iconRight='close' />}
-            <SocialButtons />
           </div>
         </form>
     </>

@@ -5,6 +5,7 @@ import SignUpForm from '../../components/Auntefication/SignUpForm';
 import Button from '../../components/Button/Button';
 import banner from '../../assets/images/banner-2.jpg';
 import { Link } from 'react-router-dom';
+import icons from '../../assets/icons/icons';
 
 const SignUpPage = memo(() => {
 
@@ -15,8 +16,9 @@ const SignUpPage = memo(() => {
             <img src={banner} alt="Banner" /> {/* Добавьте элемент img */}
         </div>
         <div className={styles.form}>
+          <icons.logoText className={styles.logo} />
           <div className={styles.heading}>
-            <h1>Create New Account</h1>
+            <h1>Create an Account</h1>
             <div
               className={variables.description}
               style={{color: 'var(--grey-1)'}}>
@@ -30,7 +32,7 @@ const SignUpPage = memo(() => {
                 variant="text"
                 size="default"
                 fullWidth={true} 
-                text="SIGNIN TO ACCOUNT"
+                text="SIGN IN TO ACCOUNT"
                 iconRight="arrowRight"/>
           </Link>
         </div>
