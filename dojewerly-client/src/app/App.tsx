@@ -6,6 +6,7 @@ import { validateToken } from '../app/reducers/authSlice';
 import { AppDispatch } from '../app/store';
 import NotificationCenter from '../components/NotificationCenter/NotificationCenter'; // Импортируйте ваш компонент здесь
 import './App.module.css';
+import { LayoutProvider } from '../components/Layout/LayoutContext/LayoutContext';
 
 function App() {
   const dispatch = useDispatch<AppDispatch>();
@@ -15,10 +16,12 @@ function App() {
   }, [dispatch]);
 
   return (
-    <BrowserRouter>
-      <NotificationCenter />
-      <AppRouter />
-    </BrowserRouter>
+    <LayoutProvider>
+      <BrowserRouter>
+        <NotificationCenter />
+        <AppRouter />
+      </BrowserRouter>
+    </LayoutProvider>
   );
 }
 

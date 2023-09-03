@@ -1,4 +1,4 @@
-import React, { memo } from 'react';
+import React, { memo, useEffect } from 'react';
 import styles from './SignInPage.module.css';
 import variables from '../../variables.module.css'
 import SignInForm from '../../components/Auntefication/SignInForm';
@@ -6,8 +6,17 @@ import Button from '../../components/Button/Button';
 import banner from '../../assets/images/banner-1.jpg';
 import { Link } from 'react-router-dom';
 import icons from '../../assets/icons/icons';
+import { useLayout } from '../../components/Layout/LayoutContext/LayoutContext';
 
 const SignInPage = memo(() => {
+  const { setBackgroundColor } = useLayout();
+
+  useEffect(() => {
+    setBackgroundColor(styles.background); // Или любой другой цвет
+    return () => {
+      setBackgroundColor(''); // Возвращаем к дефолтному цвету при анмаунте
+    };
+  }, [setBackgroundColor]);
 
   return (
     <>

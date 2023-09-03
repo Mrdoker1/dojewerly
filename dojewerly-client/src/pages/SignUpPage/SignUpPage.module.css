@@ -36,3 +36,8 @@
     align-items: center;
     gap: 4px;
   }
+
+  .background{
+    background-color: var(--grey-3);
+  }
+  
