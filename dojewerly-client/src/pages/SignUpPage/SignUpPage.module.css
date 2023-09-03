@@ -1,14 +1,12 @@
 .container {
     display: flex;
     flex-direction: row;
-    align-items: center;
+    align-items: stretch;
     justify-content: center;
-    gap: 48px;
     margin: auto 0;
     flex-wrap: wrap;
     border-radius: 20px;
     overflow: hidden;
-    padding-right: 48px;
     background: white;
   }
 
@@ -28,6 +26,7 @@
     justify-content: center;
     gap: 20px;
     margin: auto 0;
+    padding: 48px;
   }
   
   .heading{
