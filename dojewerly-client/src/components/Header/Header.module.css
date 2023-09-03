@@ -1,5 +1,5 @@
 /* Общие стили для хэдера */
-.header {
+  .header {
     position: sticky;
     top: 0;
     z-index: 3;
@@ -9,8 +9,12 @@
     /* Добавьте стили для .header здесь */
   }
   
+  .headerWrapper.scrolled {
+    height: 66px;
+  }
+  
   .headerWrapper {
-    height: 70px;
+    height: 66px;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -19,6 +23,7 @@
     letter-spacing: 0.1em;
     text-transform: uppercase;
     max-width: var(--desktop);
+    transition: var(--transition-1);
     margin: 0 auto;
     /* Добавьте дополнительные стили для .headerWrapper здесь */
   }
@@ -28,10 +33,15 @@
     /* Добавьте стили для .burgerIcon здесь */
   }
   
+  .doxIcon {
+    color: black;
+  }
+  
   .logo {
     width: 30px;
     height: 30px;
     cursor: pointer;
+    display: flex;
     /* Добавьте стили для .logo здесь */
   }
 
@@ -50,6 +60,7 @@
   }
   
   .menuNavigation li {
+    display: flex;
     position: relative;
     cursor: pointer;
     transition: var(--transition-1);

@@ -15,9 +15,11 @@
   justify-content: space-between;
   align-items: center;
   padding: 8px 12px;
-  border-radius: 2px;
-  background: var(--grey-3);
-  border-bottom: 2px solid var(--grey-2);
+  border-radius: var(--input-radius);
+  border-bottom: 3px solid var(--grey-2);
+  border-left: 1px solid var(--grey-2);
+  border-right: 1px solid var(--grey-2);
+  border-top: 1px solid var(--grey-2);
   cursor: pointer;
   transition: all var(--transition-1);
 }
@@ -40,7 +42,7 @@
   left: 0;
   width: 100%;
   border-radius: 2px;
-  background: var(--grey-3);
+  background: var(--white);
   border: 1px solid var(--grey-2);
   z-index: 10;
 }
@@ -52,7 +54,7 @@
 }
 
 .option:hover {
-  background-color: var(--grey-2);
+  background-color: var(--grey-3);
 }
 
 .error {

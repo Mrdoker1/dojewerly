@@ -61,6 +61,8 @@ body, html {
     --jost-15-regular: normal 400 15px/19px 'Jost';
     --jost-16-regular: normal 400 16px/24px 'Jost';
     --jost-21-regular: normal 400 21px/24px 'Jost';
+
+    --input-radius: 4px;
   }
 
   h1 {

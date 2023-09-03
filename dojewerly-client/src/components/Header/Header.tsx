@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styles from './Header.module.css';
 import variables from '../../variables.module.css'
 import icons from '../../assets/icons/icons';
@@ -8,13 +8,30 @@ import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../app/store';
 import { logoutUser } from '../../app/reducers/authSlice';
 import { AppDispatch } from '../../app/store';
+import TopMessage from '../Messages/TopMessage/TopMessage';
 
 const Header: React.FC = () => {
   const auth = useSelector((state: RootState) => state.auth);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
 
   const navigate = useNavigate();
   const dispatch = useDispatch<AppDispatch>();
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 50) {
+        setIsScrolled(true);
+      } else {
+        setIsScrolled(false);
+      }
+    };
+    window.addEventListener('scroll', handleScroll);
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
 
   const handleAccountClick = () => {
     console.log('Token:', auth.token);
@@ -45,8 +62,8 @@ const Header: React.FC = () => {
 
   return (
     <div className={styles.header}>
-      <div className={styles.headerWrapper}>
-        <template>burger-component</template>
+      <TopMessage message='Working in progress' visible={true} iconRight='close'/>
+      <div className={`${styles.headerWrapper} ${isScrolled ? styles.scrolled : ''}`}>
         <Link to="/">
           <icons.logo className={styles.logo} />
         </Link>
@@ -57,7 +74,7 @@ const Header: React.FC = () => {
             <li>brooch</li>
             <li>collections</li>
             <li><template>language-switcher</template></li>
-            <li><icons.dox/></li>
+            <li className={styles.doxIcon}><icons.dox/></li>
             <li><icons.search/></li>
             <li onClick={handleAccountClick}>
               <icons.account />
