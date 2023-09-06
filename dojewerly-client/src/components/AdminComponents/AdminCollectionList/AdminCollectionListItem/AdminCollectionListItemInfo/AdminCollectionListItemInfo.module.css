@@ -1,0 +1,41 @@
+.collectionInfo {
+    display: flex;
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 8px;
+  }
+  
+  .collectionName {
+    font: var(--jost-13-regular);
+    color: var(--black-1);
+    text-transform: uppercase;
+    margin-right: 10px;
+  }
+  
+  .collectionDescription {
+    font: var(--jost-14-regular);
+    color: var(--grey-1);
+    margin-right: 10px;
+  }
+  
+  .productImagesContainer {
+    display: flex;
+  }
+  
+  .productImage {
+    width: 50px; /* Уменьшим размер изображения */
+    height: 50px;
+    margin-right: 5px;
+    border-radius: 2px;
+  }
+  
+  .overflowSquare {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 50px;
+    height: 50px;
+    background-color: var(--grey-2);
+    color: var(--grey-1);
+    border-radius: 2px;
+  }

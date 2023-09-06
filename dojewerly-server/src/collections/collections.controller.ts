@@ -51,9 +51,8 @@ export class CollectionsController {
   @Roles(UserRole.ADMIN)
   async createCollection(
     @Body() createCollectionDto: CreateCollectionDto,
-  ): Promise<CollectionDocument[]> {
-    await this.collectionsService.create(createCollectionDto);
-    return this.collectionsService.findAll();
+  ): Promise<CollectionDocument> {
+    return this.collectionsService.create(createCollectionDto);
   }
 
   @Put(':id')
