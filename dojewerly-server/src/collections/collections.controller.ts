@@ -39,7 +39,7 @@ export class CollectionsController {
     if (!collection) {
       throw new NotFoundException('Collection not found');
     }
-    return this.collectionsService.findById(id);
+    return collection;
   }
 
   @Post()
@@ -51,8 +51,9 @@ export class CollectionsController {
   @Roles(UserRole.ADMIN)
   async createCollection(
     @Body() createCollectionDto: CreateCollectionDto,
-  ): Promise<CollectionDocument> {
-    return await this.collectionsService.create(createCollectionDto);
+  ): Promise<CollectionDocument[]> {
+    await this.collectionsService.create(createCollectionDto);
+    return this.collectionsService.findAll();
   }
 
   @Put(':id')
@@ -65,12 +66,13 @@ export class CollectionsController {
   async updateCollection(
     @Param('id') id: string,
     @Body() updateCollectionDto: UpdateCollectionDto,
-  ): Promise<void> {
+  ): Promise<CollectionDocument[]> {
     const collection = await this.collectionsService.findById(id);
     if (!collection) {
       throw new NotFoundException('Collection not found');
     }
     await this.collectionsService.update(id, updateCollectionDto);
+    return this.collectionsService.findAll();
   }
 
   @Delete(':id')
@@ -80,8 +82,11 @@ export class CollectionsController {
   @ApiBearerAuth()
   @UseGuards(JwtAuthGuard, RolesGuard)
   @Roles(UserRole.ADMIN)
-  async deleteCollection(@Param('id') id: string): Promise<void> {
+  async deleteCollection(
+    @Param('id') id: string,
+  ): Promise<CollectionDocument[]> {
     await this.collectionsService.delete(id);
+    return this.collectionsService.findAll();
   }
 
   @Post(':id/products/:productId')

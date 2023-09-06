@@ -1,11 +1,13 @@
 import React from 'react';
 import styles from './CollectionCreationPage.module.css';
+import AdminCollectionList from '../../components/AdminComponents/AdminCollectionList/AdminCollectionList';
 
 const CollectionCreationPage = () => {
     return (
       <div className={styles.container}>
-        <h1>CollectionCreationPage</h1>
-        {/* Тут будут компоненты для управления продуктами */}
+        <div className={styles.content}>
+            <AdminCollectionList />
+        </div>
       </div>
     );
   };

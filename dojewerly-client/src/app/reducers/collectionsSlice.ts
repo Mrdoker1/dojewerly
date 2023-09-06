@@ -5,7 +5,8 @@ const apiUrl = process.env.REACT_APP_API_URL;
 export interface Collection {
   _id?: string;
   name: string;
-  products: string[];
+  description: string;
+  productIds: string[];
 }
 
 // Async action to get all collections
@@ -121,6 +122,58 @@ export const deleteCollection = createAsyncThunk(
   }
 );
 
+// Async action to add a product to a collection
+export const addProductToCollection = createAsyncThunk(
+  'collections/addProduct',
+  async ({ collectionId, productId }: { collectionId: string; productId: string }, thunkAPI) => {
+    const token = localStorage.getItem('token');
+
+    if (!token) {
+      throw new Error('No session');
+    }
+
+    const response = await fetch(`${apiUrl}/collections/${collectionId}/products/${productId}`, {
+      method: 'POST',
+      headers: {
+        'Authorization': `Bearer ${token}`
+      }
+    });
+
+    if (!response.ok) {
+      const data = await response.json();
+      throw new Error(data.message || 'Failed to add product to collection');
+    }
+
+    return { collectionId, productId };
+  }
+);
+
+// Async action to remove a product from a collection
+export const removeProductFromCollection = createAsyncThunk(
+  'collections/removeProduct',
+  async ({ collectionId, productId }: { collectionId: string; productId: string }, thunkAPI) => {
+    const token = localStorage.getItem('token');
+
+    if (!token) {
+      throw new Error('No session');
+    }
+
+    const response = await fetch(`${apiUrl}/collections/${collectionId}/products/${productId}`, {
+      method: 'DELETE',
+      headers: {
+        'Authorization': `Bearer ${token}`
+      }
+    });
+
+    if (!response.ok) {
+      const data = await response.json();
+      throw new Error(data.message || 'Failed to remove product from collection');
+    }
+
+    return { collectionId, productId };
+  }
+);
+
 // Create the slice
 export const collectionsSlice = createSlice({
   name: 'collections',
@@ -194,6 +247,22 @@ export const collectionsSlice = createSlice({
       .addCase(deleteCollection.rejected, (state, action) => {
         state.status = 'failed';
         state.error = action.error.message || null;
+      })
+      .addCase(addProductToCollection.fulfilled, (state, action: PayloadAction<{ collectionId: string; productId: string }>) => {
+        const { collectionId, productId } = action.payload;
+        const collectionIndex = state.collections.findIndex((coll) => coll._id === collectionId);
+
+        if (collectionIndex > -1) {
+          state.collections[collectionIndex].productIds.push(productId);
+        }
+      })
+      .addCase(removeProductFromCollection.fulfilled, (state, action: PayloadAction<{ collectionId: string; productId: string }>) => {
+        const { collectionId, productId } = action.payload;
+        const collectionIndex = state.collections.findIndex((coll) => coll._id === collectionId);
+
+        if (collectionIndex > -1) {
+          state.collections[collectionIndex].productIds = state.collections[collectionIndex].productIds.filter((id) => id !== productId);
+        }
       });
   },
 });
