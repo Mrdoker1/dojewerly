@@ -5,7 +5,6 @@ import { Collection } from '../../../../../app/reducers/collectionsSlice';
 import { fetchAllProducts, Product } from '../../../../../app/reducers/productsSlice'; // Импортируйте ваш редьюсер продуктов
 import styles from './AdminCollectionListItemInfo.module.css';
 import { AppDispatch } from '../../../../../app/store';
-import CollectionImage from '../../../../Collection/CollectionImage/CollectionImage';
 
 interface AdminCollectionListItemInfoProps {
   collection: Collection;
@@ -26,7 +25,6 @@ const AdminCollectionListItemInfo: React.FC<AdminCollectionListItemInfoProps> = 
 
   return (
     <>
-      {/* <CollectionImage collectionId={collection._id || ''} className={styles.collectionImage}/> */}
       <div className={styles.collectionInfo}>
       <h3 className={styles.collectionName}>{collection.name}</h3>
       <p className={styles.collectionDescription}>{collection.description}</p>

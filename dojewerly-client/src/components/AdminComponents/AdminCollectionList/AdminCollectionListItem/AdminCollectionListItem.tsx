@@ -7,6 +7,7 @@ import AdminCollectionListItemInfo from './AdminCollectionListItemInfo/AdminColl
 import styles from './AdminCollectionListItem.module.css';
 import icons from '../../../../assets/icons/icons'; 
 import { sendNotification } from '../../../NotificationCenter/notificationHelpers';
+import GradientImage from '../../../Product/GradientImage/GradientImage';
 
 interface AdminCollectionListItemProps {
   collection: Collection;
@@ -15,6 +16,12 @@ interface AdminCollectionListItemProps {
 const AdminCollectionListItem: React.FC<AdminCollectionListItemProps> = ({ collection }) => {
   const dispatch = useDispatch<AppDispatch>();
   const selectedCollectionId = useSelector((state: RootState) => state.userDashboard.selectedCollectionId);
+  const allProducts = useSelector((state: RootState) => state.products.products);
+  const firstProductImage = React.useMemo(() => {
+    const firstProductId = collection.productIds[0];
+    const firstProduct = allProducts.find(product => product._id === firstProductId);
+    return firstProduct?.imageURLs[0] || '';
+  }, [collection, allProducts]);
   const TrashIcon = icons.trash;
 
   const handleSelectCollection = () => {
@@ -38,8 +45,13 @@ const AdminCollectionListItem: React.FC<AdminCollectionListItemProps> = ({ colle
 
   return (
     <div className={containerClassNames} onClick={handleSelectCollection}>
-      <AdminCollectionListItemInfo collection={collection} />
-      <TrashIcon onClick={handleDelete} className={styles.deleteIcon} />
+      <div className={styles.gradientImageContainer}>
+        <GradientImage imageUrl={firstProductImage} alt="Collection Image" />
+      </div>
+      <div className={styles.info}>
+        <AdminCollectionListItemInfo collection={collection} />
+        <TrashIcon onClick={handleDelete} className={styles.deleteIcon} />
+      </div>
     </div>
   );
 };

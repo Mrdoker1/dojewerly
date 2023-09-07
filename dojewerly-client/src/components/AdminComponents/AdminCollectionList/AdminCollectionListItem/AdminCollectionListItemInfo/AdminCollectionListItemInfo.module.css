@@ -3,6 +3,8 @@
     align-items: flex-start;
     flex-direction: column;
     gap: 8px;
+    white-space: normal;     /* Разрешает перенос текста на новую строку */
+    overflow-wrap: break-word; /* Для того чтобы длинные слова или URL-адреса переносились на новую строку */
   }
   
   .collectionName {
@@ -16,7 +18,7 @@
     font: var(--jost-14-regular);
     color: var(--grey-1);
     margin-right: 10px;
-  }
+}
   
   .productImagesContainer {
     display: flex;
@@ -43,7 +45,8 @@
     justify-content: center;
     width: 40px;
     height: 40px;
-    color: var(--grey-1);
-    border-radius: 2px;
+    color: var(--white);
+    border-radius: 4px;
     border: 1px solid var(--grey-2);
+    background-color: rgba(0, 0, 0, 0.4);
   }
