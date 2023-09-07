@@ -9,6 +9,14 @@ export interface Collection {
   productIds: string[];
 }
 
+export type CollectionUpdatableProperties = 'name' | 'description' | 'productIds';
+
+export interface UpdateCollectionPropertyPayload {
+  collectionId: string;
+  property: CollectionUpdatableProperties;
+  value: any; // или уточнить тип здесь, если он известен
+}
+
 // Async action to get all collections
 export const fetchAllCollections = createAsyncThunk(
   'collections/fetchAll',
@@ -182,7 +190,14 @@ export const collectionsSlice = createSlice({
     status: 'idle',
     error: null as string | null,
   },
-  reducers: {},
+  reducers: {
+    updateCollectionProperty: (state, action: PayloadAction<UpdateCollectionPropertyPayload>) => {
+      const collection = state.collections.find(c => c._id === action.payload.collectionId);
+      if (collection) {
+        (collection as any)[action.payload.property] = action.payload.value;
+      }
+    }
+  },
   extraReducers: (builder) => {
     builder
       .addCase(fetchAllCollections.pending, (state) => {
@@ -268,3 +283,5 @@ export const collectionsSlice = createSlice({
 });
 
 export default collectionsSlice.reducer;
+
+export const { updateCollectionProperty } = collectionsSlice.actions;

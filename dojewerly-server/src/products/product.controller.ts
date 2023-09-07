@@ -40,6 +40,7 @@ import { UserRole } from '../enum/enums';
 import { Roles } from '../auth/roles.decorator';
 import { RolesGuard } from '../auth/roles.guard';
 import { FilesInterceptor } from '@nestjs/platform-express';
+import { CollectionsService } from '../collections/collections.service';
 
 const uploadFolder = './uploads';
 
@@ -62,7 +63,10 @@ const storage = diskStorage({
 @ApiTags('Catalog')
 @Controller('products')
 export class ProductsController {
-  constructor(private readonly productsService: ProductsService) {}
+  constructor(
+    private readonly productsService: ProductsService,
+    private readonly collectionsService: CollectionsService,
+  ) {}
 
   @Get()
   @ApiOperation({ summary: 'Get all products' })
@@ -136,6 +140,8 @@ export class ProductsController {
           // Здесь можно дополнительно обработать ошибку, если это необходимо
         }
       });
+      // Удалите продукт из всех коллекций
+      await this.collectionsService.removeProductFromAllCollections(id);
     }
     await this.productsService.deleteProduct(id);
   }

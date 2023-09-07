@@ -83,4 +83,23 @@ export class CollectionsService {
     );
     await collection.save();
   }
+
+  async removeProductFromAllCollections(productId: string): Promise<void> {
+    // Найдем все коллекции, в которых есть этот продукт
+    const collectionsContainingProduct = await this.collectionModel
+      .find({ productIds: productId })
+      .exec();
+
+    if (collectionsContainingProduct.length === 0) {
+      return; // Продукт не найден ни в одной коллекции, нет необходимости в дальнейших действиях
+    }
+
+    // Для каждой коллекции удалим продукт и обновим коллекцию
+    for (const collection of collectionsContainingProduct) {
+      collection.productIds = collection.productIds.filter(
+        (id) => id !== productId,
+      );
+      await collection.save();
+    }
+  }
 }
