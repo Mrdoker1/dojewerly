@@ -17,9 +17,7 @@ interface PartialUpdatePayload {
   updates: Product;
 }
 
-// Define the Product type
-export interface Product {
-  _id?: string;
+export interface NewProduct {
   name: string;
   price: number;
   stock: number;
@@ -35,6 +33,11 @@ export interface Product {
   imageURLs: string[];
 }
 
+// Define the Product type
+export interface Product extends NewProduct {
+  _id: string;
+}
+
 // Определяем тип для параметров запроса
 interface FetchAllProductsParams {
   sort?: string;
@@ -47,7 +50,7 @@ interface FetchAllProductsParams {
 // Async action to create a new product
 export const createProduct = createAsyncThunk(
   'products/create',
-  async (productData: Product, thunkAPI) => {
+  async (productData: NewProduct, thunkAPI) => {
     const token = localStorage.getItem('token');
 
     if (!token) {

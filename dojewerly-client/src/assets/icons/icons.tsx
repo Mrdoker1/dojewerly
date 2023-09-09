@@ -17,6 +17,7 @@ import { ReactComponent as UploadImage } from './uploadImage.svg'
 import { ReactComponent as Empty } from './empty.svg'
 import { ReactComponent as Plus } from './plus.svg'
 import { ReactComponent as LogoText } from './logo-text.svg'
+import { ReactComponent as Heart } from './heart.svg'
 
 const icons = {
   arrowLeft: ArrowLeft,
@@ -38,6 +39,7 @@ const icons = {
   empty: Empty,
   plus: Plus,
   logoText: LogoText,
+  heart: Heart,
   // Добавьте сюда больше иконок при необходимости
 };
 

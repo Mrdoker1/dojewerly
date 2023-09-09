@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import ProductImage from '../../../../Product/ProductImage/ProductImage';
+import ProductImage from '../../../../Image/ProductImage/ProductImage';
 import { Collection } from '../../../../../app/reducers/collectionsSlice';
 import { fetchAllProducts, Product } from '../../../../../app/reducers/productsSlice'; // Импортируйте ваш редьюсер продуктов
 import styles from './AdminCollectionListItemInfo.module.css';

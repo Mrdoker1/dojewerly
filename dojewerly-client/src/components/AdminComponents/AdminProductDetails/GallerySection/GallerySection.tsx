@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, RootState } from '../../../../app/store'; // Путь к вашему хранилищу Redux
 import { deleteProductImage, addImagesToProduct } from '../../../../app/reducers/productsSlice'; // Путь к вашему слайсу продуктов
 import styles from './GallerySection.module.css';
-import ProductImage from '../../../Product/ProductImage/ProductImage';
+import ProductImage from '../../../Image/ProductImage/ProductImage';
 import { DndProvider, useDrag, useDrop } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 import icons from '../../../../assets/icons/icons';

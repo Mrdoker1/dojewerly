@@ -7,7 +7,7 @@ import AdminCollectionListItemInfo from './AdminCollectionListItemInfo/AdminColl
 import styles from './AdminCollectionListItem.module.css';
 import icons from '../../../../assets/icons/icons'; 
 import { sendNotification } from '../../../NotificationCenter/notificationHelpers';
-import GradientImage from '../../../Product/GradientImage/GradientImage';
+import GradientImage from '../../../Image/GradientImage/GradientImage';
 
 interface AdminCollectionListItemProps {
   collection: Collection;

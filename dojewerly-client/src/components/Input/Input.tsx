@@ -20,7 +20,9 @@ export interface InputProps {
   /** Дочерние элементы инпута */
   children?: React.ReactNode;
   /** Есть ли ошибка в инпуте */
-  hasError?: boolean; 
+  hasError?: boolean;
+  /** Поле только для чтения */
+  readOnly?: boolean;
   /** Сообщение, которое будет отображаться под инпутом */
   message?: string;
   /** Иконка, отображаемая справа от текста инпута */
@@ -33,7 +35,7 @@ export interface InputProps {
   iconLeftClick?: () => void;
 }
 
-const Input: React.FC<InputProps> = ({ onChange, value, type, disabled, children, label, placeholder, hasError, message, iconRight, iconRightClick, iconLeft, iconLeftClick  }) => {
+const Input: React.FC<InputProps> = ({ onChange, readOnly, value, type, disabled, children, label, placeholder, hasError, message, iconRight, iconRightClick, iconLeft, iconLeftClick  }) => {
     const [inputValue, setInputValue] = useState(value);
     const [isFocused, setIsFocused] = useState(false);
   
@@ -86,6 +88,7 @@ const Input: React.FC<InputProps> = ({ onChange, value, type, disabled, children
             placeholder={placeholder}
             onFocus={handleFocus}
             onBlur={handleBlur}
+            readOnly={readOnly}
           />
           {children}
           {IconRight && <IconRight onClick={handleIconRightClick} className={styles.icon} />}

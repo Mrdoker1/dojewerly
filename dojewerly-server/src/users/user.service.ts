@@ -20,6 +20,7 @@ export class UserService {
   // UserService
   async findById(id: string): Promise<UserDocument> {
     console.log('Find user by ID:', id); // Добавьте отладочный вывод
+    console.log('User found:', User);
     return this.userModel.findById(id).exec();
   }
 
@@ -97,5 +98,18 @@ export class UserService {
         return obj;
       }, {});
     return this.userModel.findByIdAndUpdate(id, updates, { new: true }).exec();
+  }
+
+  async removeProductFromFavorites(productId: string): Promise<void> {
+    const usersWithProductInFavorites = await this.userModel
+      .find({ favorites: productId })
+      .exec();
+
+    for (const user of usersWithProductInFavorites) {
+      user.favorites = user.favorites.filter(
+        (favId) => favId.toString() !== productId,
+      );
+      await user.save();
+    }
   }
 }

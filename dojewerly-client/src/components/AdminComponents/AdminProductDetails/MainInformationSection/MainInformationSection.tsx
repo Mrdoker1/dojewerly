@@ -1,7 +1,7 @@
 import React from 'react';
 import Input from "../../../Input/Input";
 import styles from './MainInformationSection.module.css';
-import ProductImage from '../../../Product/ProductImage/ProductImage';
+import ProductImage from '../../../Image/ProductImage/ProductImage';
 import { AppDispatch, RootState } from '../../../../app/store';
 import { useDispatch, useSelector } from 'react-redux';
 import { updateProductProperty, ProductUpdatableProperties, ProductPropsUpdatableProperties } from '../../../../app/reducers/productsSlice';

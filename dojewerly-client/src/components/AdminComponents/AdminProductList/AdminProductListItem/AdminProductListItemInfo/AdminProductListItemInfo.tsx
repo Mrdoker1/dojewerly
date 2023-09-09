@@ -1,6 +1,6 @@
 import React from 'react';
 import styles from './AdminProductListItemInfo.module.css';
-import ProductImage from '../../../../Product/ProductImage/ProductImage';
+import ProductImage from '../../../../Image/ProductImage/ProductImage';
 
 interface AdminProductListItemInfoProps {
     imageUrl: string;

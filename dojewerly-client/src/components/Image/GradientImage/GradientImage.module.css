@@ -8,9 +8,9 @@
   opacity: 20%;
 }
 
-.gradientImage:hover {
+/* .gradientImage:hover {
   opacity: 40%;
-}
+} */
 
 .gradientOverlay {
   background: linear-gradient(to right, white 1%, transparent 100%);

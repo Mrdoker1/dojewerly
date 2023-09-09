@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
+import { UserService } from '../users/user.service';
 import { Product, ProductDocument } from './product.model';
 import {
   CreateProductWithImagesDto,
@@ -12,10 +13,19 @@ import {
 export class ProductsService {
   constructor(
     @InjectModel(Product.name) private productModel: Model<ProductDocument>,
+    private readonly userService: UserService,
   ) {}
 
   async findByPropsId(propsId: number): Promise<ProductDocument[]> {
     return this.productModel.find({ 'props.id': propsId }).exec();
+  }
+
+  async findByIds(productIds: string[]): Promise<ProductDocument[]> {
+    const products = await this.productModel
+      .find({ _id: { $in: productIds } })
+      .exec();
+    console.log('Products found for IDs:', products);
+    return products;
   }
 
   async findById(id: string): Promise<ProductDocument> {
@@ -53,6 +63,9 @@ export class ProductsService {
   }
 
   async deleteProduct(id: string): Promise<void> {
+    // Удалите продукт из избранного всех пользователей
+    await this.userService.removeProductFromFavorites(id);
+    // Удалите сам продукт
     await this.productModel.findByIdAndDelete(id);
   }
 

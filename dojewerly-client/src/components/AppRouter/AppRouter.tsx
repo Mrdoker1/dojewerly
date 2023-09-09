@@ -16,6 +16,8 @@ import CollectionCreationPage from '../../pages/CollectionCreationPage/Collectio
 import ProtectedRoute from './ProtectedRoute/ProtectedRoute';
 import { checkUserSession } from '../../app/reducers/authSlice';
 import AdminProtectedRoute from './AdminProtectedRoute/AdminProtectedRoute';
+import FavouritesPage from '../../pages/FavouritesPage/FavouritesPage';
+import SharedFavouritesPage from '../../pages/SharedFavouritesPage/SharedFavouritesPage';
 
 const AppRouter = memo(() => {
   const auth = useSelector((state: RootState) => state.auth);
@@ -43,7 +45,7 @@ const AppRouter = memo(() => {
           <Route path="/signup" element={<SignUpPage />} />
           <Route path="/dashboard" element={<ProtectedRoute isAllowed={isUserLoggedIn} redirectPath="/signin" children={<DashboardPage />} />}>
             <Route path="profile" element={<ProfilePage />} />
-            <Route path="favourites" element={<p>Content for Favourites</p>} />
+            <Route path="favourites" element={<FavouritesPage />} />
             <Route path="products" element={<AdminProtectedRoute />}>
               <Route index element={<ProductCreationPage />} />
             </Route>
@@ -52,6 +54,7 @@ const AppRouter = memo(() => {
             </Route>
           </Route>
           <Route path="/product/:id" element={<ProductPage />} />
+          <Route path="/favourites/:userId" element={<SharedFavouritesPage />} />
           <Route path="*" element={<NoPage />} />
         </Route>
       </Routes>

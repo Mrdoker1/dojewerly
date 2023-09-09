@@ -16,7 +16,9 @@ export class FavouritesService {
 
   async findUserFavorites(userId: string) {
     const user = await this.userService.findById(userId);
-    return user.favorites.map((id) => id.toString());
+    const productIds = user.favorites.map((id) => id.toString());
+    console.log("User's favorite product IDs:", productIds);
+    return this.productService.findByIds(productIds);
   }
 
   async addToFavorites(userId: string, productId: string) {

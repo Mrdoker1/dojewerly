@@ -1,54 +1,78 @@
 .successMessage, .errorMessage {
-    display: flex;
-    justify-content: space-between;
-    box-sizing: border-box;
-    align-items: center;
-    border-radius: 5px;
-    padding: 6px 12px;
-    font: var(--jost-12-regular);
-    width: 100%;
-    position: relative;
-    transition: all var(--transition-1);
+  display: flex;
+  justify-content: space-between;
+  box-sizing: border-box;
+  align-items: center;
+  border-radius: 5px;
+  padding: 6px 12px;
+  font: var(--jost-12-regular);
+  width: 100%;
+  position: relative;
+  transition: all var(--transition-1);
+  overflow: hidden;
+}
+
+.successMessage {
+  background-color: rgb(231, 253, 236);
+  color: green;
+}
+
+.errorMessage {
+  background-color: rgb(253, 231, 235);
+  color: red;
+}
+
+.icon {
+  cursor: pointer;
+  height: 16px;
+  width: 16px;
+  margin-left: 10px;
+}
+
+.icon:hover {
+  transition: all var(--transition-1);
+}
+
+.successMessage .icon:hover {
+  background-color: rgba(43, 255, 0, 0.1);
+  border-radius: 50%;
+}
+
+.errorMessage .icon:hover {
+  background-color: rgba(255, 21, 0, 0.1);
+  border-radius: 50%;
+}
+
+.absoluteContainer {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  z-index: 1000;
+  max-width: fit-content;
+  border-radius: 5px;
+}
+
+.timeoutBar {
+  height: 2px;
+  width: 100%;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  animation-name: reduceWidth;
+  animation-timing-function: linear;
+  animation-fill-mode: forwards;
+}
+
+.successMessage .timeoutBar {
+  background-color: rgba(0, 128, 0, 0.5);
+}
+
+.errorMessage .timeoutBar {
+  background-color: rgba(255, 0, 0, 0.5);
+}
+
+@keyframes reduceWidth {
+  to {
+    width: 0;
   }
-  
-  .successMessage {
-    border: 1px solid green;
-    background-color: rgb(231, 253, 236);
-    color: green;
-  }
-  
-  .errorMessage {
-    border: 1px solid red;
-    background-color: rgb(253, 231, 235);
-    color: red;
-  }
-  
-  .icon {
-    cursor: pointer;
-    height: 16px;
-    width: 16px;
-    margin-left: 10px;
-  }
-  
-  .icon:hover {
-    transition: all var(--transition-1);
-  }
-  
-  .successMessage .icon:hover {
-    background-color: rgba(43, 255, 0, 0.1);
-    border-radius: 50%;
-  }
-  
-  .errorMessage .icon:hover {
-    background-color: rgba(255, 21, 0, 0.1);
-    border-radius: 50%;
-  }
-  
-  .absoluteContainer {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    z-index: 1000;
-    max-width: fit-content;
-    border-radius: 5px;
-  }
+}

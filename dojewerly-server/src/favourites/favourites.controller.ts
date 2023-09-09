@@ -16,6 +16,14 @@ import { ApiBearerAuth, ApiOperation, ApiTags } from '@nestjs/swagger';
 export class FavouritesController {
   constructor(private readonly favouritesService: FavouritesService) {}
 
+  @Get(':userId/favorites')
+  @ApiOperation({
+    summary: "Get a list of a specific user's favorite products",
+  })
+  async getUserFavorites(@Param('userId') userId: string) {
+    return await this.favouritesService.findUserFavorites(userId);
+  }
+
   @Get()
   @ApiOperation({
     summary: "Get a list of the current user's favorite products",
