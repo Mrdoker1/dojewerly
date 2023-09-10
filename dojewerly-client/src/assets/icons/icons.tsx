@@ -18,6 +18,7 @@ import { ReactComponent as Empty } from './empty.svg'
 import { ReactComponent as Plus } from './plus.svg'
 import { ReactComponent as LogoText } from './logo-text.svg'
 import { ReactComponent as Heart } from './heart.svg'
+import { ReactComponent as Message } from './message.svg'
 
 const icons = {
   arrowLeft: ArrowLeft,
@@ -40,6 +41,7 @@ const icons = {
   plus: Plus,
   logoText: LogoText,
   heart: Heart,
+  message: Message,
   // Добавьте сюда больше иконок при необходимости
 };
 
