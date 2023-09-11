@@ -22,6 +22,8 @@ export interface InputProps {
   /** Есть ли ошибка в инпуте */
   hasError?: boolean;
   /** Поле только для чтения */
+  /** На всю ширину */
+  fullWidth?: boolean;
   readOnly?: boolean;
   /** Сообщение, которое будет отображаться под инпутом */
   message?: string;
@@ -33,9 +35,11 @@ export interface InputProps {
   iconRightClick?: () => void;
   /** Вызывается при клике на иконку слева */
   iconLeftClick?: () => void;
+  /** Дополнительные классы стилей */
+  className?: string;
 }
 
-const Input: React.FC<InputProps> = ({ onChange, readOnly, value, type, disabled, children, label, placeholder, hasError, message, iconRight, iconRightClick, iconLeft, iconLeftClick  }) => {
+const Input: React.ForwardRefRenderFunction<HTMLInputElement, InputProps> = ({ onChange, readOnly, value, type, disabled, children, label, placeholder, hasError, message, iconRight, iconRightClick, iconLeft, iconLeftClick, className, fullWidth = true  }, ref) => {
     const [inputValue, setInputValue] = useState(value);
     const [isFocused, setIsFocused] = useState(false);
   
@@ -76,11 +80,12 @@ const Input: React.FC<InputProps> = ({ onChange, readOnly, value, type, disabled
     const IconLeft = iconLeft ? icons[iconLeft] : null;
 
     return (
-      <div className={`${styles.container} ${hasError ? styles.error : ''}`}>
+      <div className={`${fullWidth ? styles.fullWidth : ''} ${styles.container} ${hasError ? styles.error : ''}`}>
         <label>{label}</label>
-        <div className={`${styles.inputStyle} ${isFocused ? styles.inputFocus : ''} ${hasError ? styles.inputError : ''}`}>
+        <div className={`${className} ${styles.inputStyle} ${isFocused ? styles.inputFocus : ''} ${hasError ? styles.inputError : ''}`}>
           {IconLeft && <IconLeft onClick={handleIconLeftClick} className={styles.icon} />}
           <input
+            ref={ref}
             onChange={handleChange}
             value={inputValue}
             type={type} 
@@ -98,4 +103,4 @@ const Input: React.FC<InputProps> = ({ onChange, readOnly, value, type, disabled
     );
   };
   
-  export default Input;
+  export default React.forwardRef(Input);

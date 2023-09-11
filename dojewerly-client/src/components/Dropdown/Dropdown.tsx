@@ -14,7 +14,7 @@ export interface DropdownProps {
     /** Вызывается при изменении значения дропдауна */
     onChange?: (value: string) => void;
     /** Значение дропдауна */
-    value?: string;
+    value?: string | number;
     /** Плейсхолдер если нет значения */
     placeholder?: string;
     /** Заголовок/лейбл дропдауна */
@@ -27,9 +27,11 @@ export interface DropdownProps {
     iconRight?: keyof typeof icons;
     /** Если `true`, дропдаун будет недоступен для ввода */
     disabled?: boolean;
+    /** Дополнительные классы стилей */
+    className?: string;
 }
 
-const Dropdown: React.FC<DropdownProps> = ({ options, onChange, label, hasError, message, iconRight, placeholder, value }) => {
+const Dropdown: React.FC<DropdownProps> = ({ options, onChange, label, hasError, message, iconRight, placeholder, value, className }) => {
     const [isOpen, setIsOpen] = useState(false);
     const [selectedValue, setSelectedValue] = useState(value);
     const dropdownRef = useRef<HTMLDivElement>(null);  // <-- Уточняем тип здесь
@@ -79,9 +81,9 @@ const Dropdown: React.FC<DropdownProps> = ({ options, onChange, label, hasError,
     }, [value, options, message, hasError]);
 
     return (
-        <div className={styles.container} ref={dropdownRef}>
+        <div className={`${styles.container}`} ref={dropdownRef}>
           {label && <div className={styles.label}>{label}</div>}
-          <div className={`${styles.dropdown} ${internalHasError ? styles.error : ''}`} onClick={() => setIsOpen(!isOpen)}>
+          <div className={`${styles.dropdown} ${className} ${internalHasError ? styles.error : ''}`} onClick={() => setIsOpen(!isOpen)}>
           <span className={!selectedValue ? styles.placeholder : ''}>
             {
             // Ищем label для выбранного value

@@ -38,6 +38,13 @@ export class ProductsService {
     keyword?: string;
     page?: number;
     limit?: number;
+    material?: string;
+    gender?: string;
+    availability?: string;
+    stock?: number;
+    type?: string;
+    minPrice?: number;
+    maxPrice?: number;
   }): Promise<ProductDocument[]> {
     let query = this.productModel.find();
     // Search by keyword
@@ -51,6 +58,30 @@ export class ProductsService {
     // Pagination
     if (params.page && params.limit) {
       query = query.skip((params.page - 1) * params.limit).limit(params.limit);
+    }
+    if (params.material) {
+      query = query.find({ 'props.material': params.material });
+    }
+    if (params.gender) {
+      query = query.find({ 'props.gender': params.gender });
+    }
+    if (params.availability) {
+      query = query.find({ 'props.availability': params.availability });
+    }
+    if (params.stock !== undefined) {
+      query = query.find({ stock: params.stock });
+    }
+    if (params.type) {
+      query = query.find({ 'props.type': params.type });
+    }
+    if (params.minPrice !== undefined && params.maxPrice !== undefined) {
+      query = query.find({
+        price: { $gte: params.minPrice, $lte: params.maxPrice },
+      });
+    } else if (params.minPrice !== undefined) {
+      query = query.find({ price: { $gte: params.minPrice } });
+    } else if (params.maxPrice !== undefined) {
+      query = query.find({ price: { $lte: params.maxPrice } });
     }
     return query.exec();
   }

@@ -8,6 +8,7 @@ import userDashboardReducer from './userDashboardSlice';
 import catalogCriteriaReducer from './catalogCriteriaSlice';
 import collectionsReducer from './collectionsSlice';
 import favouritesReducer from './favouritesSlice';
+import catalogReducer from './catalogSlice';
 
 const rootReducer = combineReducers({
   counter: counterReducer,
@@ -19,6 +20,7 @@ const rootReducer = combineReducers({
   catalogCriteria: catalogCriteriaReducer,
   collections: collectionsReducer,
   favourites: favouritesReducer,
+  catalog: catalogReducer,
 });
 
 export type RootState = ReturnType<typeof rootReducer>;

@@ -75,14 +75,41 @@ export class ProductsController {
   @ApiQuery({ name: 'q', required: false })
   @ApiQuery({ name: 'page', required: false })
   @ApiQuery({ name: 'limit', required: false })
+  @ApiQuery({ name: 'material', required: false })
+  @ApiQuery({ name: 'gender', required: false })
+  @ApiQuery({ name: 'availability', required: false })
+  @ApiQuery({ name: 'stock', required: false })
+  @ApiQuery({ name: 'type', required: false })
+  @ApiQuery({ name: 'minPrice', required: false })
+  @ApiQuery({ name: 'maxPrice', required: false })
   async getProducts(
     @Query('sort') sort: string,
     @Query('order') order: 'asc' | 'desc',
     @Query('q') keyword: string,
     @Query('page') page: number,
     @Query('limit') limit: number,
+    @Query('material') material: string,
+    @Query('gender') gender: string,
+    @Query('availability') availability: string,
+    @Query('stock') stock: number,
+    @Query('type') type: string,
+    @Query('minPrice') minPrice: number,
+    @Query('maxPrice') maxPrice: number,
   ): Promise<ProductDocument[]> {
-    return this.productsService.findAll({ sort, order, keyword, page, limit });
+    return this.productsService.findAll({
+      sort,
+      order,
+      keyword,
+      page,
+      limit,
+      material,
+      gender,
+      availability,
+      stock,
+      type,
+      minPrice,
+      maxPrice,
+    });
   }
 
   @ApiOperation({ summary: 'Get product by id' })

@@ -3,8 +3,11 @@
   flex-direction: column;
   gap: 4px;
   font: var(--jost-15-regular);
-  width: 100%;
   transition: all var(--transition-1);
+}
+
+.fullWidth {
+  width: 100%;
 }
 
 label {

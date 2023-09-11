@@ -1,4 +1,5 @@
 import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
+import { ProductQueryParams } from './catalogSlice';
 
 const apiUrl = process.env.REACT_APP_API_URL;
 
@@ -36,15 +37,6 @@ export interface NewProduct {
 // Define the Product type
 export interface Product extends NewProduct {
   _id: string;
-}
-
-// Определяем тип для параметров запроса
-interface FetchAllProductsParams {
-  sort?: string;
-  order?: string;
-  q?: string;
-  page?: number;
-  limit?: number;
 }
 
 // Async action to create a new product
@@ -132,18 +124,19 @@ export const deleteProduct = createAsyncThunk(
 
 export const fetchAllProducts = createAsyncThunk(
   'products/fetchAll',
-  async (queryParams: FetchAllProductsParams, thunkAPI) => {
+  async (queryParams: ProductQueryParams, thunkAPI) => {
     try {
       // Деструктуризация параметров запроса
-      const { sort, order, q, page, limit } = queryParams;
+      const { sort, order, q, page, limit, material, gender, availability, stock, type, minPrice, maxPrice } = queryParams;
 
       // Формирование строки запроса с использованием деструктуризации и шаблонных строк
-      const queryString = Object.entries({ sort, order, q, page, limit })
-        .filter(([, value]) => value !== undefined)
+      const queryString = Object.entries({ sort, order, q, page, limit, material, gender, availability, stock, type, minPrice, maxPrice })
+        .filter(([, value]) => value !== null && value !== undefined)
         .map(([key, value]) => `${key}=${value}`)
         .join('&');
 
       const url = `${apiUrl}/products?${queryString}`;
+      console.log("Fetching products with URL:", url);
       const response = await fetch(url);
 
       if (!response.ok) {
