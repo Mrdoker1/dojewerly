@@ -18,7 +18,7 @@ export interface ProductQueryParams {
   maxPrice?: number;
 }
 
-const initialState: CatalogState = {
+export const initialState: CatalogState = {
   sort: undefined,
   order: undefined,
   q: undefined,
@@ -40,6 +40,7 @@ export const catalogSlice = createSlice({
     // Установить значение фильтра
     setFilter: (state, action: PayloadAction<{ name: keyof ProductQueryParams, value: ProductQueryParams[keyof ProductQueryParams] }>) => {
       const { name, value } = action.payload;
+      console.log("Setting filter in Redux:", name, value);
       state[name] = value;
     },
     // Сбросить все фильтры

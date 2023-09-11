@@ -125,6 +125,7 @@ export const deleteProduct = createAsyncThunk(
 export const fetchAllProducts = createAsyncThunk(
   'products/fetchAll',
   async (queryParams: ProductQueryParams, thunkAPI) => {
+    console.log("Query parameters:", queryParams);
     try {
       // Деструктуризация параметров запроса
       const { sort, order, q, page, limit, material, gender, availability, stock, type, minPrice, maxPrice } = queryParams;

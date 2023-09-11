@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, RootState } from '../../app/store';
 import Layout from '../Layout/Layout';
 import HomePage from '../../pages/HomePage/HomePage';
-import Catalog from '../../pages/Catalog/Catalog';
+import CatalogPage from '../../pages/CatalogPage/CatalogPage';
 import ProductPage from '../../pages/ProductPage/ProductPage';
 import SignInPage from '../../pages/Authorization/SignInPage/SignInPage';
 import NoPage from '../../pages/NoPage/NoPage';
@@ -40,7 +40,7 @@ const AppRouter = memo(() => {
       <Routes>
         <Route path="/" element={<Layout />}>
           <Route index element={<HomePage />} />
-          <Route path="/catalog" element={<Catalog />} />
+          <Route path="/catalog" element={<CatalogPage />} />
           <Route path="/signin" element={<SignInPage />} />
           <Route path="/signup" element={<SignUpPage />} />
           <Route path="/dashboard" element={<ProtectedRoute isAllowed={isUserLoggedIn} redirectPath="/signin" children={<DashboardPage />} />}>

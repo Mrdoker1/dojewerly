@@ -4,7 +4,6 @@ import styles from './MainInformationSection.module.css';
 import { AppDispatch, RootState } from '../../../../app/store';
 import { useDispatch, useSelector } from 'react-redux';
 import { CollectionUpdatableProperties, updateCollectionProperty } from '../../../../app/reducers/collectionsSlice';
-import CollectionImage from '../../../Collection/CollectionImage/CollectionImage';
 
 const MainInformationSection: React.FC = () => {
   const dispatch = useDispatch<AppDispatch>();

@@ -1,5 +1,6 @@
  .container {
     max-width: fit-content;
+    transition: all var(--transition-1);
  }
 
 .filerDropdown{
@@ -9,4 +10,9 @@
     font: var(--jost-13-regular);
     color: var(--black-1);
     width: max-content;
+}
+
+.container:hover {
+    background-color: var(--grey-3);
+    border-radius: 4px;
 }

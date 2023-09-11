@@ -1,9 +1,7 @@
 import React, { memo, useState } from 'react';
 import styles from './SignUpForm.module.css';
-import variables from '../../variables.module.css';
 import Input from '../Input/Input'
 import Button from '../Button/Button';
-import SocialButtons from '../SocialButtons/SocialButtons';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, RootState } from '../../app/store';
 import { registerUser } from '../../app/reducers/authSlice';
