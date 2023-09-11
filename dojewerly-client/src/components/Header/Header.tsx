@@ -69,9 +69,15 @@ const Header: React.FC = () => {
         </Link>
         <nav className={styles.menuNavigation}>
           <ul>
-            <li>barrette</li>
-            <li>rings</li>
-            <li>brooch</li>
+            <Link to="/catalog?type=Barrette">
+              <li>barrette</li>
+            </Link>
+            <Link to="/catalog?type=Ring">
+              <li>rings</li>
+            </Link>
+            <Link to="/catalog?type=Brooch">
+              <li>brooch</li>
+            </Link>
             <li>collections</li>
             <li><template>language-switcher</template></li>
             <li className={styles.doxIcon}><icons.dox/></li>
