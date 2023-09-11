@@ -1,5 +1,15 @@
 .container {
     display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 40px 0;
   }
+
+.porudctList{
+    max-width: inherit;
+    display: grid;
+    row-gap: 60px;
+    column-gap: 35px;
+    grid-template-columns: auto auto auto;
+    justify-content: start;
+}

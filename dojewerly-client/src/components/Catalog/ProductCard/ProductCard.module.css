@@ -1,15 +1,21 @@
-.productCard {
-    border: 1px solid #e0e0e0;
-    padding: 10px;
-    border-radius: 5px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    transition: box-shadow 0.3s ease;
-    max-width: 300px;
-    margin: 10px;
+  .productCard {
+    min-width: 140px;
+    min-height: 140px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    cursor: pointer;
+    transition: all 0.3s; /* Анимация перехода цвета */
   }
   
   .productCard:hover {
-    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+    transform: scale(1.010);
+  }
+
+  .infoContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
   }
   
   .image {
@@ -29,13 +35,13 @@
   .name {
     font: var(--jost-13-regular);
     color: var(--black-1);
-    margin-bottom: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
   }
   
   .info {
     font: var(--jost-14-regular);
     color: var(--grey-1);
-    margin-bottom: 10px;
   }
   
   .price {

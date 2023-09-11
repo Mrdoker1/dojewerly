@@ -16,9 +16,11 @@ const ProductList: React.FC = () => {
 
   return (
     <div className={styles.container}>
-      {products.map(product => (
-        <ProductCard key={product._id} product={product} />
-      ))}
+      <div className={styles.porudctList}>
+        {products.map(product => (
+          <ProductCard key={product._id} product={product} />
+        ))}
+      </div>
     </div>
   );
 };
