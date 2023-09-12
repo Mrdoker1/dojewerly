@@ -65,7 +65,7 @@
 }
 
 .message {
-  margin-top: 4px;
+  padding-top: 4px;
   color: var(--grey-1);
   font: var(--jost-12-regular);
 }

@@ -101,7 +101,7 @@ const Dropdown: React.FC<DropdownProps> = ({ options, onChange, label, hasError,
               ))}
             </div>
           )}
-            <div className={`${styles.message} ${internalHasError ? styles.errorText : ''}`}>{internalMessage}</div>
+          {internalMessage !== '' && <div className={`${styles.message} ${internalHasError ? styles.errorText : ''}`}>{internalMessage}</div> }
         </div>
       );
     };
