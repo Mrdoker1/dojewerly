@@ -33,13 +33,13 @@ const RangeSlider: React.FC<RangeSliderProps> = ({ minValue, maxValue, onChange 
     return (
         <div className={styles.container}>
             <div className={styles.dropdown} onClick={() => setIsOpen(!isOpen)}>
-                Price: {localMinValue} - {localMaxValue}
+                Price: {localMinValue} - {localMaxValue}$
             </div>
             {isOpen && (
                 <div className={styles.sliderContainer}>
                     <MultiRangeSlider
-                        min={0}
-                        max={1000}
+                        min={minValue}
+                        max={maxValue}
                         step={5}
                         minValue={localMinValue}
                         maxValue={localMaxValue}
