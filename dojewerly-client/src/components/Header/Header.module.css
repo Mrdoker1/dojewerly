@@ -2,7 +2,7 @@
   .header {
     position: sticky;
     top: 0;
-    z-index: 3;
+    z-index: 100;
     transition: var(--transition-1);
     background: var(--white);
     width: 100%;

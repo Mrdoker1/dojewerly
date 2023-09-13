@@ -19,6 +19,8 @@ import { ReactComponent as Plus } from './plus.svg'
 import { ReactComponent as LogoText } from './logo-text.svg'
 import { ReactComponent as Heart } from './heart.svg'
 import { ReactComponent as Message } from './message.svg'
+import { ReactComponent as BoltLeft } from './bolt-left.svg'
+import { ReactComponent as BoltRight } from './bolt-right.svg'
 
 const icons = {
   arrowLeft: ArrowLeft,
@@ -42,6 +44,8 @@ const icons = {
   logoText: LogoText,
   heart: Heart,
   message: Message,
+  boltLeft: BoltLeft,
+  boltRight: BoltRight,
   // Добавьте сюда больше иконок при необходимости
 };
 

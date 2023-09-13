@@ -3,7 +3,7 @@
   justify-content: space-between;
   box-sizing: border-box;
   align-items: center;
-  border-radius: 5px;
+  border-radius: 4px;
   padding: 6px 12px;
   font: var(--jost-12-regular);
   width: 100%;
@@ -13,11 +13,13 @@
 }
 
 .successMessage {
+  /* border: 1px solid green; */
   background-color: rgb(231, 253, 236);
   color: green;
 }
 
 .errorMessage {
+  /* border: 1px solid red; */
   background-color: rgb(253, 231, 235);
   color: red;
 }
@@ -53,26 +55,38 @@
 }
 
 .timeoutBar {
-  height: 2px;
+  height: 3px;
   width: 100%;
   position: absolute;
   bottom: 0;
   left: 0;
-  animation-name: reduceWidth;
+  animation-name: RightToLeft;
   animation-timing-function: linear;
   animation-fill-mode: forwards;
 }
 
 .successMessage .timeoutBar {
-  background-color: rgba(0, 128, 0, 0.5);
+  background-color: rgba(0, 128, 0, 0.3);
 }
 
 .errorMessage .timeoutBar {
-  background-color: rgba(255, 0, 0, 0.5);
+  background-color: rgba(255, 0, 0, 0.3);
 }
 
-@keyframes reduceWidth {
+@keyframes LeftToRight {
+  from {
+    width: 100%;
+  }
   to {
     width: 0;
+  }
+}
+
+@keyframes RightToLeft {
+  from {
+    width: 0;
+  }
+  to {
+    width: 100%;
   }
 }

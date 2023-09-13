@@ -26,6 +26,7 @@ const ProductList: React.FC = () => {
   }, [dispatch, filters]);
 
   const handlePageChange = (page: number) => {
+    window.scrollTo(0, 0); // сброс позиции скролла к верху страницы
     dispatch(setFilter({ name: 'page', value: page }));
     const newSearchParams = new URLSearchParams(location.search);
     newSearchParams.set('page', page.toString());
@@ -38,7 +39,7 @@ const ProductList: React.FC = () => {
         <div className={styles.porudctList}>
         {products.length > 0 ? (
           products.map(product => (
-            <ProductCard product={product} />
+            <ProductCard key={product._id} product={product} />  // Добавьте key здесь
           ))
         ) : (
           <div className={styles.noProducts}>No products found :( Try changing your search terms.</div>
