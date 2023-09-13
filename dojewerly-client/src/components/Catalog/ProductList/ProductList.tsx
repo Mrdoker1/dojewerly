@@ -36,13 +36,13 @@ const ProductList: React.FC = () => {
     <>
       <div className={styles.container}>
         <div className={styles.porudctList}>
-          {products.length > 0 ? (
-            products.map(product => (
-              <ProductCard key={product._id} product={product} />
-            ))
-          ) : (
-            <div className={styles.noProducts}>No products found :( Try changing your search terms.</div>
-          )}
+        {products.length > 0 ? (
+          products.map(product => (
+            <ProductCard product={product} />
+          ))
+        ) : (
+          <div className={styles.noProducts}>No products found :( Try changing your search terms.</div>
+        )}
         </div>
       </div>
       <Pagination 

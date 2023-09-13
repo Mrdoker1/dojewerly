@@ -1,0 +1,98 @@
+.container {
+    flex: 1; /* растягивает контейнер на все свободное пространство */
+    max-width: 1180px;
+    width: 100%;
+    height: inherit;
+}
+
+.productSection {
+    padding: 60px 0;
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+.productGallery {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 20px;
+    width: 100%;
+    max-width: 100%;
+}
+
+.productDetailsWrapper {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+
+.productDetailsHeading{
+    display: flex;
+    flex-direction: column;
+}
+
+.productDetails {
+    position: sticky;
+    top: 170px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    max-width: 400px;
+    height: fit-content
+}
+
+.productName {
+    white-space: normal;
+    word-wrap: break-word;
+}
+
+.productProperties {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    font: normal 400 14px/19px "Jost";
+    list-style: none;
+    color: #65635F;
+}
+
+.productProperties li {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+}
+
+.productDetailsDescription {
+    color: #65635F;
+    font: normal 400 14px/19px "Jost";
+}
+
+.solid {
+    border-top: 1px solid #F4F4F2;
+}
+
+.productDetailsPriceWrapper {
+    display: flex;
+    justify-content: space-between;
+}
+
+.backButton{
+    padding: 0px;
+    margin-left: -10px;
+}
+
+.image {
+    width: 100%;
+    height: auto;
+    background-color: var(--grey-3);
+}
+
+.price{
+    font: var(--jost-16-regular);
+    color: var(--black-1);
+    text-transform: uppercase;
+}
+
+.stock {
+    font: var(--jost-14-regular);
+    color: var(--grey-1);
+}

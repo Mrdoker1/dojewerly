@@ -1,8 +1,8 @@
-import React, { useRef, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { batch, shallowEqual, useDispatch, useSelector } from 'react-redux';
 import Button from '../../Button/Button';
 import { fetchCatalogCriteria } from '../../../app/reducers/catalogCriteriaSlice';
-import { setFilter, resetFilters, updateFromURL } from '../../../app/reducers/catalogSlice';
+import { setFilter, resetFilters } from '../../../app/reducers/catalogSlice';
 import { AppDispatch, RootState } from '../../../app/store';
 import { CatalogState } from '../../../app/reducers/catalogSlice';
 import styles from './Filters.module.css'
@@ -18,7 +18,6 @@ const Filters = () => {
     const inputRef = React.useRef<HTMLInputElement>(null);
     const navigate = useNavigate(); 
     const location = useLocation();
-    const initialSearch = useRef(location.search);
 
     const isAnyFilterApplied = Object.entries(filters).some(([key, value]) => {
         if (['page', 'limit'].includes(key)) return false;

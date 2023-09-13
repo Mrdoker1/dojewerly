@@ -1,10 +1,12 @@
 // import React from 'react';
 // import noImageIcon from '../../../assets/icons/no-image-S.svg';
+// import icons from '../../../assets/icons/icons';
 
 // interface ProductImageProps {
 //   imageUrl: string; // Теперь это просто имя файла изображения
 //   alt: string;
 //   className?: string;
+//   defaultImage?: keyof typeof icons;
 // }
 
 // const ProductImage: React.FC<ProductImageProps> = ({ imageUrl, alt, className }) => {

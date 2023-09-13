@@ -10,6 +10,16 @@
   transition: all var(--transition-1);
 }
 
+.productCard a {
+  gap: inherit;
+  display: inherit;
+  flex-direction: inherit;
+}
+
+.productCard:hover{
+  transform: scale(1.01);
+}
+
 .infoContainer {  
   display: flex;
   flex-direction: column;
@@ -25,11 +35,9 @@
   object-fit: cover;
   display: block;
   transition: all var(--transition-1);
-  overflow: hidden;
 }
 
 .image:hover{
-  transform: scale(1.01);
 }
 
 .image img {

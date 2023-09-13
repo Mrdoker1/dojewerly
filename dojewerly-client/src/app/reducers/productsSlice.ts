@@ -122,6 +122,18 @@ export const deleteProduct = createAsyncThunk(
   }
 );
 
+export const fetchProductById = createAsyncThunk(
+  'products/fetchById',
+  async (productId: string, thunkAPI) => {
+    const response = await fetch(`${apiUrl}/products/${productId}`);
+    if (!response.ok) {
+      const data = await response.json();
+      throw new Error(data.message || 'Failed to fetch product');
+    }
+    return await response.json();
+  }
+);
+
 export const fetchTotalProductsCount = createAsyncThunk(
   'products/fetchTotalCount',
   async (queryParams: ProductQueryParams, thunkAPI) => {
@@ -376,6 +388,15 @@ export const productsSlice = createSlice({
       })
       .addCase(fetchTotalProductsCount.fulfilled, (state, action: PayloadAction<number>) => {
         state.totalProducts = action.payload;
+      })
+      .addCase(fetchProductById.fulfilled, (state, action: PayloadAction<Product>) => {
+        state.status = 'succeeded';
+        const existingProductIndex = state.products.findIndex(prod => prod._id === action.payload._id);
+        if (existingProductIndex >= 0) {
+          state.products[existingProductIndex] = action.payload;
+        } else {
+          state.products.push(action.payload);
+        }
       })
   },
 });
