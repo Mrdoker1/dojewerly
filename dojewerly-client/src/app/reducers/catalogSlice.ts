@@ -22,8 +22,8 @@ export const initialState: CatalogState = {
   sort: undefined,
   order: undefined,
   q: undefined,
-  page: undefined,
-  limit: undefined,
+  page: 1,
+  limit: 6,
   material: undefined,
   gender: undefined,
   type: undefined,
@@ -40,15 +40,40 @@ export const catalogSlice = createSlice({
     // Установить значение фильтра
     setFilter: (state, action: PayloadAction<{ name: keyof ProductQueryParams, value: ProductQueryParams[keyof ProductQueryParams] }>) => {
       const { name, value } = action.payload;
+      console.log("setFilter called:", action.payload);
       console.log("Setting filter in Redux:", name, value);
       state[name] = value;
     },
     // Сбросить все фильтры
     resetFilters: (state) => {
       return initialState;
-    }
+    },
+    // Установить все фильтры
+    setAllFilters: (state, action: PayloadAction<CatalogState>) => {
+      console.log("Setting all filters in reducer:", action.payload);
+      return { ...state, ...action.payload };
+    },
+    updateFromURL: (state, action: PayloadAction<string>) => {
+      const search = action.payload;
+      const searchParams = new URLSearchParams(search);
+      console.log("Updating from URL:", search);
+
+      searchParams.forEach((value, key) => {
+        console.log("Processing key:", key, "with value:", value);
+        if (key in initialState) {
+            const targetKey = key as keyof CatalogState;
+            if (typeof initialState[targetKey] === 'number') {
+                state[targetKey] = parseInt(value, 10);
+            } else {
+                state[targetKey] = value;
+            }
+        }
+    });
+    
+  }
   }
 });
 
-export const { setFilter, resetFilters } = catalogSlice.actions;
+export const { setFilter, resetFilters, setAllFilters, updateFromURL } = catalogSlice.actions;
 export default catalogSlice.reducer;
+

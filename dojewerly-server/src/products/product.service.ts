@@ -16,36 +16,7 @@ export class ProductsService {
     private readonly userService: UserService,
   ) {}
 
-  async findByPropsId(propsId: number): Promise<ProductDocument[]> {
-    return this.productModel.find({ 'props.id': propsId }).exec();
-  }
-
-  async findByIds(productIds: string[]): Promise<ProductDocument[]> {
-    const products = await this.productModel
-      .find({ _id: { $in: productIds } })
-      .exec();
-    console.log('Products found for IDs:', products);
-    return products;
-  }
-
-  async findById(id: string): Promise<ProductDocument> {
-    return this.productModel.findById(id).exec();
-  }
-
-  async findAll(params: {
-    sort?: string;
-    order?: 'asc' | 'desc';
-    keyword?: string;
-    page?: number;
-    limit?: number;
-    material?: string;
-    gender?: string;
-    availability?: string;
-    stock?: number;
-    type?: string;
-    minPrice?: number;
-    maxPrice?: number;
-  }): Promise<ProductDocument[]> {
+  private filterQuery(params) {
     let query = this.productModel.find();
     // Search by keyword
     if (params.keyword) {
@@ -83,7 +54,41 @@ export class ProductsService {
     } else if (params.maxPrice !== undefined) {
       query = query.find({ price: { $lte: params.maxPrice } });
     }
-    return query.exec();
+
+    return query;
+  }
+
+  async findByPropsId(propsId: number): Promise<ProductDocument[]> {
+    return this.productModel.find({ 'props.id': propsId }).exec();
+  }
+
+  async findByIds(productIds: string[]): Promise<ProductDocument[]> {
+    const products = await this.productModel
+      .find({ _id: { $in: productIds } })
+      .exec();
+    console.log('Products found for IDs:', products);
+    return products;
+  }
+
+  async findById(id: string): Promise<ProductDocument> {
+    return this.productModel.findById(id).exec();
+  }
+
+  async findAll(params: {
+    sort?: string;
+    order?: 'asc' | 'desc';
+    keyword?: string;
+    page?: number;
+    limit?: number;
+    material?: string;
+    gender?: string;
+    availability?: string;
+    stock?: number;
+    type?: string;
+    minPrice?: number;
+    maxPrice?: number;
+  }): Promise<ProductDocument[]> {
+    return this.filterQuery(params).exec();
   }
 
   async createProduct(
@@ -122,5 +127,13 @@ export class ProductsService {
       .findByIdAndUpdate(id, partialUpdateProductDto)
       .exec();
     return this.productModel.findById(id).exec();
+  }
+
+  async countAll(): Promise<number> {
+    return this.productModel.countDocuments().exec();
+  }
+
+  async countFiltered(params): Promise<number> {
+    return this.filterQuery(params).countDocuments().exec();
   }
 }

@@ -38,8 +38,8 @@ const RangeSlider: React.FC<RangeSliderProps> = ({ minValue, maxValue, onChange 
             {isOpen && (
                 <div className={styles.sliderContainer}>
                     <MultiRangeSlider
-                        min={minValue}
-                        max={maxValue}
+                        min={0}
+                        max={1000}
                         step={5}
                         minValue={localMinValue}
                         maxValue={localMaxValue}

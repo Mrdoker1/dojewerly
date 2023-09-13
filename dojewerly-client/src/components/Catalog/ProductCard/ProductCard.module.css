@@ -1,50 +1,60 @@
-  .productCard {
-    min-width: 140px;
-    min-height: 140px;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    cursor: pointer;
-    transition: all 0.3s; /* Анимация перехода цвета */
-  }
-  
-  .productCard:hover {
-    transform: scale(1.010);
-  }
+.productCard {
+  min-width: 140px;
+  max-width: 370px;
+  min-height: 140px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  cursor: pointer;
+  width: 100%; /* Занимает 100% ширины родительского элемента */
+}
 
-  .infoContainer {
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
-  }
-  
-  .image {
-    width: 100%;
-    text-align: center;
-  }
-  
-  .image img {
-    max-width: 100%;
-  }
-  
-  .productInfo {
-    padding: 10px 0;
-  }
-  
-  .name {
-    font: var(--jost-13-regular);
-    color: var(--black-1);
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-  }
-  
-  .info {
-    font: var(--jost-14-regular);
-    color: var(--grey-1);
-  }
-  
-  .price {
-    font: var(--jost-16-regular);
-    color: var(--black-1);
-    text-transform: uppercase;
-  }
+.productCard:hover {
+  transform: scale(1.01);
+}
+
+.infoContainer {  
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  overflow: hidden;
+}
+
+.image {
+  background-color: var(--grey-3);
+  text-align: center;
+  width: 100%; 
+  height: auto;
+  object-fit: cover;
+  display: block;
+}
+
+.image img {
+  object-fit: cover;
+  display: block;
+}
+
+.name, .info, .price {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: normal; /* Позволяет тексту переноситься на новую строку */
+  max-width: 100%;  /* Убедитесь, что он не выходит за пределы карточки */
+}
+
+.name {
+  font: var(--jost-13-regular);
+  color: var(--black-1);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+.info {
+  font: var(--jost-14-regular);
+  color: var(--grey-1);
+}
+
+.price {
+  font: var(--jost-16-regular);
+  color: var(--black-1);
+  text-transform: uppercase;
+}

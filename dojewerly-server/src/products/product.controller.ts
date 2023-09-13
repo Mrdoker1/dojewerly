@@ -112,6 +112,24 @@ export class ProductsController {
     });
   }
 
+  @Get('/total')
+  @ApiOperation({ summary: 'Get total number of products based on filters' })
+  @ApiQuery({ name: 'sort', required: false })
+  @ApiQuery({ name: 'order', required: false })
+  @ApiQuery({ name: 'q', required: false })
+  @ApiQuery({ name: 'page', required: false })
+  @ApiQuery({ name: 'limit', required: false })
+  @ApiQuery({ name: 'material', required: false })
+  @ApiQuery({ name: 'gender', required: false })
+  @ApiQuery({ name: 'availability', required: false })
+  @ApiQuery({ name: 'stock', required: false })
+  @ApiQuery({ name: 'type', required: false })
+  @ApiQuery({ name: 'minPrice', required: false })
+  @ApiQuery({ name: 'maxPrice', required: false })
+  async getTotalProductsCount(@Query() queryParams): Promise<number> {
+    return this.productsService.countFiltered(queryParams);
+  }
+
   @ApiOperation({ summary: 'Get product by id' })
   @Get(':id')
   async getProductById(@Param('id') id: string): Promise<ProductDocument> {

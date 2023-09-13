@@ -20,19 +20,21 @@ interface FilterDropdownProps {
     onChange,
     placeholder,
     value
-  }) => {
-  
+}) => {
+    const isDefaultValue = options.findIndex(opt => opt.value === value) === 0;
+    const dropdownClassName = isDefaultValue ? styles.filerDropdown : `${styles.filerDropdown} ${styles.active}`;
+
     return (
-      <div className={styles.container}>
-        <Dropdown
-          options={options}
-          onChange={onChange}
-          placeholder={placeholder}
-          value={value}
-          className={styles.filerDropdown}
-        />
-      </div>
+        <div className={styles.container}>
+            <Dropdown
+                options={options}
+                onChange={onChange}
+                placeholder={placeholder}
+                value={value}
+                className={dropdownClassName}
+            />
+        </div>
     );
-  };
+};
   
   export default FilterDropdown;

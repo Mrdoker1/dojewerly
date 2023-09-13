@@ -122,6 +122,37 @@ export const deleteProduct = createAsyncThunk(
   }
 );
 
+export const fetchTotalProductsCount = createAsyncThunk(
+  'products/fetchTotalCount',
+  async (queryParams: ProductQueryParams, thunkAPI) => {
+    try {
+      // Создание копии объекта queryParams
+      const queryParamsCopy = { ...queryParams };
+
+      // Удаление параметров пагинации из копии
+      delete queryParamsCopy.page;
+      delete queryParamsCopy.limit;
+
+      const queryString = Object.entries(queryParamsCopy)
+        .filter(([, value]) => value !== null && value !== undefined)
+        .map(([key, value]) => `${key}=${value}`)
+        .join('&');
+
+      console.log("Total:", queryParamsCopy);
+      
+      const response = await fetch(`${apiUrl}/products/total?${queryString}`);
+      
+      if (!response.ok) {
+        const data = await response.json();
+        throw new Error(data.message || 'Не удалось загрузить общее количество продуктов');
+      }
+      return await response.json();
+    } catch (error) {
+      throw new Error('Не удалось загрузить общее количество продуктов');
+    }
+  }
+);
+
 export const fetchAllProducts = createAsyncThunk(
   'products/fetchAll',
   async (queryParams: ProductQueryParams, thunkAPI) => {
@@ -265,6 +296,7 @@ export const productsSlice = createSlice({
   name: 'products',
   initialState: {
     products: [] as Product[],
+    totalProducts: 0,
     status: 'idle',
     error: null as string | null
   },
@@ -341,6 +373,9 @@ export const productsSlice = createSlice({
         if (productIndex > -1) {
           state.products[productIndex] = action.payload;
         }
+      })
+      .addCase(fetchTotalProductsCount.fulfilled, (state, action: PayloadAction<number>) => {
+        state.totalProducts = action.payload;
       })
   },
 });

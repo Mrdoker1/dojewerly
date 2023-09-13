@@ -18,6 +18,11 @@ const Header: React.FC = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch<AppDispatch>();
 
+  const handleNavigation = (path: string) => {
+    navigate(path);
+    window.location.reload();
+};
+
   useEffect(() => {
     const handleScroll = () => {
       if (window.scrollY > 50) {
@@ -69,15 +74,9 @@ const Header: React.FC = () => {
         </Link>
         <nav className={styles.menuNavigation}>
           <ul>
-            <Link to="/catalog?type=Barrette">
-              <li>barrette</li>
-            </Link>
-            <Link to="/catalog?type=Ring">
-              <li>rings</li>
-            </Link>
-            <Link to="/catalog?type=Brooch">
-              <li>brooch</li>
-            </Link>
+            <li onClick={() => handleNavigation("/catalog?page=1&type=Barrette")}>barrette</li>
+            <li onClick={() => handleNavigation("/catalog?page=1&type=Ring")}>rings</li>
+            <li onClick={() => handleNavigation("/catalog?page=1&type=Brooch")}>brooch</li>
             <li>collections</li>
             <li><template>language-switcher</template></li>
             <li className={styles.doxIcon}><icons.dox/></li>

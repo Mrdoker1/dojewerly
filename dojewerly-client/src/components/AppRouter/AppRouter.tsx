@@ -1,5 +1,5 @@
 import React, { memo, useEffect, useState } from 'react';
-import { Route, Routes } from 'react-router-dom';
+import { Route, Routes, useLocation } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, RootState } from '../../app/store';
 import Layout from '../Layout/Layout';
@@ -18,18 +18,21 @@ import { checkUserSession } from '../../app/reducers/authSlice';
 import AdminProtectedRoute from './AdminProtectedRoute/AdminProtectedRoute';
 import FavouritesPage from '../../pages/FavouritesPage/FavouritesPage';
 import SharedFavouritesPage from '../../pages/SharedFavouritesPage/SharedFavouritesPage';
+import { updateFromURL } from '../../app/reducers/catalogSlice';
 
 const AppRouter = memo(() => {
   const auth = useSelector((state: RootState) => state.auth);
   const isUserLoggedIn = Boolean(auth.token);
   const dispatch = useDispatch<AppDispatch>();
+  const location = useLocation();
   const [isChecking, setIsChecking] = useState(true);
 
   useEffect(() => {
+    dispatch(updateFromURL(location.search));
     dispatch(checkUserSession())
       .then(() => setIsChecking(false))
       .catch(() => setIsChecking(false));
-  }, [dispatch]);
+  }, [dispatch, location.search]);
 
   if (isChecking) {
     return <div>Loading...</div>; // Или любой другой компонент загрузки

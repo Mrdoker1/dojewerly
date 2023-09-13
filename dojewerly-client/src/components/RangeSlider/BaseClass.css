@@ -10,6 +10,14 @@
     box-shadow: none;
 }
 
+.multi-range-slider .thumb {
+    border: solid 1px var(--grey-1);
+}
+
+.multi-range-slider .thumb::before {
+    border: inherit;
+}
+
 .multi-range-slider .thumb::before {
     border: solid 1px var(--grey-1);
 	box-shadow: none;

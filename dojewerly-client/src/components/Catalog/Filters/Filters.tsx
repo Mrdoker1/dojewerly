@@ -1,52 +1,29 @@
-import React, { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import React, { useRef, useEffect } from 'react';
+import { batch, shallowEqual, useDispatch, useSelector } from 'react-redux';
 import Button from '../../Button/Button';
 import { fetchCatalogCriteria } from '../../../app/reducers/catalogCriteriaSlice';
-import { setFilter, resetFilters } from '../../../app/reducers/catalogSlice';
+import { setFilter, resetFilters, updateFromURL } from '../../../app/reducers/catalogSlice';
 import { AppDispatch, RootState } from '../../../app/store';
 import { CatalogState } from '../../../app/reducers/catalogSlice';
 import styles from './Filters.module.css'
 import SearchInput from '../../Input/SearchInput/SearchInput';
 import FilterDropdown from '../../Dropdown/FilterDropdown/FilterDropdown';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { initialState } from '../../../app/reducers/catalogSlice';
 import RangeSlider from '../../RangeSlider/RangeSlider';
 
 const Filters = () => {
     const dispatch = useDispatch<AppDispatch>();
     const criteria = useSelector((state: RootState) => state.catalogCriteria.criteria);
-    const filters = useSelector((state: RootState) => state.catalog);
+    const filters = useSelector((state: RootState) => state.catalog, shallowEqual);
     const inputRef = React.useRef<HTMLInputElement>(null);
-    const navigate = useNavigate();
+    const navigate = useNavigate(); 
     const location = useLocation();
+    const initialSearch = useRef(location.search);
 
-    useEffect(() => {
-        const searchParams = new URLSearchParams(location.search);
-        if (!criteria) return;
-        searchParams.forEach((value, key) => {
-          if (key in initialState) {
-            switch (key) {
-              case 'materials':
-                if (criteria.materials.includes(value) || value === 'Any material') {
-                  dispatch(setFilter({ name: key as keyof CatalogState, value }));
-                }
-                break;
-              case 'gender':
-                if (criteria.genders.includes(value) || value === 'Any gender') {
-                  dispatch(setFilter({ name: key as keyof CatalogState, value }));
-                }
-                break;
-              case 'type':
-                if (criteria.types.includes(value) || value === 'Any type') {
-                  dispatch(setFilter({ name: key as keyof CatalogState, value }));
-                }
-                break;
-              default:
-                dispatch(setFilter({ name: key as keyof CatalogState, value }));
-            }
-          }
-        });
-    }, [dispatch, location.search, criteria]);
+    const isAnyFilterApplied = Object.entries(filters).some(([key, value]) => {
+        if (['page', 'limit'].includes(key)) return false;
+        return Boolean(value);
+    });
 
     useEffect(() => {
         if (!criteria) {
@@ -54,21 +31,35 @@ const Filters = () => {
         }
     }, [criteria, dispatch]);
 
-    const handleFilterChange = (name: keyof CatalogState, value: string | undefined) => {
+    const handleFilterChange = (name: keyof CatalogState, value: string | undefined, updateURL: boolean = true) => {
         console.log("Filter changed:", name, value);
-        if (value === 'Any material' || value === 'Any gender' || value === 'Any type') {
-            value = undefined; 
-        }
-        dispatch(setFilter({ name: name as string, value }));
+        
+        batch(() => {
+            // Если выбрано значение "Any", установите значение в undefined
+            if (['Any type', 'Any gender', 'Any material'].includes(value || '')) {
+                value = undefined;
+            }
+            // Если фильтр не page, обновляем его значение и устанавливаем страницу на 1 в Redux
+            if (name !== 'page') {
+                dispatch(setFilter({ name: 'page', value: 1 }));
+                dispatch(setFilter({ name, value }));
+            }
+        });
     
-        const newSearchParams = new URLSearchParams(location.search);
-        if (value) {
-            newSearchParams.set(String(name), value.toString());
-        } else {
-            newSearchParams.delete(String(name));
+        if(updateURL) {
+            const newSearchParams = new URLSearchParams(location.search);
+            if (name !== 'page') {
+                newSearchParams.set('page', '1'); // устанавливаем страницу на 1 в URL
+            }
+            if (value) {
+                newSearchParams.set(String(name), value.toString());
+            } else {
+                newSearchParams.delete(String(name));
+            }
+            navigate(`${location.pathname}?${newSearchParams.toString()}`, { replace: true });
         }
-        navigate(`${location.pathname}?${newSearchParams.toString()}`, { replace: true });
     };
+    
 
     const handleResetFilters = () => {
         dispatch(resetFilters());
@@ -108,11 +99,18 @@ const Filters = () => {
                     minValue={filters.minPrice || 0}
                     maxValue={filters.maxPrice || 1000}
                     onChange={(minValue, maxValue) => {
-                        handleFilterChange('minPrice', minValue.toString());
-                        handleFilterChange('maxPrice', maxValue.toString());
+                        batch(() => {
+                            handleFilterChange('minPrice', minValue.toString(), false);
+                            handleFilterChange('maxPrice', maxValue.toString(), false);
+                        });
+                        // Здесь обновляем параметры URL
+                        const newSearchParams = new URLSearchParams(location.search);
+                        newSearchParams.set('minPrice', minValue.toString());
+                        newSearchParams.set('maxPrice', maxValue.toString());
+                        navigate(`${location.pathname}?${newSearchParams.toString()}`, { replace: true });
                     }}
                 />
-                {Object.values(filters).some(filter => filter) && (
+                {isAnyFilterApplied && (
                     <div>
                         <Button text="Clear" variant='secondary' size='small' onClick={handleResetFilters} />
                     </div>

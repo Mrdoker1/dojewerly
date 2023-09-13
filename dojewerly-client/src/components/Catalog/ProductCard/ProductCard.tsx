@@ -18,7 +18,12 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
   return (
     <div className={styles.productCard}>
       <div className={styles.image}>
-        <ProductImage imageUrl={product.imageURLs[0]} alt={product.props.info} />
+      <ProductImage 
+          imageUrl={product.imageURLs[0]} 
+          alt={product.props.info}
+          className={styles.image} // Передаем стиль в ProductImage
+          defaultImage='noImageL'
+        />
       </div>
       <div className={styles.infoContainer}>
         <div className={styles.name}>{product.name}</div>

@@ -12,12 +12,18 @@
     color: var(--black-1);
     text-transform: uppercase;
     margin-right: 10px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
   }
   
   .collectionDescription {
     font: var(--jost-14-regular);
     color: var(--grey-1);
     margin-right: 10px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
 }
   
   .productImagesContainer {
