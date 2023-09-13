@@ -7,10 +7,7 @@
   gap: 10px;
   cursor: pointer;
   width: 100%; /* Занимает 100% ширины родительского элемента */
-}
-
-.productCard:hover {
-  transform: scale(1.01);
+  transition: all var(--transition-1);
 }
 
 .infoContainer {  
@@ -27,6 +24,12 @@
   height: auto;
   object-fit: cover;
   display: block;
+  transition: all var(--transition-1);
+  overflow: hidden;
+}
+
+.image:hover{
+  transform: scale(1.01);
 }
 
 .image img {

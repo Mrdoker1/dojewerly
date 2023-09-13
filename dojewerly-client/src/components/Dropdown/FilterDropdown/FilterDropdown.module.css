@@ -31,8 +31,8 @@
     background-color: var(--black-1); /* или любой другой цвет для точки */
     border-radius: 50%; /* чтобы сделать его круглым */
     position: absolute;
-    top: 5px;
-    right: 5px;
+    top: 6px;
+    right: 8px;
     z-index: 1;
 }
 
