@@ -9,6 +9,8 @@ import { RootState } from '../../app/store';
 import { logoutUser } from '../../app/reducers/authSlice';
 import { AppDispatch } from '../../app/store';
 import TopMessage from '../Messages/TopMessage/TopMessage';
+import { setAllFilters } from '../../app/reducers/catalogSlice';
+import extractParamsFromURL from '../../utils/extractParamsFromURL';
 
 const Header: React.FC = () => {
   const auth = useSelector((state: RootState) => state.auth);
@@ -19,8 +21,9 @@ const Header: React.FC = () => {
   const dispatch = useDispatch<AppDispatch>();
 
   const handleNavigation = (path: string) => {
+    const params = extractParamsFromURL(path);
+    dispatch(setAllFilters(params));
     navigate(path);
-    window.location.reload();
 };
 
   useEffect(() => {
