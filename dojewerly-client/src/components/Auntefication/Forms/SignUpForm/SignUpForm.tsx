@@ -1,13 +1,13 @@
 import React, { memo, useState } from 'react';
 import styles from './SignUpForm.module.css';
-import Input from '../Input/Input'
-import Button from '../Button/Button';
+import Input from '../../../Input/Input'
+import Button from '../../../Button/Button';
 import { useDispatch, useSelector } from 'react-redux';
-import { AppDispatch, RootState } from '../../app/store';
-import { registerUser } from '../../app/reducers/authSlice';
-import NotificationMessage from '../Messages/NotificationMessage/NotificationMessage';
+import { AppDispatch, RootState } from '../../../../app/store';
+import { registerUser } from '../../../../app/reducers/authSlice';
+import NotificationMessage from '../../../Messages/NotificationMessage/NotificationMessage';
 import { useNavigate } from 'react-router-dom';
-import PasswordInput from '../Input/PasswordInput/PasswordInput';
+import PasswordInput from '../../../Input/PasswordInput/PasswordInput';
 
 const SignUpForm = memo(() => {
 
