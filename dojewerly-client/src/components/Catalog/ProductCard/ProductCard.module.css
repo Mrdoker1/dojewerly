@@ -105,27 +105,4 @@
   right: 10px;
   cursor: pointer;
   z-index: 10;
-  opacity: 0;  /* Иконка скрыта по умолчанию */
-  transition: opacity 0.3s;  /* Анимация появления */
-}
-
-.favouriteIcon path {
-  color: var(--white);
-  fill: transparent;
-  transition: fill 0.3s;
-}
-
-/* Если иконка filled, то при наведении делаем ее пустой */
-.favouriteIcon.filled:hover path {
-  fill: transparent;
-}
-
-/* Если иконка пустая, то при наведении делаем ее filled */
-.favouriteIcon:not(.filled):hover path {
-  fill: white;
-}
-
-/* Если иконка в избранном, делаем ее filled */
-.favouriteIcon.filled path {
-  fill: white;
 }

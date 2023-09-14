@@ -1,0 +1,35 @@
+.favouriteIcon {
+  cursor: pointer;
+  opacity: 0;  /* Иконка скрыта по умолчанию */
+  transition: opacity 0.3s;  /* Анимация появления */
+}
+
+.favouriteIcon path {
+  fill: transparent;
+  transition: fill 0.3s;
+}
+
+.favouriteIcon.filled:hover path,
+.favouriteIcon:not(.filled):hover path {
+  fill: currentColor;
+}
+
+.favouriteIcon.filled path {
+  fill: currentColor;
+}
+
+@keyframes clickAnimation {
+0% {
+  transform: scale(1);
+}
+50% {
+  transform: scale(3);
+}
+100% {
+  transform: scale(1);
+}
+}
+
+.favouriteIcon:active {
+  animation: clickAnimation 0.5s ease-in-out;
+}

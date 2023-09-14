@@ -21,6 +21,9 @@ import { ReactComponent as Heart } from './heart.svg'
 import { ReactComponent as Message } from './message.svg'
 import { ReactComponent as BoltLeft } from './bolt-left.svg'
 import { ReactComponent as BoltRight } from './bolt-right.svg'
+import { ReactComponent as Gender } from './gender.svg'
+import { ReactComponent as Item } from './item.svg'
+import { ReactComponent as Material } from './material.svg'
 
 const icons = {
   arrowLeft: ArrowLeft,
@@ -46,6 +49,9 @@ const icons = {
   message: Message,
   boltLeft: BoltLeft,
   boltRight: BoltRight,
+  gender: Gender,
+  item: Item,
+  material: Material,
   // Добавьте сюда больше иконок при необходимости
 };
 

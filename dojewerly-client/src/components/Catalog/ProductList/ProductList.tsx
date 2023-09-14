@@ -7,6 +7,7 @@ import ProductCard from '../ProductCard/ProductCard';
 import styles from './ProductList.module.css'
 import Pagination from '../Pagination/Pagination';
 import { setFilter } from '../../../app/reducers/catalogSlice';
+import { getUserProfile } from '../../../app/reducers/userSlice';
 
 const ProductList: React.FC = () => {
   const dispatch = useDispatch<AppDispatch>();
@@ -16,14 +17,22 @@ const ProductList: React.FC = () => {
   const location = useLocation();
   const totalProducts = useSelector((state: RootState) => state.products.totalProducts);
   const totalPages = Math.ceil(totalProducts / (filters.limit || 1));
+  const token = useSelector((state: RootState) => state.auth.token);
 
   useEffect(() => {
-    console.log('ProductList useEffect triggered', filters); // Этот лог  
+    console.log('ProductList useEffect triggered', filters); // Этот лог
+    if (token) {
+      try {
+        dispatch(getUserProfile()).unwrap();
+      } catch (error) {
+        // Обработка ошибок
+      }
+    }
     batch(() => {
       dispatch(fetchAllProducts(filters));
       dispatch(fetchTotalProductsCount(filters));
     });
-  }, [dispatch, filters]);
+  }, [dispatch, filters, token]);
 
   const handlePageChange = (page: number) => {
     window.scrollTo(0, 0); // сброс позиции скролла к верху страницы

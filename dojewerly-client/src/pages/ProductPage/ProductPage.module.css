@@ -52,12 +52,13 @@
     gap: 4px;
     font: normal 400 14px/19px "Jost";
     list-style: none;
-    color: #65635F;
+    color:var(--grey-1);
+    margin-left: -6px;
 }
 
 .productProperties li {
     display: flex;
-    gap: 8px;
+    gap: 6px;
     align-items: center;
 }
 
@@ -73,6 +74,7 @@
 .productDetailsPriceWrapper {
     display: flex;
     justify-content: space-between;
+    align-items: flex-end;
 }
 
 .backButton{
@@ -87,7 +89,7 @@
 }
 
 .price{
-    font: var(--jost-16-regular);
+    font: var(--jost-21-regular);
     color: var(--black-1);
     text-transform: uppercase;
 }
@@ -95,4 +97,20 @@
 .stock {
     font: var(--jost-14-regular);
     color: var(--grey-1);
+}
+
+.favouriteIcon {
+    opacity: 1;
+}
+
+.favouriteIcon svg {
+    width: 28px;
+    height: 28px;
+}
+
+
+.actions {
+    display: flex;
+    align-items: center;
+    gap: 20px;
 }
