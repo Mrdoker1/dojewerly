@@ -1,7 +1,11 @@
 .favouriteIcon {
   cursor: pointer;
   opacity: 0;  /* Иконка скрыта по умолчанию */
-  transition: opacity 0.3s;  /* Анимация появления */
+  transition: all 0.3s;
+}
+
+.favouriteIcon:hover {
+  scale: 1.2;
 }
 
 .favouriteIcon path {
@@ -23,7 +27,7 @@
   transform: scale(1);
 }
 50% {
-  transform: scale(3);
+  transform: scale(2);
 }
 100% {
   transform: scale(1);

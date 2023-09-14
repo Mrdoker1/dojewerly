@@ -63,8 +63,10 @@
 }
 
 .productDetailsDescription {
-    color: #65635F;
-    font: normal 400 14px/19px "Jost";
+    color: var(--grey-1);
+    font: var(--jost-14-regular);
+    white-space: normal;
+    word-wrap: break-word;
 }
 
 .solid {
