@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import {
   addProductToFavourites,
   removeProductFromFavourites
@@ -9,6 +10,10 @@ import icons from '../../../assets/icons/icons';
 import { sendNotification } from '../../NotificationCenter/notificationHelpers';
 import { getUserProfile } from '../../../app/reducers/userSlice';
 import styles from './FavouriteToggle.module.css';
+import banner from '../../../assets/images/banner-1.jpg';
+import Modal from '../../Modal/Modal';
+import SignInForm from '../../Auntefication/Forms/SignInForm/SignInForm';
+import AuthComponent from '../../../components/Auntefication/Auth';
 
 interface FavouriteToggleProps {
   productId: string;
@@ -22,6 +27,8 @@ const FavouriteToggle: React.FC<FavouriteToggleProps> = ({ productId, className,
   const user = useSelector((state: RootState) => state.user.user);
   const [isFavourite, setIsFavourite] = useState(user?.favorites.includes(productId) || false);
   const [isLoading, setIsLoading] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
     setIsFavourite(user?.favorites.includes(productId) || false);
@@ -34,6 +41,11 @@ const FavouriteToggle: React.FC<FavouriteToggleProps> = ({ productId, className,
     if (isLoading) return;
     
     setIsLoading(true);
+
+    if (!token) {
+      setIsModalOpen(true);
+      return;
+    }
 
     if (token) {
       try {
@@ -65,14 +77,30 @@ const FavouriteToggle: React.FC<FavouriteToggleProps> = ({ productId, className,
   };
 
   return (
-    <div 
+    <>
+      <div 
         className={`${styles.favouriteIcon} ${className} ${isFavourite ? styles.filled : ''} ${isLoading ? styles.loading : ''}`} 
         onClick={toggleFavourite}
         style={{color: color}}
-    >
+      >
         <icons.heart />
-    </div>
-  );
+      </div>
+  
+      {isModalOpen && (
+        <Modal onClose={() => { setIsModalOpen(false);} }>
+          <AuthComponent
+            bannerImage={banner}
+            heading="Hello, Let's Sign In"
+            description="Please sign in to continue."
+            mainForm={<SignInForm />}
+            buttonText="CREATE NEW ACCOUNT"
+            buttonIcon="arrowRight"
+            buttonOnClick={() => navigate("/signup")}
+          />
+        </Modal>
+      )}
+    </>
+  );  
 };
 
 export default FavouriteToggle;
