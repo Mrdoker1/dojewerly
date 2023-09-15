@@ -2,6 +2,7 @@ import React from 'react';
 import ProductImage from '../../Image/ProductImage/ProductImage';
 import styles from './FavouriteProductCard.module.css';
 import icons from '../../../assets/icons/icons';
+import { useNavigate } from 'react-router-dom';
 
 interface FavouriteProductCardProps {
   productId: string;
@@ -13,12 +14,20 @@ interface FavouriteProductCardProps {
 }
 
 const FavouriteProductCard: React.FC<FavouriteProductCardProps> = ({ productId, name, description, price, imageUrl, onRemove }) => {
-  const handleHeartClick = () => {
+  const navigate = useNavigate();
+
+  const handleHeartClick = (e: React.MouseEvent) => {
+    e.stopPropagation();
     onRemove(productId); // Удаляем продукт, используя переданную функцию
   };
 
+  const handleCardClick = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    navigate(`/product/${productId}`)
+  };
+
   return (
-    <div className={styles.card}>
+    <div className={styles.card} onClick={handleCardClick}>
       <div className={styles.infoSection}>
         <div className={styles.titleAndIcon}>
           <h3 className={styles.productName}>{name}</h3>
