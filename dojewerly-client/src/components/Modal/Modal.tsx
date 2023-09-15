@@ -7,21 +7,15 @@ interface ModalProps {
   children: React.ReactNode;
 }
 
-const Modal: React.FC<ModalProps> = ({ onClose, children }) => {
-    const handleModalClick = (event: React.MouseEvent<HTMLDivElement>) => {
-        // event.stopPropagation();
-        // event.preventDefault();
-    };
-  
-    return (
-      <div className={styles.overlay} onClick={handleModalClick}>
-        <div className={styles.modal}>
-          <icons.close className={styles.closeButton} onClick={onClose} />
-          {children}
-        </div>
+const Modal: React.FC<ModalProps> = ({ onClose, children }) => {  
+  return (
+    <div className={styles.overlay} onClick={onClose}>
+      <div className={styles.modal} onClick={(e) => e.stopPropagation()}>
+        <icons.close className={styles.closeButton} onClick={(e) => { e.stopPropagation(); onClose(); }} />
+        {children}
       </div>
-    );
-  };
-  
+    </div>
+  );
+};
 
 export default Modal;

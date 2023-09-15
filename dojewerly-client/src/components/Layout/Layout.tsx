@@ -4,6 +4,7 @@ import React, { memo } from 'react';
 import { Outlet } from 'react-router-dom';
 import styles from './Layout.module.css';
 import { useLayout } from './LayoutContext/LayoutContext';
+import { ModalProvider } from '../Modal/ModalProvider';
 
 const Layout = memo(() => {
 
@@ -12,9 +13,11 @@ const Layout = memo(() => {
   return (
     <>
       <div className={`${styles.container} ${backgroundColor}`}>
+      <ModalProvider >
         <Header />
-          <Outlet></Outlet>
+            <Outlet></Outlet>
         <Footer />
+      </ModalProvider>
       </div>
     </>
   );

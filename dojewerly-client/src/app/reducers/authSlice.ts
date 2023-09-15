@@ -1,8 +1,17 @@
 import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
+import { MessageType } from '../../components/Messages/messageTypes';
 
 const apiUrl = process.env.REACT_APP_API_URL;
 
-// First, create the thunk
+class AppError extends Error {
+  type: MessageType;
+
+  constructor(message: string, type: MessageType) {
+    super(message);
+    this.type = type;
+  }
+}
+
 export const registerUser = createAsyncThunk(
   'auth/register',
   async ({ username, password }: { username: string; password: string; }, thunkAPI) => {
@@ -20,11 +29,10 @@ export const registerUser = createAsyncThunk(
 
     if (!response.ok) {
       const data = await response.json();
-      throw new Error(data.message || 'Failed to register');
+      throw new AppError(data.message || 'Failed to register', 'error');
     }
 
     const data = await response.json();
-
     return data;
   }
 );
@@ -45,11 +53,10 @@ export const loginUser = createAsyncThunk(
 
     if (!response.ok) {
       const data = await response.json();
-      throw new Error(data.message || 'Failed to login');
+      throw new AppError(data.message || 'Failed to login', 'error');
     }
 
     const data = await response.json();
-
     return data;
   }
 );
@@ -61,7 +68,7 @@ export const checkUserSession = createAsyncThunk(
     if (token) {
       return token;
     } else {
-      throw new Error('No session');
+      throw new AppError('Register to Save Favourites and Earn Discount', 'default');
     }
   }
 );
@@ -71,7 +78,7 @@ export const logoutUser = createAsyncThunk(
   async (_, thunkAPI) => {
     const token = localStorage.getItem('token');
     if (!token) {
-      throw new Error('No session');
+      throw new AppError('No session', 'error');
     }
 
     const response = await fetch(`${apiUrl}/auth/logout`, {
@@ -84,12 +91,11 @@ export const logoutUser = createAsyncThunk(
 
     if (!response.ok) {
       const data = await response.json();
-      throw new Error(data.message || 'Failed to logout');
+      throw new AppError(data.message || 'Failed to logout', 'error');
     }
 
     // After successful logout on the server, remove the token from local storage
     localStorage.removeItem('token');
-
     return true;
   }
 );
@@ -99,7 +105,7 @@ export const validateToken = createAsyncThunk(
   async (_, thunkAPI) => {
     const token = localStorage.getItem('token');
     if (!token) {
-      throw new Error('No session');
+      throw new AppError('Token expired or not exist!', 'error');
     }
 
     const response = await fetch(`${apiUrl}/auth/validate`, {
@@ -112,7 +118,7 @@ export const validateToken = createAsyncThunk(
 
     if (!response.ok) {
       const data = await response.json();
-      throw new Error(data.message || 'Failed to validate token');
+      throw new AppError(data.message || 'Failed to validate token', 'error');
     }
 
     return token;
@@ -121,18 +127,18 @@ export const validateToken = createAsyncThunk(
 
 // Then, create the slice
 export const authSlice = createSlice({
-    name: 'auth',
-    initialState: {
-      user: null,
-      token: null as string | null,
-      status: 'idle',
-      error: null as string | null
+  name: 'auth',
+  initialState: {
+    user: null,
+    token: null as string | null,
+    status: 'idle',
+    error: null as { message: string; type: string } | null
+  },
+  reducers: {
+    clearError: (state) => {
+      state.error = null;
     },
-    reducers: {
-      clearError: (state) => {
-        state.error = null;
-      },
-    },
+  },
     extraReducers: (builder) => {
       builder
         .addCase(registerUser.pending, (state) => {
@@ -145,7 +151,10 @@ export const authSlice = createSlice({
         })
         .addCase(registerUser.rejected, (state, action) => {
           state.status = 'failed';
-          state.error = action.error.message || null;
+          state.error = {
+            message: action.error.message || 'Unknown error',
+            type: (action.error as AppError).type || 'error'
+          };
         })
         .addCase(loginUser.pending, (state) => {
           state.status = 'loading';
@@ -157,7 +166,10 @@ export const authSlice = createSlice({
         })
         .addCase(loginUser.rejected, (state, action) => {
           state.status = 'failed';
-          state.error = action.error.message || null;
+          state.error = {
+            message: action.error.message || 'Unknown error',
+            type: (action.error as AppError).type || 'error'
+          };
         })
         .addCase(checkUserSession.fulfilled, (state, action: PayloadAction<string>) => {
           state.status = 'succeeded';
@@ -166,7 +178,10 @@ export const authSlice = createSlice({
         .addCase(checkUserSession.rejected, (state, action) => {
           state.status = 'failed';
           state.token = null;
-          state.error = action.error.message || null;
+          state.error = {
+            message: action.error.message || 'Unknown error',
+            type: 'default'
+          };
         })
         .addCase(logoutUser.pending, (state) => {
           state.status = 'loading';
@@ -178,6 +193,10 @@ export const authSlice = createSlice({
         .addCase(logoutUser.rejected, (state, action) => {
           state.status = 'failed';
           state.token = null;
+          state.error = {
+            message: action.error.message || 'Unknown error',
+            type: (action.error as AppError).type || 'error'
+          };
           localStorage.removeItem('token'); // Remove the token from localStorage even if the request was rejected
         })
         .addCase(validateToken.pending, (state) => {
@@ -190,6 +209,10 @@ export const authSlice = createSlice({
         .addCase(validateToken.rejected, (state, action) => {
           state.status = 'failed';
           state.token = null;
+          state.error = {
+            message: action.error.message || 'Unknown error',
+            type: (action.error as AppError).type || 'error'
+          };
           localStorage.removeItem('token'); // Remove the token from localStorage if validation failed
         });
     },

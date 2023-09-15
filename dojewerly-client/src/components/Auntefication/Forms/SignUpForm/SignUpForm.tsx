@@ -8,6 +8,7 @@ import { registerUser } from '../../../../app/reducers/authSlice';
 import NotificationMessage from '../../../Messages/NotificationMessage/NotificationMessage';
 import { useNavigate } from 'react-router-dom';
 import PasswordInput from '../../../Input/PasswordInput/PasswordInput';
+import { MessageType } from '../../../Messages/messageTypes';
 
 const SignUpForm = memo(() => {
 
@@ -19,6 +20,8 @@ const SignUpForm = memo(() => {
   const dispatch = useDispatch<AppDispatch>();
   const auth = useSelector((state: RootState) => state.auth);
   const navigate = useNavigate();
+
+  console.log(auth.error)
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -93,7 +96,7 @@ const SignUpForm = memo(() => {
               Or register using
             </div>
             <SocialButtons /> */}
-            {auth.error && <NotificationMessage type="error" key={Date.now()} message={auth.error} iconRight='close' />}
+            {auth.error && <NotificationMessage type={auth.error.type as MessageType} key={Date.now()} message={auth.error.message} iconRight='close' />}
           </div>
         </form>
     </>

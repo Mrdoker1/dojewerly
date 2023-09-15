@@ -1,4 +1,4 @@
-.successMessage, .errorMessage {
+.successMessage, .errorMessage, .infoMessage, .defaultMessage {
   display: flex;
   justify-content: space-between;
   box-sizing: border-box;
@@ -24,6 +24,18 @@
   color: red;
 }
 
+.infoMessage {
+  /* border: 1px solid red; */
+  background-color: rgb(231, 242, 253);
+  color: rgb(0, 94, 255);
+}
+
+.defaultMessage {
+  /* border: 1px solid red; */
+  background-color: var(--grey-3);
+  color: var(--grey-1);
+}
+
 .icon {
   cursor: pointer;
   height: 16px;
@@ -37,12 +49,22 @@
 
 .successMessage .icon:hover {
   background-color: rgba(43, 255, 0, 0.1);
-  border-radius: 50%;
+  border-radius: 30%;
 }
 
 .errorMessage .icon:hover {
   background-color: rgba(255, 21, 0, 0.1);
-  border-radius: 50%;
+  border-radius: 30%;
+}
+
+.infoMessage .icon:hover {
+  background-color: rgba(0, 115, 255, 0.1);
+  border-radius: 30%;
+}
+
+.defaultMessage .icon:hover {
+  background-color: rgba(49, 49, 49, 0.1);
+  border-radius: 30%;
 }
 
 .absoluteContainer {
@@ -71,6 +93,14 @@
 
 .errorMessage .timeoutBar {
   background-color: rgba(255, 0, 0, 0.3);
+}
+
+.errorMessage .timeoutBar {
+  background-color: rgba(0, 145, 255, 0.3);
+}
+
+.defaultMessage .timeoutBar {
+  background-color: rgba(77, 77, 77, 0.3);
 }
 
 @keyframes LeftToRight {

@@ -8,6 +8,8 @@ import { loginUser, clearError } from '../../../../app/reducers/authSlice';
 import NotificationMessage from '../../../Messages/NotificationMessage/NotificationMessage';
 import { useNavigate } from 'react-router-dom';
 import PasswordInput from '../../../Input/PasswordInput/PasswordInput';
+import { useModal } from '../../../Modal/ModalProvider';
+import { MessageType } from '../../../Messages/messageTypes';
 
 const SignInForm = memo(() => {
 
@@ -19,6 +21,7 @@ const SignInForm = memo(() => {
   const dispatch = useDispatch<AppDispatch>();
   const auth = useSelector((state: RootState) => state.auth);
   const navigate = useNavigate();
+  const { closeModal } = useModal();
 
   useEffect(() => {
     return () => {
@@ -45,6 +48,7 @@ const SignInForm = memo(() => {
     dispatch(loginUser({ username, password })).then((result) => {
       console.log('Login result:', result.meta.requestStatus);
       if (result.meta.requestStatus === 'fulfilled') {
+        closeModal();
         navigate("/dashboard/profile"); // Используйте navigate для перенаправления на страницу /dashboard
       }
     });
@@ -88,7 +92,7 @@ const SignInForm = memo(() => {
               Or continue with
             </div>
             <SocialButtons /> */}
-            {auth.error && <NotificationMessage type="error" key={Date.now()} message={auth.error} iconRight='close' />}
+            {auth.error && <NotificationMessage type={auth.error.type as MessageType} key={Date.now()} message={auth.error.message} iconRight='close' />}
           </div>
         </form>
     </>

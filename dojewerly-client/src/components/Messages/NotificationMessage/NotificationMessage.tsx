@@ -1,12 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import styles from './NotificationMessage.module.css';
 import icons from '../../../assets/icons/icons';
-
-export type MessageType = 'success' | 'error';
+import { MessageType } from '../messageTypes';
 
 export interface NotificationMessageProps {
   /** Тип сообщения: успех или ошибка */
-  type: MessageType;
+  type?: MessageType;
   /** Сообщение, которое должно быть отображено */
   message?: string | null;
   /** Иконка, отображаемая справа от сообщения */
@@ -27,7 +26,25 @@ const NotificationMessage: React.FC<NotificationMessageProps> = ({
   const [isVisible, setIsVisible] = useState(visible);
   const IconRight = iconRight ? icons[iconRight] : null;
   const containerStyle = absolute ? styles.absoluteContainer : '';
-  const messageStyle = type === 'success' ? styles.successMessage : styles.errorMessage;
+  let messageStyle = '';
+
+  switch (type) {
+    case 'success':
+      messageStyle = styles.successMessage;
+      break;
+    case 'error':
+      messageStyle = styles.errorMessage;
+      break;
+    case 'info':
+      messageStyle = styles.infoMessage;
+      break;
+    case 'default':
+      messageStyle = styles.defaultMessage;
+      break;
+    default:
+      messageStyle = styles.defaultMessage;
+      break;
+  }
 
   const handleClose = (event: React.MouseEvent) => {
     event.preventDefault();
