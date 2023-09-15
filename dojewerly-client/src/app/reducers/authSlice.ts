@@ -179,7 +179,7 @@ export const authSlice = createSlice({
           state.status = 'failed';
           state.token = null;
           state.error = {
-            message: action.error.message || 'Unknown error',
+            message: '',
             type: 'default'
           };
         })

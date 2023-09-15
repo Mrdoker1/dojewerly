@@ -6,7 +6,7 @@ import banner from '../../assets/images/banner-1.jpg';
 
 // Создаем пользовательский хук для открытия модального окна
 export function useCustomModal() {
-  const { openModalWithContent } = useModal();
+  const { openModalWithContent, closeModal } = useModal();
   const navigate = useNavigate();
 
   // Функция для открытия модального окна
@@ -21,7 +21,10 @@ export function useCustomModal() {
             mainForm={<SignInForm />}
             buttonText="CREATE NEW ACCOUNT"
             buttonIcon="arrowRight"
-            buttonOnClick={() => navigate("/signup")}
+            buttonOnClick={() => {
+              closeModal();
+              navigate("/signup")
+            }}
           />
         );
         break;
