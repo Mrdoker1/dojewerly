@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { fetchAllProducts } from '../../../app/reducers/productsSlice';
 import ProductCard from '../../../components/Catalog/ProductCard/ProductCard';
 import { AppDispatch, RootState } from '../../../app/store';
+import ProductCardSkeleton from '../../../components/Catalog/ProductCard/ProductCardSkeleton';
 
 const FeaturedProductsSection = () => {
   const dispatch = useDispatch<AppDispatch>();
@@ -24,11 +25,15 @@ const FeaturedProductsSection = () => {
         <div className={styles.productSliderSubheading}>Essential products, best values, lower prices</div>
       </div>
       
-      {status === 'loading' && <div className={styles.loadingIndicator}>Загрузка...</div>}
+      {/* {status === 'loading' &&  
+      <>
+        {Array.from({ length: 6 }).map((_, index) => (
+          <ProductCardSkeleton key={index} />
+        ))}
+      </>} */}
       
       {status === 'failed' && <div className={styles.errorIndicator}>Ошибка загрузки продуктов</div>}
       
-      {status === 'succeeded' && 
         <Swiper
           modules={[Navigation, Pagination, Scrollbar, A11y, Autoplay]}
           spaceBetween={20}
@@ -58,13 +63,17 @@ const FeaturedProductsSection = () => {
             },
           }}
         >
-          {products.map((product, index) => (
+          {status === 'succeeded' && products.map((product, index) => (
             <SwiperSlide key={product._id} className={styles.swiperSlide}>
               <ProductCard product={product} />
             </SwiperSlide>
           ))}
+          {status === 'loading' && Array.from({ length: 8 }).map((_, index) => (
+            <SwiperSlide key={index} className={styles.swiperSlide}>
+            <ProductCardSkeleton key={index} />
+            </SwiperSlide>
+          ))}
         </Swiper>
-      }
     </div>
   );
 };

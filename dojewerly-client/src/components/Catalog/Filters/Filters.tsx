@@ -10,6 +10,7 @@ import SearchInput from '../../Input/SearchInput/SearchInput';
 import FilterDropdown from '../../Dropdown/FilterDropdown/FilterDropdown';
 import { useLocation, useNavigate } from 'react-router-dom';
 import RangeSlider from '../../RangeSlider/RangeSlider';
+import FiltersSkeleton from './FiltersSkeleton';
 
 const Filters = () => {
     const dispatch = useDispatch<AppDispatch>();
@@ -67,7 +68,7 @@ const Filters = () => {
     };
 
     if (status === 'loading') {
-        return <div>Loading...</div>;
+        return <FiltersSkeleton />;
     }
 
     if (status === 'failed') {

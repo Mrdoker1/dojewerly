@@ -5,6 +5,7 @@ import { AppDispatch, RootState } from '../../../app/store';
 import styles from './FeaturedCollectionsSection.module.css';
 import CollectionListItem, { CollectionListItemProps } from './CollectionListItem';
 import Button from '../../../components/Button/Button';
+import CollectionListItemSkeleton from './CollectionListItemSkeleton';
 
 const FeaturedCollectionsSection = () => {
   const dispatch = useDispatch<AppDispatch>();
@@ -30,6 +31,14 @@ const FeaturedCollectionsSection = () => {
         </div>
         
         {status === 'loading' && <div className={styles.loadingIndicator}>Загрузка коллекций...</div>}
+
+        {status === 'loading' && 
+        <div className={styles.collections}>
+          {Array.from({ length: 6 }).map((_, index) => (
+              <CollectionListItemSkeleton key={index} />
+          ))}
+        </div>
+        }
 
         {status === 'failed' && <div className={styles.errorIndicator}>Ошибка загрузки коллекций</div>}
 

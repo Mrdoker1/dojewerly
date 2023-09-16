@@ -8,6 +8,7 @@ import styles from './ProductList.module.css'
 import Pagination from '../Pagination/Pagination';
 import { setFilter } from '../../../app/reducers/catalogSlice';
 import { getUserProfile } from '../../../app/reducers/userSlice';
+import ProductCardSkeleton from '../ProductCard/ProductCardSkeleton';
 
 const ProductList: React.FC = () => {
   const dispatch = useDispatch<AppDispatch>();
@@ -45,7 +46,13 @@ const ProductList: React.FC = () => {
 
   let content;
   if (status === 'loading') {
-    content = <div className={styles.loadingIndicator}>Загрузка продуктов...</div>;
+    content = (
+      <>
+        {Array.from({ length: 6 }).map((_, index) => (
+          <ProductCardSkeleton key={index} />
+        ))}
+      </>
+    );
   } else if (status === 'failed') {
     content = <div className={styles.errorIndicator}>Ошибка загрузки продуктов</div>;
   } else if (products.length > 0) {
