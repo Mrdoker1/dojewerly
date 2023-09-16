@@ -28,7 +28,7 @@ const ShareWishlistBlock: React.FC<ShareBlockProps> = ({ userId }) => {
       </div>
       <div className={styles.section}>
         <Input value={shareLink} readOnly />
-        <Button onClick={handleCopyClick} variant="secondary" text="COPY" fullWidth={true}/>
+        <Button onClick={handleCopyClick} variant="secondary" text="COPY" iconRight='copy' fullWidth={true}/>
       </div>
     </div>
   );

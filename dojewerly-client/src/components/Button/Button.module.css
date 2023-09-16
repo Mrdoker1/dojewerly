@@ -1,5 +1,6 @@
 .button {
   /* Общие стили для всех кнопок */
+  line-height: normal !important;
   width: fit-content;
   display: flex;
   height: 40px;

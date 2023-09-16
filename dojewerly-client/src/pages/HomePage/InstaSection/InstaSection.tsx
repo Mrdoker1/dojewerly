@@ -54,6 +54,7 @@ const InstaSection = memo(() => {
             text="FOLLOW US ON INSTAGRAM" 
             size="large" 
             variant="secondary" 
+            iconRight='insta'
             onClick={() => {/* TODO: Add functionality here */}}
             className={styles.ctaButton}
           />

@@ -26,6 +26,7 @@ const FeaturedCollectionsSection = () => {
               <Button 
                   text={`SEE ALL (${collections.length})`} 
                   variant="text"
+                  iconRight='arrowRight'
                   className={styles.collectionsShowAll}
                   onClick={() => {/* TODO: Add functionality here */}}
               />

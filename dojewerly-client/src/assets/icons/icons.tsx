@@ -25,6 +25,8 @@ import { ReactComponent as Gender } from './gender.svg'
 import { ReactComponent as Item } from './item.svg'
 import { ReactComponent as Material } from './material.svg'
 import { ReactComponent as Instagram } from './instagram.svg'
+import { ReactComponent as Insta } from './insta.svg'
+import { ReactComponent as Copy } from './copy.svg'
 
 const icons = {
   arrowLeft: ArrowLeft,
@@ -54,6 +56,8 @@ const icons = {
   item: Item,
   material: Material,
   instagram: Instagram,
+  insta: Insta,
+  copy: Copy,
   // Добавьте сюда больше иконок при необходимости
 };
 
