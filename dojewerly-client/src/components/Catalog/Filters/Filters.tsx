@@ -15,6 +15,7 @@ const Filters = () => {
     const dispatch = useDispatch<AppDispatch>();
     const criteria = useSelector((state: RootState) => state.catalogCriteria.criteria);
     const filters = useSelector((state: RootState) => state.catalog, shallowEqual);
+    const status = useSelector((state: RootState) => state.catalogCriteria.status);
     const inputRef = React.useRef<HTMLInputElement>(null);
     const navigate = useNavigate(); 
     const location = useLocation();
@@ -65,7 +66,13 @@ const Filters = () => {
         navigate(location.pathname, { replace: true }); // Это сбросит query параметры в URL
     };
 
-    if (!criteria) return <div>Loading...</div>;
+    if (status === 'loading') {
+        return <div>Loading...</div>;
+    }
+
+    if (status === 'failed') {
+        return <div>Error loading filters</div>;
+    }
 
     return (
         <div className={styles.container}>
@@ -73,7 +80,7 @@ const Filters = () => {
                 <FilterDropdown 
                     options={[
                         { label: 'Any material', value: 'Any material' },
-                        ...criteria.materials.map((material: string) => ({ label: material, value: material }))
+                        ...criteria?.materials.map((material: string) => ({ label: material, value: material })) || []
                     ]}
                     value={filters.material || 'Any material'}
                     onChange={(value) => handleFilterChange('material', value)}
@@ -81,7 +88,7 @@ const Filters = () => {
                 <FilterDropdown 
                     options={[
                         { label: 'Any gender', value: 'Any gender' },
-                        ...criteria.genders.map((gender: string) => ({ label: gender, value: gender }))
+                        ...criteria?.genders.map((gender: string) => ({ label: gender, value: gender })) || []
                     ]}
                     value={filters.gender || 'Any gender'}
                     onChange={(value) => handleFilterChange('gender', value)}
@@ -89,7 +96,7 @@ const Filters = () => {
                 <FilterDropdown 
                     options={[
                         { label: 'Any type', value: 'Any type' },
-                        ...criteria.types.map((type: string) => ({ label: type, value: type }))
+                        ...criteria?.types.map((type: string) => ({ label: type, value: type }))|| []
                     ]}
                     value={filters.type || 'Any type'}
                     onChange={(value) => handleFilterChange('type', value)}

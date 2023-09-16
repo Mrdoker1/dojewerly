@@ -20,10 +20,6 @@ const InstaSection = memo(() => {
   const [images, setImages] = useState<string[]>([]);
   const InstagramIcon = icons.instagram; // Замените 'instagram' на имя вашей иконки, если оно другое
 
-  const generateImagePaths = (basePath: string, start: number, end: number): string[] => {
-    return Array.from({ length: end - start + 1 }, (_, i) => `${basePath}${i + start}.jpg`);
-}
-
   useEffect(() => {
     // Тут вы бы делали вызов к Instagram API для получения изображений
     // Например:

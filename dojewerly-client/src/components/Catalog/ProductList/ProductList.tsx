@@ -12,6 +12,7 @@ import { getUserProfile } from '../../../app/reducers/userSlice';
 const ProductList: React.FC = () => {
   const dispatch = useDispatch<AppDispatch>();
   const products = useSelector((state: RootState) => state.products.products);
+  const status = useSelector((state: RootState) => state.catalogCriteria.status);
   const filters = useSelector((state: RootState) => state.catalog);
   const navigate = useNavigate();
   const location = useLocation();
@@ -42,17 +43,22 @@ const ProductList: React.FC = () => {
     navigate(`${location.pathname}?${newSearchParams.toString()}`, { replace: true });
   };  
 
+  let content;
+  if (status === 'loading') {
+    content = <div className={styles.loadingIndicator}>Загрузка продуктов...</div>;
+  } else if (status === 'failed') {
+    content = <div className={styles.errorIndicator}>Ошибка загрузки продуктов</div>;
+  } else if (products.length > 0) {
+    content = products.map(product => (
+      <ProductCard key={product._id} product={product} />
+    ));
+  }
+
   return (
     <>
       <div className={styles.container}>
-        <div className={styles.porudctList}>
-        {products.length > 0 ? (
-          products.map(product => (
-            <ProductCard key={product._id} product={product} />  // Добавьте key здесь
-          ))
-        ) : (
-          <div className={styles.noProducts}>No products found :( Try changing your search terms.</div>
-        )}
+        <div className={styles.productList}>
+          {content}
         </div>
       </div>
       <Pagination 

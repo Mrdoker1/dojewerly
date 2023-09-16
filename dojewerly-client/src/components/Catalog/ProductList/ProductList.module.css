@@ -6,7 +6,7 @@
   padding: 40px 0;
 }
 
-.porudctList {
+.productList {
   max-width: inherit;
   display: grid;
   row-gap: 60px;
