@@ -9,19 +9,26 @@ import ProductCard from '../../../components/Catalog/ProductCard/ProductCard';
 import { AppDispatch, RootState } from '../../../app/store';
 
 const FeaturedProductsSection = () => {
-    const dispatch = useDispatch<AppDispatch>();
-    const products = useSelector((state: RootState) => state.products.products);
+  const dispatch = useDispatch<AppDispatch>();
+  const products = useSelector((state: RootState) => state.products.products);
+  const status = useSelector((state: RootState) => state.products.status); // Selecting the status
   
     useEffect(() => {
         dispatch(fetchAllProducts({}));
     }, [dispatch]);
 
-    return (
-      <div className={styles.productSlider}>
-        <div className={styles.sliderHeading}>
-          <h2 className={styles.subsection}>Featured Products</h2>
-          <div className={styles.productSliderSubheading}>Essential products, best values, lower prices</div>
-        </div>
+  return (
+    <div className={styles.productSlider}>
+      <div className={styles.sliderHeading}>
+        <h2 className={styles.subsection}>Featured Products</h2>
+        <div className={styles.productSliderSubheading}>Essential products, best values, lower prices</div>
+      </div>
+      
+      {status === 'loading' && <div className={styles.loadingIndicator}>Загрузка...</div>}
+      
+      {status === 'failed' && <div className={styles.errorIndicator}>Ошибка загрузки продуктов</div>}
+      
+      {status === 'succeeded' && 
         <Swiper
           modules={[Navigation, Pagination, Scrollbar, A11y, Autoplay]}
           spaceBetween={20}
@@ -57,8 +64,9 @@ const FeaturedProductsSection = () => {
             </SwiperSlide>
           ))}
         </Swiper>
-      </div>
-    );
+      }
+    </div>
+  );
 };
 
 export default FeaturedProductsSection;
