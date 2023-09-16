@@ -31,6 +31,7 @@
 
 .primary {
   background: var(--black-1);
+  gap: 8px;
   color: var(--grey-3);
 }
 
@@ -42,6 +43,7 @@
 
 .secondary {
   background: none;
+  gap: 8px;
   color: var(--black-1);
   border: 1px solid var(--grey-1);
 }
@@ -54,6 +56,7 @@
 
 .text {
   background: none;
+  gap: 8px;
   color: var(--grey-1);
 }
 
@@ -80,30 +83,30 @@
 }
 
 .primary .icon {
-  fill: var(--grey-3);
+  color: var(--grey-3);
 }
 
 .secondary .icon {
-  fill: var(--black-1);
+  color: var(--black-1);
 }
 
 .text .icon {
-  fill: var(--grey-1);
+  color: var(--grey-1);
 }
 
 
 /* Ховер-стили для иконок */
 
 .primary:hover .icon {
-  fill: var(--black-1);
+  color: var(--black-1);
 }
 
 .secondary:hover .icon {
-  fill: var(--grey-3);
+  color: var(--grey-3);
 }
 
 .text:hover .icon {
-  fill: var(--black-1);
+  color: var(--black-1);
 }
 
 /* Icon styles */
@@ -114,13 +117,13 @@
 }
 
 .default .icon {
-  width: 32px;
-  height: 32px;
+  width: 20px;
+  height: 20px;
 }
 
 .large .icon {
-  width: 44px;
-  height: 44px;
+  width: 24px;
+  height: 24px;
 }
 
 /* Disabled styles */

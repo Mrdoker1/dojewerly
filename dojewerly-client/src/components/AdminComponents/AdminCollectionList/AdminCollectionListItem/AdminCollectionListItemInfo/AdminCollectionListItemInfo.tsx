@@ -8,9 +8,11 @@ import { AppDispatch } from '../../../../../app/store';
 
 interface AdminCollectionListItemInfoProps {
   collection: Collection;
+  onlyProducts?: boolean;
+  productsToShow?: number;
 }
 
-const AdminCollectionListItemInfo: React.FC<AdminCollectionListItemInfoProps> = ({ collection }) => {
+const AdminCollectionListItemInfo: React.FC<AdminCollectionListItemInfoProps> = ({ collection, onlyProducts, productsToShow = 5}) => {
   const dispatch = useDispatch<AppDispatch>();
   const products = useSelector((state: any) => state.products.products); // Укажите правильный тип состояния
 
@@ -23,28 +25,32 @@ const AdminCollectionListItemInfo: React.FC<AdminCollectionListItemInfoProps> = 
   // Находим продукты коллекции по их ID
   const collectionProducts: Product[] = products.filter((product: Product) => collection.productIds.includes(product._id || ''));
 
+  const ProductsList = (
+    <div className={styles.productImagesContainer}>
+    {collectionProducts.slice(0, productsToShow).map((product) => (
+      <ProductImage
+        key={product._id || ''}
+        imageUrl={product.imageURLs[0]} // Берем первое изображение
+        alt={product.name}
+        className={styles.productImage}
+      />
+    ))}
+    {collection.productIds.length > productsToShow && (
+      <div className={styles.overflowSquare}>
+        +{collection.productIds.length - productsToShow}
+      </div>
+    )}
+  </div>
+  )
+
   return (
-    <>
-      <div className={styles.collectionInfo}>
+    onlyProducts ? 
+    ProductsList :
+    <div className={styles.collectionInfo}>
       <h3 className={styles.collectionName}>{collection.name}</h3>
       <p className={styles.collectionDescription}>{collection.description}</p>
-      <div className={styles.productImagesContainer}>
-        {collectionProducts.slice(0, 5).map((product) => (
-          <ProductImage
-            key={product._id || ''}
-            imageUrl={product.imageURLs[0]} // Берем первое изображение
-            alt={product.name}
-            className={styles.productImage}
-          />
-        ))}
-        {collection.productIds.length > 5 && (
-          <div className={styles.overflowSquare}>
-            +{collection.productIds.length - 5}
-          </div>
-        )}
-      </div>
+      {ProductsList}
     </div>
-    </>
   );
 };
 

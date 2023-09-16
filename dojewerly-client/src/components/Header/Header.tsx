@@ -11,6 +11,7 @@ import { AppDispatch } from '../../app/store';
 import TopMessage from '../Messages/TopMessage/TopMessage';
 import { setAllFilters } from '../../app/reducers/catalogSlice';
 import extractParamsFromURL from '../../utils/extractParamsFromURL';
+import { useLocation } from 'react-router-dom';
 
 const Header: React.FC = () => {
   const auth = useSelector((state: RootState) => state.auth);
@@ -20,13 +21,16 @@ const Header: React.FC = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch<AppDispatch>();
 
+  const location = useLocation();
+  const isHomepage = location.pathname === "/";
+
   const handleNavigation = (path: string) => {
     const params = extractParamsFromURL(path);
     dispatch(setAllFilters(params));
     navigate(path);
 };
 
-  useEffect(() => {
+useEffect(() => {
     const handleScroll = () => {
       if (window.scrollY > 50) {
         setIsScrolled(true);
@@ -39,7 +43,7 @@ const Header: React.FC = () => {
     return () => {
       window.removeEventListener('scroll', handleScroll);
     };
-  }, []);
+}, []);
 
   const handleAccountClick = () => {
     console.log('Token:', auth.token);
@@ -69,9 +73,9 @@ const Header: React.FC = () => {
     ];
 
   return (
-    <div className={styles.header}>
+  <div className={`${isHomepage ? styles.fixedHeader : styles.header} ${isScrolled ? styles.solidHeader : ''}`}>
       <TopMessage message='Working in progress' visible={true} iconRight='close'/>
-      <div className={`${styles.headerWrapper} ${isScrolled ? styles.scrolled : ''}`}>
+      <div className={`${styles.headerWrapper}`}>
         <Link to="/">
           <icons.logo className={styles.logo} />
         </Link>

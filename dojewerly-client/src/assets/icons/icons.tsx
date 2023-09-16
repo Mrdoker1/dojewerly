@@ -24,6 +24,7 @@ import { ReactComponent as BoltRight } from './bolt-right.svg'
 import { ReactComponent as Gender } from './gender.svg'
 import { ReactComponent as Item } from './item.svg'
 import { ReactComponent as Material } from './material.svg'
+import { ReactComponent as Instagram } from './instagram.svg'
 
 const icons = {
   arrowLeft: ArrowLeft,
@@ -52,6 +53,7 @@ const icons = {
   gender: Gender,
   item: Item,
   material: Material,
+  instagram: Instagram,
   // Добавьте сюда больше иконок при необходимости
 };
 

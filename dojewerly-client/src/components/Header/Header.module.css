@@ -3,10 +3,30 @@
     position: sticky;
     top: 0;
     z-index: 100;
-    transition: var(--transition-1);
-    background: var(--white);
     width: 100%;
     /* Добавьте стили для .header здесь */
+  }
+
+  .fixedHeader {
+    transition: all var(--transition-1);
+    position: fixed; /* Используйте fixed вместо absolute */
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000; /* Чтобы хэдер был поверх остального контента */
+    width: 100%; /* Чтобы хэдер растягивался на всю ширину экрана */
+  }
+
+  .transparentHeader {
+    background-color: transparent;
+  }
+
+  .solidHeader {
+    background-color: var(--white); /* Установите цвет, который вы хотите при прокрутке */
+  }
+
+  .header.scrolled {
+    background-color: var(--white); /* Установите цвет, который вы хотите при прокрутке */
   }
   
   .headerWrapper.scrolled {
@@ -38,6 +58,7 @@
   }
   
   .logo {
+    transition: var(--transition-1);
     width: 30px;
     height: 30px;
     cursor: pointer;
