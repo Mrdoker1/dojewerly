@@ -31,8 +31,9 @@
 
 // export default ProductImage;
 
-import React from 'react';
+import React, { useState } from 'react';
 import icons from '../../../assets/icons/icons';
+import ImageSkeleton from './ImageSkeleton';
 
 interface ProductImageProps {
   imageUrl: string;
@@ -45,17 +46,41 @@ const ProductImage: React.FC<ProductImageProps> = ({ imageUrl, alt, className, d
   const apiUrl = process.env.REACT_APP_API_URL || ''; // Получаем базовый URL
   const fullImageUrl = `${apiUrl}/uploads/${imageUrl}`;
   const Icon = defaultImage ? icons[defaultImage] : icons['noImageS'];
+  
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(false);
 
-  return imageUrl === undefined || imageUrl === '' ? (
-    <div className={className} >
-      <Icon className={className} />
-    </div>
-  ) : (
-    <img
-        src={fullImageUrl}
-        alt={alt}
-        className={className}
-    />
+  const handleImageError = () => {
+    setLoading(false);
+    setError(true);
+  };
+
+  const handleImageLoad = () => {
+    setLoading(false);
+  };
+
+  if (!imageUrl || error) {
+    return (
+      <div className={className}>
+        <Icon className={className} />
+      </div>
+    );
+  }
+
+  return (
+    <>
+      {loading && error ? (
+        <ImageSkeleton className={className}/>
+      ) : (
+        <img
+          src={fullImageUrl}
+          alt={alt}
+          className={className}
+          onLoad={handleImageLoad}
+          onError={handleImageError}
+        />
+      )}
+    </>
   );
 };
 

@@ -24,7 +24,6 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
           <ProductImage 
             imageUrl={product.imageURLs[0]} 
             alt={product.props.info}
-            className={styles.image}
             defaultImage='noImageL'
           />
           <FavouriteToggle productId={product._id} className={styles.favouriteIcon}/>
