@@ -10,7 +10,7 @@
 ## Roadmap
 
 Frontend
-- Stage 1 (Basic MVP)
+- Stage 1 (Basic MVP #1)
   - ✅ **Router**
   - **Homepage**
   - **Collections**
@@ -31,7 +31,7 @@ Frontend
   - **Checkout**
 
 Backend
-- Stage 1 (MVP)
+- Stage 1 (MVP #1)
   - ✅ **Categories**
   - ✅ **Collections**
   - ✅ **Users**
@@ -39,10 +39,10 @@ Backend
   - ✅ **Catalog**
   - ✅ **Collections**
   - ✅ **Favourites**
-- Stage 2 (Extended MVP #1)
-  - **Homepage and Settings**
+- Stage 2 (Extended MVP #2)
+  - **Homepage settings**
   - **Statistics**
-- Stage 3 (Extended MVP #2)
+- Stage 3 (Extended MVP #3)
   - **Orders**
   - **Do X**
   - **Security**
