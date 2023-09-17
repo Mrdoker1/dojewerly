@@ -210,9 +210,13 @@ export const authSlice = createSlice({
           state.status = 'failed';
           state.token = null;
           state.error = {
-            message: action.error.message || 'Unknown error',
-            type: (action.error as AppError).type || 'error'
+            message: '',
+            type: 'default'
           };
+          // state.error = {
+          //   message: action.error.message || 'Unknown error',
+          //   type: (action.error as AppError).type || 'error'
+          // };
           localStorage.removeItem('token'); // Remove the token from localStorage if validation failed
         });
     },

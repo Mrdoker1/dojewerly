@@ -1,7 +1,7 @@
 import { useModal } from './ModalProvider';
 import { useNavigate } from 'react-router-dom';
-import SignInForm from '../Auntefication/Forms/SignInForm/SignInForm';
 import AuthComponent from '../Auntefication/Auth';
+import SignUpForm from '../Auntefication/Forms/SignUpForm/SignUpForm';
 
 // Создаем пользовательский хук для открытия модального окна
 export function useCustomModal() {
@@ -14,14 +14,14 @@ export function useCustomModal() {
       case 'auth':
         openModalWithContent(
           <AuthComponent
-            heading="Hello, Let's Sign In"
-            description="Please sign in to continue."
-            mainForm={<SignInForm />}
-            buttonText="CREATE NEW ACCOUNT"
+            heading="Create an Account"
+            description="Create DoJewerly account to Save Your Favourites and Receive Bonuses!"
+            mainForm={<SignUpForm />} 
+            buttonText="ALREADY HAVE AN ACCOUNT?"
             buttonIcon="arrowRight"
             buttonOnClick={() => {
               closeModal();
-              navigate("/signup")
+              navigate("/signin")
             }}
           />
         );

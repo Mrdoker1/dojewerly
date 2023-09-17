@@ -1,6 +1,5 @@
 import React from 'react';
 import styles from './Auth.module.css';
-import variables from '../../variables.module.css';
 import Button from '../../components/Button/Button';
 import icons from '../../assets/icons/icons';
 
@@ -33,7 +32,7 @@ const Auth: React.FC<AuthProps> = ({
         <icons.logoText className={styles.logo} />
         <div className={styles.heading}>
           <h1>{heading}</h1>
-          <div className={variables.description} style={{color: 'var(--grey-1)'}}>
+          <div className={styles.description} style={{color: 'var(--grey-1)'}}>
             {description}
           </div>
         </div>
