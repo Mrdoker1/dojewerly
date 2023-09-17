@@ -5,7 +5,7 @@ import Button from '../../components/Button/Button';
 import icons from '../../assets/icons/icons';
 
 interface AuthProps {
-  bannerImage: string;
+  bannerImage?: string;
   heading: string;
   description: string;
   mainForm: React.ReactNode;
@@ -25,9 +25,10 @@ const Auth: React.FC<AuthProps> = ({
 }) => {
   return (
     <div className={styles.container}>
-      <div className={styles.imageContainer}>
-        <img src={bannerImage} alt="Banner" />
-      </div>
+      {bannerImage &&
+        <div className={styles.imageContainer}>
+          <img src={bannerImage} alt="Banner" />
+        </div>}
       <div className={styles.form}>
         <icons.logoText className={styles.logo} />
         <div className={styles.heading}>

@@ -2,7 +2,6 @@ import { useModal } from './ModalProvider';
 import { useNavigate } from 'react-router-dom';
 import SignInForm from '../Auntefication/Forms/SignInForm/SignInForm';
 import AuthComponent from '../Auntefication/Auth';
-import banner from '../../assets/images/banner-1.jpg';
 
 // Создаем пользовательский хук для открытия модального окна
 export function useCustomModal() {
@@ -15,7 +14,6 @@ export function useCustomModal() {
       case 'auth':
         openModalWithContent(
           <AuthComponent
-            bannerImage={banner}
             heading="Hello, Let's Sign In"
             description="Please sign in to continue."
             mainForm={<SignInForm />}

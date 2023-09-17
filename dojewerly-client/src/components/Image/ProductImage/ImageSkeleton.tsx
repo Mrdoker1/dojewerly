@@ -7,9 +7,9 @@ interface ImageSkeletonProps {
 
 const ImageSkeleton: React.FC<ImageSkeletonProps> = ({ className = '' }) => {
   return (
-    <div className={`${className}${styles.container}`}>
+  <div className={`${className} ${styles.container}`}>
       <div className={styles.loader}></div>
-    </div>
+  </div>
   )
 };
 
