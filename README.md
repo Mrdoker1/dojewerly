@@ -11,7 +11,7 @@
 
 Frontend
 - Stage 1 (Basic MVP #1)
-  - ✅ **Router**
+  - ✅ **Routing**
   - **Homepage**
   - **Collections**
   - ✅ **Auth**
@@ -22,11 +22,11 @@ Frontend
   - ✅ **User Dashboard**
 - Stage 2 (Messaging & Statistic)
   - **Messaging**
+  - **Do X**
   - **Google/Yandex analytics integration**
 - Stage 3 (Extended MVP #1)
   - **Admin Dashboard Statistics**
 - Stage 4 (Extended MVP #2)
-  - **Do X**
   - **Cart**
   - **Checkout**
 
