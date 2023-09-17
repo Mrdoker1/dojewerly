@@ -35,7 +35,7 @@ const FavouriteToggle: React.FC<FavouriteToggleProps> = ({ productId, className,
 
     if (!token) {
       console.log('TOKEN');
-      openModal('auth');
+      openModal('signup');
       return;
     }
 
