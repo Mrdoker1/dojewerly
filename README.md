@@ -20,13 +20,13 @@ Frontend
   - **Adaptive**
   - **Language Switch(+Translation)**
   - ✅ **User Dashboard**
-- Stage 2 (Messaging & Statistic)
+- Stage 2 (Messaging & Statistic MVP #2)
   - **Messaging**
   - **Do X**
   - **Google/Yandex analytics integration**
-- Stage 3 (Extended MVP #1)
+- Stage 3 (Extended MVP #3)
   - **Admin Dashboard Statistics**
-- Stage 4 (Extended MVP #2)
+- Stage 4 (Extended MVP #4)
   - **Cart**
   - **Checkout**
 
