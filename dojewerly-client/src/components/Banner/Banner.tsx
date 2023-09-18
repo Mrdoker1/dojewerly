@@ -1,7 +1,6 @@
 import React from 'react';
 import styles from './Banner.module.css';
 import Button from '../Button/Button';
-import ProductImage from '../Image/ProductImage/ProductImage';
 
 interface BannerProps {
   /** Выбор текста слева или справа */
