@@ -40,7 +40,10 @@ const Button: React.FC<ButtonProps> = ({type= 'button', text, size = 'default', 
       : customColor,
       color: '#fff' 
     }
-  : {};
+  : {
+      color: customColor
+  };
+
   
 const iconStyles = (customColor && variant === 'primary')
   ? { fill: '#fff' }
