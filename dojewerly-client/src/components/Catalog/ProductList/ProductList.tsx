@@ -59,7 +59,7 @@ const ProductList: React.FC = () => {
     content = products.map(product => (
       <ProductCard key={product._id} product={product} />
     ));
-  }
+  } else content = (<div className={styles.noProducts}>No products found :( Try changing your search terms.</div>)
 
   return (
     <>
