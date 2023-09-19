@@ -29,35 +29,24 @@
 }
 
 .bannerLeft {
-  background-position: 60% 0%;
-}
-
-.bannerLeft:hover {
-  filter: brightness(120%);
-}
-
-.bannerRight {
-  background-position: 0% 0%;
+  /* background-position: 60% 0%; */
+  transition: all var(--transition-1);
   flex-direction: row-reverse;
 }
 
-.bannerRight:hover {
-  filter: brightness(90%);
+.bannerRight {
+  /* background-position: 0% 0%; */
+  transition: all var(--transition-1);
+  flex-direction: row;
 }
 
-.bannerTextLeft {
-  padding-right: 15%;
-  max-width: 380px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  gap: 12px;
-  z-index: 1;
+.bannerRight:hover, .bannerLeft:hover {
+  transition: all var(--transition-1);
+  scale: 1.01;
 }
 
-.bannerTextRight {
-  padding-left: 15%;
-  max-width: 380px;
+.bannerTextLeft, .bannerTextRight {
+  max-width: 40%;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -79,9 +68,36 @@
   font: var(--jost-14-regular); /* предполагая, что у вас есть такая переменная */
 }
 
+.content{
+    display: flex;
+    position: inherit;
+    align-content: center;
+    gap: 20px;
+    align-items: center;
+    width: 100%;
+    justify-content: center;
+}
+
+.image{
+  max-width: 320px;
+  max-height: 320px;
+  width: 100%;
+  height: 100%;
+}
+
 @media screen and (max-width: 780px) {
+
+  .bannerTextLeft, .bannerTextRight {
+    max-width: 100%;
+  }
+
+  .image{
+    max-width: 200px;
+    max-height: 200px;
+  }
+
   .bannerWrapper {
-    height: 240px;
+    height: fit-content;
   }
 
   .bannerImageLight {
@@ -115,8 +131,14 @@
 }
 
 @media screen and (max-width: 480px) {
-  .bannerWrapper {
-    height: 200px;
+  .content{
+    gap: 0;
+    flex-direction: column;
+  }
+
+  .bannerTextRight, .bannerTextLeft {
+    padding: 0 !important;
+    margin: -20px 20px 20px 20px;
   }
 }
 
@@ -131,4 +153,5 @@
   color:black !important;
   background: white;
   border: 1px solid white;
+  filter: brightness(100%);
 }

@@ -1,7 +1,9 @@
 import React from 'react';
 import Banner from './Banner';
-import bannerOne from '../../assets/images/banner-3.jpeg';
-import bannerTwo from '../../assets/images/banner-4.jpeg';
+import backgroundOne from '../../assets/images/banner1/background.jpg';
+import imageOne from '../../assets/images/banner1/image.png';
+import backgroundTwo from '../../assets/images/banner2/background.jpg';
+import imageTwo from '../../assets/images/banner2/image.png';
 
 export interface CustomBannerProps {
   /** Тип баннера */
@@ -16,12 +18,13 @@ const CustomBanner: React.FC<CustomBannerProps> = ({ type }) => {
       banner = (
         <Banner
           type='left'
-          backgroundImage={bannerOne}
+          image={imageOne}
+          backgroundImage={backgroundOne}
           subHeader='LIMITED OFFER'
-          title='Singing Birds'
-          buttonText='CHECK'
+          title='Banner Example #1'
+          buttonText='CTA BUTTON'
           text='Dynamic and elusive abstraction and texture. Plays between the lines of chaos and serenity. Perfect fit for modern and contemporary styled interiors.'
-          textColor='dark'
+          color='dark'
         />
       );
       break;
@@ -29,12 +32,13 @@ const CustomBanner: React.FC<CustomBannerProps> = ({ type }) => {
       banner = (
         <Banner
           type='right'
-          backgroundImage={bannerTwo}
+          image={imageTwo}
+          backgroundImage={backgroundTwo}
           subHeader='LIMITED OFFER'
-          title='Singing Birds'
-          buttonText='CHECK'
+          title='Banner Example #2'
+          buttonText='CTA BUTTON'
           text='Dynamic and elusive abstraction and texture. Plays between the lines of chaos and serenity. Perfect fit for modern and contemporary styled interiors.'
-          textColor='light'
+          color='light'
         />
       );
       break;

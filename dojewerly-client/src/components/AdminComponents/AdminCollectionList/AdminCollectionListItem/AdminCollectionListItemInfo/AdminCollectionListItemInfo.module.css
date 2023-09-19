@@ -35,6 +35,7 @@
     height: 40px;
     margin-right: 5px;
     border-radius: 2px;
+    background-color: var(--grey-3);
   }
 
   .collectionImage {

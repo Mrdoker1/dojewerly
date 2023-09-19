@@ -5,10 +5,12 @@ import Button from '../Button/Button';
 interface BannerProps {
   /** Выбор текста слева или справа */
   type: 'left' | 'right';
+  /** Изображение */
+  image: string;
   /** Изображение для бэкграунда */
   backgroundImage: string;
   /** Цвет текста */
-  textColor: 'light' | 'dark';
+  color: 'light' | 'dark';
   /** Сабхэдер баннера */
   subHeader?: string;
   /** Текст баннера */
@@ -21,11 +23,11 @@ interface BannerProps {
   onClick?: () => void;
 }
 
-const Banner: React.FC<BannerProps> = ({ type, backgroundImage, textColor, subHeader, text, title, buttonText, onClick }) => {
+const Banner: React.FC<BannerProps> = ({ type, image, backgroundImage, color, subHeader, text, title, buttonText, onClick }) => {
 
-  const button = textColor === 'light' ? <Button className={styles.whiteButton} customColor='white' variant='secondary'>{buttonText}</Button> : <Button variant='secondary'>{buttonText}</Button>
+  const button = color === 'light' ? <Button className={styles.whiteButton} customColor='white' variant='secondary'>{buttonText}</Button> : <Button variant='secondary'>{buttonText}</Button>
 
-  const bannerStyles = {
+  const background = {
     backgroundImage: `url(${backgroundImage})`,
     backgroundRepeat: 'no-repeat',
     backgroundSize: 'cover',
@@ -33,14 +35,17 @@ const Banner: React.FC<BannerProps> = ({ type, backgroundImage, textColor, subHe
 
   return (
     <div className={styles.container} >
-        <div className={`${styles.bannerWrapper} ${type === 'right' ? styles.bannerLeft: styles.bannerRight}`} onClick={onClick}>
-            <div className={`${type === 'right' ? styles.bannerTextRight : styles.bannerTextLeft} ${type === 'right' ? styles.light : styles.dark}`}>
-                {subHeader && <h3 className={styles.bannerSubheading}>{subHeader}</h3>}
-                {title && <h2 className={styles.bannerHeading}>{title}</h2>}
-                {text && <span className={styles.bannerDescription}>{text}</span>}
-                {buttonText && button}
+        <div className={styles.bannerWrapper} onClick={onClick}>
+            <div style={background} className={color === 'light' ? styles.bannerImageLight : styles.bannerImageDark}></div>
+            <div className={`${styles.content} ${type === 'right' ? styles.bannerLeft: styles.bannerRight}`}>
+              <img className={styles.image} src={image} alt="banner" />
+              <div className={`${type === 'right' ? styles.bannerTextRight : styles.bannerTextLeft} ${color === 'light' ? styles.light : styles.dark}`}>
+                  {subHeader && <h3 className={styles.bannerSubheading}>{subHeader}</h3>}
+                  {title && <h2 className={styles.bannerHeading}>{title}</h2>}
+                  {text && <span className={styles.bannerDescription}>{text}</span>}
+                  {buttonText && button}
+              </div>
             </div>
-            <div style={bannerStyles} className={textColor === 'light' ? styles.bannerImageLight : styles.bannerImageDark}></div>
         </div>
     </div>
   );
