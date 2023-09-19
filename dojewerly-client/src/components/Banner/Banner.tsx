@@ -25,7 +25,7 @@ interface BannerProps {
 
 const Banner: React.FC<BannerProps> = ({ type, image, backgroundImage, color, subHeader, text, title, buttonText, onClick }) => {
 
-  const button = color === 'light' ? <Button className={styles.whiteButton} customColor='white' variant='secondary'>{buttonText}</Button> : <Button variant='secondary'>{buttonText}</Button>
+  const button = color === 'light' ? <Button className={styles.whiteButton} customColor='white' variant='secondary'>{buttonText}</Button> : <Button className={styles.darkButton} variant='secondary'>{buttonText}</Button>
 
   const background = {
     backgroundImage: `url(${backgroundImage})`,

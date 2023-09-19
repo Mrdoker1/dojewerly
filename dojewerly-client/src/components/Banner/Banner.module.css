@@ -101,20 +101,12 @@
     height: fit-content;
   }
 
-  .bannerImageLight {
-    filter: brightness(0.5);
-  }
-
   .bannerImageDark {
-    filter:opacity(0.5);
+    filter: opacity(0.7);
   }
 
   .bannerWrapper{
     padding: 0px;
-  }
-
-  .banner {
-    filter: opacity(0.5);
   }
 
   .bannerTextRight .bannerHeading, .bannerTextLeft .bannerHeading {
@@ -135,13 +127,17 @@
   .content{
     gap: 0;
     flex-direction: column;
-    align-items: flex-end;
     padding: 0;
   }
 
   .bannerTextRight, .bannerTextLeft {
     padding: 0 !important;
-    margin: -90px 20px 20px 20px;
+    margin: -20px 40px 40px 40px;
+  }
+
+  .image{
+    max-width: 320px;
+    max-height: 320px;
   }
 }
 
@@ -150,6 +146,10 @@
   color: white;
   border: 1px solid white;
   box-sizing:border-box;
+}
+
+.darkButton {
+  border: 1px solid var(--black-1);
 }
 
 .whiteButton:hover{
