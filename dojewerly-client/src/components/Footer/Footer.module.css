@@ -42,7 +42,7 @@
   }
   
   /* Медиа-запросы для различных размеров экрана */
-  @media screen and (max-width: var(--tablet)) {
+  @media screen and (max-width: 768px) {
     /* Стили для футера при максимальной ширине 768px */
     .footerLinksMain ul {
       gap: 10px;

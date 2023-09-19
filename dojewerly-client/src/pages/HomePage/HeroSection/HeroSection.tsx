@@ -27,7 +27,7 @@ const HeroSection = memo(() => {
             text="READ OUR CARE GUIDE" 
             size="large" 
             variant="text"
-            className={styles.heroCareGuide}
+            className={styles.heroCareGuideCTA}
             iconRight='arrowRight'
             onClick={() => {/* TODO: Add functionality here */}}
           />

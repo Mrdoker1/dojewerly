@@ -110,3 +110,10 @@ body, html {
     padding: 0;
     list-style: none;
   }
+
+  @media screen and (max-width: 768px) {
+    h1 {
+      font: var(--cormorant-29-medium);
+      line-height: 37px;
+    }
+  }

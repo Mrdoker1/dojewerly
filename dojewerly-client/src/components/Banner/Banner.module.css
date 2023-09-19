@@ -74,6 +74,7 @@
     align-content: center;
     gap: 20px;
     align-items: center;
+    padding: 20px;
     width: 100%;
     justify-content: center;
 }
@@ -134,11 +135,13 @@
   .content{
     gap: 0;
     flex-direction: column;
+    align-items: flex-end;
+    padding: 0;
   }
 
   .bannerTextRight, .bannerTextLeft {
     padding: 0 !important;
-    margin: -20px 20px 20px 20px;
+    margin: -90px 20px 20px 20px;
   }
 }
 

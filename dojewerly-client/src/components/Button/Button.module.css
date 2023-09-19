@@ -140,3 +140,17 @@
   background-color:var(--grey-3);
   border: 1px solid transparent;
 }
+
+@media screen and (max-width: 480px) {
+  .small {
+    font: var(--jost-12-regular);
+  }
+  
+  .default {
+    font: var(--jost-12-regular);
+  }
+  
+  .large {
+    font: var(--jost-12-regular);
+  }
+}

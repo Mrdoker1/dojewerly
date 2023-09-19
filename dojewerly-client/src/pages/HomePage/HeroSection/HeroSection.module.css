@@ -22,7 +22,7 @@
     text-align: center;
 }
 
-.heroCareGuide{
+.heroCareGuideCTA{
     color: var(--black-1);
     width: auto;
     padding: 0px;
@@ -30,7 +30,11 @@
     align-self: auto;
 }
 
-.heroCareGuide:hover {
+.heroCareGuideCTA svg{
+    color: var(--black-1) !important;
+}
+
+.heroCareGuideCTA:hover {
     box-shadow: inset 0px -1px 0px #161412;
     border-radius: 0;
     padding: 0;
@@ -96,11 +100,15 @@
 
 @media screen and (max-width: 480px) { /* замените на соответствующее значение из вашего файла variables.scss */
     .heroSection {
-        height: 340px;
+        height: 380px;
+    }
+
+    .heroVideo {
+        transform: scale(2.5, 3.5);
     }
 
     .heroContent {
-        margin-top: 80px;
+        margin-top: 100px;
         justify-content: flex-start;
     }
 

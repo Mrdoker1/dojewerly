@@ -37,6 +37,7 @@
   }
   
   .heading{
+    min-width: 320px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -45,4 +46,10 @@
   
   .logo {
     color: var(--black-1);
+  }
+
+  @media screen and (max-width: 768px) {
+    .form {
+      padding: 20px;
+    }
   }
