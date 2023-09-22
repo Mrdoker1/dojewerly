@@ -5,7 +5,9 @@ import { AppDispatch, RootState } from '../../app/store';
 import Layout from '../Layout/Layout';
 import HomePage from '../../pages/HomePage/HomePage';
 import CatalogPage from '../../pages/CatalogPage/CatalogPage';
+import CollectionsPage from '../../pages/CollectionsPage/CollectionsPage'
 import ProductPage from '../../pages/ProductPage/ProductPage';
+import CollectionPage from '../../pages/CollectionPage/CollectionPage';
 import SignInPage from '../../pages/Authorization/SignInPage';
 import NoPage from '../../pages/NoPage/NoPage';
 import SignUpPage from '../../pages/Authorization/SignUpPage';
@@ -57,6 +59,8 @@ const AppRouter = memo(() => {
             </Route>
           </Route>
           <Route path="/product/:id" element={<ProductPage />} />
+          <Route path="/collections" element={<CollectionsPage />} />
+          <Route path="/collections/:id" element={<CollectionPage />} />
           <Route path="/favourites/:userId" element={<SharedFavouritesPage />} />
           <Route path="*" element={<NoPage />} />
         </Route>

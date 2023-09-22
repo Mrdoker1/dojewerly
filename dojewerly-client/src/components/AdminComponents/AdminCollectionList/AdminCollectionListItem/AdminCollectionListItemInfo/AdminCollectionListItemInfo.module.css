@@ -22,18 +22,20 @@
     color: var(--grey-1);
     margin-right: 10px;
     overflow: hidden;
-    white-space: nowrap;
     text-overflow: ellipsis;
 }
   
   .productImagesContainer {
     display: flex;
+    gap: 8px;
+    width: 100%;
+    flex-direction: row;
+    flex-wrap: wrap;
   }
   
   .productImage {
     width: 40px; /* Уменьшим размер изображения */
     height: 40px;
-    margin-right: 5px;
     border-radius: 4px;
     background-color: var(--grey-3);
   }

@@ -1,0 +1,31 @@
+.container{
+    width: inherit;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    border: 1px solid var(--grey-2);
+    border-radius: 8px;
+    padding: 20px;
+    cursor: pointer;
+    transition: all var(--transition-1);
+}
+
+.container:hover{
+    background-color: var(--grey-3);
+}
+
+.heading{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.name{
+    font: var(--cormorant-29-medium);
+}
+
+.description{
+    font: var(--jost-14-regular);
+    color: var(--grey-1);
+}

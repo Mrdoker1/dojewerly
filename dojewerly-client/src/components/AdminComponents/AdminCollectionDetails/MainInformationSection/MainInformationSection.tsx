@@ -4,6 +4,7 @@ import styles from './MainInformationSection.module.css';
 import { AppDispatch, RootState } from '../../../../app/store';
 import { useDispatch, useSelector } from 'react-redux';
 import { CollectionUpdatableProperties, updateCollectionProperty } from '../../../../app/reducers/collectionsSlice';
+import TextArea from '../../../TextArea/TextArea';
 
 const MainInformationSection: React.FC = () => {
   const dispatch = useDispatch<AppDispatch>();
@@ -34,7 +35,7 @@ const MainInformationSection: React.FC = () => {
           value={selectedCollection?.name} 
           onChange={(e) => handleInputChange('name', e.target.value)}
         />
-        <Input 
+        <TextArea 
           label="Description"
           placeholder="Description"
           value={selectedCollection?.description} 

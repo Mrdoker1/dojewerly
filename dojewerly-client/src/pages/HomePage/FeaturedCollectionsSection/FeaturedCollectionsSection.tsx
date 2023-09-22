@@ -6,11 +6,13 @@ import styles from './FeaturedCollectionsSection.module.css';
 import CollectionListItem, { CollectionListItemProps } from './CollectionListItem';
 import Button from '../../../components/Button/Button';
 import CollectionListItemSkeleton from './CollectionListItemSkeleton';
+import { useNavigate } from 'react-router-dom';
 
 const FeaturedCollectionsSection = () => {
   const dispatch = useDispatch<AppDispatch>();
   const collections = useSelector((state: RootState) => state.collections.collections);
   const status = useSelector((state: RootState) => state.collections.status); // Selecting the status
+  const navigate = useNavigate();
 
   useEffect(() => {
     dispatch(fetchAllCollections());
@@ -26,7 +28,7 @@ const FeaturedCollectionsSection = () => {
               variant="text"
               iconRight='arrowRight'
               className={styles.collectionsShowAll}
-              onClick={() => {/* TODO: Add functionality here */}}
+              onClick={() => {navigate("/collections")}}
           />
         </div>
         
