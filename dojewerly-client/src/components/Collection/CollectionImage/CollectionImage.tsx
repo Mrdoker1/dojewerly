@@ -4,8 +4,8 @@
     import { Collection } from '../../../app/reducers/collectionsSlice';
 
     interface CollectionImageProps {
-    collectionId: string;
-    className?: string;
+        collectionId: string;
+        className?: string;
     }
 
     const CollectionImage: React.FC<CollectionImageProps> = ({ collectionId, className }) => {

@@ -17,6 +17,11 @@ export class UserService {
     return this.userModel.findOne({ username }).exec();
   }
 
+  async findByEmail(email: string): Promise<UserDocument | null> {
+    console.log(email);
+    return await this.userModel.findOne({ email }).exec();
+  }
+
   // UserService
   async findById(id: string): Promise<UserDocument> {
     console.log('Find user by ID:', id); // Добавьте отладочный вывод
@@ -52,11 +57,11 @@ export class UserService {
   }
 
   async updateUser(id: string, updateUserDto: UpdateUserDto): Promise<void> {
-    const { username } = updateUserDto;
-    if (username) {
-      const existingUser = await this.findByUsername(username);
+    const { email } = updateUserDto;
+    if (email) {
+      const existingUser = await this.findByEmail(email);
       if (existingUser && String(existingUser._id) !== id) {
-        throw new BadRequestException('Username is already taken');
+        throw new BadRequestException('Email is already taken');
       }
     }
     await this.userModel.findByIdAndUpdate(id, updateUserDto).exec();
@@ -65,18 +70,35 @@ export class UserService {
   async updateProfile(
     id: string,
     username: string,
+    email: string,
     password: string,
     settings: { email: boolean },
   ): Promise<UserDocument> {
-    if (username) {
-      const existingUser = await this.findByUsername(username);
+    // if (username) {
+    //   const existingUser = await this.findByUsername(username);
+    //   if (existingUser && String(existingUser._id) !== id) {
+    //     throw new BadRequestException('Username is already taken');
+    //   }
+    // }
+
+    if (email) {
+      const existingUser = await this.findByEmail(email); // новая проверка
       if (existingUser && String(existingUser._id) !== id) {
-        throw new BadRequestException('Username is already taken');
+        throw new BadRequestException('Email is already taken');
       }
     }
+
+    const updatedFields = {
+      ...(username && { username }),
+      ...(email && { email }), // новый параметр
+      ...(password && { password }),
+      ...(settings && { settings }),
+    };
+
     const user = await this.userModel
-      .findByIdAndUpdate(id, { username, password, settings }, { new: true })
+      .findByIdAndUpdate(id, updatedFields, { new: true })
       .exec();
+
     return user; // return the updated document
   }
 
@@ -84,11 +106,19 @@ export class UserService {
     id: string,
     updateProfileDto: Partial<UpdateProfileDto>,
   ): Promise<UserDocument> {
-    const { username } = updateProfileDto;
-    if (username) {
-      const existingUser = await this.findByUsername(username);
+    const { username, email } = updateProfileDto;
+
+    // if (username) {
+    //   const existingUser = await this.findByUsername(username);
+    //   if (existingUser && String(existingUser._id) !== id) {
+    //     throw new Ba dRequestException('Username is already taken');
+    //   }
+    // }
+
+    if (email) {
+      const existingUser = await this.findByEmail(email);
       if (existingUser && String(existingUser._id) !== id) {
-        throw new BadRequestException('Username is already taken');
+        throw new BadRequestException('Email is already taken');
       }
     }
     const updates = Object.keys(updateProfileDto)

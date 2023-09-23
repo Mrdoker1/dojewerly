@@ -16,22 +16,32 @@ export class AuthService {
   ) {}
 
   async validateUser(
-    username: string,
+    email: string,
     password: string,
   ): Promise<UserDocument | null> {
-    const user = await this.userService.findByUsername(username);
+    console.log('Trying to validate user with email:', email);
+    const user = await this.userService.findByEmail(email);
     if (!user) {
+      console.log('User not found with email:', email);
       throw new UnauthorizedException('User not found');
     }
     if (user.password !== password) {
+      console.log('Invalid password for email:', email);
       throw new UnauthorizedException('Invalid password');
     }
-    console.log('User validation successful, username:', user.username); 
+    console.log('User validation successful, email:', user.email);
     return user;
   }
 
   async login(user: UserDocument): Promise<{ token: string }> {
-    const payload = { username: user.username, sub: user.id, roles: user.role };
+    const payload = {
+      email: user.email,
+      sub: user.id,
+      roles: user.role,
+    };
+
+    console.log('Login Payload', payload.email);
+
     const token = this.jwtService.sign(payload);
     await this.tokenService.create(token, user.id);
     return { token };

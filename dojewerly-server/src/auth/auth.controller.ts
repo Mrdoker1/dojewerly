@@ -12,8 +12,8 @@ import {
 } from '@nestjs/swagger';
 
 class LoginDto {
-  @ApiProperty({ example: 'admin', description: 'Username' })
-  username: string;
+  @ApiProperty({ example: 'admin@email.com', description: 'Email' })
+  email: string;
 
   @ApiProperty({ example: 'admin', description: 'Password' })
   password: string;
@@ -37,9 +37,9 @@ export class AuthController {
   @ApiOperation({ summary: 'Login and get JWT token' })
   @ApiBody({ type: LoginDto })
   @ApiResponse({ status: 200, description: 'Successful login', type: TokenDto })
-  @ApiBearerAuth()
   @UseGuards(LocalAuthGuard)
   async login(@Request() req): Promise<TokenDto> {
+    console.log('Attempting to login user', req.user);
     const { token } = await this.authService.login(req.user);
     return { token };
   }

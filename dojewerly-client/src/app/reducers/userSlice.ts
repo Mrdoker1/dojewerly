@@ -5,6 +5,7 @@ const apiUrl = process.env.REACT_APP_API_URL;
 export interface User {
   _id: string;
   username: string;
+  email: string;
   password: string;
   __v: number;
   role: string;
@@ -55,7 +56,7 @@ export const getUserProfile = createAsyncThunk(
 
 export const updateUserProfile = createAsyncThunk(
   'user/updateUserProfile',
-  async ({ username, password, settings }: { username: string; password: string; settings?: { email: boolean } }, thunkAPI) => {
+  async ({ username,email, password, settings }: { username: string; email: string; password: string; settings?: { email: boolean } }, thunkAPI) => {
     const token = localStorage.getItem('token');
     if (!token) {
       throw new Error('No session');
@@ -69,6 +70,7 @@ export const updateUserProfile = createAsyncThunk(
       },
       body: JSON.stringify({
         username,
+        email,
         password,
         settings,
       }),
@@ -90,7 +92,7 @@ export const updateUserProfile = createAsyncThunk(
 
 export const patchUserProfile = createAsyncThunk(
   'user/patchUserProfile',
-  async (update: { username?: string; password?: string; settings?: { email: boolean } }, thunkAPI) => {
+  async (update: { email?: string; username?: string; password?: string; settings?: { email: boolean } }, thunkAPI) => {
     const token = localStorage.getItem('token');
     if (!token) {
       throw new Error('No session');

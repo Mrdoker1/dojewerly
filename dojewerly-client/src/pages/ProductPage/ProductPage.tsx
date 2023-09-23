@@ -9,13 +9,13 @@ import { AppDispatch, RootState } from '../../app/store';
 import { fetchProductById } from '../../app/reducers/productsSlice';
 import FavouriteToggle from '../../components/Favourites/FavouriteToggle/FavouriteToggle';
 import { getUserProfile } from '../../app/reducers/userSlice';
+import BackButton from '../../components/Button/BackButton/BackButton';
 
 const ProductPage: React.FC = () => {
     const dispatch = useDispatch<AppDispatch>();
     const { id } = useParams<{ id: string }>();
     const product = useSelector((state: RootState) => state.products.products.find(p => p._id === id));
     const token = useSelector((state: RootState) => state.auth.token);
-    const navigate = useNavigate();
 
     useEffect(() => {
       window.scrollTo(0, 0); // сброс позиции скролла к верху страницы
@@ -30,10 +30,6 @@ const ProductPage: React.FC = () => {
         dispatch(fetchProductById(id));
       }
     }, [id, product, dispatch, token]);
-
-    const handleBackClick = () => {
-      navigate(-1);
-    };
 
     if (!product) return <div>Loading...</div>;
 
@@ -50,7 +46,7 @@ const ProductPage: React.FC = () => {
           <div className={styles.productDetailsWrapper}>
             <div className={styles.productDetails}>
               <div className={styles.productDetailsHeading}>
-                <Button variant='text' iconLeft='arrowLeft' text="BACK" onClick={handleBackClick} className={styles.backButton}/>
+                <BackButton></BackButton>
                 <h1 className={styles.productName}>{product.name}</h1>
               </div>
               <ul className={styles.productProperties}>

@@ -13,9 +13,9 @@ import { MessageType } from '../../../Messages/messageTypes';
 
 const SignInForm = memo(() => {
 
-  const [username, setUsername] = useState('');
+  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [isUsernameValid, setIsUsernameValid] = useState(true);
+  const [isEmailValid, setIsEmailValid] = useState(true);
   const [isPasswordValid, setIsPasswordValid] = useState(true);
 
   const dispatch = useDispatch<AppDispatch>();
@@ -34,8 +34,8 @@ const SignInForm = memo(() => {
     
 
     // Validation of fields before sending data
-    if (username.trim() === '') {
-      setIsUsernameValid(false);
+    if (email.trim() === '') {
+      setIsEmailValid(false);
       return;
     }
 
@@ -45,7 +45,7 @@ const SignInForm = memo(() => {
     }
 
     // Dispatch the registerUser action
-    dispatch(loginUser({ username, password })).then((result) => {
+    dispatch(loginUser({ email, password })).then((result) => {
       console.log('Login result:', result.meta.requestStatus);
       if (result.meta.requestStatus === 'fulfilled') {
         closeModal();
@@ -60,13 +60,13 @@ const SignInForm = memo(() => {
           <Input 
             type="text"
             label="Email Address"
-            value={username}
+            value={email}
             placeholder='your@email.com'
-            hasError={!isUsernameValid}
-            message={!isUsernameValid ? 'Please enter a valid email.' : ''}
+            hasError={!isEmailValid}
+            message={!isEmailValid ? 'Please enter a valid email.' : ''}
             onChange={(e) => {
-              setUsername(e.target.value);
-              setIsUsernameValid(true); // Reset the error flag when the user starts typing in the field
+              setEmail(e.target.value);
+              setIsEmailValid(true); // Reset the error flag when the user starts typing in the field
             }}
           />
           <PasswordInput

@@ -1,6 +1,11 @@
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 
 export class UpdateUserDto {
+  @ApiPropertyOptional({
+    example: 'john.doe@example.com',
+    description: 'Email',
+  })
+  email: string;
   @ApiPropertyOptional({ example: 'john_doe', description: 'Username' })
   username: string;
   @ApiPropertyOptional({ example: 'pa$$w0rd', description: 'Password' })
@@ -14,6 +19,12 @@ export class UpdateUserDto {
 }
 
 export class UpdateProfileDto {
+  @ApiPropertyOptional({
+    example: 'john.doe@example.com',
+    description: 'Email',
+  })
+  email: string;
+
   @ApiPropertyOptional({ example: 'john_doe', description: 'Username' })
   username: string;
 
@@ -30,8 +41,11 @@ export class UpdateProfileDto {
 }
 
 export class CreateUserDto {
-  @ApiProperty({ example: 'john_doe', description: 'Username' })
+  @ApiProperty({ example: 'user', description: 'Username' })
   username: string;
+
+  @ApiProperty({ example: 'john.doe@example.com', description: 'Email' })
+  email: string;
 
   @ApiProperty({ example: 'pa$$w0rd', description: 'Password' })
   password: string;

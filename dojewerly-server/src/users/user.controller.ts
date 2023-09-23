@@ -100,12 +100,12 @@ export class UserController {
     // Set the role to "user"
     createUserDto.role = UserRole.USER;
 
-    // Check if the username is already taken
-    const existingUser = await this.userService.findByUsername(
-      createUserDto.username,
+    // Check if the Email is already taken
+    const existingUser = await this.userService.findByEmail(
+      createUserDto.email,
     );
     if (existingUser) {
-      throw new BadRequestException('Username is already taken');
+      throw new BadRequestException('Email is already taken');
     }
     // Create the user with the provided data
     return this.userService.createUser(createUserDto);
@@ -144,16 +144,20 @@ export class UserController {
     @Request() req,
     @Body() updateProfileDto: UpdateProfileDto,
   ): Promise<UserDocument> {
-    const { username, password, settings } = updateProfileDto;
-    if (!username && !password && settings === undefined) {
+    const { username, email, password, settings } = updateProfileDto;
+
+    if (!username && !email && !password && settings === undefined) {
       throw new BadRequestException('No fields to update');
     }
+
     const user = await this.userService.updateProfile(
       req.user.id,
       username,
+      email,
       password,
       settings,
     );
+
     return user;
   }
 

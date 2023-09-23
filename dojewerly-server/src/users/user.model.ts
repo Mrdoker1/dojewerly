@@ -5,6 +5,7 @@ import { UserRole } from '../enum/enums';
 export type UserDocument = User & Document<any, any, User>;
 
 export interface User extends Document {
+  email: string;
   username: string;
   password: string;
   role: UserRole;
@@ -14,6 +15,9 @@ export interface User extends Document {
 
 @Schema()
 export class User {
+  @Prop({ required: true, unique: true })
+  email: string;
+
   @Prop({ required: true })
   username: string;
 

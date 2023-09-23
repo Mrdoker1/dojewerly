@@ -7,6 +7,7 @@ import Breadcrumbs from '../../components/Breadcrumbs/Breadcrumbs';
 import GradientImage from '../../components/Image/GradientImage/GradientImage';
 import CollectionProductList from './CollectionProductList/CollectionProductList';
 import styles from './CollectionPage.module.css';
+import BackButton from '../../components/Button/BackButton/BackButton';
 
 const CollectionPage: React.FC = () => {
   const { id } = useParams<{ id: string }>();
@@ -36,7 +37,7 @@ const CollectionPage: React.FC = () => {
     <div className={styles.pageWrapper}>
       <GradientImage imageUrl={firstProductImage} alt={collection.name} className={styles.gradientBackground} />
       <div className={styles.contentWrapper}>
-        <Breadcrumbs />
+        <BackButton fullWidth></BackButton>
         <h1>{collection.name}</h1>
         <p className={styles.description}>{collection.description}</p>
         <div className={styles.collectionContainer}>

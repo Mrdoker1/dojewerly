@@ -14,7 +14,7 @@ class AppError extends Error {
 
 export const registerUser = createAsyncThunk(
   'auth/register',
-  async ({ username, password }: { username: string; password: string; }, thunkAPI) => {
+  async ({ email, username, password }: { email: string; username: string; password: string; }, thunkAPI) => {
     const response = await fetch(`${apiUrl}/users/register`, {
       method: 'POST',
       headers: {
@@ -22,6 +22,7 @@ export const registerUser = createAsyncThunk(
       },
       body: JSON.stringify({
         username,
+        email,
         password,
         role: "user"
       })
@@ -39,14 +40,14 @@ export const registerUser = createAsyncThunk(
 
 export const loginUser = createAsyncThunk(
   'auth/login',
-  async ({ username, password }: { username: string; password: string; }, thunkAPI) => {
+  async ({ email, password }: { email: string; password: string; }, thunkAPI) => {
     const response = await fetch(`${apiUrl}/auth/login`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        username,
+        email,
         password
       })
     });
@@ -130,6 +131,7 @@ export const authSlice = createSlice({
   name: 'auth',
   initialState: {
     user: null,
+    email: null,
     token: null as string | null,
     status: 'idle',
     error: null as { message: string; type: string } | null

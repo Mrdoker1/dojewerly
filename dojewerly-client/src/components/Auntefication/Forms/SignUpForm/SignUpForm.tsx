@@ -9,12 +9,15 @@ import NotificationMessage from '../../../Messages/NotificationMessage/Notificat
 import { useNavigate } from 'react-router-dom';
 import PasswordInput from '../../../Input/PasswordInput/PasswordInput';
 import { MessageType } from '../../../Messages/messageTypes';
+import { sendNotification } from '../../../NotificationCenter/notificationHelpers';
 
 const SignUpForm = memo(() => {
 
   const [username, setUsername] = useState('');
+  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [isUsernameValid, setIsUsernameValid] = useState(true);
+  const [isEmailValid, setIsEmailValid] = useState(true);
   const [isPasswordValid, setIsPasswordValid] = useState(true);
 
   const dispatch = useDispatch<AppDispatch>();
@@ -32,16 +35,22 @@ const SignUpForm = memo(() => {
       return;
     }
 
+    if (email.trim() === '') {
+      setIsEmailValid(false);
+      return;
+    }
+
     if (password.trim() === '') {
       setIsPasswordValid(false);
       return;
     }
 
     // Dispatch the registerUser action
-    dispatch(registerUser({ username, password })).then((result) => {
-      console.log('Create account:', result.meta.requestStatus);
+    dispatch(registerUser({ username, email, password })).then((result) => {
+      console.log('Create account status:', result.meta.requestStatus);
       if (result.meta.requestStatus === 'fulfilled') {
-        navigate("/dashboard/profile"); // Используйте navigate для перенаправления на страницу /dashboard
+        sendNotification(dispatch, 'success', 'Your account has been created successfully!');
+        navigate("/signin"); // Используйте navigate для перенаправления на страницу /dashboard
       }
     });
   };
@@ -64,13 +73,13 @@ const SignUpForm = memo(() => {
           <Input 
             type="text"
             label="Email Address"
-            value={username}
+            value={email}
             placeholder='your@email.com'
-            hasError={!isUsernameValid}
-            message={!isUsernameValid ? 'Please enter a valid email.' : ''}
+            hasError={!isEmailValid}
+            message={!isEmailValid ? 'Please enter a valid email.' : ''}
             onChange={(e) => {
-              setUsername(e.target.value);
-              setIsUsernameValid(true); // Reset the error flag when the user starts typing in the field
+              setEmail(e.target.value);
+              setIsEmailValid(true); // Reset the error flag when the user starts typing in the field
             }}
           />
           <PasswordInput

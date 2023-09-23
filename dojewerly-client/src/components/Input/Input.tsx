@@ -82,7 +82,7 @@ const Input: React.ForwardRefRenderFunction<HTMLInputElement, InputProps> = ({ o
     return (
       <div className={`${fullWidth ? styles.fullWidth : ''} ${styles.container} ${hasError ? styles.error : ''}`}>
         <label>{label}</label>
-        <div className={`${className} ${styles.inputStyle} ${isFocused ? styles.inputFocus : ''} ${hasError ? styles.inputError : ''}`}>
+        <div className={`${className} ${styles.inputStyle} ${disabled ? styles.disabled : ''} ${isFocused ? styles.inputFocus : ''} ${hasError ? styles.inputError : ''}`}>
           {IconLeft && <IconLeft onClick={handleIconLeftClick} className={styles.icon} />}
           <input
             ref={ref}

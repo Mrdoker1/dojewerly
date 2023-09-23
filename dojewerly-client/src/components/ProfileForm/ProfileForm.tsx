@@ -12,12 +12,14 @@ const ProfileForm: React.FC = () => {
   const dispatch = useDispatch<AppDispatch>();
   const user = useSelector((state: RootState) => state.user.user);
   const [username, setUsername] = useState(user?.username || '');
+  const [email, setEmail] = useState(user?.email || '');
   const [newPassword, setNewPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [passwordMismatchError, setPasswordMismatchError] = useState('');
 
   useEffect(() => {
     setUsername(user?.username || '');
+    setEmail(user?.email || '');
   }, [user]);
 
   const handleNewPasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -45,6 +47,7 @@ const ProfileForm: React.FC = () => {
     }
 
     const updateData: any = {
+      email,
       username,
     };
 
@@ -73,10 +76,17 @@ const ProfileForm: React.FC = () => {
       <h2>Your Information</h2>
       <form onSubmit={handleSubmit} className={styles.form}>
         <Input
-          label="Email Address"
+          label="Username"
           type="text"
           value={username}
           onChange={(e) => setUsername(e.target.value)}
+        />
+        <Input
+          label="Email Address"
+          type="text"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          disabled
         />
         <PasswordInput
           label="Password"
