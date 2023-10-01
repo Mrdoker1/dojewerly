@@ -27,6 +27,7 @@ import { ReactComponent as Material } from './material.svg'
 import { ReactComponent as Instagram } from './instagram.svg'
 import { ReactComponent as Insta } from './insta.svg'
 import { ReactComponent as Copy } from './copy.svg'
+import { ReactComponent as Language } from './language.svg'
 
 const icons = {
   arrowLeft: ArrowLeft,
@@ -58,6 +59,7 @@ const icons = {
   instagram: Instagram,
   insta: Insta,
   copy: Copy,
+  language: Language,
   // Добавьте сюда больше иконок при необходимости
 };
 
