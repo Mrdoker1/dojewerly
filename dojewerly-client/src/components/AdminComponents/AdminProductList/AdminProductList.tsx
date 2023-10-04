@@ -26,6 +26,7 @@ const AdminProductList: React.FC = () => {
         type: '',
       },
       imageURLs: [],
+      localization: {}
     };
 
     dispatch(createProduct(newProduct))

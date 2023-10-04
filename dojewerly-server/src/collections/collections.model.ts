@@ -13,6 +13,14 @@ export class Collection {
 
   @Prop({ type: [String], default: [] })
   productIds: string[];
+
+  @Prop({ type: Object, default: {} })
+  localization: {
+    [key: string]: {
+      name?: string;
+      description?: string;
+    };
+  };
 }
 
 export const CollectionSchema = SchemaFactory.createForClass(Collection);

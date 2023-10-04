@@ -5,8 +5,9 @@ import { fetchCatalogCriteria } from '../../../../app/reducers/catalogCriteriaSl
 import { AppDispatch, RootState } from '../../../../app/store'; // Путь к вашему хранилищу Redux
 import styles from './DetailsSection.module.css';
 import Input from '../../../Input/Input';
-import { ProductPropsUpdatableProperties, ProductUpdatableProperties, updateProductProperty } from '../../../../app/reducers/productsSlice';
-import TextArea from '../../../TextArea/TextArea';
+import useLocalizedInputHandler from '../useLocalizedInputHandler';
+import TextAreaWithLanguage from '../../../TextArea/TextAreaWithLanguage/TextAreaWithLanguage';
+import createDropdownOptions from '../../../../utils/createDropdownOptions';
 
 interface DetailsProps {}
 
@@ -15,35 +16,20 @@ const DetailsSection: React.FC<DetailsProps> = () => {
     const catalogCriteria = useSelector((state: RootState) => state.catalogCriteria.criteria);
     const selectedProductId = useSelector((state: RootState) => state.userDashboard.selectedProductId);
     const selectedProduct = useSelector((state: RootState) => state.products.products.find(product => product._id === state.userDashboard.selectedProductId));
+    const languages = ['EN', 'RU', 'PL'];
 
-    const handleInputChange = (property: ProductUpdatableProperties, value: any, subProperty?: ProductPropsUpdatableProperties) => {
-      if (selectedProductId) {
-          if (property === 'props' && subProperty) {
-              const updatedProps = { ...selectedProduct?.props, [subProperty]: value };
-              dispatch(updateProductProperty({ productId: selectedProductId, property, value: updatedProps }));
-          } else {
-              dispatch(updateProductProperty({ productId: selectedProductId, property, value }));
-          }
-      }
-    };
-
-  function createDropdownOptions(values: string[] | undefined) {
-    if (!values) {
-      return []
-    } 
-    return values.map(value => ({
-      label: value,
-      value: value,
-    }));
-  }
+    const { 
+      currentLanguage, 
+      inputDataChangeHandler, 
+      inputLanguageChangeHandler,
+      handleInputChange
+  } = useLocalizedInputHandler(selectedProductId || '', selectedProduct);
 
     useEffect(() => {
       if (!catalogCriteria) {
         dispatch(fetchCatalogCriteria());
       }
     }, [dispatch, catalogCriteria]);
-
-    console.log(selectedProduct?.props.availability);
 
     return (
       <>
@@ -63,6 +49,15 @@ const DetailsSection: React.FC<DetailsProps> = () => {
               value={selectedProduct?.stock.toString()}
               onChange={(e) => handleInputChange('stock', Number(e.target.value))}
             />
+            {/* <InputWithLanguage
+              label="Amount in Stock"
+              type='number'
+              placeholder="In stock"
+              value={currentLanguage.stock === 'EN' ? selectedProduct?.stock.toString() || '' : selectedProduct?.localization[currentLanguage.stock]?.stock?.toString() || ''}
+              onChange={(e, lang) => inputDataChangeHandler(e, lang, 'stock')}
+              onLanguageChange={(lang) => inputLanguageChangeHandler(lang, 'stock') }
+              languages={languages}
+            /> */}
           </div>
           <div className={styles.inputContainer}>
             <Dropdown 
@@ -72,6 +67,7 @@ const DetailsSection: React.FC<DetailsProps> = () => {
               options={createDropdownOptions(catalogCriteria?.availability) || []}
               placeholder='Select an option...'
               onChange={(value) => handleInputChange('props', value, 'availability')}
+              fullWidth
             />
             <Dropdown 
               label="Material" 
@@ -79,6 +75,7 @@ const DetailsSection: React.FC<DetailsProps> = () => {
               options={createDropdownOptions(catalogCriteria?.materials) || []} 
               placeholder='Select an option...'
               onChange={(value) => handleInputChange('props', value, 'material')}
+              fullWidth
             />
           </div>
           <div className={styles.inputContainer}>
@@ -89,6 +86,7 @@ const DetailsSection: React.FC<DetailsProps> = () => {
               options={createDropdownOptions(catalogCriteria?.genders) || []}
               placeholder='Select an option...'
               onChange={(value) => handleInputChange('props', value, 'gender')}
+              fullWidth
             />
             <Dropdown 
               label="Type" 
@@ -97,14 +95,24 @@ const DetailsSection: React.FC<DetailsProps> = () => {
               options={createDropdownOptions(catalogCriteria?.types) || []}     
               placeholder='Select an option...'
               onChange={(value) => handleInputChange('props', value, 'type')}
+              fullWidth
             />
           </div>
-          <TextArea
+          {/* <TextArea
             label="Description"
             placeholder="Description" 
             value={selectedProduct?.props.description}
             onChange={(e) => handleInputChange('props', e.target.value, 'description')}
-          />
+          /> */}
+          <TextAreaWithLanguage
+              label="Description"
+              placeholder="Description"
+              value={currentLanguage.description === 'EN' ? selectedProduct?.props.description || '' : (selectedProduct?.localization?.[currentLanguage.description]?.description || '')}
+              onChange={(e, lang) => inputDataChangeHandler(e, lang, 'description')}
+              onLanguageChange={(lang) => inputLanguageChangeHandler(lang, 'description') }
+              languages={languages}
+              initialLanguage={currentLanguage.description}
+            />
         </div>
       </>
     );

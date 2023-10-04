@@ -16,6 +16,7 @@ const AdminCollectionList: React.FC = () => {
       name: 'New Collection',
       description: 'Collection Description',
       productIds: [],
+      localization: {}
     };
 
     dispatch(createCollection(newCollection))

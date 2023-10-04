@@ -3,7 +3,7 @@ import { ProductQueryParams } from './catalogSlice';
 
 const apiUrl = process.env.REACT_APP_API_URL;
 
-export type ProductUpdatableProperties = 'name' | 'price' | 'stock' | 'props' | 'imageURLs' | ProductPropsUpdatableProperties;
+export type ProductUpdatableProperties = 'name' | 'price' | 'stock' | 'props' | 'imageURLs' | 'localization' | ProductPropsUpdatableProperties;
 
 export type ProductPropsUpdatableProperties = 'id' | 'info' | 'description' | 'availability' | 'material' | 'gender' | 'type';
 
@@ -11,6 +11,14 @@ export interface UpdateProductPropertyPayload {
   productId: string;
   property: ProductUpdatableProperties;
   value: any; // или уточнить тип здесь, если он известен
+}
+
+export interface LocalizedProductProps {
+  name?: string;
+  price?: number;
+  info?: string;
+  stock?: number;
+  description?: string;
 }
 
 interface PartialUpdatePayload {
@@ -32,6 +40,7 @@ export interface NewProduct {
     type: string;
   };
   imageURLs: string[];
+  localization: { [key: string]: Partial<LocalizedProductProps> };
 }
 
 // Define the Product type

@@ -30,7 +30,6 @@
     justify-content: flex-end;
     height: 40px;
     padding: 8px 0px 0px 12px;
-    align-items: center;
     gap: 12px;
     align-self: stretch;
     border-radius:  var(--input-radius);
@@ -76,4 +75,7 @@
   
   .errorText {
     color: red;  /* сообщение будет красным, когда есть ошибка */
+  }
+
+  .children{
   }

@@ -1,6 +1,7 @@
 import React, { memo } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Button from '../../components/Button/Button';
+import InputWithLanguage from '../../components/Input/InputWithLanguage/InputWithLanguage';
 
 const NoPage = memo(() => {
   const navigate = useNavigate();

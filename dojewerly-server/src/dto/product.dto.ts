@@ -1,5 +1,22 @@
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 
+export class LocalizedProductProps {
+  @ApiPropertyOptional({ description: 'Localized product name' })
+  name?: string;
+
+  @ApiPropertyOptional({ description: 'Localized product price' })
+  price?: number;
+
+  @ApiPropertyOptional({ description: 'Localized product info' })
+  info?: string;
+
+  @ApiPropertyOptional({ description: 'Localized product stock' })
+  stock?: number;
+
+  @ApiPropertyOptional({ description: 'Localized product description' })
+  description?: string;
+}
+
 export class CreateProductDto {
   @ApiProperty({ example: 'Bird Earrings', description: 'Name' })
   name: string;
@@ -32,6 +49,9 @@ export class CreateProductDto {
     gender: string;
     type: string;
   };
+
+  @ApiProperty({ description: 'Localized product properties' })
+  localization: { [key: string]: LocalizedProductProps };
 }
 
 export class CreateProductWithImagesDto extends CreateProductDto {
@@ -71,6 +91,9 @@ export class UpdateProductDto {
     gender: string;
     type: string;
   };
+
+  @ApiPropertyOptional({ description: 'Localized product properties' })
+  localization?: { [key: string]: LocalizedProductProps };
 }
 
 export class UpdateProductWithImagesDto extends UpdateProductDto {

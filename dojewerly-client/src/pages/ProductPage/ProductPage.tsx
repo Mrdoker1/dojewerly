@@ -38,7 +38,7 @@ const ProductPage: React.FC = () => {
         <div className={styles.productSection}>
           <div className={styles.productGallery}>
             {product.imageURLs.length > 0 ? product.imageURLs.map((imageUrl, index) => (
-              <ProductImage key={index} imageUrl={imageUrl} alt={product.name} className={styles.image} />
+              <ProductImage key={index} imageUrl={imageUrl} alt={product.name} className={styles.image} square/>
             )) : (
               <icons.noImageL className={styles.image} />
             )}

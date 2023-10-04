@@ -29,9 +29,11 @@ export interface DropdownProps {
     disabled?: boolean;
     /** Дополнительные классы стилей */
     className?: string;
+    /** На всю ширину */
+    fullWidth?: boolean;
 }
 
-const Dropdown: React.FC<DropdownProps> = ({ options, onChange, label, hasError, message, iconRight, placeholder, value, className }) => {
+const Dropdown: React.FC<DropdownProps> = ({ options, onChange, label, hasError, message, iconRight, placeholder, value, className, fullWidth }) => {
     const [isOpen, setIsOpen] = useState(false);
     const [selectedValue, setSelectedValue] = useState(value);
     const dropdownRef = useRef<HTMLDivElement>(null);  // <-- Уточняем тип здесь
@@ -55,7 +57,7 @@ const Dropdown: React.FC<DropdownProps> = ({ options, onChange, label, hasError,
 
     const IconRight = isOpen ? icons['arrowUp'] : (iconRight ? icons[iconRight] : icons['arrowDown']);
 
-    const handleDropdownChange = (selectedOption: string) => {
+    const handleDropdownChange = (e: React.MouseEvent<HTMLDivElement, MouseEvent>, selectedOption: string) => {
         setSelectedValue(selectedOption);
         setIsOpen(false);
         if (onChange) {
@@ -81,7 +83,7 @@ const Dropdown: React.FC<DropdownProps> = ({ options, onChange, label, hasError,
     }, [value, options, message, hasError]);
 
     return (
-        <div className={`${styles.container}`} ref={dropdownRef}>
+        <div className={`${styles.container} ${fullWidth ? styles.fullWidth : ''}`} ref={dropdownRef}>
           {label && <div className={styles.label}>{label}</div>}
           <div className={`${styles.dropdown} ${className} ${internalHasError ? styles.error : ''}`} onClick={() => setIsOpen(!isOpen)}>
           <span className={!selectedValue ? styles.placeholder : ''}>
@@ -95,7 +97,7 @@ const Dropdown: React.FC<DropdownProps> = ({ options, onChange, label, hasError,
           {isOpen && (
             <div className={styles.options}>
               {options.map((option) => (
-                <div key={option.value} className={styles.option} onClick={() => !option.disabled && handleDropdownChange(option.value)}>
+                <div key={option.value} className={styles.option} onClick={(e) => !option.disabled && handleDropdownChange(e, option.value)}>
                   {option.label}
                 </div>
               ))}

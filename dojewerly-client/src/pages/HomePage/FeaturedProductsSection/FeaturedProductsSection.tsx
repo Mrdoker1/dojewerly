@@ -15,7 +15,8 @@ const FeaturedProductsSection = () => {
   const status = useSelector((state: RootState) => state.products.status); // Selecting the status
   
     useEffect(() => {
-        dispatch(fetchAllProducts({}));
+        dispatch(fetchAllProducts({minPrice: 0}));
+        console.log();
     }, [dispatch]);
 
   return (
@@ -24,13 +25,6 @@ const FeaturedProductsSection = () => {
         <h2 className={styles.subsection}>Featured Products</h2>
         <div className={styles.productSliderSubheading}>Essential products, best values, lower prices</div>
       </div>
-      
-      {/* {status === 'loading' &&  
-      <>
-        {Array.from({ length: 6 }).map((_, index) => (
-          <ProductCardSkeleton key={index} />
-        ))}
-      </>} */}
       
       {status === 'failed' && <div className={styles.errorIndicator}>Ошибка загрузки продуктов</div>}
       
@@ -63,9 +57,14 @@ const FeaturedProductsSection = () => {
             },
           }}
         >
+          {products.map((product, index) => (
+            <SwiperSlide key={index} className={styles.swiperSlide}>
+              <ProductCard key={index} product={product} />
+            </SwiperSlide>
+          ))}
           {status === 'succeeded' && products.map((product, index) => (
-            <SwiperSlide key={product._id} className={styles.swiperSlide}>
-              <ProductCard product={product} />
+            <SwiperSlide key={index} className={styles.swiperSlide}>
+              <ProductCard key={index} product={product} />
             </SwiperSlide>
           ))}
           {status === 'loading' && Array.from({ length: 8 }).map((_, index) => (

@@ -94,8 +94,11 @@ export class ProductsService {
   async createProduct(
     createProductDto: CreateProductWithImagesDto,
   ): Promise<Product> {
+    console.log('Saving product to MongoDB:', createProductDto);
     const product = new this.productModel(createProductDto);
-    return product.save();
+    const savedProduct = await product.save();
+    console.log('Saved product:', savedProduct);
+    return savedProduct;
   }
 
   async deleteProduct(id: string): Promise<void> {

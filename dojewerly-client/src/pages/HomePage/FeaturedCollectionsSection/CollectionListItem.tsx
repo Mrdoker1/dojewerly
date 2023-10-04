@@ -5,15 +5,10 @@ import { RootState } from '../../../app/store';
 import AdminCollectionListItemInfo from '../../../components/AdminComponents/AdminCollectionList/AdminCollectionListItem/AdminCollectionListItemInfo/AdminCollectionListItemInfo';
 import ProductImage from '../../../components/Image/ProductImage/ProductImage';
 import { useNavigate } from 'react-router-dom';
+import { Collection } from '../../../app/reducers/collectionsSlice';
 
 export interface CollectionListItemProps {
-  collection: {
-    _id: string;
-    name: string;
-    description: string;
-    productIds: string[];
-    imageURLs?: string[];
-  };
+  collection: Collection
 }
 
 

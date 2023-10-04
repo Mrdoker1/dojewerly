@@ -51,6 +51,7 @@ const TextArea: React.FC<TextAreaProps> = ({ onChange, value, disabled, children
       <label>{label}</label>
       <div className={`${styles.inputStyle} ${isFocused ? styles.inputFocus : ''} ${hasError ? styles.inputError : ''}`}>
         {IconLeft && <IconLeft onClick={handleIconLeftClick} className={styles.icon} />}
+        <div className={styles.children}>{children}</div>
         <textarea
           onChange={handleChange}
           value={inputValue}
@@ -60,7 +61,6 @@ const TextArea: React.FC<TextAreaProps> = ({ onChange, value, disabled, children
           onBlur={handleBlur}
         >
         </textarea>
-        {children}
         {IconRight && <IconRight onClick={handleIconRightClick} className={styles.icon} />}
       </div>
       <div className={`${styles.message} ${hasError ? styles.errorText : ''}`}>{message}</div>

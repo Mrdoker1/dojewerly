@@ -1,4 +1,12 @@
-import { ApiProperty } from '@nestjs/swagger';
+import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
+
+export class LocalizedCollectionProps {
+  @ApiPropertyOptional({ description: 'Localized collection name' })
+  name?: string;
+
+  @ApiPropertyOptional({ description: 'Localized collection description' })
+  description?: string;
+}
 
 export class CreateCollectionDto {
   @ApiProperty({
@@ -12,6 +20,9 @@ export class CreateCollectionDto {
     description: 'Description of the collection',
   })
   description: string;
+
+  @ApiProperty({ description: 'Localized collection properties' })
+  localization: { [key: string]: LocalizedCollectionProps };
 }
 
 export class UpdateCollectionDto {
@@ -26,4 +37,7 @@ export class UpdateCollectionDto {
     description: 'Description of the collection',
   })
   description: string;
+
+  @ApiPropertyOptional({ description: 'Localized collection properties' })
+  localization?: { [key: string]: LocalizedCollectionProps };
 }

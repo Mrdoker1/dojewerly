@@ -1,48 +1,50 @@
 import React from 'react';
-import Input from "../../../Input/Input";
+import InputWithLanguage from '../../../Input/InputWithLanguage/InputWithLanguage';
+import TextAreaWithLanguage from '../../../TextArea/TextAreaWithLanguage/TextAreaWithLanguage';
 import styles from './MainInformationSection.module.css';
-import { AppDispatch, RootState } from '../../../../app/store';
-import { useDispatch, useSelector } from 'react-redux';
-import { CollectionUpdatableProperties, updateCollectionProperty } from '../../../../app/reducers/collectionsSlice';
-import TextArea from '../../../TextArea/TextArea';
+import { useSelector } from 'react-redux';
+import { RootState } from '../../../../app/store';
+import useLocalizedCollectionInputHandler from '../useLocalizedCollectionInputHandler';
 
 const MainInformationSection: React.FC = () => {
-  const dispatch = useDispatch<AppDispatch>();
   const selectedCollectionId = useSelector((state: RootState) => state.userDashboard.selectedCollectionId);
   const selectedCollection = useSelector((state: RootState) => 
     state.collections.collections.find(collection => collection._id === selectedCollectionId)
   );
 
-  const handleInputChange = (property: CollectionUpdatableProperties, value: any) => {
-    if (!selectedCollectionId) return; // Добавляем проверку
+  const languages = ['EN', 'RU', 'PL'];
 
-    dispatch(updateCollectionProperty({
-      collectionId: selectedCollectionId,
-      property,
-      value
-    }));
-  };
+  const { 
+    currentLanguage, 
+    inputDataChangeHandler, 
+    inputLanguageChangeHandler
+  } = useLocalizedCollectionInputHandler(selectedCollectionId || '', selectedCollection);
 
   return (
     <>
-    <h2>Information about Collection</h2>
-    <div className={styles.container}>
-    {/* <CollectionImage collectionId={selectedCollectionId || ''} className={styles.collectionImage}/> */}
-      <div className={styles.infoContainer}>
-        <Input 
-          label="Name"
-          placeholder="Collection Name"
-          value={selectedCollection?.name} 
-          onChange={(e) => handleInputChange('name', e.target.value)}
-        />
-        <TextArea 
-          label="Description"
-          placeholder="Description"
-          value={selectedCollection?.description} 
-          onChange={(e) => handleInputChange('description', e.target.value)}
-        />
+      <h2>Information about Collection</h2>
+      <div className={styles.container}>
+        <div className={styles.infoContainer}>
+          <InputWithLanguage
+            label="Name"
+            placeholder="Collection Name"
+            value={currentLanguage.name === 'EN' ? selectedCollection?.name || '' : (selectedCollection?.localization?.[currentLanguage.name]?.name || '')}
+            onChange={(e, lang) => inputDataChangeHandler(e, lang, 'name')}
+            onLanguageChange={(lang) => inputLanguageChangeHandler(lang, 'name') }
+            languages={languages}
+            initialLanguage={currentLanguage.name}
+          />
+          <TextAreaWithLanguage 
+            label="Description"
+            placeholder="Description"
+            value={currentLanguage.description === 'EN' ? selectedCollection?.description || '' : (selectedCollection?.localization?.[currentLanguage.description]?.description || '')}
+            onChange={(e, lang) => inputDataChangeHandler(e, lang, 'description')}
+            onLanguageChange={(lang) => inputLanguageChangeHandler(lang, 'description') }
+            languages={languages}
+            initialLanguage={currentLanguage.description}
+          />
+        </div>
       </div>
-    </div>
     </>
   );
 };

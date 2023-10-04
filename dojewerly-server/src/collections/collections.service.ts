@@ -39,9 +39,9 @@ export class CollectionsService {
     id: string,
     updateCollectionDto: UpdateCollectionDto,
   ): Promise<void> {
-    const { name, description } = updateCollectionDto;
+    const { name, description, localization } = updateCollectionDto;
     await this.collectionModel
-      .findByIdAndUpdate(id, { name, description })
+      .findByIdAndUpdate(id, { name, description, localization })
       .exec();
   }
 

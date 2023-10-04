@@ -26,6 +26,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
             alt={product.props.info}
             className={styles.image}
             defaultImage='noImageL'
+            square
           />
           <FavouriteToggle productId={product._id} className={styles.favouriteIcon}/>
         </div>

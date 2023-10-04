@@ -2,14 +2,20 @@ import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
 
 const apiUrl = process.env.REACT_APP_API_URL;
 
+export interface LocalizedCollectionProps {
+  name?: string;
+  description?: string;
+}
+
 export interface Collection {
   _id?: string;
   name: string;
   description: string;
   productIds: string[];
+  localization: { [key: string]: LocalizedCollectionProps };
 }
 
-export type CollectionUpdatableProperties = 'name' | 'description' | 'productIds';
+export type CollectionUpdatableProperties = 'name' | 'description' | 'productIds' | 'localization';
 
 export interface UpdateCollectionPropertyPayload {
   collectionId: string;

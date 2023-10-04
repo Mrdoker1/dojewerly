@@ -40,9 +40,7 @@ const CollectionPage: React.FC = () => {
         <BackButton fullWidth></BackButton>
         <h1>{collection.name}</h1>
         <p className={styles.description}>{collection.description}</p>
-        <div className={styles.collectionContainer}>
-          <CollectionProductList productIds={collection.productIds} />
-        </div>
+        <CollectionProductList productIds={collection.productIds} />
       </div>
     </div>
   );

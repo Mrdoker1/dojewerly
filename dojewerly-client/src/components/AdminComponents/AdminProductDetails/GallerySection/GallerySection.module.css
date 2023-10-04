@@ -19,11 +19,11 @@
 
 .fileInputContainer {
   border: 2px dashed var(--grey-2); /* Стиль границы */
+  transition: all var(--transition-1);
 }
 
 .fileInputContainer:hover {
   background-color: var(--grey-3);
-  transition: background-color var(--transition-1);
 }
 
 
@@ -46,12 +46,10 @@
 
 .imageWrapper:hover {
   background-color: rgba(0, 0, 0, 1); /* Цвет и прозрачность затемнения */
-  transition: background-color var(--transition-1);
 }
 
 .imageWrapper:hover .image {
   opacity: 0.5; /* Прозрачность изображения при наведении */
-  transition: opacity var(--transition-1);
 }
 
 .deleteIcon {
@@ -88,6 +86,7 @@
 
 .uploadIcon {
   height: 48px;
+  transition: all  var(--transition-1);
   color: var(--grey-2);
 }
 
