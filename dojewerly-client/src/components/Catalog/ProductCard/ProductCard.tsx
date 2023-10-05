@@ -3,6 +3,8 @@ import ProductImage from '../../Image/ProductImage/ProductImage';
 import FavouriteToggle from '../../Favourites/FavouriteToggle/FavouriteToggle';
 import styles from './ProductCard.module.css';
 import { Link } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import { RootState } from '../../../app/store';
 
 interface ProductCardProps {
   product: {
@@ -17,6 +19,9 @@ interface ProductCardProps {
 }
 
 const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
+
+  const currentCurrency = useSelector((state: RootState) => state.currency.currentCurrency);
+
   return (
     <div className={styles.productCard}>
       <Link key={product._id} to={`/product/${product._id}`}>
@@ -33,7 +38,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
         <div className={styles.infoContainer}>
           <div className={styles.name}>{product.name}</div>
           <div className={styles.info}>{product.props.info}</div>
-          <div className={styles.price}>${product.price.toFixed(2)}</div>
+          <div className={styles.price}>{`${product.price.toFixed(2)} ${currentCurrency}`}</div>
         </div>
       </Link>
     </div>

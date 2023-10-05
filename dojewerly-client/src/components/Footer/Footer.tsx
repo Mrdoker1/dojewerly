@@ -1,5 +1,6 @@
 import React from 'react';
 import styles from './Footer.module.css';
+import LanguageDropdown from '../Dropdown/LanguageDropdown/LanguageDropdown';
 
 const Footer: React.FC = () => {
   return (
@@ -9,7 +10,7 @@ const Footer: React.FC = () => {
           <li>Our Care Guide</li>
           <li>About US</li>
           <li>Do X Jewerly</li>
-          <template>language-switcher</template>
+          <li><LanguageDropdown></LanguageDropdown></li>
         </ul>
       </div>
       <div className={styles.footerLinksAdditional}>

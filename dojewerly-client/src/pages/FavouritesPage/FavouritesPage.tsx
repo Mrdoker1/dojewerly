@@ -15,6 +15,8 @@ const FavouritesPage: React.FC = () => {
   const user = useSelector((state: RootState) => state.user.user);
   const userId = user?._id;
 
+  const currentCurrency = useSelector((state: RootState) => state.currency.currentCurrency);
+
   useEffect(() => {
     dispatch(fetchAllFavourites());
   }, [dispatch]);
@@ -40,7 +42,7 @@ const FavouritesPage: React.FC = () => {
           productId={product._id}
           name={product.name}
           description={product.props.info}
-          price={`${product.price.toFixed(2)} $`}
+          price={`${product.price.toFixed(2)} ${currentCurrency}`}
           imageUrl={product.imageURLs[0]} // Предполагаем, что первое изображение - основное
           onRemove={handleRemoveFromFavourites} // Передаем функцию удаления продукта
         />

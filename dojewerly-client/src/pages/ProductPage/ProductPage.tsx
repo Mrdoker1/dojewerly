@@ -16,6 +16,7 @@ const ProductPage: React.FC = () => {
     const { id } = useParams<{ id: string }>();
     const product = useSelector((state: RootState) => state.products.products.find(p => p._id === id));
     const token = useSelector((state: RootState) => state.auth.token);
+    const currentCurrency = useSelector((state: RootState) => state.currency.currentCurrency);
 
     useEffect(() => {
       window.scrollTo(0, 0); // сброс позиции скролла к верху страницы
@@ -68,7 +69,7 @@ const ProductPage: React.FC = () => {
               </div>
               <hr className={styles.solid} />
               <div className={styles.productDetailsPriceWrapper}>
-                <span className={styles.price}>$ {product.price}</span>
+                <span className={styles.price}>{`${product.price} ${currentCurrency}`}</span>
                 <span className={styles.stock}>{product.stock} in stock</span>
               </div>
               <div className={styles.actions}>

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import Input from '../Input';
 import Dropdown from '../../Dropdown/Dropdown';
 import styles from './InputWithLanguage.module.css'
+import createDropdownOptions from '../../../utils/createDropdownOptions';
 
 interface InputWithLanguageProps {
     value: string;
@@ -14,16 +15,6 @@ interface InputWithLanguageProps {
     label?: string;
     languages: string[];
     initialLanguage: string;
-}
-
-function createDropdownOptions(values: string[] | undefined) {
-    if (!values) {
-        return [];
-    }
-    return values.map(value => ({
-        label: value,
-        value: value,
-    }));
 }
 
 const InputWithLanguage: React.FC<InputWithLanguageProps> = ({
@@ -59,6 +50,7 @@ const InputWithLanguage: React.FC<InputWithLanguageProps> = ({
             options={createDropdownOptions(languages) || []}
             onChange={handleLanguageChange}
             className={styles.languageDropdown}
+            optionStyle={styles.languageDropdownOption}
         />
     );
 

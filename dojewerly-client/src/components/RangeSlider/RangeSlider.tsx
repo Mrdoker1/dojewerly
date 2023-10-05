@@ -3,6 +3,8 @@ import React, { useEffect, useState } from 'react';
 import MultiRangeSlider, { ChangeResult } from "multi-range-slider-react";
 import styles from './RangeSlider.module.css';
 import './BaseClass.css';
+import { useSelector } from 'react-redux';
+import { RootState } from '../../app/store';
 
 interface RangeSliderProps {
     minValue: number;
@@ -14,6 +16,7 @@ const RangeSlider: React.FC<RangeSliderProps> = ({ minValue, maxValue, onChange 
     const [isOpen, setIsOpen] = useState(false);
     const [localMinValue, setLocalMinValue] = useState(minValue);
     const [localMaxValue, setLocalMaxValue] = useState(maxValue);
+    const currentCurrency = useSelector((state: RootState) => state.currency.currentCurrency);
 
     useEffect(() => {
         setLocalMinValue(minValue);
@@ -33,7 +36,7 @@ const RangeSlider: React.FC<RangeSliderProps> = ({ minValue, maxValue, onChange 
     return (
         <div className={styles.container}>
             <div className={styles.dropdown} onClick={() => setIsOpen(!isOpen)}>
-                Price: {localMinValue} - {localMaxValue}$
+                {`Price: ${localMinValue} - ${localMaxValue} ${currentCurrency}`}
             </div>
             {isOpen && (
                 <div className={styles.sliderContainer}>
@@ -50,8 +53,8 @@ const RangeSlider: React.FC<RangeSliderProps> = ({ minValue, maxValue, onChange 
                         subSteps={false} // Убираем мелкие деления
                     />
                     <div className={styles.priceDisplay}>
-                        <span>{`$${localMinValue}`}</span>
-                        <span>{`$${localMaxValue}`}</span>
+                        <span>{`${localMinValue} ${currentCurrency}`}</span>
+                        <span>{`${localMaxValue} ${currentCurrency}`}</span>
                     </div>
                 </div>
             )}

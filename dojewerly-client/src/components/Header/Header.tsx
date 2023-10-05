@@ -12,6 +12,7 @@ import TopMessage from '../Messages/TopMessage/TopMessage';
 import { setAllFilters } from '../../app/reducers/catalogSlice';
 import extractParamsFromURL from '../../utils/extractParamsFromURL';
 import { useLocation } from 'react-router-dom';
+import LanguageDropdown from '../Dropdown/LanguageDropdown/LanguageDropdown';
 
 const Header: React.FC = () => {
   const auth = useSelector((state: RootState) => state.auth);
@@ -84,8 +85,8 @@ useEffect(() => {
             <li onClick={() => handleNavigation("/catalog?page=1&type=Barrette")}>barrette</li>
             <li onClick={() => handleNavigation("/catalog?page=1&type=Ring")}>rings</li>
             <li onClick={() => handleNavigation("/catalog?page=1&type=Brooch")}>brooch</li>
-            <li>collections</li>
-            <li><template>language-switcher</template></li>
+            <li onClick={() => handleNavigation("/collections")}>collections</li>
+            <li><LanguageDropdown></LanguageDropdown></li>
             <li className={styles.doxIcon}><icons.dox/></li>
             <li><icons.search/></li>
             <li onClick={handleAccountClick}>

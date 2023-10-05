@@ -1,20 +1,31 @@
 // hooks/useLocalizedCollectionInputHandler.ts
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useEffect  } from 'react';
 import { AppDispatch } from '../../../app/store';
 import { useDispatch } from 'react-redux';
+import { RootState } from '../../../app/store';
+import { useSelector } from 'react-redux';
 import { CollectionUpdatableProperties, updateCollectionProperty } from '../../../app/reducers/collectionsSlice';
-
-export const defaultCollectionLanguageSet = {
-  name: 'EN',
-  description: 'EN'
-}
 
 const useLocalizedCollectionInputHandler = (selectedCollectionId: string, selectedCollection: any) => {
   const dispatch = useDispatch<AppDispatch>();
 
   type LocalizableCollectionProperties = 'name' | 'description';
 
+  const currentReduxLanguage = useSelector((state: RootState) => state.language.currentLanguage);
+
+  const defaultCollectionLanguageSet = {
+    name: currentReduxLanguage,
+    description: currentReduxLanguage
+  };
+
   const [currentLanguage, setCurrentLanguage] = useState<Record<LocalizableCollectionProperties, string>>(defaultCollectionLanguageSet);
+
+  useEffect(() => {
+    setCurrentLanguage({
+      name: currentReduxLanguage,
+      description: currentReduxLanguage
+    });
+  }, [currentReduxLanguage]);
 
   const handleInputChange = useCallback((property: CollectionUpdatableProperties, value: any) => {
     if (selectedCollectionId) {

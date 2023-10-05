@@ -29,11 +29,13 @@ export interface DropdownProps {
     disabled?: boolean;
     /** Дополнительные классы стилей */
     className?: string;
+    /** Дополнительные классы стилей для опции списка*/
+    optionStyle?: string;
     /** На всю ширину */
     fullWidth?: boolean;
 }
 
-const Dropdown: React.FC<DropdownProps> = ({ options, onChange, label, hasError, message, iconRight, placeholder, value, className, fullWidth }) => {
+const Dropdown: React.FC<DropdownProps> = ({ options, onChange, label, hasError, message, iconRight, placeholder, value, className, optionStyle, fullWidth }) => {
     const [isOpen, setIsOpen] = useState(false);
     const [selectedValue, setSelectedValue] = useState(value);
     const dropdownRef = useRef<HTMLDivElement>(null);  // <-- Уточняем тип здесь
@@ -97,7 +99,7 @@ const Dropdown: React.FC<DropdownProps> = ({ options, onChange, label, hasError,
           {isOpen && (
             <div className={styles.options}>
               {options.map((option) => (
-                <div key={option.value} className={styles.option} onClick={(e) => !option.disabled && handleDropdownChange(e, option.value)}>
+                <div key={option.value} className={`${styles.option} ${optionStyle}`} onClick={(e) => !option.disabled && handleDropdownChange(e, option.value)}>
                   {option.label}
                 </div>
               ))}

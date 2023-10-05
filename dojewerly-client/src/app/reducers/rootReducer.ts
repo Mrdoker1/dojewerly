@@ -9,6 +9,8 @@ import catalogCriteriaReducer from './catalogCriteriaSlice';
 import collectionsReducer from './collectionsSlice';
 import favouritesReducer from './favouritesSlice';
 import catalogReducer from './catalogSlice';
+import languageReducer from './languageSlice';
+import currencyReducer from './currencySlice';
 
 const rootReducer = combineReducers({
   counter: counterReducer,
@@ -21,6 +23,8 @@ const rootReducer = combineReducers({
   collections: collectionsReducer,
   favourites: favouritesReducer,
   catalog: catalogReducer,
+  language: languageReducer,
+  currency: currencyReducer
 });
 
 export type RootState = ReturnType<typeof rootReducer>;

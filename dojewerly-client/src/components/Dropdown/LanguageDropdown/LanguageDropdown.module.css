@@ -1,4 +1,4 @@
-.languageDropdown{
+.languageDropdown {
     border: none;
     text-transform: uppercase;
     letter-spacing: 0.1em;
@@ -14,4 +14,3 @@
     display: flex;
     justify-content: center;
 }
-

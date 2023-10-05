@@ -1,23 +1,38 @@
 // hooks/useLocalizedInputHandler.ts
-import { useState, useCallback } from 'react';
-import { AppDispatch } from '../../../app/store';
-import { useDispatch } from 'react-redux';
+import { useState, useCallback, useEffect } from 'react';
+import { AppDispatch, RootState } from '../../../app/store'; // Импортируем RootState
+import { useDispatch, useSelector } from 'react-redux';
 import { ProductPropsUpdatableProperties, ProductUpdatableProperties, updateProductProperty } from '../../../app/reducers/productsSlice';
 
-export const defaultLanguageSet = {
-  name: 'EN',
-  price: 'EN',
-  info: 'EN',
-  stock: 'EN',
-  description: 'EN'
-}
 
 const useLocalizedInputHandler = (selectedProductId: string, selectedProduct: any) => {
   const dispatch = useDispatch<AppDispatch>();
 
   type LocalizableProperties = 'name' | 'price' | 'info' | 'stock' | 'description';
 
+    // Получаем текущий язык из состояния Redux
+  const currentReduxLanguage = useSelector((state: RootState) => state.language.currentLanguage);
+
+  const defaultLanguageSet = {
+    name: currentReduxLanguage,
+    price: currentReduxLanguage,
+    info: currentReduxLanguage,
+    stock: currentReduxLanguage,
+    description: currentReduxLanguage
+  };
+
   const [currentLanguage, setCurrentLanguage] = useState<Record<LocalizableProperties, string>>(defaultLanguageSet);
+
+  // Эффект для обновления текущего языка при его изменении в Redux store
+  useEffect(() => {
+    setCurrentLanguage({
+      name: currentReduxLanguage,
+      price: currentReduxLanguage,
+      info: currentReduxLanguage,
+      stock: currentReduxLanguage,
+      description: currentReduxLanguage
+    });
+  }, [currentReduxLanguage]);
 
   const handleInputChange = useCallback((property: ProductUpdatableProperties, value: any, subProperty?: ProductPropsUpdatableProperties) => {
     if (selectedProductId) {
