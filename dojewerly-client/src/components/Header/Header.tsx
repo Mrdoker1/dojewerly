@@ -65,12 +65,12 @@ useEffect(() => {
     // Создаем массив с пунктами меню
     const menuItems: MenuItem[] = [
       {
-        label: 'Dashboard',
+        label: t('Dashboard'),
         link: '/dashboard/profile', // Перенаправление на /dashboard при клике
       },
       { isDivider: true },
       {
-        label: 'Logout',
+        label: t('Logout'),
         onClick: handleLogout, // Перенаправление на /logout при клике
       }
     ];

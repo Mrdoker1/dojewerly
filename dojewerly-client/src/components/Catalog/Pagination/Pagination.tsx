@@ -1,6 +1,7 @@
 import React from 'react';
 import Button from '../../Button/Button';
 import styles from './Pagination.module.css';
+import { useTranslation } from 'react-i18next';
 
 interface PaginationProps {
   currentPage: number;
@@ -9,6 +10,7 @@ interface PaginationProps {
 }
 
 const Pagination: React.FC<PaginationProps> = ({ currentPage, totalPages, onPageChange }) => {
+  const { t } = useTranslation();
   if (totalPages <= 1) return null;
 
   const numNeighborPages = 2;
@@ -31,8 +33,8 @@ const Pagination: React.FC<PaginationProps> = ({ currentPage, totalPages, onPage
 
   return (
     <div className={styles.paginationContainer}>
-      {currentPage > 1 && <Button variant={'secondary'} className={styles.pageButton} onClick={() => onPageChange(1)}>First Page</Button>}
-      {currentPage > 1 && <Button className={styles.pageButton} onClick={() => onPageChange(currentPage - 1)}>Prev</Button>}
+      {currentPage > 1 && <Button variant={'secondary'} className={styles.pageButton} onClick={() => onPageChange(1)}>{t('First Page')}</Button>}
+      {currentPage > 1 && <Button className={styles.pageButton} onClick={() => onPageChange(currentPage - 1)}>{t('Prev')}</Button>}
       {pageNumbers.map(pageNum => (
         <Button
           key={pageNum}
@@ -44,7 +46,7 @@ const Pagination: React.FC<PaginationProps> = ({ currentPage, totalPages, onPage
           {pageNum}
         </Button>
       ))}
-      {currentPage < totalPages && <Button className={styles.pageButton} onClick={() => onPageChange(currentPage + 1)}>Next</Button>}
+      {currentPage < totalPages && <Button className={styles.pageButton} onClick={() => onPageChange(currentPage + 1)}>{t('Next')}</Button>}
     </div>
   );
 };

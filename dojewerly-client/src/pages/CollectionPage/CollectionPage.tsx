@@ -3,16 +3,17 @@ import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, RootState } from '../../app/store';
 import { useParams } from 'react-router-dom';
 import { fetchCollectionById } from '../../app/reducers/collectionsSlice';
-import Breadcrumbs from '../../components/Breadcrumbs/Breadcrumbs';
 import GradientImage from '../../components/Image/GradientImage/GradientImage';
 import CollectionProductList from './CollectionProductList/CollectionProductList';
 import styles from './CollectionPage.module.css';
 import BackButton from '../../components/Button/BackButton/BackButton';
+import { getLocalizedCollectionField } from '../../utils/getLocalizedCollectionField';
 
 const CollectionPage: React.FC = () => {
   const { id } = useParams<{ id: string }>();
   const dispatch = useDispatch<AppDispatch>();
   const collection = useSelector((state: RootState) => state.collections.collections.find(coll => coll._id === id));
+  const currentLanguage = useSelector((state: RootState) => state.language.currentLanguage);
   const allProducts = useSelector((state: RootState) => state.products.products);
 
   useEffect(() => {
@@ -33,13 +34,16 @@ const CollectionPage: React.FC = () => {
 
   if (!collection) return <div>Loading...</div>;
 
+  const localizedCollectionName = getLocalizedCollectionField(collection, 'name', currentLanguage);
+  const localizedCollectionDescription = getLocalizedCollectionField(collection, 'description', currentLanguage);
+
   return (
     <div className={styles.pageWrapper}>
       <GradientImage imageUrl={firstProductImage} alt={collection.name} className={styles.gradientBackground} />
       <div className={styles.contentWrapper}>
         <BackButton fullWidth></BackButton>
-        <h1>{collection.name}</h1>
-        <p className={styles.description}>{collection.description}</p>
+        <h1>{localizedCollectionName}</h1>
+        <p className={styles.description}>{localizedCollectionDescription}</p>
         <CollectionProductList productIds={collection.productIds} />
       </div>
     </div>

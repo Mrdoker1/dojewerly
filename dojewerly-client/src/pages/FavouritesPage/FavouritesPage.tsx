@@ -33,22 +33,18 @@ const FavouritesPage: React.FC = () => {
     });
 };
 
-  return (
-    <div className={styles.container}>
-      <ShareWishlistBlock userId={userId || ''} />
-      {favouriteProducts.map(product => (
-        <FavouriteProductCard
-          key={product._id}
-          productId={product._id}
-          name={product.name}
-          description={product.props.info}
-          price={`${product.price.toFixed(2)} ${currentCurrency}`}
-          imageUrl={product.imageURLs[0]} // Предполагаем, что первое изображение - основное
-          onRemove={handleRemoveFromFavourites} // Передаем функцию удаления продукта
-        />
-      ))}
-    </div>
-  );
+return (
+  <div className={styles.container}>
+    <ShareWishlistBlock userId={userId || ''} />
+    {favouriteProducts.map(product => (
+      <FavouriteProductCard
+        key={product._id}
+        product={product} // Передаем целый объект продукта
+        onRemove={handleRemoveFromFavourites} // Передаем функцию удаления продукта
+      />
+    ))}
+  </div>
+);
 };
 
 export default FavouritesPage;

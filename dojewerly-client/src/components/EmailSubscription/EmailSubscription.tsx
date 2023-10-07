@@ -6,11 +6,13 @@ import Checkbox from '../../components/Checkbox/Checkbox';
 import styles from './EmailSubscription.module.css';
 import variables from '../../variables.module.css';
 import { sendNotification } from '../NotificationCenter/notificationHelpers';
+import { useTranslation } from 'react-i18next';
 
 const EmailSubscription: React.FC = () => {
     const dispatch = useDispatch<AppDispatch>();
     const user = useSelector((state: RootState) => state.user.user);
     const [subscription, setSubscription] = useState(user?.settings?.email || false);
+    const { t } = useTranslation();
 
     const handleSubscriptionChange = (newSubscription: boolean) => {
         setSubscription(newSubscription);
@@ -36,10 +38,10 @@ const EmailSubscription: React.FC = () => {
 
     return (
         <div className={styles.subscription}>
-            <h2>DoJewerly Emails</h2>
-            <p className={variables.description}>By joining our email list, you will be the first to know about exciting new designs, special events, store openings and much more.</p>
+            <h2>{t('DoJewerly Emails')}</h2>
+            <p className={variables.description}>{t('By joining our email list, you will be the first to know about exciting new designs, special events, store openings and much more.')}</p>
             <Checkbox
-                label="Check the box to subscribe to our newsletter"
+                label={t('Check the box to subscribe to our newsletter')}
                 checked={subscription}
                 onChange={handleSubscriptionChange}
             />

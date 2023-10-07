@@ -7,11 +7,13 @@ import CollectionListItem, { CollectionListItemProps } from './CollectionListIte
 import Button from '../../../components/Button/Button';
 import CollectionListItemSkeleton from './CollectionListItemSkeleton';
 import { useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 
 const FeaturedCollectionsSection = () => {
   const dispatch = useDispatch<AppDispatch>();
   const collections = useSelector((state: RootState) => state.collections.collections);
   const status = useSelector((state: RootState) => state.collections.status); // Selecting the status
+  const { t } = useTranslation();
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -22,9 +24,9 @@ const FeaturedCollectionsSection = () => {
     <div className={styles.container}>
       <div className={styles.collectionsWrapper}>
         <div className={styles.collectionsHeading}>
-          <div className={styles.collectionsHeader}>Featured Collections</div>
+          <div className={styles.collectionsHeader}>{t('Featured Collections')}</div>
           <Button 
-              text={`SEE ALL (${collections.length})`} 
+              text={`${t('SEE ALL')} (${collections.length})`} 
               variant="text"
               iconRight='arrowRight'
               className={styles.collectionsShowAll}

@@ -6,11 +6,13 @@ import Tabs from '../../components/Tabs/Tabs';
 import variables from '../../variables.module.css';
 import styles from './DashboardPage.module.css';
 import { Outlet } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 
 const DashboardPage = () => {
   const dispatch = useDispatch<AppDispatch>();
   const user = useSelector((state: RootState) => state.user.user);
   const token = useSelector((state: RootState) => state.auth.token);
+  const { t } = useTranslation();
 
   useEffect(() => {
     if (token) {
@@ -19,22 +21,22 @@ const DashboardPage = () => {
   }, [dispatch, token]); // Зависимость от токена
 
   const tabs = [
-    { title: 'PROFILE', route: '/dashboard/profile' },
-    { title: 'FAVOURITES', route: '/dashboard/favourites' },
+    { title: t('PROFILE'), route: '/dashboard/profile' },
+    { title: t('FAVOURITES'), route: '/dashboard/favourites' },
   ];
 
   if (user?.role === 'admin') {
     tabs.push(
-      { title: 'PRODUCTS', route: '/dashboard/products' },
-      { title: 'COLLECTIONS', route: '/dashboard/collections' },
+      { title: t('PRODUCTS'), route: '/dashboard/products' },
+      { title: t('COLLECTIONS'), route: '/dashboard/collections' },
     );
   }
 
   return (
     <main className={styles.container}>
       <div className={styles.headingContainer}>
-        <h1>Welcome back, {user?.username}!</h1>
-        <p className={variables.description}>Enjoy shopping with ease and happiness.</p>
+        <h1>{`${t('Welcome back')}, ${user?.username}!`}</h1>
+        <p className={variables.description}>{`${t('Enjoy shopping with ease and happiness')}.`}</p>
       </div>
       <Tabs tabs={tabs} />
       <div className={styles.content}>

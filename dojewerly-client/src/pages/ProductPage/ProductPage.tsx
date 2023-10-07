@@ -11,6 +11,7 @@ import FavouriteToggle from '../../components/Favourites/FavouriteToggle/Favouri
 import { getUserProfile } from '../../app/reducers/userSlice';
 import BackButton from '../../components/Button/BackButton/BackButton';
 import { getLocalizedField } from '../../utils/getLocalizedField';
+import { useTranslation } from 'react-i18next';
 
 const ProductPage: React.FC = () => {
     const dispatch = useDispatch<AppDispatch>();
@@ -18,7 +19,8 @@ const ProductPage: React.FC = () => {
     const product = useSelector((state: RootState) => state.products.products.find(p => p._id === id));
     const token = useSelector((state: RootState) => state.auth.token);
     const currentCurrency = useSelector((state: RootState) => state.currency.currentCurrency);
-    const currentLanguage = useSelector((state: RootState) => state.language.currentLanguage); 
+    const currentLanguage = useSelector((state: RootState) => state.language.currentLanguage);
+    const { t } = useTranslation();
 
     useEffect(() => {
       window.scrollTo(0, 0); // сброс позиции скролла к верху страницы
@@ -60,27 +62,25 @@ const ProductPage: React.FC = () => {
               <ul className={styles.productProperties}>
                 <li>
                   <icons.material />
-                  Material: {product.props.material}
+                  {`${t('Material')}: ${product.props.material}`}
                 </li>
                 <li>
                   <icons.gender />
-                  Gender: {product.props.gender}
+                  {`${t('Gender')}: ${product.props.gender}`}
                 </li>
                 <li>
                   <icons.item />
-                  Item No.: {product.props.id}
+                  {`${t('Item No.')}: ${product.props.id}`}
                 </li>
               </ul>
-              <div className={styles.productDetailsDescription}>
-                {product.props.description}
-              </div>
+              <div className={styles.productDetailsDescription}>{localizedProductDescription}</div>
               <hr className={styles.solid} />
               <div className={styles.productDetailsPriceWrapper}>
                 <span className={styles.price}>{`${product.price} ${currentCurrency}`}</span>
-                <span className={styles.stock}>{product.stock} in stock</span>
+                <span className={styles.stock}>{`${product.stock} ${t('in stock')}`}</span>
               </div>
               <div className={styles.actions}>
-                <Button text="CONTACT SELLER" size='large' fullWidth />
+                <Button text={t('CONTACT SELLER')} size='large' fullWidth />
                 <FavouriteToggle productId={product._id} className={styles.favouriteIcon} color='black'/>
               </div>
             </div>

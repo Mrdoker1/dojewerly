@@ -38,11 +38,7 @@ const SharedFavouritesPage: React.FC = () => {
       {favouriteProducts.map(product => (
         <FavouriteProductCard
           key={product._id}
-          productId={product._id}
-          name={product.name}
-          description={product.props.info}
-          price={`£${product.price.toFixed(2)}`} 
-          imageUrl={product.imageURLs[0]}
+          product={product}
           onRemove={() => {}}
         />
       ))}

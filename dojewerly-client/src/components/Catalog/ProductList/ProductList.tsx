@@ -9,6 +9,7 @@ import Pagination from '../Pagination/Pagination';
 import { setFilter } from '../../../app/reducers/catalogSlice';
 import { getUserProfile } from '../../../app/reducers/userSlice';
 import ProductCardSkeleton from '../ProductCard/ProductCardSkeleton';
+import { useTranslation } from 'react-i18next';
 
 const ProductList: React.FC = () => {
   const dispatch = useDispatch<AppDispatch>();
@@ -20,6 +21,7 @@ const ProductList: React.FC = () => {
   const totalProducts = useSelector((state: RootState) => state.products.totalProducts);
   const totalPages = Math.ceil(totalProducts / (filters.limit || 1));
   const token = useSelector((state: RootState) => state.auth.token);
+  const { t } = useTranslation();
 
   useEffect(() => {
     console.log('ProductList useEffect triggered', filters); // Этот лог
@@ -37,35 +39,49 @@ const ProductList: React.FC = () => {
   }, [dispatch, filters, token]);
 
   const handlePageChange = (page: number) => {
-    window.scrollTo(0, 0); // сброс позиции скролла к верху страницы
+    //window.scrollTo(0, 0); // сброс позиции скролла к верху страницы
     dispatch(setFilter({ name: 'page', value: page }));
     const newSearchParams = new URLSearchParams(location.search);
     newSearchParams.set('page', page.toString());
     navigate(`${location.pathname}?${newSearchParams.toString()}`, { replace: true });
   };  
 
-  let content;
   if (status === 'loading') {
-    content = (
-      <>
-        {Array.from({ length: 6 }).map((_, index) => (
-          <ProductCardSkeleton key={index} />
-        ))}
-      </>
+    return (
+      <div className={styles.container}>
+        <div className={styles.productList}>
+          {Array.from({ length: 6 }).map((_, index) => (
+            <ProductCardSkeleton key={index} />
+          ))}
+        </div>
+      </div>
     );
-  } else if (status === 'failed') {
-    content = <div className={styles.errorIndicator}>Ошибка загрузки продуктов</div>;
-  } else if (products.length > 0) {
-    content = products.map(product => (
-      <ProductCard key={product._id} product={product} />
-    ));
-  } else content = (<div className={styles.noProducts}>No products found :( Try changing your search terms.</div>)
+  } 
+
+  if (status === 'failed') {
+    return (
+      <div className={styles.container}>
+        <div className={styles.errorIndicator}>Ошибка загрузки продуктов</div>
+      </div>);
+  }
+
+  if (products.length === 0) {
+    return (
+      <div className={styles.container}>
+        <div className={styles.noProducts}>
+          {t('No products found :( Try changing your search terms.')}
+        </div>
+      </div>
+    );
+  }
 
   return (
     <>
       <div className={styles.container}>
         <div className={styles.productList}>
-          {content}
+          {products.map(product => (
+            <ProductCard key={product._id} product={product} />
+          ))}
         </div>
       </div>
       <Pagination 

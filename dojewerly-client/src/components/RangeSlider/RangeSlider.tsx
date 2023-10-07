@@ -5,6 +5,7 @@ import styles from './RangeSlider.module.css';
 import './BaseClass.css';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../app/store';
+import { useTranslation } from 'react-i18next';
 
 interface RangeSliderProps {
     minValue: number;
@@ -17,6 +18,7 @@ const RangeSlider: React.FC<RangeSliderProps> = ({ minValue, maxValue, onChange 
     const [localMinValue, setLocalMinValue] = useState(minValue);
     const [localMaxValue, setLocalMaxValue] = useState(maxValue);
     const currentCurrency = useSelector((state: RootState) => state.currency.currentCurrency);
+    const { t } = useTranslation();
 
     useEffect(() => {
         setLocalMinValue(minValue);
@@ -36,7 +38,7 @@ const RangeSlider: React.FC<RangeSliderProps> = ({ minValue, maxValue, onChange 
     return (
         <div className={styles.container}>
             <div className={styles.dropdown} onClick={() => setIsOpen(!isOpen)}>
-                {`Price: ${localMinValue} - ${localMaxValue} ${currentCurrency}`}
+                {`${t('Price')}: ${localMinValue} - ${localMaxValue} ${currentCurrency}`}
             </div>
             {isOpen && (
                 <div className={styles.sliderContainer}>

@@ -15,6 +15,7 @@
     display: flex;
     align-items: center; /* Выравнивание пунктов меню по центру */
     min-height: 24px;
+    width: max-content;
   }
 
   .menuItem:hover {

@@ -5,11 +5,13 @@ import { AppDispatch, RootState } from '../../app/store';
 import styles from './CollectionsPage.module.css';
 import CollectionListItem, { CollectionListItemProps } from './CollectionListItem/CollectionListItem';
 import Breadcrumbs from '../../components/Breadcrumbs/Breadcrumbs';
+import { useTranslation } from 'react-i18next';
 
 const CollectionsPage: React.FC = () => {
   const dispatch = useDispatch<AppDispatch>();
   const collections = useSelector((state: RootState) => state.collections.collections);
   const status = useSelector((state: RootState) => state.collections.status); // Selecting the status
+  const { t } = useTranslation();
 
   useEffect(() => {
     dispatch(fetchAllCollections());
@@ -19,7 +21,7 @@ const CollectionsPage: React.FC = () => {
     <div className={styles.container}>
       <div className={styles.heading}>
         <Breadcrumbs />
-        <h1>Collections</h1>
+        <h1>{t('Collections')}</h1>
       </div>
       
       {status === 'loading' && <div className={styles.loadingIndicator}>Загрузка коллекций...</div>}

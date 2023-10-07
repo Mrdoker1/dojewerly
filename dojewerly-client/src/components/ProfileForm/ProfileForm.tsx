@@ -7,6 +7,7 @@ import Button from '../../components/Button/Button';
 import styles from './ProfileForm.module.css';
 import PasswordInput from '../Input/PasswordInput/PasswordInput';
 import { sendNotification } from '../NotificationCenter/notificationHelpers';
+import { useTranslation } from 'react-i18next';
 
 const ProfileForm: React.FC = () => {
   const dispatch = useDispatch<AppDispatch>();
@@ -16,6 +17,7 @@ const ProfileForm: React.FC = () => {
   const [newPassword, setNewPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [passwordMismatchError, setPasswordMismatchError] = useState('');
+  const { t } = useTranslation();
 
   useEffect(() => {
     setUsername(user?.username || '');
@@ -73,38 +75,38 @@ const ProfileForm: React.FC = () => {
 
   return (
     <div className={styles.info}>
-      <h2>Your Information</h2>
+      <h2>{t('Your Information')}</h2>
       <form onSubmit={handleSubmit} className={styles.form}>
         <Input
-          label="Username"
+          label={t('Username')}
           type="text"
           value={username}
           onChange={(e) => setUsername(e.target.value)}
         />
         <Input
-          label="Email Address"
+          label={t('Email Address')}
           type="text"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           disabled
         />
         <PasswordInput
-          label="Password"
+          label={t('Password')}
           value={newPassword}
-          placeholder="Enter new password"
+          placeholder={t('Enter new password')}
           onChange={handleNewPasswordChange}
           hasError={!!passwordMismatchError}
           message={passwordMismatchError}
         />
         <PasswordInput
-          label="Confirm Password"
+          label={t('Confirm Password')}
           value={confirmPassword}
-          placeholder="Enter new password"
+          placeholder={t('Enter new password')}
           onChange={handleConfirmPasswordChange}
           hasError={!!passwordMismatchError}
           message={passwordMismatchError}
         />
-        <Button type="submit" variant="secondary">SAVE</Button>
+        <Button type="submit" variant="secondary">{t('SAVE')}</Button>
       </form>
     </div>
   );

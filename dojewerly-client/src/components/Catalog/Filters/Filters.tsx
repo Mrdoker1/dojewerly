@@ -11,6 +11,7 @@ import FilterDropdown from '../../Dropdown/FilterDropdown/FilterDropdown';
 import { useLocation, useNavigate } from 'react-router-dom';
 import RangeSlider from '../../RangeSlider/RangeSlider';
 import FiltersSkeleton from './FiltersSkeleton';
+import { useTranslation } from 'react-i18next';
 
 const Filters = () => {
     const dispatch = useDispatch<AppDispatch>();
@@ -20,6 +21,7 @@ const Filters = () => {
     const inputRef = React.useRef<HTMLInputElement>(null);
     const navigate = useNavigate(); 
     const location = useLocation();
+    const { t } = useTranslation();
 
     const isAnyFilterApplied = Object.entries(filters).some(([key, value]) => {
         if (['page', 'limit'].includes(key)) return false;
@@ -80,24 +82,24 @@ const Filters = () => {
             <div className={styles.filters}>
                 <FilterDropdown 
                     options={[
-                        { label: 'Any material', value: 'Any material' },
-                        ...criteria?.materials.map((material: string) => ({ label: material, value: material })) || []
+                        { label: t('Any material'), value: 'Any material' },
+                        ...criteria?.materials.map((material: string) => ({ label: t(material), value: material })) || []
                     ]}
                     value={filters.material || 'Any material'}
                     onChange={(value) => handleFilterChange('material', value)}
                 />
                 <FilterDropdown 
                     options={[
-                        { label: 'Any gender', value: 'Any gender' },
-                        ...criteria?.genders.map((gender: string) => ({ label: gender, value: gender })) || []
+                        { label: t('Any gender'), value: 'Any gender' },
+                        ...criteria?.genders.map((gender: string) => ({ label: t(gender), value: gender })) || []
                     ]}
                     value={filters.gender || 'Any gender'}
                     onChange={(value) => handleFilterChange('gender', value)}
                 />
                 <FilterDropdown 
                     options={[
-                        { label: 'Any type', value: 'Any type' },
-                        ...criteria?.types.map((type: string) => ({ label: type, value: type }))|| []
+                        { label: t('Any type'), value: 'Any type' },
+                        ...criteria?.types.map((type: string) => ({ label: t(type), value: type }))|| []
                     ]}
                     value={filters.type || 'Any type'}
                     onChange={(value) => handleFilterChange('type', value)}
@@ -119,7 +121,7 @@ const Filters = () => {
                 />
                 {isAnyFilterApplied && (
                     <div>
-                        <Button text="Clear" variant='secondary' size='small' onClick={handleResetFilters} />
+                        <Button text={t('Clear')} variant='secondary' size='small' onClick={handleResetFilters} />
                     </div>
                 )}
             </div>
