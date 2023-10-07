@@ -8,6 +8,7 @@ import Input from '../../../Input/Input';
 import useLocalizedInputHandler from '../useLocalizedInputHandler';
 import TextAreaWithLanguage from '../../../TextArea/TextAreaWithLanguage/TextAreaWithLanguage';
 import createDropdownOptions from '../../../../utils/createDropdownOptions';
+import { AVAILABLE_LANGUAGES, DEFAULT_LANGUAGE } from '../../../../constants';
 
 interface DetailsProps {}
 
@@ -16,7 +17,6 @@ const DetailsSection: React.FC<DetailsProps> = () => {
     const catalogCriteria = useSelector((state: RootState) => state.catalogCriteria.criteria);
     const selectedProductId = useSelector((state: RootState) => state.userDashboard.selectedProductId);
     const selectedProduct = useSelector((state: RootState) => state.products.products.find(product => product._id === state.userDashboard.selectedProductId));
-    const languages = ['EN', 'RU', 'PL'];
 
     const { 
       currentLanguage, 
@@ -110,7 +110,7 @@ const DetailsSection: React.FC<DetailsProps> = () => {
               value={currentLanguage.description === 'EN' ? selectedProduct?.props.description || '' : (selectedProduct?.localization?.[currentLanguage.description]?.description || '')}
               onChange={(e, lang) => inputDataChangeHandler(e, lang, 'description')}
               onLanguageChange={(lang) => inputLanguageChangeHandler(lang, 'description') }
-              languages={languages}
+              languages={AVAILABLE_LANGUAGES}
               initialLanguage={currentLanguage.description}
             />
         </div>

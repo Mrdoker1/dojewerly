@@ -8,11 +8,13 @@ import { fetchAllProducts } from '../../../app/reducers/productsSlice';
 import ProductCard from '../../../components/Catalog/ProductCard/ProductCard';
 import { AppDispatch, RootState } from '../../../app/store';
 import ProductCardSkeleton from '../../../components/Catalog/ProductCard/ProductCardSkeleton';
+import { useTranslation } from 'react-i18next';
 
 const FeaturedProductsSection = () => {
   const dispatch = useDispatch<AppDispatch>();
   const products = useSelector((state: RootState) => state.products.products);
   const status = useSelector((state: RootState) => state.products.status); // Selecting the status
+  const { t } = useTranslation();
   
     useEffect(() => {
         dispatch(fetchAllProducts({minPrice: 0}));
@@ -22,8 +24,8 @@ const FeaturedProductsSection = () => {
   return (
     <div className={styles.productSlider}>
       <div className={styles.sliderHeading}>
-        <h2 className={styles.subsection}>Featured Products</h2>
-        <div className={styles.productSliderSubheading}>Essential products, best values, lower prices</div>
+        <h2 className={styles.subsection}>{t('Featured Products')}</h2>
+        <div className={styles.productSliderSubheading}>{t('Essential products, best values, lower prices')}</div>
       </div>
       
       {status === 'failed' && <div className={styles.errorIndicator}>Ошибка загрузки продуктов</div>}

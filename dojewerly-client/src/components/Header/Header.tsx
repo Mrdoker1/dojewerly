@@ -13,6 +13,7 @@ import { setAllFilters } from '../../app/reducers/catalogSlice';
 import extractParamsFromURL from '../../utils/extractParamsFromURL';
 import { useLocation } from 'react-router-dom';
 import LanguageDropdown from '../Dropdown/LanguageDropdown/LanguageDropdown';
+import { useTranslation } from 'react-i18next';
 
 const Header: React.FC = () => {
   const auth = useSelector((state: RootState) => state.auth);
@@ -24,6 +25,7 @@ const Header: React.FC = () => {
 
   const location = useLocation();
   const isHomepage = location.pathname === "/";
+  const { t } = useTranslation();
 
   const handleNavigation = (path: string) => {
     const params = extractParamsFromURL(path);
@@ -82,10 +84,10 @@ useEffect(() => {
         </Link>
         <nav className={styles.menuNavigation}>
           <ul>
-            <li onClick={() => handleNavigation("/catalog?page=1&type=Barrette")}>barrette</li>
-            <li onClick={() => handleNavigation("/catalog?page=1&type=Ring")}>rings</li>
-            <li onClick={() => handleNavigation("/catalog?page=1&type=Brooch")}>brooch</li>
-            <li onClick={() => handleNavigation("/collections")}>collections</li>
+            <li onClick={() => handleNavigation("/catalog?page=1&type=Barrette")}>{t('barrette')}</li>
+            <li onClick={() => handleNavigation("/catalog?page=1&type=Ring")}>{t('rings')}</li>
+            <li onClick={() => handleNavigation("/catalog?page=1&type=Brooch")}>{t('brooch')}</li>
+            <li onClick={() => handleNavigation("/collections")}>{t('collections')}</li>
             <li><LanguageDropdown></LanguageDropdown></li>
             <li className={styles.doxIcon}><icons.dox/></li>
             <li><icons.search/></li>

@@ -5,22 +5,21 @@ import styles from './ProductCard.module.css';
 import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../../app/store';
+import { getLocalizedField } from '../../../utils/getLocalizedField';
+import { Product } from '../../../app/reducers/productsSlice';
 
 interface ProductCardProps {
-  product: {
-    _id: string;
-    name: string;
-    imageURLs: string[];
-    props: {
-      info: string;
-    };
-    price: number;
-  };
+  product: Product
 }
 
 const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
 
   const currentCurrency = useSelector((state: RootState) => state.currency.currentCurrency);
+  const currentLanguage = useSelector((state: RootState) => state.language.currentLanguage); // Добавьте эту строку для получения текущего языка
+
+  const localizedProductName = getLocalizedField(product, 'name', currentLanguage);
+  const localizedProductInfo = getLocalizedField(product, 'info', currentLanguage);
+  const localizedProductPrice = getLocalizedField(product, 'price', currentLanguage) as number;
 
   return (
     <div className={styles.productCard}>
@@ -28,7 +27,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
         <div className={styles.image}>
           <ProductImage 
             imageUrl={product.imageURLs[0]} 
-            alt={product.props.info}
+            alt={product.name}
             className={styles.image}
             defaultImage='noImageL'
             square
@@ -36,9 +35,9 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
           <FavouriteToggle productId={product._id} className={styles.favouriteIcon}/>
         </div>
         <div className={styles.infoContainer}>
-          <div className={styles.name}>{product.name}</div>
-          <div className={styles.info}>{product.props.info}</div>
-          <div className={styles.price}>{`${product.price.toFixed(2)} ${currentCurrency}`}</div>
+          <div className={styles.name}>{localizedProductName}</div>
+          <div className={styles.info}>{localizedProductInfo}</div>
+          <div className={styles.price}>{`${localizedProductPrice.toFixed(2)} ${currentCurrency}`}</div>
         </div>
       </Link>
     </div>

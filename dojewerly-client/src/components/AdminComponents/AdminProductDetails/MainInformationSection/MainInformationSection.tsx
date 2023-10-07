@@ -6,11 +6,11 @@ import { RootState } from '../../../../app/store';
 import { useSelector } from 'react-redux';
 import InputWithLanguage from '../../../Input/InputWithLanguage/InputWithLanguage';
 import useLocalizedInputHandler from '../useLocalizedInputHandler'; // Убедитесь, что путь указан правильно
+import { AVAILABLE_LANGUAGES, DEFAULT_LANGUAGE } from '../../../../constants';
 
 const MainInformationSection: React.FC = () => {
   const selectedProductId = useSelector((state: RootState) => state.userDashboard.selectedProductId);
   const selectedProduct = useSelector((state: RootState) => state.products.products.find(product => product._id === selectedProductId));
-  const languages = ['EN', 'RU', 'PL'];
 
   const { 
     currentLanguage, 
@@ -35,7 +35,7 @@ const MainInformationSection: React.FC = () => {
               value={currentLanguage.name === 'EN' ? selectedProduct?.name || '' : (selectedProduct?.localization?.[currentLanguage.name]?.name || '')}
               onChange={(e, lang) => inputDataChangeHandler(e, lang, 'name')}
               onLanguageChange={(lang) => inputLanguageChangeHandler(lang, 'name') }
-              languages={languages}
+              languages={AVAILABLE_LANGUAGES}
               initialLanguage={currentLanguage.name}
             />
             <InputWithLanguage
@@ -45,7 +45,7 @@ const MainInformationSection: React.FC = () => {
               value={currentLanguage.price === 'EN' ? selectedProduct?.price.toString() || '' : (selectedProduct?.localization?.[currentLanguage.price]?.price?.toString() || '')}
               onChange={(e, lang) => inputDataChangeHandler(e, lang, 'price')}
               onLanguageChange={(lang) => inputLanguageChangeHandler(lang, 'price') }
-              languages={languages}
+              languages={AVAILABLE_LANGUAGES}
               initialLanguage={currentLanguage.price}
             />
           </div>
@@ -55,7 +55,7 @@ const MainInformationSection: React.FC = () => {
               value={currentLanguage.info === 'EN' ? selectedProduct?.props.info || '' : (selectedProduct?.localization?.[currentLanguage.info]?.info || '')}
               onChange={(e, lang) => inputDataChangeHandler(e, lang, 'info')}
               onLanguageChange={(lang) => inputLanguageChangeHandler(lang, 'info') }
-              languages={languages}
+              languages={AVAILABLE_LANGUAGES}
               initialLanguage={currentLanguage.info}
             />
         </div>

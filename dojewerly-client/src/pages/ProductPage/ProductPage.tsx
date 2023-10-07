@@ -10,6 +10,7 @@ import { fetchProductById } from '../../app/reducers/productsSlice';
 import FavouriteToggle from '../../components/Favourites/FavouriteToggle/FavouriteToggle';
 import { getUserProfile } from '../../app/reducers/userSlice';
 import BackButton from '../../components/Button/BackButton/BackButton';
+import { getLocalizedField } from '../../utils/getLocalizedField';
 
 const ProductPage: React.FC = () => {
     const dispatch = useDispatch<AppDispatch>();
@@ -17,6 +18,7 @@ const ProductPage: React.FC = () => {
     const product = useSelector((state: RootState) => state.products.products.find(p => p._id === id));
     const token = useSelector((state: RootState) => state.auth.token);
     const currentCurrency = useSelector((state: RootState) => state.currency.currentCurrency);
+    const currentLanguage = useSelector((state: RootState) => state.language.currentLanguage); 
 
     useEffect(() => {
       window.scrollTo(0, 0); // сброс позиции скролла к верху страницы
@@ -34,6 +36,11 @@ const ProductPage: React.FC = () => {
 
     if (!product) return <div>Loading...</div>;
 
+    const localizedProductName = getLocalizedField(product, 'name', currentLanguage);
+    const localizedProductDescription = getLocalizedField(product, 'description', currentLanguage);
+    const localizedProductPrice = getLocalizedField(product, 'price', currentLanguage);
+    const localizedProductStock = getLocalizedField(product, 'stock', currentLanguage);
+
     return (
       <div className={styles.container}>
         <div className={styles.productSection}>
@@ -48,7 +55,7 @@ const ProductPage: React.FC = () => {
             <div className={styles.productDetails}>
               <div className={styles.productDetailsHeading}>
                 <BackButton></BackButton>
-                <h1 className={styles.productName}>{product.name}</h1>
+                <h1 className={styles.productName}>{localizedProductName}</h1>
               </div>
               <ul className={styles.productProperties}>
                 <li>

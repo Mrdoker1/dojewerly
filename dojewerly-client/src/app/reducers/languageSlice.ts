@@ -1,16 +1,11 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import i18n from '../../language/i18n';
+import { AVAILABLE_LANGUAGES, DEFAULT_LANGUAGE } from '../../constants';
 
 export interface LanguageState {
   currentLanguage: string;
   availableLanguages: string[];
 }
-
-// Список доступных языков
-const AVAILABLE_LANGUAGES = ['EN', 'RU', 'PL'];
-
-// Устанавливаем дефолтный язык
-const DEFAULT_LANGUAGE = 'EN';
-
 
 // Проверяем, есть ли язык в localStorage
 if (!localStorage.getItem('language')) {
@@ -35,15 +30,11 @@ const languageSlice = createSlice({
         state.currentLanguage = action.payload;
         // Сохраняем выбранный язык в localStorage
         localStorage.setItem('language', action.payload);
+        i18n.changeLanguage(action.payload); // Уведомляем i18next о смене языка
       }
     },
   },
 });
 
 export const { setLanguage } = languageSlice.actions;
-
-// Экспортируем список доступных языков и DEFAULT_LANGUAGE для использования в других частях приложения
-export const AVAILABLE_LANGUAGES_LIST = AVAILABLE_LANGUAGES;
-export const DEFAULT_LANGUAGE_CONST = DEFAULT_LANGUAGE;
-
 export default languageSlice.reducer;

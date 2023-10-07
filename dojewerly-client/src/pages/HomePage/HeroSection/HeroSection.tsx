@@ -3,20 +3,22 @@ import Button from '../../../components/Button/Button';
 import styles from './HeroSection.module.css';
 import heroVideoSrc from '../../../assets/videos/hero.mp4';
 import { useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 
 const HeroSection = memo(() => {
 
   const navigate = useNavigate();
+  const { t } = useTranslation();
 
   return (
     <div className={styles.heroSection}>
       <div className={styles.heroContent}>
         <h1 className={styles.heroHeading}>
-          Custom jewelry for friends, family, and special occasions.
+          {t('Custom jewelry for friends, family, and special occasions.')}
         </h1>
         <div className={styles.heroButtons}>
           <Button 
-            text="SEARCH CATALOG" 
+            text={t('SEARCH CATALOG')}
             size="large" 
             variant="primary" 
             fullWidth 
@@ -24,7 +26,7 @@ const HeroSection = memo(() => {
             onClick={() => {navigate("/catalog");}}
           />
           <Button 
-            text="READ OUR CARE GUIDE" 
+            text={t('READ OUR CARE GUIDE')}
             size="large" 
             variant="text"
             className={styles.heroCareGuideCTA}
