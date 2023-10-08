@@ -62,11 +62,11 @@ const ProductPage: React.FC = () => {
               <ul className={styles.productProperties}>
                 <li>
                   <icons.material />
-                  {`${t('Material')}: ${product.props.material}`}
+                  {`${t('Material')}: ${t(product.props.material)}`}
                 </li>
                 <li>
                   <icons.gender />
-                  {`${t('Gender')}: ${product.props.gender}`}
+                  {`${t('Gender')}: ${t(product.props.gender)}`}
                 </li>
                 <li>
                   <icons.item />

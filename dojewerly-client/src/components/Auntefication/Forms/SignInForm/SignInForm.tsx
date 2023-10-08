@@ -10,6 +10,7 @@ import { useNavigate } from 'react-router-dom';
 import PasswordInput from '../../../Input/PasswordInput/PasswordInput';
 import { useModal } from '../../../Modal/ModalProvider';
 import { MessageType } from '../../../Messages/messageTypes';
+import { useTranslation } from 'react-i18next';
 
 const SignInForm = memo(() => {
 
@@ -22,6 +23,7 @@ const SignInForm = memo(() => {
   const auth = useSelector((state: RootState) => state.auth);
   const navigate = useNavigate();
   const { closeModal } = useModal();
+  const { t } = useTranslation();
 
   useEffect(() => {
     return () => {
@@ -59,9 +61,9 @@ const SignInForm = memo(() => {
         <form className={styles.container} onSubmit={handleSubmit}>
           <Input 
             type="text"
-            label="Email Address"
+            label={t('Email Address')}
             value={email}
-            placeholder='your@email.com'
+            placeholder={t('your@email.com')}
             hasError={!isEmailValid}
             message={!isEmailValid ? 'Please enter a valid email.' : ''}
             onChange={(e) => {
@@ -70,9 +72,9 @@ const SignInForm = memo(() => {
             }}
           />
           <PasswordInput
-            label="Password"
+            label={t('Password')}
             value={password}
-            placeholder="Enter password"
+            placeholder={t('Enter password')}
             hasError={!isPasswordValid}
             message={!isPasswordValid ? 'Please enter a valid password.' : ''}
             onChange={(e) => {
@@ -85,7 +87,7 @@ const SignInForm = memo(() => {
               type="submit"
               size="default"
               fullWidth={true}
-              text="SIGN IN"/>
+              text={t('SIGN IN')}/>
             {/* <div
               className={variables.description}
               style={{color: 'var(--grey-2)'}}>

@@ -85,7 +85,7 @@ export class ProductsController {
   async getProducts(
     @Query('sort') sort: string,
     @Query('order') order: 'asc' | 'desc',
-    @Query('q') keyword: string,
+    @Query('q') q: string,
     @Query('page') page: number,
     @Query('limit') limit: number,
     @Query('material') material: string,
@@ -99,7 +99,7 @@ export class ProductsController {
     return this.productsService.findAll({
       sort,
       order,
-      keyword,
+      q,
       page,
       limit,
       material,

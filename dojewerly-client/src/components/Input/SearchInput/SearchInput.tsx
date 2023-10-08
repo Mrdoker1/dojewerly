@@ -22,6 +22,12 @@ interface SearchInputProps {
     const iconRight = 'search';
     const { t } = useTranslation();
   
+    const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
+      if (event.key === 'Enter' && iconRightClick) {
+        iconRightClick();
+      }
+    };
+  
     return (
       <Input
         ref={ref}
@@ -33,6 +39,7 @@ interface SearchInputProps {
         iconRight={iconRight}
         iconRightClick={iconRightClick}
         onChange={onChange}
+        onKeyDown={handleKeyDown}  // Добавьте это свойство
         className={styles.searchInput}
         fullWidth={false}
       />
@@ -40,3 +47,4 @@ interface SearchInputProps {
   };
   
   export default React.forwardRef(SearchInput);
+  

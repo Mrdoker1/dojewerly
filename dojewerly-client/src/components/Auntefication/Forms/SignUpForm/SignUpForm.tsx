@@ -10,6 +10,7 @@ import { useNavigate } from 'react-router-dom';
 import PasswordInput from '../../../Input/PasswordInput/PasswordInput';
 import { MessageType } from '../../../Messages/messageTypes';
 import { sendNotification } from '../../../NotificationCenter/notificationHelpers';
+import { useTranslation } from 'react-i18next';
 
 const SignUpForm = memo(() => {
 
@@ -23,6 +24,7 @@ const SignUpForm = memo(() => {
   const dispatch = useDispatch<AppDispatch>();
   const auth = useSelector((state: RootState) => state.auth);
   const navigate = useNavigate();
+  const { t } = useTranslation();
 
   console.log(auth.error)
 
@@ -60,9 +62,9 @@ const SignUpForm = memo(() => {
         <form className={styles.container} onSubmit={handleSubmit}>
         <Input 
             type="text"
-            label="Username"
+            label={t('Username')}
             value={username}
-            placeholder='Your name'
+            placeholder={t('Your name')}
             hasError={!isUsernameValid}
             message={!isUsernameValid ? 'Please enter a valid username' : ''}
             onChange={(e) => {
@@ -72,9 +74,9 @@ const SignUpForm = memo(() => {
           />
           <Input 
             type="text"
-            label="Email Address"
+            label={t('Email Address')}
             value={email}
-            placeholder='your@email.com'
+            placeholder={t('your@email.com')}
             hasError={!isEmailValid}
             message={!isEmailValid ? 'Please enter a valid email.' : ''}
             onChange={(e) => {
@@ -83,9 +85,9 @@ const SignUpForm = memo(() => {
             }}
           />
           <PasswordInput
-            label="Password"
+            label={t('Password')}
             value={password}
-            placeholder="Enter password"
+            placeholder={t('Enter password')}
             hasError={!isPasswordValid}
             message={!isPasswordValid ? 'Please enter a valid password.' : ''}
             onChange={(e) => {
@@ -98,7 +100,7 @@ const SignUpForm = memo(() => {
               type="submit"
               size="default"
               fullWidth={true}
-              text="CREATE NEW ACCOUNT"/>
+              text={t('CREATE NEW ACCOUNT')}/>
             {/* <div
               className={variables.description}
               style={{color: 'var(--grey-2)'}}>

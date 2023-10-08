@@ -24,7 +24,7 @@ const Filters = () => {
     const { t } = useTranslation();
 
     const isAnyFilterApplied = Object.entries(filters).some(([key, value]) => {
-        if (['page', 'limit'].includes(key)) return false;
+        if (['page', 'limit', 'totalPages', 'totalProducts'].includes(key)) return false;
         return Boolean(value);
     });
 

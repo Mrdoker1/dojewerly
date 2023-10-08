@@ -5,10 +5,12 @@ import banner from '../../assets/images/banner-2.jpg';
 import { useLayout } from '../../components/Layout/LayoutContext/LayoutContext';
 import styles from './Auth.module.css'; // используйте один и тот же файл стилей
 import AuthPage from '../../components/Auntefication/Auth';
+import { useTranslation } from 'react-i18next';
 
 const SignInPage: React.FC = () => {
   const { setBackgroundColor } = useLayout();
   const navigate = useNavigate();
+  const { t } = useTranslation();
 
   useEffect(() => {
     setBackgroundColor(styles.background);
@@ -20,10 +22,10 @@ const SignInPage: React.FC = () => {
   return (
     <AuthPage
       bannerImage={banner}
-      heading="Create an Account"
-      description="Register New DoJeverly Account."
+      heading={t('Create an Account')}
+      description={t('Register New DoJeverly Account.')}
       mainForm={<SignUpForm />}
-      buttonText="SIGN IN TO ACCOUNT"
+      buttonText={t('SIGN IN TO ACCOUNT')}
       buttonIcon="arrowRight"
       buttonOnClick={() => navigate("/signin")}
     />

@@ -19,9 +19,39 @@ export class ProductsService {
   private filterQuery(params) {
     let query = this.productModel.find();
     // Search by keyword
-    if (params.keyword) {
-      query = query.find({ name: { $regex: params.keyword, $options: 'i' } });
+    // if (params.q) {
+    //   query = query.find({ name: { $regex: params.q, $options: 'i' } });
+    // }
+    // if (params.q) {
+    //   query = query.find({
+    //     $or: [
+    //       { name: { $regex: params.q, $options: 'i' } },
+    //       { 'props.description': { $regex: params.q, $options: 'i' } },
+    //       { 'props.info': { $regex: params.q, $options: 'i' } },
+    //     ],
+    //   });
+    // }
+
+    if (params.q) {
+      query = query.find({
+        $or: [
+          { name: { $regex: params.q, $options: 'i' } },
+          { 'props.description': { $regex: params.q, $options: 'i' } },
+          { 'props.info': { $regex: params.q, $options: 'i' } },
+          { 'localization.RU.name': { $regex: params.q, $options: 'i' } },
+          { 'localization.RU.info': { $regex: params.q, $options: 'i' } },
+          {
+            'localization.RU.description': { $regex: params.q, $options: 'i' },
+          },
+          { 'localization.PL.name': { $regex: params.q, $options: 'i' } },
+          { 'localization.PL.info': { $regex: params.q, $options: 'i' } },
+          {
+            'localization.PL.description': { $regex: params.q, $options: 'i' },
+          },
+        ],
+      });
     }
+
     // Sorting
     if (params.sort && params.order) {
       query = query.sort({ [params.sort]: params.order === 'asc' ? 1 : -1 });
@@ -77,7 +107,7 @@ export class ProductsService {
   async findAll(params: {
     sort?: string;
     order?: 'asc' | 'desc';
-    keyword?: string;
+    q?: string;
     page?: number;
     limit?: number;
     material?: string;

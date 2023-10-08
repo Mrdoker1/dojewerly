@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useCustomModal } from '../../Modal/useCustomModal';
+import { useCustomModal } from '../../Modal/ModalHelper';
 import {
   addProductToFavourites,
   removeProductFromFavourites

@@ -35,11 +35,13 @@ export interface InputProps {
   iconRightClick?: () => void;
   /** Вызывается при клике на иконку слева */
   iconLeftClick?: () => void;
+  /** Вызывается при клике на любую кнопку */
+  onKeyDown?: (event: React.KeyboardEvent<HTMLInputElement>) => void;
   /** Дополнительные классы стилей */
   className?: string;
 }
 
-const Input: React.ForwardRefRenderFunction<HTMLInputElement, InputProps> = ({ onChange, readOnly, value, type, disabled, children, label, placeholder, hasError, message, iconRight, iconRightClick, iconLeft, iconLeftClick, className, fullWidth = true  }, ref) => {
+const Input: React.ForwardRefRenderFunction<HTMLInputElement, InputProps> = ({ onChange, readOnly, value, type, disabled, children, label, placeholder, hasError, message, iconRight, iconRightClick, onKeyDown, iconLeft, iconLeftClick, className, fullWidth = true  }, ref) => {
     const [inputValue, setInputValue] = useState(value);
     const [isFocused, setIsFocused] = useState(false);
   
@@ -95,6 +97,7 @@ const Input: React.ForwardRefRenderFunction<HTMLInputElement, InputProps> = ({ o
             onFocus={handleFocus}
             onBlur={handleBlur}
             readOnly={readOnly}
+            onKeyDown={onKeyDown}
           />
           {IconRight && <IconRight onClick={handleIconRightClick} className={styles.icon} />}
         </div>

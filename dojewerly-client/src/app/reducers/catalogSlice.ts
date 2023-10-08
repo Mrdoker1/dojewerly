@@ -1,6 +1,9 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-export interface CatalogState extends ProductQueryParams {}
+export interface CatalogState extends ProductQueryParams {
+  totalProducts?: number;
+  totalPages?: number
+}
 
 export interface ProductQueryParams {
   [key: string]: string | number | undefined;
@@ -19,6 +22,8 @@ export interface ProductQueryParams {
 }
 
 export const initialState: CatalogState = {
+  totalProducts: 0,
+  totalPages: 0,
   sort: undefined,
   order: undefined,
   q: undefined,
@@ -30,7 +35,7 @@ export const initialState: CatalogState = {
   availability: undefined,
   stock: undefined,
   minPrice: undefined,
-  maxPrice: undefined
+  maxPrice: undefined,
 };
 
 export const catalogSlice = createSlice({
@@ -43,6 +48,10 @@ export const catalogSlice = createSlice({
       console.log("setFilter called:", action.payload);
       console.log("Setting filter in Redux:", name, value);
       state[name] = value;
+    },
+    setTotalProducts: (state, action: PayloadAction<number>) => {
+      state.totalProducts = action.payload;
+      state.totalPages = Math.ceil(state.totalProducts / (state.limit || 1));
     },
     // Сбросить все фильтры
     resetFilters: (state) => {
@@ -74,6 +83,6 @@ export const catalogSlice = createSlice({
   }
 });
 
-export const { setFilter, resetFilters, setAllFilters, updateFromURL } = catalogSlice.actions;
+export const { setFilter, resetFilters, setAllFilters, updateFromURL, setTotalProducts } = catalogSlice.actions;
 export default catalogSlice.reducer;
 

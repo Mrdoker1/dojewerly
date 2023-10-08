@@ -14,6 +14,7 @@ import extractParamsFromURL from '../../utils/extractParamsFromURL';
 import { useLocation } from 'react-router-dom';
 import LanguageDropdown from '../Dropdown/LanguageDropdown/LanguageDropdown';
 import { useTranslation } from 'react-i18next';
+import { useCustomModal } from '../Modal/ModalHelper';
 
 const Header: React.FC = () => {
   const auth = useSelector((state: RootState) => state.auth);
@@ -26,6 +27,7 @@ const Header: React.FC = () => {
   const location = useLocation();
   const isHomepage = location.pathname === "/";
   const { t } = useTranslation();
+  const { openModal } = useCustomModal();
 
   const handleNavigation = (path: string) => {
     const params = extractParamsFromURL(path);
@@ -77,7 +79,7 @@ useEffect(() => {
 
   return (
   <div className={`${isHomepage ? styles.fixedHeader : styles.header} ${isScrolled ? styles.solidHeader : ''}`}>
-      <TopMessage message='Working in progress' visible={true} iconRight='close'/>
+      <TopMessage message={t('Working in progress, you may encounter errors, no worries')} visible={true} iconRight='close'/>
       <div className={`${styles.headerWrapper}`}>
         <Link to="/">
           <icons.logo className={styles.logo} />
@@ -89,7 +91,7 @@ useEffect(() => {
             <li onClick={() => handleNavigation("/catalog?page=1&type=Brooch")}>{t('brooch')}</li>
             <li onClick={() => handleNavigation("/collections")}>{t('collections')}</li>
             <li><LanguageDropdown></LanguageDropdown></li>
-            <li className={styles.doxIcon}><icons.dox/></li>
+            <li className={styles.doxIcon} onClick={ () => openModal('dox') }><icons.dox/></li>
             <li><icons.search/></li>
             <li onClick={handleAccountClick}>
               <icons.account />

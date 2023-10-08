@@ -6,7 +6,7 @@ import { AppDispatch, RootState } from '../../../app/store';
 import ProductCard from '../ProductCard/ProductCard';
 import styles from './ProductList.module.css'
 import Pagination from '../Pagination/Pagination';
-import { setFilter } from '../../../app/reducers/catalogSlice';
+import { setFilter, setTotalProducts } from '../../../app/reducers/catalogSlice';
 import { getUserProfile } from '../../../app/reducers/userSlice';
 import ProductCardSkeleton from '../ProductCard/ProductCardSkeleton';
 import { useTranslation } from 'react-i18next';
@@ -18,8 +18,8 @@ const ProductList: React.FC = () => {
   const filters = useSelector((state: RootState) => state.catalog);
   const navigate = useNavigate();
   const location = useLocation();
+  const totalPages = useSelector((state: RootState) => state.catalog.totalPages);
   const totalProducts = useSelector((state: RootState) => state.products.totalProducts);
-  const totalPages = Math.ceil(totalProducts / (filters.limit || 1));
   const token = useSelector((state: RootState) => state.auth.token);
   const { t } = useTranslation();
 
@@ -35,8 +35,9 @@ const ProductList: React.FC = () => {
     batch(() => {
       dispatch(fetchAllProducts(filters));
       dispatch(fetchTotalProductsCount(filters));
+      dispatch(setTotalProducts(totalProducts));
     });
-  }, [dispatch, filters, token]);
+  }, [dispatch, filters, token, totalProducts]);
 
   const handlePageChange = (page: number) => {
     //window.scrollTo(0, 0); // сброс позиции скролла к верху страницы
@@ -74,6 +75,9 @@ const ProductList: React.FC = () => {
       </div>
     );
   }
+  console.log("totalProducts:", totalProducts);
+  console.log("limit:", filters.limit);
+  console.log("Rendering Pagination with totalPages:", totalPages);
 
   return (
     <>
@@ -86,7 +90,7 @@ const ProductList: React.FC = () => {
       </div>
       <Pagination 
         currentPage={Number(filters.page) || 1} 
-        totalPages={totalPages}
+        totalPages={Number(totalPages) || 1}
         onPageChange={handlePageChange}
       />
     </>
