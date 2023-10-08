@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import styles from './Tabs.module.css';
 import Tab from './Tab/Tab';
+import { motion } from 'framer-motion';
 
 export interface TabsProps {
   tabs: {
@@ -21,7 +22,12 @@ const Tabs: React.FC<TabsProps> = ({ tabs }) => {
 
   return (
     <div>
-      <div className={styles.tabs}>
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        exit={{ opacity: 0 }}
+        className={styles.tabs}
+      >
         {tabs.map((tab, index) => (
           <Tab
             key={index}
@@ -37,7 +43,7 @@ const Tabs: React.FC<TabsProps> = ({ tabs }) => {
             }}
           />
         ))}
-      </div>
+      </motion.div>
       <div className={styles.line} />
     </div>
   );

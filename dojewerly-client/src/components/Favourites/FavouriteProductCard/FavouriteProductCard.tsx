@@ -7,6 +7,7 @@ import { getLocalizedField } from '../../../utils/getLocalizedField';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../../app/store';
 import { Product } from '../../../app/reducers/productsSlice';
+import { motion } from 'framer-motion';
 
 interface FavouriteProductCardProps {
   product: Product;
@@ -33,7 +34,13 @@ const FavouriteProductCard: React.FC<FavouriteProductCardProps> = ({ product, on
   };
 
   return (
-    <div className={styles.card} onClick={handleCardClick}>
+    <motion.div
+      className={styles.card}
+      onClick={handleCardClick}
+      initial={{ opacity: 0, y: 50 }} // Начальное состояние (невидимо и наверху)
+      animate={{ opacity: 1, y: 0 }} // Анимация появления (опускается вниз)
+      exit={{ opacity: 0, y: 50 }} // Анимация исчезновения (поднимается вверх)
+    >
       <div className={styles.infoSection}>
         <div className={styles.titleAndIcon}>
           <h3 className={styles.productName}>{localizedProductName}</h3>
@@ -48,7 +55,7 @@ const FavouriteProductCard: React.FC<FavouriteProductCardProps> = ({ product, on
       <div className={styles.imageSection}>
         <ProductImage imageUrl={product.imageURLs[0]} alt={product.name} className={styles.productImage} />
       </div>
-    </div>
+    </motion.div>
   );
 };
 

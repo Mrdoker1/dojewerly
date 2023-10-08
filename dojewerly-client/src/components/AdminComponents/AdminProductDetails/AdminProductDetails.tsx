@@ -8,6 +8,7 @@ import DetailsSection from './DetailsSection/DetailsSection';
 import Button from '../../Button/Button';
 import { partialUpdateProduct } from '../../../app/reducers/productsSlice';
 import { sendNotification } from '../../NotificationCenter/notificationHelpers';
+import { motion } from 'framer-motion';
 
 const AdminProductDetails = () => {
   const selectedProductId = useSelector((state: RootState) => state.userDashboard.selectedProductId);
@@ -56,18 +57,24 @@ const AdminProductDetails = () => {
   }
 
   return (
-    <form onSubmit={handleSave} className={styles.container}>
-      <MainInformationSection/>
-      <GallerySection/>
-      <DetailsSection />
-      <Button 
-        text="SAVE" 
-        type="submit"
-        size="default"
-        variant="secondary"
-        fullWidth={false}
-      />
-    </form>
+    <motion.div
+      initial={{ opacity: 0, y: -50 }} // Начальное состояние (невидимо и наверху)
+      animate={{ opacity: 1, y: 0 }} // Анимация появления (опускается вниз)
+      exit={{ opacity: 0, y: -50 }} // Анимация исчезновения (поднимается вверх)
+    >
+      <form onSubmit={handleSave} className={styles.container}>
+        <MainInformationSection/>
+        <GallerySection/>
+        <DetailsSection />
+        <Button 
+          text="SAVE" 
+          type="submit"
+          size="default"
+          variant="secondary"
+          fullWidth={false}
+        />
+      </form>
+    </motion.div>
   );
 };
 

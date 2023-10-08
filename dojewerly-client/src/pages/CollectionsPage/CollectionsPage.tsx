@@ -6,6 +6,7 @@ import styles from './CollectionsPage.module.css';
 import CollectionListItem, { CollectionListItemProps } from './CollectionListItem/CollectionListItem';
 import Breadcrumbs from '../../components/Breadcrumbs/Breadcrumbs';
 import { useTranslation } from 'react-i18next';
+import { motion } from 'framer-motion';
 
 const CollectionsPage: React.FC = () => {
   const dispatch = useDispatch<AppDispatch>();
@@ -18,7 +19,12 @@ const CollectionsPage: React.FC = () => {
   }, [dispatch]);
 
   return (
-    <div className={styles.container}>
+    <motion.div
+      initial={{ opacity: 0, y: 50 }} // Начальное состояние (невидимо и наверху)
+      animate={{ opacity: 1, y: 0 }} // Анимация появления (опускается вниз)
+      exit={{ opacity: 0, y: 50 }} // Анимация исчезновения (поднимается вверх)
+      className={styles.container}
+    >
       <div className={styles.heading}>
         <Breadcrumbs />
         <h1>{t('Collections')}</h1>
@@ -43,7 +49,7 @@ const CollectionsPage: React.FC = () => {
           ))}
         </div>
       }
-    </div>
+    </motion.div>
   );
 };
 

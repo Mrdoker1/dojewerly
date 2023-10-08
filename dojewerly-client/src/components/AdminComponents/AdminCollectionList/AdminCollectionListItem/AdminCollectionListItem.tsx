@@ -8,6 +8,7 @@ import styles from './AdminCollectionListItem.module.css';
 import icons from '../../../../assets/icons/icons'; 
 import { sendNotification } from '../../../NotificationCenter/notificationHelpers';
 import GradientImage from '../../../Image/GradientImage/GradientImage';
+import { motion } from 'framer-motion';
 
 interface AdminCollectionListItemProps {
   collection: Collection;
@@ -44,7 +45,13 @@ const AdminCollectionListItem: React.FC<AdminCollectionListItemProps> = ({ colle
     : styles.container;
 
   return (
-    <div className={containerClassNames} onClick={handleSelectCollection}>
+    <motion.div
+      className={containerClassNames}
+      onClick={handleSelectCollection}
+      initial={{ opacity: 0, y: -50 }} // Начальное состояние (невидимо и наверху)
+      animate={{ opacity: 1, y: 0 }} // Анимация появления (опускается вниз)
+      exit={{ opacity: 0, y: -50 }} // Анимация исчезновения (поднимается вверх)
+    >
       <div className={styles.gradientImageContainer}>
         <GradientImage imageUrl={firstProductImage} alt="Collection Image" />
       </div>
@@ -52,7 +59,7 @@ const AdminCollectionListItem: React.FC<AdminCollectionListItemProps> = ({ colle
         <AdminCollectionListItemInfo collection={collection} />
         <TrashIcon onClick={handleDelete} className={styles.deleteIcon} />
       </div>
-    </div>
+    </motion.div>
   );
 };
 

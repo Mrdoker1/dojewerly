@@ -9,6 +9,7 @@ import RadioButtonGroup from '../../RadioButtonGroup/RadioButtonGroup';
 import { setRadioValue } from '../../../app/reducers/userDashboardSlice';
 import { updateCollectionById } from '../../../app/reducers/collectionsSlice';
 import AdminCollectionProductList from '../AdminProductList/AdminCollectionProductList';
+import { motion } from 'framer-motion';
 
 const AdminCollectionDetails: React.FC = () => {
   const selectedCollectionId = useSelector((state: RootState) => state.userDashboard.selectedCollectionId);
@@ -45,32 +46,38 @@ const AdminCollectionDetails: React.FC = () => {
   }
 
   return (
-    <form onSubmit={handleSave} className={styles.container}>
-      <MainInformationSection/>
-      {/* Здесь может быть раздел для изображений коллекции в будущем */}
-      <div className={styles.productsContainer}>
-        <h2>Products in Collection</h2>
-        <div className={styles.radioGroupContainer}>
-          <RadioButtonGroup
-            options={[
-              { label: 'Show All', value: 'all' },
-              { label: 'Show Only in Collection', value: 'collection' }
-            ]}
-            onChange={handleRadioButtonChange}
-            selectedValue = {redioValue}
-            orientation="horizontal"
-          />
-          <Button 
-            text="SAVE" 
-            type="submit"
-            size="default"
-            variant="secondary"
-            fullWidth={false}
-          />
+    <motion.div
+      initial={{ opacity: 0, y: -50 }} // Начальное состояние (невидимо и наверху)
+      animate={{ opacity: 1, y: 0 }} // Анимация появления (опускается вниз)
+      exit={{ opacity: 0, y: -50 }} // Анимация исчезновения (поднимается вверх)
+    >
+      <form onSubmit={handleSave} className={styles.container}>
+        <MainInformationSection/>
+        {/* Здесь может быть раздел для изображений коллекции в будущем */}
+        <div className={styles.productsContainer}>
+          <h2>Products in Collection</h2>
+          <div className={styles.radioGroupContainer}>
+            <RadioButtonGroup
+              options={[
+                { label: 'Show All', value: 'all' },
+                { label: 'Show Only in Collection', value: 'collection' }
+              ]}
+              onChange={handleRadioButtonChange}
+              selectedValue = {redioValue}
+              orientation="horizontal"
+            />
+            <Button 
+              text="SAVE" 
+              type="submit"
+              size="default"
+              variant="secondary"
+              fullWidth={false}
+            />
+          </div>
         </div>
-      </div>
-      <AdminCollectionProductList/>
-    </form>
+        <AdminCollectionProductList/>
+      </form>
+    </motion.div>
   );
 };
 

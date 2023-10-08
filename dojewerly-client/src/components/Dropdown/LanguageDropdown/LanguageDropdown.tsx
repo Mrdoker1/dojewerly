@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { RootState } from '../../../app/store';
+import { AppDispatch, RootState } from '../../../app/store';
 import Dropdown from '../../Dropdown/Dropdown';
 import styles from './LanguageDropdown.module.css';
 import { setLanguage } from '../../../app/reducers/languageSlice'; // Путь к вашему редьюсеру языка
@@ -10,7 +10,7 @@ import createDropdownOptions from '../../../utils/createDropdownOptions';
 const AVAILABLE_LANGUAGES = ['EN', 'RU', 'PL'];
 
 const LanguageDropdown: React.FC = () => {
-    const dispatch = useDispatch();
+    const dispatch = useDispatch<AppDispatch>();
     const currentLanguage = useSelector((state: RootState) => state.language.currentLanguage);
     const [languages, setLanguages] = useState<string[]>([]);
 

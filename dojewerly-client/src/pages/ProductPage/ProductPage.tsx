@@ -12,6 +12,7 @@ import { getUserProfile } from '../../app/reducers/userSlice';
 import BackButton from '../../components/Button/BackButton/BackButton';
 import { getLocalizedField } from '../../utils/getLocalizedField';
 import { useTranslation } from 'react-i18next';
+import { motion } from 'framer-motion';
 
 const ProductPage: React.FC = () => {
     const dispatch = useDispatch<AppDispatch>();
@@ -44,49 +45,59 @@ const ProductPage: React.FC = () => {
     const localizedProductStock = getLocalizedField(product, 'stock', currentLanguage);
 
     return (
-      <div className={styles.container}>
-        <div className={styles.productSection}>
-          <div className={styles.productGallery}>
-            {product.imageURLs.length > 0 ? product.imageURLs.map((imageUrl, index) => (
-              <ProductImage key={index} imageUrl={imageUrl} alt={product.name} className={styles.image} square/>
-            )) : (
-              <icons.noImageL className={styles.image} />
-            )}
-          </div>
-          <div className={styles.productDetailsWrapper}>
-            <div className={styles.productDetails}>
-              <div className={styles.productDetailsHeading}>
-                <BackButton></BackButton>
-                <h1 className={styles.productName}>{localizedProductName}</h1>
-              </div>
-              <ul className={styles.productProperties}>
-                <li>
-                  <icons.material />
-                  {`${t('Material')}: ${t(product.props.material)}`}
-                </li>
-                <li>
-                  <icons.gender />
-                  {`${t('Gender')}: ${t(product.props.gender)}`}
-                </li>
-                <li>
-                  <icons.item />
-                  {`${t('Item No.')}: ${product.props.id}`}
-                </li>
-              </ul>
-              <div className={styles.productDetailsDescription}>{localizedProductDescription}</div>
-              <hr className={styles.solid} />
-              <div className={styles.productDetailsPriceWrapper}>
-                <span className={styles.price}>{`${product.price} ${currentCurrency}`}</span>
-                <span className={styles.stock}>{`${product.stock} ${t('in stock')}`}</span>
-              </div>
-              <div className={styles.actions}>
-                <Button text={t('CONTACT SELLER')} size='large' fullWidth />
-                <FavouriteToggle productId={product._id} className={styles.favouriteIcon} color='black'/>
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        exit={{ opacity: 0 }}
+        className={styles.container}
+      >
+          <div className={styles.productSection}>
+            <motion.div
+              initial={{ opacity: 0, y: 50 }} // Начальное состояние (невидимо и наверху)
+              animate={{ opacity: 1, y: 0 }} // Анимация появления (опускается вниз)
+              exit={{ opacity: 0, y: 50 }} // Анимация исчезновения (поднимается вверх)
+              className={styles.productGallery}
+            >
+              {product.imageURLs.length > 0 ? product.imageURLs.map((imageUrl, index) => (
+                <ProductImage key={index} imageUrl={imageUrl} alt={product.name} className={styles.image} square/>
+              )) : (
+                <icons.noImageL className={styles.image} />
+              )}
+            </motion.div>
+            <div className={styles.productDetailsWrapper}>
+              <div className={styles.productDetails}>
+                <div className={styles.productDetailsHeading}>
+                  <BackButton></BackButton>
+                  <h1 className={styles.productName}>{localizedProductName}</h1>
+                </div>
+                <ul className={styles.productProperties}>
+                  <li>
+                    <icons.material />
+                    {`${t('Material')}: ${t(product.props.material)}`}
+                  </li>
+                  <li>
+                    <icons.gender />
+                    {`${t('Gender')}: ${t(product.props.gender)}`}
+                  </li>
+                  <li>
+                    <icons.item />
+                    {`${t('Item No.')}: ${product.props.id}`}
+                  </li>
+                </ul>
+                <div className={styles.productDetailsDescription}>{localizedProductDescription}</div>
+                <hr className={styles.solid} />
+                <div className={styles.productDetailsPriceWrapper}>
+                  <span className={styles.price}>{`${product.price} ${currentCurrency}`}</span>
+                  <span className={styles.stock}>{`${product.stock} ${t('in stock')}`}</span>
+                </div>
+                <div className={styles.actions}>
+                  <Button text={t('CONTACT SELLER')} size='large' fullWidth />
+                  <FavouriteToggle productId={product._id} className={styles.favouriteIcon} color='black'/>
+                </div>
               </div>
             </div>
           </div>
-        </div>
-      </div>
+      </motion.div>
     );
 };
 

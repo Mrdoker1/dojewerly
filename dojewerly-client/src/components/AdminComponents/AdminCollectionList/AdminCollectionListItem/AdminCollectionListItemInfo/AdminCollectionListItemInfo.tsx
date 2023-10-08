@@ -5,6 +5,7 @@ import { Collection } from '../../../../../app/reducers/collectionsSlice';
 import { fetchAllProducts, Product } from '../../../../../app/reducers/productsSlice'; // Импортируйте ваш редьюсер продуктов
 import styles from './AdminCollectionListItemInfo.module.css';
 import { AppDispatch } from '../../../../../app/store';
+import { AnimatePresence, motion } from 'framer-motion';
 
 interface AdminCollectionListItemInfoProps {
   collection: Collection;
@@ -26,21 +27,29 @@ const AdminCollectionListItemInfo: React.FC<AdminCollectionListItemInfoProps> = 
   const collectionProducts: Product[] = products.filter((product: Product) => collection.productIds.includes(product._id || ''));
 
   const ProductsList = (
-    <div className={styles.productImagesContainer}>
-    {collectionProducts.slice(0, productsToShow).map((product) => (
-      <ProductImage
-        key={product._id || ''}
-        imageUrl={product.imageURLs[0]} // Берем первое изображение
-        alt={product.name}
-        className={styles.productImage}
-      />
-    ))}
-    {collection.productIds.length > productsToShow && (
-      <div className={styles.overflowSquare}>
-        +{collection.productIds.length - productsToShow}
+    <AnimatePresence>
+      <div className={styles.productImagesContainer}>
+        {collectionProducts.slice(0, productsToShow).map((product) => (
+          <motion.div
+              initial={{ opacity: 0, y: 50 }} // Начальное состояние (невидимо и наверху)
+              animate={{ opacity: 1, y: 0 }} // Анимация появления (опускается вниз)
+              exit={{ opacity: 0, y: 50 }} // Анимация исчезновения (поднимается вверх)
+            >
+            <ProductImage
+              key={product._id || ''}
+              imageUrl={product.imageURLs[0]} // Берем первое изображение
+              alt={product.name}
+              className={styles.productImage}
+            />
+          </motion.div>
+        ))}
+          {collection.productIds.length > productsToShow && (
+            <div className={styles.overflowSquare}>
+              +{collection.productIds.length - productsToShow}
+            </div>
+          )}
       </div>
-    )}
-  </div>
+  </AnimatePresence>
   )
 
   return (

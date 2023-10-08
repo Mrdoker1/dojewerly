@@ -6,6 +6,7 @@ import styles from './AdminCollectionList.module.css'
 import AdminCollectionListItem from './AdminCollectionListItem/AdminCollectionListItem';
 import CreateItemButton from '../AdminProductList/CreateItemButton/CreateItemButton';
 import { selectCollection } from '../../../app/reducers/userDashboardSlice';
+import { AnimatePresence } from 'framer-motion';
 
 const AdminCollectionList: React.FC = () => {
   const dispatch = useDispatch<AppDispatch>();
@@ -36,9 +37,11 @@ const AdminCollectionList: React.FC = () => {
 
   return (
     <div className={styles.container}>
-      <CreateItemButton title={'Create new Collection'} onClick={handleCreateNewCollection}/>
-      {collectionList.map((collection) => (
-      <AdminCollectionListItem key={collection._id} collection={collection} /> ))}
+      <AnimatePresence>
+        <CreateItemButton title={'Create new Collection'} onClick={handleCreateNewCollection}/>
+        {collectionList.map((collection) => (
+        <AdminCollectionListItem key={collection._id} collection={collection} /> ))}
+      </AnimatePresence>
     </div>
   );
 };

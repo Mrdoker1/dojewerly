@@ -2,6 +2,7 @@ import React from 'react';
 import styles from '../Modal/Modal.module.css';
 import Button from '../../components/Button/Button';
 import icons from '../../assets/icons/icons';
+import { motion } from 'framer-motion';
 
 interface AuthProps {
   bannerImage?: string;
@@ -23,7 +24,12 @@ const Auth: React.FC<AuthProps> = ({
   buttonOnClick,
 }) => {
   return (
-    <div className={styles.container}>
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      className={styles.container}
+    >
       {bannerImage &&
         <div className={styles.imageContainer}>
           <img src={bannerImage} alt="Banner" />
@@ -47,7 +53,7 @@ const Auth: React.FC<AuthProps> = ({
           onClick={buttonOnClick}
         />
       </div>
-    </div>
+    </motion.div>
   );
 }
 

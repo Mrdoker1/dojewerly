@@ -6,6 +6,7 @@ import styles from './FavouritesPage.module.css';
 import { AppDispatch, RootState } from '../../app/store';
 import { sendNotification } from '../../components/NotificationCenter/notificationHelpers';
 import ShareWishlistBlock from './ShareWishlistBlock/ShareWishlistBlock';
+import { AnimatePresence, motion } from 'framer-motion';
 
 const FavouritesPage: React.FC = () => {
   const dispatch = useDispatch<AppDispatch>();
@@ -34,16 +35,23 @@ const FavouritesPage: React.FC = () => {
 };
 
 return (
-  <div className={styles.container}>
-    <ShareWishlistBlock userId={userId || ''} />
-    {favouriteProducts.map(product => (
-      <FavouriteProductCard
-        key={product._id}
-        product={product} // Передаем целый объект продукта
-        onRemove={handleRemoveFromFavourites} // Передаем функцию удаления продукта
-      />
-    ))}
-  </div>
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      className={styles.container}
+    >
+      <ShareWishlistBlock userId={userId || ''} />
+      <AnimatePresence>
+      {favouriteProducts.map(product => (
+        <FavouriteProductCard
+          key={product._id}
+          product={product} // Передаем целый объект продукта
+          onRemove={handleRemoveFromFavourites} // Передаем функцию удаления продукта
+        />
+      ))}
+      </AnimatePresence>
+    </motion.div>
 );
 };
 

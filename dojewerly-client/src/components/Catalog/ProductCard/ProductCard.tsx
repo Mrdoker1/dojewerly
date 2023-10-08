@@ -7,6 +7,7 @@ import { useSelector } from 'react-redux';
 import { RootState } from '../../../app/store';
 import { getLocalizedField } from '../../../utils/getLocalizedField';
 import { Product } from '../../../app/reducers/productsSlice';
+import { motion } from 'framer-motion';
 
 interface ProductCardProps {
   product: Product
@@ -22,7 +23,12 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
   const localizedProductPrice = getLocalizedField(product, 'price', currentLanguage) as number;
 
   return (
-    <div className={styles.productCard}>
+    <motion.div
+      initial={{ opacity: 0, y: 50 }} // Начальное состояние (невидимо и наверху)
+      animate={{ opacity: 1, y: 0 }} // Анимация появления (опускается вниз)
+      exit={{ opacity: 0, y: 50 }} // Анимация исчезновения (поднимается вверх)
+      className={styles.productCard}
+    >
       <Link key={product._id} to={`/product/${product._id}`}>
         <div className={styles.image}>
           <ProductImage 
@@ -40,7 +46,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
           <div className={styles.price}>{`${localizedProductPrice.toFixed(2)} ${currentCurrency}`}</div>
         </div>
       </Link>
-    </div>
+    </motion.div>
   );
 };
 

@@ -7,6 +7,7 @@
   import { deselectProduct, selectProduct } from '../../../../app/reducers/userDashboardSlice';
   import AdminProductListItemInfo from './AdminProductListItemInfo/AdminProductListItemInfo';
   import { sendNotification } from '../../../NotificationCenter/notificationHelpers';
+import { motion } from 'framer-motion';
 
   interface AdminProductListItemProps {
     id: string;
@@ -47,10 +48,16 @@
     };
 
     return (
-      <div className={containerClassNames} onClick={handleSelectProduct}>
-        <AdminProductListItemInfo imageUrl={imageUrl} name={name} description={description} price={price}/>
-        <TrashIcon onClick={handleDelete} className={styles.deleteIcon} />
-      </div>
+      <motion.div
+          className={containerClassNames}
+          onClick={handleSelectProduct}
+          initial={{ opacity: 0, y: -50 }} // Начальное состояние (невидимо и наверху)
+          animate={{ opacity: 1, y: 0 }} // Анимация появления (опускается вниз)
+          exit={{ opacity: 0, y: -50 }} // Анимация исчезновения (поднимается вверх)
+        >
+          <AdminProductListItemInfo imageUrl={imageUrl} name={name} description={description} price={price}/>
+          <TrashIcon onClick={handleDelete} className={styles.deleteIcon} />
+      </motion.div>
     );
   };
 

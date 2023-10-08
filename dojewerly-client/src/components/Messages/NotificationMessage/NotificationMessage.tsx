@@ -2,8 +2,14 @@ import React, { useEffect, useState } from 'react';
 import styles from './NotificationMessage.module.css';
 import icons from '../../../assets/icons/icons';
 import { MessageType } from '../messageTypes';
+import { motion, usePresence } from 'framer-motion';
+import { removeNotification } from '../../../app/reducers/notificationSlice';
+import { useDispatch } from 'react-redux';
+import { AppDispatch } from '../../../app/store';
 
 export interface NotificationMessageProps {
+  /** ID сообщения */
+  id: number;
   /** Тип сообщения: успех или ошибка */
   type?: MessageType;
   /** Сообщение, которое должно быть отображено */
@@ -21,10 +27,11 @@ export interface NotificationMessageProps {
 }
 
 const NotificationMessage: React.FC<NotificationMessageProps> = ({
-  type, message, iconRight, iconRightClick, timeout, absolute, visible = true 
+  id, type, message, iconRight, iconRightClick, timeout, absolute, visible = true 
 }) => {
   const [isVisible, setIsVisible] = useState(visible);
   const IconRight = iconRight ? icons[iconRight] : null;
+  const dispatch = useDispatch<AppDispatch>();
   const containerStyle = absolute ? styles.absoluteContainer : '';
   let messageStyle = '';
 
@@ -46,6 +53,15 @@ const NotificationMessage: React.FC<NotificationMessageProps> = ({
       break;
   }
 
+  const [isPresent, safeToRemove] = usePresence();
+
+  useEffect(() => {
+    if (!isPresent) {
+      console.log(`Notification ${id} is no longer present in the tree`);
+      safeToRemove();
+    }
+  }, [id, isPresent, safeToRemove]);
+
   const handleClose = (event: React.MouseEvent) => {
     event.preventDefault();
     setIsVisible(false);
@@ -65,11 +81,16 @@ const NotificationMessage: React.FC<NotificationMessageProps> = ({
   }, [visible]);
 
   if (!isVisible || !message) {
-    return null;
+    dispatch(removeNotification(id));
   }
 
   return (
-    <div className={`${messageStyle} ${containerStyle}`}>
+    <motion.div
+      className={`${messageStyle} ${containerStyle}`}
+      initial={{ opacity: 0, y: -50 }} // Начальное состояние (невидимо и наверху)
+      animate={{ opacity: 1, y: 0 }} // Анимация появления (опускается вниз)
+      exit={{ opacity: 0, y: -50 }} // Анимация исчезновения (поднимается вверх)
+    >
       {message}
       {IconRight && <IconRight onClick={handleClose} className={styles.icon} />}
       {timeout && (
@@ -78,7 +99,7 @@ const NotificationMessage: React.FC<NotificationMessageProps> = ({
           style={{ animationDuration: `${timeout}ms` }}
         ></div>
       )}
-    </div>
+    </motion.div>
   );
 };
 

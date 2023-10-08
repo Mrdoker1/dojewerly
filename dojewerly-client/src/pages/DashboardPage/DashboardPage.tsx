@@ -7,6 +7,7 @@ import variables from '../../variables.module.css';
 import styles from './DashboardPage.module.css';
 import { Outlet } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
+import { motion } from 'framer-motion';
 
 const DashboardPage = () => {
   const dispatch = useDispatch<AppDispatch>();
@@ -33,7 +34,12 @@ const DashboardPage = () => {
   }
 
   return (
-    <main className={styles.container}>
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      className={styles.container}
+    >
       <div className={styles.headingContainer}>
         <h1>{`${t('Welcome back')}, ${user?.username}!`}</h1>
         <p className={variables.description}>{`${t('Enjoy shopping with ease and happiness')}.`}</p>
@@ -42,7 +48,7 @@ const DashboardPage = () => {
       <div className={styles.content}>
         <Outlet />
       </div>
-    </main>
+    </motion.div>
   );
 };
 
