@@ -9,7 +9,7 @@ import { AppDispatch } from '../../../app/store';
 
 export interface NotificationMessageProps {
   /** ID сообщения */
-  id: number;
+  id?: number;
   /** Тип сообщения: успех или ошибка */
   type?: MessageType;
   /** Сообщение, которое должно быть отображено */
@@ -81,8 +81,12 @@ const NotificationMessage: React.FC<NotificationMessageProps> = ({
   }, [visible]);
 
   if (!isVisible || !message) {
-    dispatch(removeNotification(id));
+    if (id) {
+      dispatch(removeNotification(id));
+    }
   }
+
+  console.log(id, message);
 
   return (
     <motion.div

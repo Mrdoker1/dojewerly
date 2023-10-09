@@ -1,5 +1,7 @@
 import React, { createContext, useContext, useState } from 'react';
 import Modal from './Modal';
+import styles from './Modal.module.css';
+import { AnimatePresence, motion } from 'framer-motion';
 
 interface ModalContextProps {
   isModalOpen: boolean;
@@ -40,7 +42,18 @@ export const ModalProvider: React.FC<ModalProviderProps> = ({ children }) => {
   return (
     <ModalContext.Provider value={{ isModalOpen, openModal, closeModal, openModalWithContent }}>
         {children}
-        {isModalOpen && <Modal onClose={closeModal}>{modalContent}</Modal>}
+        <AnimatePresence>
+          {isModalOpen && 
+            <motion.div
+            initial={{ opacity: 0 }} // Начальное состояние (невидимо и наверху)
+            animate={{ opacity: 1 }} // Анимация появления (опускается вниз)
+            exit={{ opacity: 0 }} // Анимация исчезновения (поднимается вверх)
+            className={styles.overlay}
+            onClick={closeModal}
+          >
+            <Modal key={Date.now()} onClose={closeModal}>{modalContent}</Modal>
+          </motion.div>}
+        </AnimatePresence>
     </ModalContext.Provider>
   );
 };

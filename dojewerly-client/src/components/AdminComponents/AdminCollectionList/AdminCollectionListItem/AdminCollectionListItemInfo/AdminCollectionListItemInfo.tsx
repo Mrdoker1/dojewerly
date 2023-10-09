@@ -34,6 +34,7 @@ const AdminCollectionListItemInfo: React.FC<AdminCollectionListItemInfoProps> = 
               initial={{ opacity: 0, y: 50 }} // Начальное состояние (невидимо и наверху)
               animate={{ opacity: 1, y: 0 }} // Анимация появления (опускается вниз)
               exit={{ opacity: 0, y: 50 }} // Анимация исчезновения (поднимается вверх)
+              key={product._id}
             >
             <ProductImage
               key={product._id || ''}

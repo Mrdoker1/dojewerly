@@ -10,18 +10,16 @@ interface ModalProps {
 
 const Modal: React.FC<ModalProps> = ({ onClose, children }) => {  
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 50 }} // Начальное состояние (невидимо и наверху)
-      animate={{ opacity: 1, y: 0 }} // Анимация появления (опускается вниз)
-      exit={{ opacity: 0, y: 50 }} // Анимация исчезновения (поднимается вверх)
-      className={styles.overlay}
-      onClick={onClose}
-    >
-      <div className={styles.modal} onClick={(e) => e.stopPropagation()}>
+      <motion.div
+        initial={{ opacity: 0, y: 50 }} // Начальное состояние (невидимо и наверху)
+        animate={{ opacity: 1, y: 0 }} // Анимация появления (опускается вниз)
+        exit={{ opacity: 0, y: 50 }} // Анимация исчезновения (поднимается вверх)
+        className={styles.modal}
+        onClick={(e) => e.stopPropagation()}
+      >
         <icons.close className={styles.closeButton} onClick={(e) => { e.stopPropagation(); onClose(); }} />
         {children}
-      </div>
-    </motion.div>
+      </motion.div>
   );
 };
 
