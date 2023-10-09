@@ -82,7 +82,7 @@ useEffect(() => {
 
   return (
   <div className={`${isHomepage ? styles.fixedHeader : styles.header} ${isScrolled ? styles.solidHeader : ''}`}>
-      <TopMessage message={t('Working in progress, you may encounter errors, no worries')} visible={true} iconRight='close'/>
+      <TopMessage message={t('Working in progress')} visible={true} iconRight='close'/>
       <div className={`${styles.headerWrapper}`}>
         <div className={styles.burgerIcon} onClick={() => setIsBurgerOpen(!isBurgerOpen)}>
           <icons.burger />
@@ -111,7 +111,9 @@ useEffect(() => {
             </li>
           </ul>
         </nav>
+        <AnimatePresence>
           {isBurgerOpen && <BurgerMenu key={Date.now()} isOpen={isBurgerOpen} onClose={() => setIsBurgerOpen(false)} />}
+        </AnimatePresence>
       </div>
     </div>
   );

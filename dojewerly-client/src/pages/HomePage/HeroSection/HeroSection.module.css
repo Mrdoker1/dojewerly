@@ -100,7 +100,7 @@
 
 @media screen and (max-width: 480px) { /* замените на соответствующее значение из вашего файла variables.scss */
     .heroSection {
-        height: 380px;
+        height: 340px;
     }
 
     .heroVideo {
@@ -108,11 +108,15 @@
     }
 
     .heroContent {
-        margin-top: 100px;
+        margin-top: 80px;
         justify-content: flex-start;
     }
 
     .heroHeading {
         font: var(--cormorant-29-medium); /* замените на соответствующее значение из вашего файла variables.scss */
+    }
+
+    .heroButtons{
+        gap: initial;
     }
 }

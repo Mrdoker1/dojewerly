@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import styles from './BurgerMenu.module.css';
 import { Link, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
@@ -14,12 +14,25 @@ interface BurgerMenuProps {
 
 const menuVariants = {
   open: { x: 0 },
-  closed: { x: "-100%" }
+  closed: { x: "-100%" },
+  exit: { x: "-100%", transition: { duration: 0.1 } }  // Define your exit animation here
 };
 
 const BurgerMenu: React.FC<BurgerMenuProps> = ({ isOpen, onClose }) => {
   const navigate = useNavigate();
   const { t } = useTranslation();
+
+  useEffect(() => {
+    if (isOpen) {
+        document.body.style.overflow = 'hidden'; // блокирует прокрутку
+    } else {
+        document.body.style.overflow = 'auto'; // разрешает прокрутку
+    }
+
+    return () => {
+        document.body.style.overflow = 'auto'; // убедитесь, что прокрутка разрешена при размонтировании компонента
+    };
+}, [isOpen]);
 
   const handleNavigation = (path: string) => {
     navigate(path);
@@ -27,12 +40,13 @@ const BurgerMenu: React.FC<BurgerMenuProps> = ({ isOpen, onClose }) => {
   };
 
   return (
-      <motion.div
-      className={`${styles.burgerMenu} ${isOpen ? styles.show : ''}`}
-      initial="closed"
-      animate={isOpen ? "open" : "closed"}
-      variants={menuVariants}
-      >
+        <motion.div
+          className={`${styles.burgerMenu} ${isOpen ? styles.show : ''}`}
+          initial="closed"
+          animate={isOpen ? "open" : "closed"}
+          exit="exit"
+          variants={menuVariants}
+        >
         <div className={styles.menuHeader}>
           <div className={styles.burgerIcon} onClick={onClose}>
             <icons.close />

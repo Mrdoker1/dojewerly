@@ -23,12 +23,6 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
   const localizedProductPrice = getLocalizedField(product, 'price', currentLanguage) as number;
 
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 50 }} // Начальное состояние (невидимо и наверху)
-      animate={{ opacity: 1, y: 0 }} // Анимация появления (опускается вниз)
-      exit={{ opacity: 0, y: 50 }} // Анимация исчезновения (поднимается вверх)
-      className={styles.productCard}
-    >
       <Link key={product._id} to={`/product/${product._id}`}>
         <div className={styles.image}>
           <ProductImage 
@@ -46,7 +40,6 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
           <div className={styles.price}>{`${localizedProductPrice.toFixed(2)} ${currentCurrency}`}</div>
         </div>
       </Link>
-    </motion.div>
   );
 };
 
