@@ -15,11 +15,14 @@ import { useLocation } from 'react-router-dom';
 import LanguageDropdown from '../Dropdown/LanguageDropdown/LanguageDropdown';
 import { useTranslation } from 'react-i18next';
 import { useCustomModal } from '../Modal/ModalHelper';
+import BurgerMenu from '../Burger/BurgerMenu';
+import { AnimatePresence } from 'framer-motion';
 
 const Header: React.FC = () => {
   const auth = useSelector((state: RootState) => state.auth);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+  const [isBurgerOpen, setIsBurgerOpen] = useState(false);
 
   const navigate = useNavigate();
   const dispatch = useDispatch<AppDispatch>();
@@ -81,6 +84,9 @@ useEffect(() => {
   <div className={`${isHomepage ? styles.fixedHeader : styles.header} ${isScrolled ? styles.solidHeader : ''}`}>
       <TopMessage message={t('Working in progress, you may encounter errors, no worries')} visible={true} iconRight='close'/>
       <div className={`${styles.headerWrapper}`}>
+        <div className={styles.burgerIcon} onClick={() => setIsBurgerOpen(!isBurgerOpen)}>
+          <icons.burger />
+        </div>
         <Link to="/">
           <icons.logo className={styles.logo} />
         </Link>
@@ -105,6 +111,7 @@ useEffect(() => {
             </li>
           </ul>
         </nav>
+          {isBurgerOpen && <BurgerMenu key={Date.now()} isOpen={isBurgerOpen} onClose={() => setIsBurgerOpen(false)} />}
       </div>
     </div>
   );

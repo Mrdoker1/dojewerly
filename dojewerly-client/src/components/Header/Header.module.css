@@ -91,18 +91,29 @@
     color: var(--grey-1);
     /* Добавьте стили для .menuNavigation li:hover здесь */
   }
+
+  .burgerIcon {
+    display: none; /* Скрыто на больших экранах */
+  }
   
   /* Медиа-запросы для различных размеров экрана */
-  @media screen and (max-width: var(--tablet)) {
+  @media screen and (max-width: 768px) {
     /* Стили для хэдера при максимальной ширине 768px */
     .headerWrapper {
       height: 50px;
+      padding: 0px 20px;
       /* Добавьте дополнительные стили для .headerWrapper здесь */
     }
   
     .burgerIcon {
-      display: block;
+      display: flex;
       /* Добавьте стили для .burgerIcon при максимальной ширине 768px */
+    }
+
+    .logo {
+      width: 24px;
+      height: 24px;
+      /* Добавьте стили для .logo здесь */
     }
   
     .menuNavigation ul li:not(:nth-last-child(2)) {
