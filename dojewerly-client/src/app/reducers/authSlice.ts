@@ -180,10 +180,10 @@ export const authSlice = createSlice({
         .addCase(checkUserSession.rejected, (state, action) => {
           state.status = 'failed';
           state.token = null;
-          state.error = {
-            message: '',
-            type: 'default'
-          };
+          // state.error = {
+          //   message: '',
+          //   type: 'default'
+          // };
         })
         .addCase(logoutUser.pending, (state) => {
           state.status = 'loading';
@@ -211,13 +211,10 @@ export const authSlice = createSlice({
         .addCase(validateToken.rejected, (state, action) => {
           state.status = 'failed';
           state.token = null;
-          state.error = {
-            message: '',
-            type: 'default'
-          };
+          console.log('ERROR', state.error);
           // state.error = {
-          //   message: action.error.message || 'Unknown error',
-          //   type: (action.error as AppError).type || 'error'
+          //   message: 'no token',
+          //   type: 'default'
           // };
           localStorage.removeItem('token'); // Remove the token from localStorage if validation failed
         });

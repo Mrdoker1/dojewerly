@@ -4,13 +4,14 @@ import Input from '../../../Input/Input'
 import Button from '../../../Button/Button';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, RootState } from '../../../../app/store';
-import { registerUser } from '../../../../app/reducers/authSlice';
+import { clearError, registerUser } from '../../../../app/reducers/authSlice';
 import NotificationMessage from '../../../Messages/NotificationMessage/NotificationMessage';
 import { useNavigate } from 'react-router-dom';
 import PasswordInput from '../../../Input/PasswordInput/PasswordInput';
 import { MessageType } from '../../../Messages/messageTypes';
 import { sendNotification } from '../../../NotificationCenter/notificationHelpers';
 import { useTranslation } from 'react-i18next';
+import { AnimatePresence } from 'framer-motion';
 
 const SignUpForm = memo(() => {
 
@@ -101,13 +102,13 @@ const SignUpForm = memo(() => {
               size="default"
               fullWidth={true}
               text={t('CREATE NEW ACCOUNT')}/>
-            {/* <div
-              className={variables.description}
-              style={{color: 'var(--grey-2)'}}>
-              Or register using
-            </div>
-            <SocialButtons /> */}
-            {auth.error && <NotificationMessage id={Date.now()} type={auth.error.type as MessageType} key={Date.now()} message={auth.error.message} iconRight='close' />}
+            <AnimatePresence>
+              {auth.error && <NotificationMessage 
+                type={auth.error.type as MessageType}
+                message={auth.error.message}
+                iconRight='close'
+                iconRightClick={() => dispatch(clearError())}/>}
+            </AnimatePresence>
           </div>
         </form>
     </>

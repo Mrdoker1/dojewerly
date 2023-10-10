@@ -6,6 +6,7 @@ import { motion, usePresence } from 'framer-motion';
 import { removeNotification } from '../../../app/reducers/notificationSlice';
 import { useDispatch } from 'react-redux';
 import { AppDispatch } from '../../../app/store';
+import { clearError } from '../../../app/reducers/authSlice';
 
 export interface NotificationMessageProps {
   /** ID сообщения */
@@ -64,6 +65,10 @@ const NotificationMessage: React.FC<NotificationMessageProps> = ({
 
   const handleClose = (event: React.MouseEvent) => {
     event.preventDefault();
+    if (iconRightClick) {
+      iconRightClick();
+      console.log('iconRightClick triggered')
+    }
     setIsVisible(false);
   };
 

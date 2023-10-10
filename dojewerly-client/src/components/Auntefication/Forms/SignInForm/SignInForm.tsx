@@ -11,6 +11,7 @@ import PasswordInput from '../../../Input/PasswordInput/PasswordInput';
 import { useModal } from '../../../Modal/ModalProvider';
 import { MessageType } from '../../../Messages/messageTypes';
 import { useTranslation } from 'react-i18next';
+import { AnimatePresence } from 'framer-motion';
 
 const SignInForm = memo(() => {
 
@@ -88,13 +89,13 @@ const SignInForm = memo(() => {
               size="default"
               fullWidth={true}
               text={t('SIGN IN')}/>
-            {/* <div
-              className={variables.description}
-              style={{color: 'var(--grey-2)'}}>
-              Or continue with
-            </div>
-            <SocialButtons /> */}
-            {auth.error && <NotificationMessage type={auth.error.type as MessageType} key={Date.now()} message={auth.error.message} iconRight='close' />}
+            <AnimatePresence>
+              {auth.error && <NotificationMessage 
+                type={auth.error.type as MessageType}
+                message={auth.error.message}
+                iconRight='close'
+                iconRightClick={() => dispatch(clearError())}/>}
+            </AnimatePresence>
           </div>
         </form>
     </>
