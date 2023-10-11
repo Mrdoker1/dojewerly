@@ -85,3 +85,12 @@ label {
 .disabled:hover{
   border-color: var(--grey-1);
 }
+
+  /* Медиа-запросы для различных размеров экрана */
+  @media screen and (max-width: 768px) {
+    /* Стили для хэдера при максимальной ширине 768px */
+    input{
+      font: var(--jost-21-regular);
+      font-size: 16px;
+    }
+  }
