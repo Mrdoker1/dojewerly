@@ -10,6 +10,7 @@ import { useCustomModal } from '../Modal/ModalHelper';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, RootState } from '../../app/store';
 import { closeBurgerMenu } from '../../app/reducers/menuSlice';
+import useViewportHeight from './useViewportHeight';
 
 interface BurgerMenuProps {
   onClick?: () => void;
@@ -30,21 +31,7 @@ const BurgerMenu: React.FC<BurgerMenuProps> = ({ onClick }) => {
   const isBurgerOpen = useSelector((state: RootState) => state.menu.isBurgerOpen);
   const auth = useSelector((state: RootState) => state.auth);
 
-  useEffect(() => {
-    let vh = window.innerHeight * 0.01;
-    document.documentElement.style.setProperty('--vh', `${vh}px`);
-
-    const handleResize = () => {
-        vh = window.innerHeight * 0.01;
-        document.documentElement.style.setProperty('--vh', `${vh}px`);
-    };
-
-    window.addEventListener('resize', handleResize);
-
-    return () => {
-        window.removeEventListener('resize', handleResize);
-    }
-  }, []);
+  useViewportHeight();
 
   useEffect(() => {
     if (isBurgerOpen) {
