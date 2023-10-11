@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { batch, shallowEqual, useDispatch, useSelector } from 'react-redux';
 import Button from '../../Button/Button';
 import { fetchCatalogCriteria } from '../../../app/reducers/catalogCriteriaSlice';
@@ -12,6 +12,10 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import RangeSlider from '../../RangeSlider/RangeSlider';
 import FiltersSkeleton from './FiltersSkeleton';
 import { useTranslation } from 'react-i18next';
+import icons from '../../../assets/icons/icons';
+import useCombinedHeights from './useCombinedHeights';
+import headerStyles from '../../Header/Header.module.css';
+import topMessageStyles from '../../Messages/TopMessage/TopMessage.module.css';
 
 const Filters = () => {
     const dispatch = useDispatch<AppDispatch>();
@@ -22,6 +26,8 @@ const Filters = () => {
     const navigate = useNavigate(); 
     const location = useLocation();
     const { t } = useTranslation();
+    const [isFilterShown, setFilterShown] = useState(false);
+    const stickyTopValue = useCombinedHeights([headerStyles.headerWrapper, topMessageStyles.topMessage]);
 
     const isAnyFilterApplied = Object.entries(filters).some(([key, value]) => {
         if (['page', 'limit', 'totalPages', 'totalProducts'].includes(key)) return false;
@@ -29,10 +35,17 @@ const Filters = () => {
     });
 
     useEffect(() => {
+        console.log(stickyTopValue);
         if (!criteria) {
             dispatch(fetchCatalogCriteria());
         }
-    }, [criteria, dispatch]);
+    }, [criteria, dispatch, stickyTopValue]);
+
+    const handleShowFilter = () => {
+        if (isFilterShown) {
+            setFilterShown(false);
+        } else setFilterShown(true);
+    }
 
     const handleFilterChange = (name: keyof CatalogState, value: string | undefined, updateURL: boolean = true) => {
         console.log("Filter changed:", name, value);
@@ -78,58 +91,61 @@ const Filters = () => {
     }
 
     return (
-        <div className={styles.container}>
-            <div className={styles.filters}>
-                <FilterDropdown 
-                    options={[
-                        { label: t('Any material'), value: 'Any material' },
-                        ...criteria?.materials.map((material: string) => ({ label: t(material), value: material })) || []
-                    ]}
-                    value={filters.material || 'Any material'}
-                    onChange={(value) => handleFilterChange('material', value)}
-                />
-                <FilterDropdown 
-                    options={[
-                        { label: t('Any gender'), value: 'Any gender' },
-                        ...criteria?.genders.map((gender: string) => ({ label: t(gender), value: gender })) || []
-                    ]}
-                    value={filters.gender || 'Any gender'}
-                    onChange={(value) => handleFilterChange('gender', value)}
-                />
-                <FilterDropdown 
-                    options={[
-                        { label: t('Any type'), value: 'Any type' },
-                        ...criteria?.types.map((type: string) => ({ label: t(type), value: type }))|| []
-                    ]}
-                    value={filters.type || 'Any type'}
-                    onChange={(value) => handleFilterChange('type', value)}
-                />
-                <RangeSlider 
-                    minValue={filters.minPrice || 0}
-                    maxValue={filters.maxPrice || 1000}
-                    onChange={(minValue, maxValue) => {
-                        batch(() => {
-                            handleFilterChange('minPrice', minValue.toString(), false);
-                            handleFilterChange('maxPrice', maxValue.toString(), false);
-                        });
-                        // Здесь обновляем параметры URL
-                        const newSearchParams = new URLSearchParams(location.search);
-                        newSearchParams.set('minPrice', minValue.toString());
-                        newSearchParams.set('maxPrice', maxValue.toString());
-                        navigate(`${location.pathname}?${newSearchParams.toString()}`, { replace: true });
-                    }}
-                />
-                {isAnyFilterApplied && (
-                    <div>
-                        <Button text={t('Clear')} variant='secondary' size='small' onClick={handleResetFilters} />
-                    </div>
-                )}
+        <div className={styles.container} style={{ top: stickyTopValue }}>
+            <div className={`${styles.showFiltersButton} ${isFilterShown ? '' : styles.active}`} onClick={() => handleShowFilter()}>{t('FILTER')}<icons.filter/></div>
+            <div className={`${styles.filtersWrapper} ${isFilterShown ? '' : styles.hide}`}>
+                <div className={styles.filters}>
+                    <FilterDropdown 
+                        options={[
+                            { label: t('Any material'), value: 'Any material' },
+                            ...criteria?.materials.map((material: string) => ({ label: t(material), value: material })) || []
+                        ]}
+                        value={filters.material || 'Any material'}
+                        onChange={(value) => handleFilterChange('material', value)}
+                    />
+                    <FilterDropdown 
+                        options={[
+                            { label: t('Any gender'), value: 'Any gender' },
+                            ...criteria?.genders.map((gender: string) => ({ label: t(gender), value: gender })) || []
+                        ]}
+                        value={filters.gender || 'Any gender'}
+                        onChange={(value) => handleFilterChange('gender', value)}
+                    />
+                    <FilterDropdown 
+                        options={[
+                            { label: t('Any type'), value: 'Any type' },
+                            ...criteria?.types.map((type: string) => ({ label: t(type), value: type }))|| []
+                        ]}
+                        value={filters.type || 'Any type'}
+                        onChange={(value) => handleFilterChange('type', value)}
+                    />
+                    <RangeSlider 
+                        minValue={filters.minPrice || 0}
+                        maxValue={filters.maxPrice || 1000}
+                        onChange={(minValue, maxValue) => {
+                            batch(() => {
+                                handleFilterChange('minPrice', minValue.toString(), false);
+                                handleFilterChange('maxPrice', maxValue.toString(), false);
+                            });
+                            // Здесь обновляем параметры URL
+                            const newSearchParams = new URLSearchParams(location.search);
+                            newSearchParams.set('minPrice', minValue.toString());
+                            newSearchParams.set('maxPrice', maxValue.toString());
+                            navigate(`${location.pathname}?${newSearchParams.toString()}`, { replace: true });
+                        }}
+                    />
+                    {isAnyFilterApplied && (
+                        <div>
+                            <Button text={t('Clear')} variant='secondary' size='small' onClick={handleResetFilters} />
+                        </div>
+                    )}
+                </div>
+                    <SearchInput
+                        ref={inputRef}
+                        value={filters.q || ''}
+                        iconRightClick={() => handleFilterChange('q', inputRef.current?.value || '')}
+                    />
             </div>
-            <SearchInput
-                ref={inputRef}
-                value={filters.q || ''}
-                iconRightClick={() => handleFilterChange('q', inputRef.current?.value || '')}
-            />
         </div>
     );     
 };

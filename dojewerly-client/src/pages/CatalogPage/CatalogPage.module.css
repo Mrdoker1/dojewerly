@@ -16,3 +16,11 @@
     flex-direction: column;
     gap: 20px;
 }
+
+  @media screen and (max-width: 764px)  {
+
+    .heading {
+      padding: 20px 0;
+      gap: 4px;
+    }
+  }

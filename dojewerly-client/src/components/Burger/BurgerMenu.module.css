@@ -4,7 +4,8 @@
     top: 0;
     left: 0;
     width: 90%; /* Ширина меню */
-    height: 100vh;
+    height: calc(100 * var(--vh));
+    min-height: -webkit-fill-available;
     background-color: #F4F4F2;
     flex-direction: column;
     align-items: center;
@@ -77,3 +78,7 @@
     min-width: 140px;
   }
   
+  .logo {
+    width: 30px;
+    height: 30px;
+  }

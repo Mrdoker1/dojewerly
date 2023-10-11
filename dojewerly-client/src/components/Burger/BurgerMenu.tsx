@@ -31,6 +31,22 @@ const BurgerMenu: React.FC<BurgerMenuProps> = ({ onClick }) => {
   const auth = useSelector((state: RootState) => state.auth);
 
   useEffect(() => {
+    let vh = window.innerHeight * 0.01;
+    document.documentElement.style.setProperty('--vh', `${vh}px`);
+
+    const handleResize = () => {
+        vh = window.innerHeight * 0.01;
+        document.documentElement.style.setProperty('--vh', `${vh}px`);
+    };
+
+    window.addEventListener('resize', handleResize);
+
+    return () => {
+        window.removeEventListener('resize', handleResize);
+    }
+  }, []);
+
+  useEffect(() => {
     if (isBurgerOpen) {
         document.body.style.overflow = 'hidden';
     } else {
