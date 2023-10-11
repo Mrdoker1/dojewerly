@@ -4,6 +4,7 @@ import { AppDispatch, RootState } from '../../../app/store';
 import ProductCard from '../../../components/Catalog/ProductCard/ProductCard';
 import styles from './CollectionProductList.module.css';
 import { fetchProductById } from '../../../app/reducers/productsSlice';
+import { motion } from 'framer-motion';
 
 interface CollectionProductListProps {
   productIds: string[];
@@ -32,7 +33,12 @@ const CollectionProductList: React.FC<CollectionProductListProps> = ({ productId
   }, [dispatch, allProducts, productIds]);
 
   return (
-    <div className={styles.container}>
+    <motion.div
+      initial={{ opacity: 0, y: 50 }} // Начальное состояние (невидимо и наверху)
+      animate={{ opacity: 1, y: 0 }} // Анимация появления (опускается вниз)
+      exit={{ opacity: 0, y: 50 }} // Анимация исчезновения (поднимается вверх)
+      className={styles.container}
+      >
       <div className={styles.productList}>
         {sortedFilteredProducts.length > 0 ? (
           sortedFilteredProducts.map(product => (
@@ -44,7 +50,7 @@ const CollectionProductList: React.FC<CollectionProductListProps> = ({ productId
           </div>
         )}
       </div>
-    </div>
+    </motion.div>
   );
 };
 

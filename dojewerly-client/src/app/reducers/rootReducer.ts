@@ -11,6 +11,7 @@ import favouritesReducer from './favouritesSlice';
 import catalogReducer from './catalogSlice';
 import languageReducer from './languageSlice';
 import currencyReducer from './currencySlice';
+import menuReducer from './menuSlice';
 
 const rootReducer = combineReducers({
   counter: counterReducer,
@@ -24,7 +25,8 @@ const rootReducer = combineReducers({
   favourites: favouritesReducer,
   catalog: catalogReducer,
   language: languageReducer,
-  currency: currencyReducer
+  currency: currencyReducer,
+  menu: menuReducer
 });
 
 export type RootState = ReturnType<typeof rootReducer>;
