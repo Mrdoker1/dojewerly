@@ -51,6 +51,10 @@ const ProductPage: React.FC = () => {
         exit={{ opacity: 0 }}
         className={styles.container}
       >
+          <div className={styles.productDetailsHeadingMobile}>
+              <BackButton fullWidth></BackButton>
+              <h1 className={styles.productName}>{localizedProductName}</h1>
+          </div>
           <div className={styles.productSection}>
             <motion.div
               initial={{ opacity: 0, y: 50 }} // Начальное состояние (невидимо и наверху)

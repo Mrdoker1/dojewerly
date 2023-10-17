@@ -4,7 +4,7 @@ import SignUpForm from '../../components/Auntefication/Forms/SignUpForm/SignUpFo
 import banner from '../../assets/images/banner-2.jpg';
 import { useLayout } from '../../components/Layout/LayoutContext/LayoutContext';
 import styles from './Auth.module.css'; // используйте один и тот же файл стилей
-import AuthPage from '../../components/Auntefication/Auth';
+import AuthComponent from '../../components/Auntefication/Auth';
 import { useTranslation } from 'react-i18next';
 
 const SignInPage: React.FC = () => {
@@ -20,7 +20,7 @@ const SignInPage: React.FC = () => {
   }, [setBackgroundColor]);
 
   return (
-    <AuthPage
+    <AuthComponent
       bannerImage={banner}
       heading={t('Create an Account')}
       description={t('Register New DoJeverly Account.')}

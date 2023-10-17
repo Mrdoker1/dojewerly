@@ -12,6 +12,20 @@
     cursor:default;
   }
   
+  .container {
+    display: flex;
+    flex-direction: row;
+    align-items: stretch;
+    justify-content: center;
+    margin: auto 0;
+    flex-wrap: wrap;
+    border-radius: 20px;
+    overflow: hidden;
+    background: var(--white);
+    box-shadow: 0px 2px 40px 0px rgba(133, 133, 133, 0.08);
+  }
+  
+  
   .modal {
     background-color: white;
     border-radius: 20px;
@@ -32,19 +46,6 @@
     color:var(--grey-1);
   }
 
-  .container {
-    display: flex;
-    flex-direction: row;
-    align-items: stretch;
-    justify-content: center;
-    margin: auto 0;
-    flex-wrap: wrap;
-    border-radius: 20px;
-    overflow: hidden;
-    background: var(--white);
-    box-shadow: 0px 2px 40px 0px rgba(133, 133, 133, 0.08);
-  }
-  
   .imageContainer {
     display: flex;
   }
@@ -96,5 +97,13 @@
     
     .imageContainer{
       display: none;
+    }
+
+    .logo {
+      display: none;
+    }
+
+    .container {
+      margin: 20px 0;
     }
   }

@@ -33,7 +33,7 @@ const Pagination: React.FC<PaginationProps> = ({ currentPage, totalPages, onPage
 
   return (
     <div className={styles.paginationContainer}>
-      {currentPage > 1 && <Button variant={'secondary'} className={styles.pageButton} onClick={() => onPageChange(1)}>{t('First Page')}</Button>}
+      {currentPage > 1 && <Button variant={'secondary'} className={`${styles.pageButton} ${styles.firstPageButton}`} onClick={() => onPageChange(1)}>{t('First Page')}</Button>}
       {currentPage > 1 && <Button className={styles.pageButton} onClick={() => onPageChange(currentPage - 1)}>{t('Prev')}</Button>}
       {pageNumbers.map(pageNum => (
         <Button

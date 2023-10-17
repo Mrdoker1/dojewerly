@@ -364,6 +364,10 @@ export const productsSlice = createSlice({
         state.status = 'succeeded';
         state.products = action.payload;
       })
+      // .addCase(fetchAllProducts.fulfilled, (state, action: PayloadAction<Product[]>) => {
+      //   state.status = 'succeeded';
+      //   state.products = [...state.products, ...action.payload];
+      // })
       .addCase(fetchAllProducts.rejected, (state) => {
         state.status = 'failed';
         state.error = 'Failed to fetch products';

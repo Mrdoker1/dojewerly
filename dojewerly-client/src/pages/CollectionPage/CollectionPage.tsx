@@ -42,8 +42,10 @@ const CollectionPage: React.FC = () => {
       <GradientImage imageUrl={firstProductImage} alt={collection.name} className={styles.gradientBackground} />
       <div className={styles.contentWrapper}>
         <BackButton fullWidth></BackButton>
-        <h1>{localizedCollectionName}</h1>
-        <p className={styles.description}>{localizedCollectionDescription}</p>
+        <div className={styles.heading}>
+          <h1>{localizedCollectionName}</h1>
+          <p className={styles.description}>{localizedCollectionDescription}</p>
+        </div>
         <CollectionProductList productIds={collection.productIds} />
       </div>
     </div>

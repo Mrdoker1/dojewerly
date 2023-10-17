@@ -29,3 +29,9 @@
     font: var(--jost-14-regular);
     color: var(--grey-1);
 }
+
+@media screen and (max-width: 764px)  {
+    .name {
+        font: var(--cormorant-24-medium); 
+    }
+  }

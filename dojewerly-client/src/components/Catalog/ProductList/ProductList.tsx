@@ -10,6 +10,7 @@ import { setFilter, setTotalProducts } from '../../../app/reducers/catalogSlice'
 import { getUserProfile } from '../../../app/reducers/userSlice';
 import ProductCardSkeleton from '../ProductCard/ProductCardSkeleton';
 import { useTranslation } from 'react-i18next';
+import LoadMoreButton from '../LoadMoreButton/LoadMoreButton';
 
 const ProductList: React.FC = () => {
   const dispatch = useDispatch<AppDispatch>();
@@ -93,6 +94,7 @@ const ProductList: React.FC = () => {
         totalPages={Number(totalPages) || 1}
         onPageChange={handlePageChange}
       />
+      {/* <LoadMoreButton /> */}
     </>
   );
 };

@@ -20,4 +20,16 @@
     margin: 10px;
     font: var(--jost-14-regular);
   }
+
+  @media screen and (max-width: 764px)  {
+    .productList{
+      padding: 0 14px;
+      row-gap: 20px;
+      column-gap: 14px;
+      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    }
+    .container{
+      padding: 20px 0;
+    }
+  }
   
