@@ -6,3 +6,10 @@
     gap: 20px;
     padding-bottom: 40px;
 }
+
+@media screen and (max-width: 764px)  {
+
+    .container{
+      padding: 14px 14px 50px 14px;
+    }
+  }

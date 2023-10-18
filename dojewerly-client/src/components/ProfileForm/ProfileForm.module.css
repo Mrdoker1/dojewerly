@@ -22,3 +22,10 @@
   flex-direction: column;
   gap: 10px;
 }
+
+@media screen and (max-width: 764px)  {
+
+  .info{
+    max-width: none;
+  }
+}
