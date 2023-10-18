@@ -20,7 +20,7 @@ const NoPage = memo(() => {
       <p className={styles.info} >{t('Head homepage or use the search to find what you`re looking for')}</p>
       <Button 
         onClick={() => { navigate('/');}}
-        text = 'BACK TO MAIN'
+        text = {t('GO TO MAIN')}
       >
       </Button >
     </motion.div>

@@ -80,10 +80,13 @@
     "SIGN IN": "ВОЙТИ",
     "Working in progress": "Все еще в разработке",
     "COOMING SOON...": "СКОРО...",
-    "This will be an exclusive section! Discover unique products and special offers not found in the main catalog. Stay tuned for updates!": "Это будет эксклюзивный раздел! Там будут уникальные продукты и специальные предложения, которых нет в основном каталоге. Следите за обновлениями!",
+    "This will be an exclusive section! Discover unique products and special offers not found in the main catalog. Stay tuned for updates!": "Это эксклюзивный раздел! Там будут уникальные продукты и специальные предложения, которых нет в основном каталоге. Следите за обновлениями!",
     "GOT IT!": "ЯСНО!",
     "ACCOUNT": "АККАУНТ",
     "FILTER": "ФИЛЬТР",
     "A user": "Пользователь",
-    "has shared their favorites with you!": "поделился с вами своим избранным!"
+    "has shared their favorites with you!": "поделился с вами своим избранным!",
+    "Sorry! Page not found": "Извините! Страница не найдена",
+    "Head homepage or use the search to find what you`re looking for": "Перейдите на главную страницу сайта или воспользуйтесь поиском",
+    "GO TO MAIN": "ПЕРЕЙТИ НА ГЛАВНУЮ"
 }

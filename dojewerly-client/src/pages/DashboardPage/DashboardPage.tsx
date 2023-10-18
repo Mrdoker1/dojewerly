@@ -8,12 +8,16 @@ import styles from './DashboardPage.module.css';
 import { Outlet } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { motion } from 'framer-motion';
+import useCombinedHeights from '../../components/Catalog/Filters/useCombinedHeights';
+import headerStyles from '../../components/Header/Header.module.css';
+import topMessageStyles from '../../components/Messages/TopMessage/TopMessage.module.css';
 
 const DashboardPage = () => {
   const dispatch = useDispatch<AppDispatch>();
   const user = useSelector((state: RootState) => state.user.user);
   const token = useSelector((state: RootState) => state.auth.token);
   const { t } = useTranslation();
+  const stickyTopValue = useCombinedHeights([headerStyles.headerWrapper, topMessageStyles.topMessage]);
 
   useEffect(() => {
     if (token) {
@@ -44,7 +48,9 @@ const DashboardPage = () => {
         <h1>{`${t('Welcome back')}, ${user?.username}!`}</h1>
         <p className={variables.description}>{`${t('Enjoy shopping with ease and happiness')}.`}</p>
       </div>
-      <Tabs tabs={tabs} />
+      <div className={styles.tabs} style={{ top: stickyTopValue }}>
+        <Tabs tabs={tabs} />
+      </div>
       <div className={styles.content}>
         <Outlet />
       </div>

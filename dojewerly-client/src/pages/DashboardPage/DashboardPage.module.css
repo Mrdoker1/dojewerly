@@ -16,6 +16,13 @@ p {
 
 @media screen and (max-width: 764px)  {
 
+  .tabs{
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background-color: white;
+  }
+
   .container{
     padding-top: 12px;
   }
