@@ -1,7 +1,6 @@
 .card {
     cursor: pointer;
     width: 180px;
-    height: 254px;
     border-radius: 10px 10px 200px 200px;
     overflow: hidden;
     position: relative;
@@ -95,4 +94,11 @@
   /* Примените новый цвет заливки (белый) при наведении курсора */
   .heartIcon:hover path {
     fill: transparent;
+  }
+
+  @media screen and (max-width: 480px)  {
+
+    .card{
+      width: 47%;
+    }
   }

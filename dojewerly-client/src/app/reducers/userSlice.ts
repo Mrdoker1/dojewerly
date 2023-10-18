@@ -118,12 +118,44 @@ export const patchUserProfile = createAsyncThunk(
   }
 );
 
+export const getUserPublicInfo = createAsyncThunk(
+  'user/fetchPublicInfo',
+  async (userId: string, thunkAPI) => {
+    try {
+      const response = await fetch(`${apiUrl}/users/${userId}/public`, {
+        method: 'GET',
+      });
+
+      if (!response.ok) {
+        const data = await response.json();
+        throw new Error(data.message || 'Failed to fetch user public info');
+      }
+
+      const userData = await response.json();
+      return userData;
+    } catch (error) {
+      throw new Error('Failed to fetch user public info');
+    }
+  }
+);
+
 export const userSlice = createSlice({
   name: 'user',
   initialState,
   reducers: {},
   extraReducers: (builder) => {
     builder
+      .addCase(getUserPublicInfo.pending, (state) => {
+        state.status = 'loading';
+      })
+      .addCase(getUserPublicInfo.fulfilled, (state, action) => {
+        state.status = 'succeeded';
+        state.user = action.payload;
+      })
+      .addCase(getUserPublicInfo.rejected, (state, action) => {
+        state.status = 'failed';
+        state.error = action.error.message || null;
+      })
       .addCase(getUserProfile.pending, (state) => {
         state.status = 'loading';
       })

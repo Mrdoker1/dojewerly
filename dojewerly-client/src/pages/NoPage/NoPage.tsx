@@ -1,25 +1,29 @@
 import React, { memo } from 'react';
 import { useNavigate } from 'react-router-dom';
+import styles from './NoPage.module.css'
 import Button from '../../components/Button/Button';
-import InputWithLanguage from '../../components/Input/InputWithLanguage/InputWithLanguage';
+import { useTranslation } from 'react-i18next';
+import { motion } from 'framer-motion';
 
 const NoPage = memo(() => {
   const navigate = useNavigate();
+  const { t } = useTranslation();
 
   return (
-    <main className="main page-404 animated-background animated-background--topRight">
-      <div className="container page-wrapper">
-        <h1 className=''>{('Sorry! Page not found')}</h1>
-        <p className=''>
-          {('Head homepage or use the search to find what you`re looking for')}
-        </p>
-        <Button 
-          onClick={() => { navigate('/');}}
-          text = 'Back to Main'
-        >
-        </Button >
-      </div>
-    </main>
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      className={styles.container}
+    >
+      <h1 className={styles.heading}>{t('Sorry! Page not found')}</h1>
+      <p className={styles.info} >{t('Head homepage or use the search to find what you`re looking for')}</p>
+      <Button 
+        onClick={() => { navigate('/');}}
+        text = 'BACK TO MAIN'
+      >
+      </Button >
+    </motion.div>
   );
 });
 

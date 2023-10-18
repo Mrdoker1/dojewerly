@@ -1,5 +1,50 @@
 .container{
     display: flex;
-    flex-wrap: wrap;
-    gap: 20px;
+    flex-direction: column;
+    gap: 14px;
+    padding: 20px 14px;
 }
+
+.productWrapper{
+    max-width: inherit;
+    display: grid;
+    row-gap: 60px;
+    column-gap: 35px;
+    grid-template-columns: repeat(3, 1fr); /* 3 равных столбца */
+    justify-items: start;
+}
+
+.heading{
+    font: var(--jost-21-regular);
+    text-align: center;
+    padding: 14px;
+    border-radius: 4px;
+}
+
+.username{
+    font: var(--jost-21-medium);
+}
+
+@media screen and (max-width: 768px)  {
+    .productWrapper{
+      row-gap: 20px;
+      column-gap: 8px;
+    }
+    .heading{
+      font: var(--jost-16-regular);
+    }
+    .username{
+        font: var(--jost-16-medium);
+    }
+  }
+  
+  @media screen and (max-width: 480px)  {
+    .productWrapper{
+      row-gap: 20px;
+      column-gap: 14px;
+      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    }
+    .productWrapper *:not(:nth-child(-n+8)) {
+        display: none;
+    }
+  }

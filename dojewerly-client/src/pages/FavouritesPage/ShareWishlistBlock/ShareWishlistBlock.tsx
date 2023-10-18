@@ -7,20 +7,33 @@ import { AppDispatch } from '../../../app/store';
 import { useDispatch } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 
+const appUrl = process.env.REACT_APP_CLIENT_URL;
+
 interface ShareBlockProps {
   userId: string;
 }
 
 const ShareWishlistBlock: React.FC<ShareBlockProps> = ({ userId }) => {
-  const shareLink = `http://localhost:3000/favourites/${userId}`;
+  const shareLink = `${appUrl}/favourites/${userId}`;
   const dispatch = useDispatch<AppDispatch>();
   const { t } = useTranslation();
 
   const handleCopyClick = () => {
-    navigator.clipboard.writeText(shareLink).then(() => {
-      sendNotification(dispatch, 'success', 'Link copied successfully!');
-    });
+    if (navigator.clipboard) {
+      navigator.clipboard.writeText(shareLink).then(() => {
+        sendNotification(dispatch, 'success', 'Link copied successfully!');
+      }).catch(err => {
+        // Handle potential errors from the Clipboard API
+        console.log ('Failed to copy text: ', err);
+      });
+    }
   };
+
+  // const handleCopyClick = () => {
+  //   navigator.clipboard.writeText(shareLink).then(() => {
+  //     sendNotification(dispatch, 'success', 'Link copied successfully!');
+  //   });
+  // };
 
   return (
     <div className={styles.shareBlock}>
