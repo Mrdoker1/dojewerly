@@ -1,15 +1,10 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { AVAILABLE_CURRENCIES, DEFAULT_CURRENCY } from '../../constants';
 
 export interface CurrencyState {
   currentCurrency: string;
   availableCurrencies: string[];
 }
-
-// Список доступных валют
-const AVAILABLE_CURRENCIES = ['USD', 'EUR', 'BYN', 'GBP', 'JPY', 'CNY'];
-
-// Устанавливаем дефолтную валюту
-const DEFAULT_CURRENCY = 'BYN';
 
 // Проверяем, есть ли валюта в localStorage
 if (!localStorage.getItem('currency')) {

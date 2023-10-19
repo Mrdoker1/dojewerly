@@ -5,9 +5,7 @@ import Dropdown from '../../Dropdown/Dropdown';
 import styles from './LanguageDropdown.module.css';
 import { setLanguage } from '../../../app/reducers/languageSlice'; // Путь к вашему редьюсеру языка
 import createDropdownOptions from '../../../utils/createDropdownOptions';
-
-// Заглушка для доступных языков
-const AVAILABLE_LANGUAGES = ['EN', 'RU', 'PL'];
+import { AVAILABLE_LANGUAGES } from '../../../constants';
 
 const LanguageDropdown: React.FC = () => {
     const dispatch = useDispatch<AppDispatch>();
