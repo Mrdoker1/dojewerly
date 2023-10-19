@@ -15,6 +15,7 @@
     right: 0;
     z-index: 100; /* Чтобы хэдер был поверх остального контента */
     width: 100%; /* Чтобы хэдер растягивался на всю ширину экрана */
+    /* border-bottom: 1px solid var(--grey-2); */
   }
 
   .transparentHeader {
@@ -22,6 +23,7 @@
   }
 
   .solidHeader {
+    /* border-bottom: 1px solid var(--grey-2); */
     background-color: var(--white); /* Установите цвет, который вы хотите при прокрутке */
   }
 
@@ -91,6 +93,22 @@
     color: var(--grey-1);
     /* Добавьте стили для .menuNavigation li:hover здесь */
   }
+
+  /* .menuNavigation li::after {
+    content: '';
+    display: block;
+    height: 2px;
+    width: 0;
+    background: var(--grey-1);
+    transition: width 0.3s ease-in-out;
+    position: absolute;
+    bottom: -5px;
+    left: 0;
+  }
+  
+  .menuNavigation li:hover::after {
+    width: 100%;
+  } */
 
   .burgerIcon {
     display: none; /* Скрыто на больших экранах */
