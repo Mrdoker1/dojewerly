@@ -13,13 +13,22 @@ interface FilterDropdownProps {
     placeholder?: string;
     /** Если `true`, дропдаун будет недоступен для ввода */
     disabled?: boolean;
+    /** Дополнительные классы стилей */
+    className?: string;
+    /** Дополнительные классы стилей для опции списка*/
+    optionStyle?: string;
+    /** Дополнительные классы стилей для контейнера опций списка*/
+    optionsStyle?:string
   }
   
   const FilterDropdown: React.FC<FilterDropdownProps> = ({
     options,
     onChange,
     placeholder,
-    value
+    value,
+    className,
+    optionStyle,
+    optionsStyle
 }) => {
     const isDefaultValue = options.findIndex(opt => opt.value === value) === 0;
     const dropdownClassName = isDefaultValue ? styles.filerDropdown : `${styles.filerDropdown} ${styles.active}`;
@@ -31,7 +40,9 @@ interface FilterDropdownProps {
                 onChange={onChange}
                 placeholder={placeholder}
                 value={value}
-                className={dropdownClassName}
+                className={`${dropdownClassName} ${className}` }
+                optionStyle={optionStyle}
+                optionsStyle={optionsStyle}
             />
         </div>
     );

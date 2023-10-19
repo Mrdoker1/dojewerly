@@ -8,6 +8,12 @@
     padding: 0;
 }
 
+.languageDropdownOptions{
+    width: auto;
+    max-height: 80px;
+    overflow: auto;
+}
+
 .languageDropdownOption{
     padding: 4px 12px;
     width: auto;

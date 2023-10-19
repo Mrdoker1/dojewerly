@@ -39,9 +39,10 @@ export interface InputProps {
   onKeyDown?: (event: React.KeyboardEvent<HTMLInputElement>) => void;
   /** Дополнительные классы стилей */
   className?: string;
+  containerStyle?: string;
 }
 
-const Input: React.ForwardRefRenderFunction<HTMLInputElement, InputProps> = ({ onChange, readOnly, value, type, disabled, children, label, placeholder, hasError, message, iconRight, iconRightClick, onKeyDown, iconLeft, iconLeftClick, className, fullWidth = true  }, ref) => {
+const Input: React.ForwardRefRenderFunction<HTMLInputElement, InputProps> = ({ onChange, readOnly, value, type, disabled, children, label, placeholder, hasError, message, iconRight, iconRightClick, onKeyDown, iconLeft, iconLeftClick, className, containerStyle, fullWidth = true  }, ref) => {
     const [inputValue, setInputValue] = useState(value);
     const [isFocused, setIsFocused] = useState(false);
   
@@ -82,7 +83,7 @@ const Input: React.ForwardRefRenderFunction<HTMLInputElement, InputProps> = ({ o
     const IconLeft = iconLeft ? icons[iconLeft] : null;
 
     return (
-      <div className={`${fullWidth ? styles.fullWidth : ''} ${styles.container} ${hasError ? styles.error : ''}`}>
+      <div className={`${fullWidth ? styles.fullWidth : ''} ${styles.container} ${containerStyle} ${hasError ? styles.error : ''}`}>
         <label>{label}</label>
         <div className={`${className} ${styles.inputStyle} ${disabled ? styles.disabled : ''} ${isFocused ? styles.inputFocus : ''} ${hasError ? styles.inputError : ''}`}>
           {IconLeft && <IconLeft onClick={handleIconLeftClick} className={styles.icon} />}

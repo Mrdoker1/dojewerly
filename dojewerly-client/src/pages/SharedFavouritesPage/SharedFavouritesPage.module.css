@@ -3,15 +3,17 @@
     flex-direction: column;
     gap: 14px;
     padding: 20px 14px;
+    background-color: var(--grey-3);
+    width: 100%;
+    max-width: 1170px;
 }
 
 .productWrapper{
     max-width: inherit;
     display: grid;
     row-gap: 60px;
-    column-gap: 35px;
     grid-template-columns: repeat(3, 1fr); /* 3 равных столбца */
-    justify-items: start;
+    justify-items: center;
 }
 
 .heading{
@@ -22,13 +24,14 @@
 }
 
 .username{
-    font: var(--jost-21-medium);
+    font: var(--jost-21-regular);
 }
 
 @media screen and (max-width: 768px)  {
     .productWrapper{
       row-gap: 20px;
       column-gap: 8px;
+      padding: 0 14px;
     }
     .heading{
       font: var(--jost-16-regular);

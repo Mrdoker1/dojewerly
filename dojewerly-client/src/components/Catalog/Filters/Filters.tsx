@@ -143,6 +143,8 @@ const Filters = () => {
                     <SearchInput
                         ref={inputRef}
                         value={filters.q || ''}
+                        className={styles.searchInput}
+                        containerStyle={styles.searchInputContainer}
                         iconRightClick={() => handleFilterChange('q', inputRef.current?.value || '')}
                     />
             </div>

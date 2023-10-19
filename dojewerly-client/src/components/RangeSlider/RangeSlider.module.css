@@ -17,7 +17,7 @@
 
 .dropdown {
     cursor: pointer;
-    padding: 8px;
+    padding: 8px 12px;
 }
 
 .sliderContainer {
@@ -37,3 +37,11 @@
     font: var(--jost-14-regular);
     color: var(--grey-1)
 }
+
+
+@media screen and (max-width: 800px)  {
+    .container{
+        max-width: none;
+        width: 100%;
+    }
+  }

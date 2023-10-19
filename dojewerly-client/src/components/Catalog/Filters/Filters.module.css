@@ -12,6 +12,10 @@
     gap: 8px;
 }
 
+.filterOptionStyle{
+
+}
+
 .hide{
 }
 
@@ -40,7 +44,6 @@
 }
 
 @media screen and (max-width: 800px)  {
-
     .container{
         border: 1px solid;
         top: 90px;
@@ -68,5 +71,14 @@
         flex-direction: column;
         gap: 4px;
         margin-top: 8px;
+        width: 100%;
+    }
+
+    .searchInput{
+        max-width: none !important;
+    }
+
+    .searchInputContainer{
+        width: 100%;
     }
   }

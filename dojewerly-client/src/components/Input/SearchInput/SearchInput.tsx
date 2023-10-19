@@ -8,6 +8,7 @@ interface SearchInputProps {
     hasError?: boolean;
     message?: string;
     className?: string
+    containerStyle?:string
     onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
     iconRightClick?: () => void;
   }
@@ -18,6 +19,7 @@ interface SearchInputProps {
     message,
     onChange,
     iconRightClick,
+    containerStyle,
     className
     }, ref) => {
   
@@ -41,7 +43,8 @@ interface SearchInputProps {
         iconRight={iconRight}
         iconRightClick={iconRightClick}
         onChange={onChange}
-        onKeyDown={handleKeyDown}  // Добавьте это свойство
+        onKeyDown={handleKeyDown}
+        containerStyle={containerStyle}
         className={`${styles.searchInput} ${className}`}
         fullWidth={false}
       />

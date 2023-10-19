@@ -28,6 +28,7 @@ const LanguageDropdown: React.FC = () => {
             options={createDropdownOptions(languages) || []}
             onChange={handleLanguageChange}
             className={styles.languageDropdown}
+            optionsStyle={styles.languageDropdownOptions}
             optionStyle={styles.languageDropdownOption}
         />
     );

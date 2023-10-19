@@ -7,6 +7,7 @@ import styles from './SharedFavouritesPage.module.css';
 import { getUserPublicInfo } from '../../app/reducers/userSlice';
 import ProductCard from '../../components/Catalog/ProductCard/ProductCard';
 import { useTranslation } from 'react-i18next';
+import icons from '../../assets/icons/icons'; // Путь может отличаться
 
 const SharedFavouritesPage: React.FC = () => {
   const { t } = useTranslation();
@@ -41,7 +42,10 @@ const SharedFavouritesPage: React.FC = () => {
   return (
   <div className={styles.container}>
     <div className={styles.heading}>
-        <span className={styles.username}>{userName}</span> <span>{t('has shared their favorites with you!')}</span>
+        <icons.heart className={styles.icon}></icons.heart>
+        <div>
+          <span className={styles.username}>{userName}</span> <span>{t('has shared their favorites with you!')}</span>
+        </div>
     </div>
     <div className={styles.productWrapper}>
       {favouriteProducts.map(product => (

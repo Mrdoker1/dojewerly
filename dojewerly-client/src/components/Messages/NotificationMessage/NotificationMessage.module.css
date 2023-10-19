@@ -8,7 +8,6 @@
   font: var(--jost-12-regular);
   width: 100%;
   position: relative;
-  transition: all var(--transition-1);
   overflow: hidden;
 }
 

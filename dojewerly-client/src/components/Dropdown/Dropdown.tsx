@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import styles from './Dropdown.module.css';
 import icons from '../../assets/icons/icons';
+import { motion } from 'framer-motion';
 
 export interface DropdownOption {
     label: string | React.ReactNode;  // может быть строкой или React-компонентом
@@ -29,13 +30,15 @@ export interface DropdownProps {
     disabled?: boolean;
     /** Дополнительные классы стилей */
     className?: string;
+    /** Дополнительные классы стилей для контейнера опций списка*/
+    optionsStyle?:string
     /** Дополнительные классы стилей для опции списка*/
     optionStyle?: string;
     /** На всю ширину */
     fullWidth?: boolean;
 }
 
-const Dropdown: React.FC<DropdownProps> = ({ options, onChange, label, hasError, message, iconRight, placeholder, value, className, optionStyle, fullWidth }) => {
+const Dropdown: React.FC<DropdownProps> = ({ options, onChange, label, hasError, message, iconRight, placeholder, value, className, optionsStyle, optionStyle, fullWidth }) => {
     const [isOpen, setIsOpen] = useState(false);
     const [selectedValue, setSelectedValue] = useState(value);
     const dropdownRef = useRef<HTMLDivElement>(null);  // <-- Уточняем тип здесь
@@ -88,22 +91,27 @@ const Dropdown: React.FC<DropdownProps> = ({ options, onChange, label, hasError,
         <div className={`${styles.container} ${fullWidth ? styles.fullWidth : ''}`} ref={dropdownRef}>
           {label && <div className={styles.label}>{label}</div>}
           <div className={`${styles.dropdown} ${className} ${internalHasError ? styles.error : ''}`} onClick={() => setIsOpen(!isOpen)}>
-          <span className={!selectedValue ? styles.placeholder : ''}>
-            {
-            // Ищем label для выбранного value
-            options.find((option) => option.value === selectedValue)?.label || placeholder
-            }
-          </span>
+            <span className={!selectedValue ? styles.placeholder : ''}>
+              {
+              // Ищем label для выбранного value
+              options.find((option) => option.value === selectedValue)?.label || placeholder
+              }
+            </span>
             {IconRight && <IconRight className={styles.iconRight} />}
           </div>
           {isOpen && (
-            <div className={styles.options}>
+            <motion.div
+              className={`${styles.options} ${optionsStyle}`}
+              initial={{ opacity: 0, y: -50 }} // Начальное состояние (невидимо и наверху)
+              animate={{ opacity: 1, y: 0 }} // Анимация появления (опускается вниз)
+              exit={{ opacity: 0, y: -50 }} // Анимация исчезновения (поднимается вверх)
+            >
               {options.map((option) => (
                 <div key={option.value} className={`${styles.option} ${optionStyle}`} onClick={(e) => !option.disabled && handleDropdownChange(e, option.value)}>
                   {option.label}
                 </div>
               ))}
-            </div>
+            </motion.div>
           )}
           {internalMessage !== '' && <div className={`${styles.message} ${internalHasError ? styles.errorText : ''}`}>{internalMessage}</div> }
         </div>

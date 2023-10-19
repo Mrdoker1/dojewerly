@@ -6,6 +6,7 @@ import './BaseClass.css';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../app/store';
 import { useTranslation } from 'react-i18next';
+import { motion } from 'framer-motion';
 
 interface RangeSliderProps {
     minValue: number;
@@ -41,7 +42,12 @@ const RangeSlider: React.FC<RangeSliderProps> = ({ minValue, maxValue, onChange 
                 {`${t('Price')}: ${localMinValue} - ${localMaxValue} ${currentCurrency}`}
             </div>
             {isOpen && (
-                <div className={styles.sliderContainer}>
+                <motion.div
+                    className={styles.sliderContainer}
+                    initial={{ opacity: 0, y: -50 }} // Начальное состояние (невидимо и наверху)
+                    animate={{ opacity: 1, y: 0 }} // Анимация появления (опускается вниз)
+                    exit={{ opacity: 0, y: -50 }} // Анимация исчезновения (поднимается вверх)
+                >
                     <MultiRangeSlider
                         min={0}
                         max={1000}
@@ -58,7 +64,7 @@ const RangeSlider: React.FC<RangeSliderProps> = ({ minValue, maxValue, onChange 
                         <span>{`${localMinValue} ${currentCurrency}`}</span>
                         <span>{`${localMaxValue} ${currentCurrency}`}</span>
                     </div>
-                </div>
+                </motion.div>
             )}
         </div>
     );
