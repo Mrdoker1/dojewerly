@@ -16,11 +16,14 @@ import LanguageDropdown from '../Dropdown/LanguageDropdown/LanguageDropdown';
 import { useTranslation } from 'react-i18next';
 import { useCustomModal } from '../Modal/ModalHelper';
 import BurgerMenu from '../Burger/BurgerMenu';
-import { AnimatePresence } from 'framer-motion';
+import { AnimatePresence, motion } from 'framer-motion';
 import { toggleBurgerMenu } from '../../app/reducers/menuSlice';
+import { setSearchOpen } from '../../app/reducers/searchSlice';
+import SearchGlobal from '../SearchGlobal/SearchGlobal';
 
 const Header: React.FC = () => {
   const auth = useSelector((state: RootState) => state.auth);
+  const isSearchOpen = useSelector((state: RootState) => state.search.isSearchOpen);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
 
@@ -37,7 +40,15 @@ const Header: React.FC = () => {
     const params = extractParamsFromURL(path);
     dispatch(setAllFilters(params));
     navigate(path);
-};
+  };
+  
+  const handleSearchClick = () => {
+    if (isSearchOpen) {
+      dispatch(setSearchOpen(false));
+    } else {
+      dispatch(setSearchOpen(true));
+    }
+  };
 
 useEffect(() => {
     const handleScroll = () => {
@@ -82,41 +93,52 @@ useEffect(() => {
     ];
 
   return (
-  <div className={`${isHomepage ? styles.fixedHeader : styles.header} ${isScrolled ? styles.solidHeader : ''}`}>
-      <TopMessage message={t('Working in progress')} visible={true} iconRight='close'/>
-      <div className={`${styles.headerWrapper}`}>
-        <div className={styles.burgerIcon} onClick={() => dispatch(toggleBurgerMenu())}>
-          <icons.burger />
+    <>
+      <motion.div
+        className={`${isHomepage ? styles.fixedHeader : styles.header} ${isScrolled || isSearchOpen ? styles.solidHeader : ''}`}
+        initial={{ opacity: 0 }} // Начальное состояние (невидимо и наверху)
+        animate={{ opacity: 1 }} // Анимация появления (опускается вниз)
+        exit={{ opacity: 0 }} // Анимация исчезновения (поднимается вверх)
+      >
+        <TopMessage message={t('Working in progress')} visible={true} iconRight='close'/>
+        <div className={`${styles.headerWrapper}`}>
+          <div className={styles.burgerIcon} onClick={() => dispatch(toggleBurgerMenu())}>
+            <icons.burger />
+          </div>
+          <Link to="/">
+            <icons.logo className={styles.logo} />
+          </Link>
+          <nav className={styles.menuNavigation}>
+            <ul>
+              <li onClick={() => handleNavigation("/catalog?page=1&type=Barrette")}>{t('barrette')}</li>
+              <li onClick={() => handleNavigation("/catalog?page=1&type=Ring")}>{t('rings')}</li>
+              <li onClick={() => handleNavigation("/catalog?page=1&type=Brooch")}>{t('brooch')}</li>
+              <li onClick={() => handleNavigation("/collections")}>{t('collections')}</li>
+              <li><LanguageDropdown></LanguageDropdown></li>
+              <li className={styles.doxIcon} onClick={ () => openModal('dox') }><icons.dox/></li>
+              <li onClick={handleSearchClick}>
+                <icons.search/>
+              </li>
+              <li onClick={handleAccountClick}>
+                <icons.account />
+                {isMenuOpen && (
+                  <ContextMenu 
+                    items={menuItems} 
+                    className={variables.absolute} 
+                    onClose={() => setIsMenuOpen(false)}
+                  />
+                )}
+              </li>
+            </ul>
+          </nav>
+          <AnimatePresence>
+            {isBurgerOpen && <BurgerMenu key={Date.now()}/>}
+          </AnimatePresence>
         </div>
-        <Link to="/">
-          <icons.logo className={styles.logo} />
-        </Link>
-        <nav className={styles.menuNavigation}>
-          <ul>
-            <li onClick={() => handleNavigation("/catalog?page=1&type=Barrette")}>{t('barrette')}</li>
-            <li onClick={() => handleNavigation("/catalog?page=1&type=Ring")}>{t('rings')}</li>
-            <li onClick={() => handleNavigation("/catalog?page=1&type=Brooch")}>{t('brooch')}</li>
-            <li onClick={() => handleNavigation("/collections")}>{t('collections')}</li>
-            <li><LanguageDropdown></LanguageDropdown></li>
-            <li className={styles.doxIcon} onClick={ () => openModal('dox') }><icons.dox/></li>
-            <li><icons.search/></li>
-            <li onClick={handleAccountClick}>
-              <icons.account />
-              {isMenuOpen && (
-                <ContextMenu 
-                  items={menuItems} 
-                  className={variables.absolute} 
-                  onClose={() => setIsMenuOpen(false)}
-                />
-              )}
-            </li>
-          </ul>
-        </nav>
-        <AnimatePresence>
-          {isBurgerOpen && <BurgerMenu key={Date.now()}/>}
-        </AnimatePresence>
-      </div>
-    </div>
+          {isSearchOpen && <SearchGlobal />}
+      </motion.div>
+      {isSearchOpen && <div className={styles.backdrop} onClick={handleSearchClick}></div>}
+    </>
   );
 };
 

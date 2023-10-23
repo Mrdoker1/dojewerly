@@ -11,6 +11,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, RootState } from '../../app/store';
 import { closeBurgerMenu } from '../../app/reducers/menuSlice';
 import useViewportHeight from './useViewportHeight';
+import { setSearchOpen } from '../../app/reducers/searchSlice';
 
 interface BurgerMenuProps {
   onClick?: () => void;
@@ -58,6 +59,11 @@ const BurgerMenu: React.FC<BurgerMenuProps> = ({ onClick }) => {
     }
   };
 
+  const handleSearchClick = () => {
+    dispatch(closeBurgerMenu())
+    dispatch(setSearchOpen(true));
+  }
+
   return (
     <motion.div
       className={`${styles.burgerMenu } ${styles.show}`}
@@ -71,7 +77,7 @@ const BurgerMenu: React.FC<BurgerMenuProps> = ({ onClick }) => {
           <icons.close />
         </div>
         <icons.logo className={styles.logo} onClick={() => handleNavigation("/")}/>
-        <icons.search className={styles.searchIcon} />
+        <icons.search onClick={handleSearchClick} className={styles.searchIcon} />
       </div>
       <div className={styles.menuItemsWrapper}>  {/* Эта новая обертка */}
         <ul>

@@ -12,6 +12,7 @@ import catalogReducer from './catalogSlice';
 import languageReducer from './languageSlice';
 import currencyReducer from './currencySlice';
 import menuReducer from './menuSlice';
+import searchReducer from './searchSlice';
 
 const rootReducer = combineReducers({
   counter: counterReducer,
@@ -26,7 +27,8 @@ const rootReducer = combineReducers({
   catalog: catalogReducer,
   language: languageReducer,
   currency: currencyReducer,
-  menu: menuReducer
+  menu: menuReducer,
+  search: searchReducer
 });
 
 export type RootState = ReturnType<typeof rootReducer>;
