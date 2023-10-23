@@ -20,10 +20,12 @@ interface RootState {
 const SearchGlobal: FC = () => {
   const { t } = useTranslation();
   const dispatch = useDispatch<AppDispatch>();
-  const [query, setQuery] = useState('');
   const totalResults = useSelector((state: RootState) => state.search.total);
   const searchResults = useSelector((state: RootState) => state.search.products);
   const searchQuery = useSelector((state: RootState) => state.search.searchQuery);
+
+  const [query, setQuery] = useState(searchQuery);
+
   const isSearchOpen = useSelector((state: RootState) => {
     console.log('Is search open:', state.search.isSearchOpen); // Для отладки
     return state.search.isSearchOpen;

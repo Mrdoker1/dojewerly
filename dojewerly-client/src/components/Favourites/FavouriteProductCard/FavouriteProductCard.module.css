@@ -5,6 +5,7 @@
     overflow: hidden;
     position: relative;
     color: var(--white);
+    background-color: black;
   }
 
   .card:hover .productImage{

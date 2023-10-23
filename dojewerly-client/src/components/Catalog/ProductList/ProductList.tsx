@@ -15,7 +15,7 @@ import LoadMoreButton from '../LoadMoreButton/LoadMoreButton';
 const ProductList: React.FC = () => {
   const dispatch = useDispatch<AppDispatch>();
   const products = useSelector((state: RootState) => state.products.products);
-  const status = useSelector((state: RootState) => state.catalogCriteria.status);
+  const productListStatus = useSelector((state: RootState) => state.products.status);
   const filters = useSelector((state: RootState) => state.catalog);
   const navigate = useNavigate();
   const location = useLocation();
@@ -48,7 +48,7 @@ const ProductList: React.FC = () => {
     navigate(`${location.pathname}?${newSearchParams.toString()}`, { replace: true });
   };  
 
-  if (status === 'loading') {
+  if (productListStatus === 'loading') {
     return (
       <div className={styles.container}>
         <div className={styles.productList}>
@@ -60,7 +60,7 @@ const ProductList: React.FC = () => {
     );
   } 
 
-  if (status === 'failed') {
+  if (productListStatus === 'failed') {
     return (
       <div className={styles.container}>
         <div className={styles.errorIndicator}>Ошибка загрузки продуктов</div>
