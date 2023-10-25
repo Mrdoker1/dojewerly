@@ -8,6 +8,7 @@ import { AppDispatch, RootState } from '../../../app/store';
 import ProductCardSkeleton from '../../Catalog/ProductCard/ProductCardSkeleton';
 import { useNavigate } from 'react-router-dom';
 import { setSearchOpen } from '../../../app/reducers/searchSlice';
+import Loader from '../../Loader/Loader';
 
 interface SearchResultsProps {
   products: Product[];
@@ -29,17 +30,25 @@ const SearchResults: FC<SearchResultsProps> = ({ products, total }) => {
     dispatch(setSearchOpen(false));
   };
 
-  if (status === 'loading') {
-    return (
-      <div className={styles.container}>
-        <div className={styles.productList}>
-          {Array.from({ length: 4 }).map((_, index) => (
-            <ProductCardSkeleton key={index} />
-          ))}
-        </div>
-      </div>
-    );
-  } 
+  // if (status === 'loading') {
+  //   return (
+  //     <div className={styles.container}>
+  //       <div className={styles.productList}>
+  //         {Array.from({ length: 4 }).map((_, index) => (
+  //           <ProductCardSkeleton key={index} />
+  //         ))}
+  //       </div>
+  //     </div>
+  //   );
+  // } 
+
+  // if (status === 'loading') {
+  //   return (
+  //     <div className={styles.container}>
+  //       <Loader size={20}/>
+  //     </div>
+  //   );
+  // } 
 
   return (
     <div className={styles.container}>
