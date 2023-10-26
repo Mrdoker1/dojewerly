@@ -21,6 +21,7 @@ import AdminProtectedRoute from './AdminProtectedRoute/AdminProtectedRoute';
 import FavouritesPage from '../../pages/FavouritesPage/FavouritesPage';
 import SharedFavouritesPage from '../../pages/SharedFavouritesPage/SharedFavouritesPage';
 import { updateFromURL } from '../../app/reducers/catalogSlice';
+import ArticlePage from '../../pages/ArticlePage/ArticlePage';
 
 const AppRouter = memo(() => {
   const auth = useSelector((state: RootState) => state.auth);
@@ -45,6 +46,7 @@ const AppRouter = memo(() => {
       <Routes>
         <Route path="/" element={<Layout />}>
           <Route index element={<HomePage />} />
+          <Route path="/articles/:id" element={<ArticlePage />} />
           <Route path="/catalog" element={<CatalogPage />} />
           <Route path="/signin" element={<SignInPage />} />
           <Route path="/signup" element={<SignUpPage />} />

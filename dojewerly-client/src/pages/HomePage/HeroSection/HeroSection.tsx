@@ -23,7 +23,7 @@ const HeroSection = memo(() => {
             variant="primary" 
             fullWidth 
             className={styles.heroSearchCatalog}
-            onClick={() => {navigate("/catalog");}}
+            onClick={() => { navigate("/catalog") }}
           />
           <Button 
             text={t('READ OUR CARE GUIDE')}
@@ -31,7 +31,7 @@ const HeroSection = memo(() => {
             variant="text"
             className={styles.heroCareGuideCTA}
             iconRight='arrowRight'
-            onClick={() => {/* TODO: Add functionality here */}}
+            onClick={() => { navigate("/articles/653aaef16d2b323c7bffaa21") }}
           />
         </div>
       </div>
