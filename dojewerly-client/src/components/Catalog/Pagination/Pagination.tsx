@@ -40,7 +40,7 @@ const Pagination: React.FC<PaginationProps> = ({ currentPage, totalPages, onPage
           key={pageNum}
           variant={'secondary'}
           onClick={() => onPageChange(pageNum)}
-          disabled={pageNum === currentPage}
+          state={pageNum === currentPage ? 'disabled' : 'default'}
           className={`${styles.pageButton} ${pageNum === currentPage ? styles.pageActive : ''}`}
         >
           {pageNum}

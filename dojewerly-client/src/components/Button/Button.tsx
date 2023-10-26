@@ -1,6 +1,7 @@
 import React from 'react';
 import icons from '../../assets/icons/icons';
 import styles from './Button.module.css'; // Импортируем стили из модуля
+import Loader from '../Loader/Loader';
 
 export interface ButtonProps {
   /** Вызывается при клике на кнопку */
@@ -9,8 +10,8 @@ export interface ButtonProps {
   text?: string;
   /** Размер кнопки */
   size?: 'small' | 'default' | 'large';
-  /** Если `true`, кнопка будет недоступна */
-  disabled?: boolean;
+  /** Состояния кнопки */
+  state?: 'default' | 'loading' | 'disabled'; // добавляем новое свойство состояния
   /** Тип кнопки */
   type?: 'button' | 'submit' | 'reset';
   /** Дочерние элементы кнопки */
@@ -29,41 +30,71 @@ export interface ButtonProps {
   className?: string;
 }
 
-const Button: React.FC<ButtonProps> = ({type= 'button', text, size = 'default', onClick, disabled, fullWidth, customColor, iconLeft, iconRight, children, variant= 'primary', className }) => {
+const Button: React.FC<ButtonProps> = ({
+  type = 'button', 
+  state = 'default', 
+  text, 
+  size = 'default', 
+  onClick, 
+  fullWidth, 
+  customColor, 
+  iconLeft, 
+  iconRight, 
+  children, 
+  variant = 'primary', 
+  className 
+}) => {
   const IconLeft = iconLeft ? icons[iconLeft] : null;
-  const IconRight = iconRight ? icons[iconRight] : null;
 
+  // Определяем, что будет в правой части кнопки: лоадер или иконка.
+  let IconRightComponent; 
+  if (state === 'loading') {
+    IconRightComponent = <Loader size={16} />; // Показываем лоадер, если состояние 'loading'
+  } else if (iconRight) {
+    const ActualIconRight = icons[iconRight];
+    IconRightComponent = <ActualIconRight style={(customColor && variant === 'primary') ? { fill: '#fff' } : {}} className={styles.icon} />;
+  }
+
+  // Определение стилей для кнопки и иконок
   const buttonStyles = (customColor && variant === 'primary')
-  ? { 
-      backgroundColor: customColor.startsWith('--') 
-      ? `var(${customColor})` 
-      : customColor,
-      color: '#fff' 
-    }
-  : {
-      color: customColor
-  };
+    ? { 
+        backgroundColor: customColor.startsWith('--') 
+        ? `var(${customColor})` 
+        : customColor,
+        color: '#fff' 
+      }
+    : {
+        color: customColor
+    };
 
-  
-const iconStyles = (customColor && variant === 'primary')
-  ? { fill: '#fff' }
-  : {};
+  const iconStyles = (customColor && variant === 'primary')
+    ? { fill: '#fff' }
+    : {};
 
+  // Формирование классов для кнопки
   const buttonClass = customColor 
-  ? `${styles.button} ${styles[variant]} ${styles[size]} ${fullWidth ? styles.fullWidth : ''} ${styles.noHover} ${className}`
-  : `${styles.button} ${styles[variant]} ${styles[size]} ${fullWidth ? styles.fullWidth : ''} ${className}`;
+    ? `${styles.button} ${styles[variant]} ${styles[size]} ${fullWidth ? styles.fullWidth : ''} ${styles.noHover} ${className}`
+    : `${styles.button} ${styles[variant]} ${styles[size]} ${fullWidth ? styles.fullWidth : ''} ${className}`;
+
+  // Отключение кнопки в зависимости от её состояния
+  const isDisabled = state === 'disabled' || state === 'loading';
 
   return (
     <button
       type={type}
       onClick={onClick}
-      disabled={disabled}
+      disabled={isDisabled} // кнопка отключается, если состояние 'disabled' или 'loading'
       style={buttonStyles}
-      className={buttonClass}>
-        {IconLeft && <IconLeft style={iconStyles} className={styles.icon} />}
-        {text}
-        {IconRight && <IconRight style={iconStyles} className={styles.icon} />}
-        {children}
+      className={buttonClass}
+    >
+      {/* Отображение иконки слева, текста и дочерних компонентов */}
+      {IconLeft && <IconLeft style={iconStyles} className={styles.icon} />}
+      {text}
+      
+      {/* Отображение компонента справа (лоадер или иконка) */}
+      {IconRightComponent}
+      
+      {children}
     </button>
   );
 };

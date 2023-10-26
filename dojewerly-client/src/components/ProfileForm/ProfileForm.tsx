@@ -12,6 +12,7 @@ import { useTranslation } from 'react-i18next';
 const ProfileForm: React.FC = () => {
   const dispatch = useDispatch<AppDispatch>();
   const user = useSelector((state: RootState) => state.user.user);
+  const status = useSelector((state: RootState) => state.user.status);
   const [username, setUsername] = useState(user?.username || '');
   const [email, setEmail] = useState(user?.email || '');
   const [newPassword, setNewPassword] = useState('');
@@ -106,7 +107,7 @@ const ProfileForm: React.FC = () => {
           hasError={!!passwordMismatchError}
           message={passwordMismatchError}
         />
-        <Button type="submit" variant="secondary">{t('SAVE')}</Button>
+        <Button type="submit" state={status === 'loading' ? 'loading' : 'default'} variant="secondary">{t('SAVE')}</Button>
       </form>
     </div>
   );

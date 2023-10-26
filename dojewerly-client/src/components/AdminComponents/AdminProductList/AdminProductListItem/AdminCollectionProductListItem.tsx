@@ -47,7 +47,7 @@ const AdminCollectionProductListItem: React.FC<AdminCollectionProductListItemPro
                         text="ADDED"
                         size="small"
                         variant="primary"
-                        disabled={true}
+                        state="disabled"
                         iconLeft="checkmark"
                     />
                     <Button 
