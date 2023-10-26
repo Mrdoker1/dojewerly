@@ -7,7 +7,11 @@ function capitalizeFirstLetter(string: string) {
   return string.charAt(0).toUpperCase() + string.slice(1);
 }
 
-const Breadcrumbs: React.FC = () => {
+interface BreadcrumbsProps {
+  lastLink?: string;
+}
+
+const Breadcrumbs: React.FC<BreadcrumbsProps> = ({ lastLink }) => {
   const { t } = useTranslation();
   const location = useLocation();
   const pathnames = location.pathname.split('/').filter(x => x);
@@ -18,17 +22,18 @@ const Breadcrumbs: React.FC = () => {
       {pathnames.map((value, index) => {
         const isLast = index === pathnames.length - 1;
         const to = `/${pathnames.slice(0, index + 1).join('/')}`;
-        
-        // Получаем локализованное значение или используем значение по умолчанию
 
-        console.log('translatedValue', value);
+        // Получаем локализованное значение или используем значение по умолчанию
         const translatedValue = t(value) !== value ? t(value) : capitalizeFirstLetter(value);
+
+        // Если это последний элемент и lastLink был передан, используем lastLink в качестве текста
+        const breadcrumbText = isLast && lastLink ? lastLink : translatedValue;
 
         return (
           <span key={to}>
             {' / '}
             <Link to={to} className={isLast ? `${styles.link} ${styles.lastLink}` : styles.link}>
-              {translatedValue}
+              {breadcrumbText}
             </Link>
           </span>
         );
@@ -36,6 +41,5 @@ const Breadcrumbs: React.FC = () => {
     </div>
   );
 }
-
 
 export default Breadcrumbs;
