@@ -20,11 +20,16 @@ const ArticlePage: React.FC = () => {
   const { t } = useTranslation();
 
   useEffect(() => {
-    // Проверяем, что articleId существует, прежде чем диспетчеризовать action
-    if (status === 'idle' && id) {
+    if (id) {
       dispatch(fetchArticleById(id));
     }
-  }, [dispatch, id, status]);
+  
+    // Функция очистки
+    return () => {
+      // Здесь можно диспетчеризовать действие для очистки текущей статьи из состояния
+      // например, dispatch(clearCurrentArticle());
+    };
+  }, [dispatch, id]);
 
   // Пока статья загружается, можно отображать индикатор загрузки
   if (status === 'loading') {
