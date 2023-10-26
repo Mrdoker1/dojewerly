@@ -11,10 +11,12 @@ import image6 from '../../../assets/images/instagram/6.jpg';
 import image7 from '../../../assets/images/instagram/7.jpg';
 import image8 from '../../../assets/images/instagram/8.jpg';
 import { useTranslation } from 'react-i18next';
+import { useNavigate } from 'react-router-dom';
 
 const InstaSection = memo(() => {
 
   const { t } = useTranslation();
+  const navigate = useNavigate();
 
   useEffect(() => {
     setImages([image1, image2, image3, image4, image5, image6, image7, image8]);
@@ -37,11 +39,21 @@ const InstaSection = memo(() => {
     //setImages(generateImagePaths('./assets/images/instagram/', 1, 8)); // и так далее
   }, []);
 
+  const INSTA_URL = 'https://www.instagram.com/do.jewelry/';
+
+  const handleNavigation = (url: string) => {
+    // Для открытия в новой вкладке
+    window.open(url, '_blank', 'noopener,noreferrer');
+    
+    // Если вы хотите использовать ту же вкладку
+    // window.location.href = url;
+  };
+
   return (
     <div className={styles.instagramWrapper}>
       <div className={styles.instagramGallery}>
         {images.slice(0, 4).map(src => (
-          <div className={styles.instagramImageWrapper} key={src}>
+          <div className={styles.instagramImageWrapper} onClick={() => handleNavigation(INSTA_URL)} key={src}>
             <img src={src} alt="Instagram post" />
             <InstagramIcon className={styles.instagramIcon} />
           </div>
@@ -54,13 +66,13 @@ const InstaSection = memo(() => {
             size="large" 
             variant="secondary" 
             iconRight='insta'
-            onClick={() => {/* TODO: Add functionality here */}}
+            onClick={() => handleNavigation(INSTA_URL)}
             className={styles.ctaButton}
           />
       </div>
       <div className={styles.instagramGallery}>
         {images.slice(4).map(src => (
-          <div className={styles.instagramImageWrapper} key={src}>
+          <div className={styles.instagramImageWrapper} onClick={() => handleNavigation(INSTA_URL)} key={src}>
             <img src={src} alt="Instagram post" />
             <InstagramIcon className={styles.instagramIcon} />
           </div>

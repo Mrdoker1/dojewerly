@@ -24,6 +24,7 @@ import { updateFromURL } from '../../app/reducers/catalogSlice';
 import ArticlePage from '../../pages/ArticlePage/ArticlePage';
 import Loader from '../Loader/Loader';
 import { useTranslation } from 'react-i18next';
+import ArticlesPage from '../../pages/ArticlesPage/ArticlesPage';
 
 const AppRouter = memo(() => {
   const auth = useSelector((state: RootState) => state.auth);
@@ -49,7 +50,6 @@ const AppRouter = memo(() => {
       <Routes>
         <Route path="/" element={<Layout />}>
           <Route index element={<HomePage />} />
-          <Route path="/articles/:id" element={<ArticlePage />} />
           <Route path="/catalog" element={<CatalogPage />} />
           <Route path="/signin" element={<SignInPage />} />
           <Route path="/signup" element={<SignUpPage />} />
@@ -66,6 +66,8 @@ const AppRouter = memo(() => {
           <Route path="/product/:id" element={<ProductPage />} />
           <Route path="/collections" element={<CollectionsPage />} />
           <Route path="/collections/:id" element={<CollectionPage />} />
+          <Route path="/articles" element={<ArticlesPage />} />
+          <Route path="/articles/:id" element={<ArticlePage />} />
           <Route path="/favourites/:userId" element={<SharedFavouritesPage />} />
           <Route path="*" element={<NoPage />} />
         </Route>

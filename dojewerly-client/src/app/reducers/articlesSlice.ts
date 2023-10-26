@@ -6,7 +6,7 @@ const apiUrl = process.env.REACT_APP_API_URL;
 
 // Определяем тип для статьи
 export interface Article {
-  id: string; // или другой подходящий тип, например, number
+  _id: string; // или другой подходящий тип, например, number
   title: string;
   content: string;
 }
