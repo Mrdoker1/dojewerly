@@ -8,6 +8,7 @@ import { getUserPublicInfo } from '../../app/reducers/userSlice';
 import ProductCard from '../../components/Catalog/ProductCard/ProductCard';
 import { useTranslation } from 'react-i18next';
 import icons from '../../assets/icons/icons'; // Путь может отличаться
+import Loader from '../../components/Loader/Loader';
 
 const SharedFavouritesPage: React.FC = () => {
   const { t } = useTranslation();
@@ -36,7 +37,7 @@ const SharedFavouritesPage: React.FC = () => {
   }
 
   if (fetchStatus === 'loading') {
-    return <div className={styles.container}>Loading...</div>;
+    return <Loader text={t('Loading')}/>
   }
 
   return (

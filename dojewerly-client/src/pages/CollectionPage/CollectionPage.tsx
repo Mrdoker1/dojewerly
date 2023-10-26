@@ -8,6 +8,8 @@ import CollectionProductList from './CollectionProductList/CollectionProductList
 import styles from './CollectionPage.module.css';
 import BackButton from '../../components/Button/BackButton/BackButton';
 import { getLocalizedCollectionField } from '../../utils/getLocalizedCollectionField';
+import Loader from '../../components/Loader/Loader';
+import { useTranslation } from 'react-i18next';
 
 const CollectionPage: React.FC = () => {
   const { id } = useParams<{ id: string }>();
@@ -15,6 +17,7 @@ const CollectionPage: React.FC = () => {
   const collection = useSelector((state: RootState) => state.collections.collections.find(coll => coll._id === id));
   const currentLanguage = useSelector((state: RootState) => state.language.currentLanguage);
   const allProducts = useSelector((state: RootState) => state.products.products);
+  const { t } = useTranslation();
 
   useEffect(() => {
     if (!collection && id) {
@@ -32,7 +35,7 @@ const CollectionPage: React.FC = () => {
     return collectionProducts.length > 0 ? collectionProducts[0].imageURLs[0] : '';
   }, [collectionProducts]);
 
-  if (!collection) return <div>Loading...</div>;
+  if (!collection) return <Loader text={t('Loading')}/>;
 
   const localizedCollectionName = getLocalizedCollectionField(collection, 'name', currentLanguage);
   const localizedCollectionDescription = getLocalizedCollectionField(collection, 'description', currentLanguage);

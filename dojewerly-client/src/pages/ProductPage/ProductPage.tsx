@@ -13,6 +13,7 @@ import BackButton from '../../components/Button/BackButton/BackButton';
 import { getLocalizedField } from '../../utils/getLocalizedField';
 import { useTranslation } from 'react-i18next';
 import { motion } from 'framer-motion';
+import Loader from '../../components/Loader/Loader';
 
 const ProductPage: React.FC = () => {
     const dispatch = useDispatch<AppDispatch>();
@@ -37,7 +38,7 @@ const ProductPage: React.FC = () => {
       }
     }, [id, product, dispatch, token]);
 
-    if (!product) return <div>Loading...</div>;
+    if (!product) return <Loader text={t('Loading')}/>;
 
     const localizedProductName = getLocalizedField(product, 'name', currentLanguage);
     const localizedProductDescription = getLocalizedField(product, 'description', currentLanguage);

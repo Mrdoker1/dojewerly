@@ -7,10 +7,13 @@ import AdminCollectionListItem from './AdminCollectionListItem/AdminCollectionLi
 import CreateItemButton from '../AdminProductList/CreateItemButton/CreateItemButton';
 import { selectCollection } from '../../../app/reducers/userDashboardSlice';
 import { AnimatePresence } from 'framer-motion';
+import Loader from '../../Loader/Loader';
+import { useTranslation } from 'react-i18next';
 
 const AdminCollectionList: React.FC = () => {
   const dispatch = useDispatch<AppDispatch>();
   const collectionList = useSelector((state: RootState) => state.collections.collections);
+  const { t } = useTranslation();
 
   const handleCreateNewCollection = () => {
     const newCollection = {
@@ -32,7 +35,7 @@ const AdminCollectionList: React.FC = () => {
   }, [dispatch]);
 
   if (!collectionList || collectionList.length === 0) {
-    return <div>Loading collections...</div>;
+    return <Loader text={t('Loading')}/>;
   }
 
   return (

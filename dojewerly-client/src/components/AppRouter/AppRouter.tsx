@@ -22,6 +22,8 @@ import FavouritesPage from '../../pages/FavouritesPage/FavouritesPage';
 import SharedFavouritesPage from '../../pages/SharedFavouritesPage/SharedFavouritesPage';
 import { updateFromURL } from '../../app/reducers/catalogSlice';
 import ArticlePage from '../../pages/ArticlePage/ArticlePage';
+import Loader from '../Loader/Loader';
+import { useTranslation } from 'react-i18next';
 
 const AppRouter = memo(() => {
   const auth = useSelector((state: RootState) => state.auth);
@@ -29,6 +31,7 @@ const AppRouter = memo(() => {
   const dispatch = useDispatch<AppDispatch>();
   const location = useLocation();
   const [isChecking, setIsChecking] = useState(true);
+  const { t } = useTranslation();
 
   useEffect(() => {
     dispatch(updateFromURL(location.search));
@@ -38,7 +41,7 @@ const AppRouter = memo(() => {
   }, [dispatch, location.search]);
 
   if (isChecking) {
-    return <div>Loading...</div>; // Или любой другой компонент загрузки
+    return <Loader text={t('Loading')}/>; // Или любой другой компонент загрузки
   }
 
   return (

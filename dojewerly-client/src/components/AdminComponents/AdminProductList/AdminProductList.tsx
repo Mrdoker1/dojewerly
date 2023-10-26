@@ -6,10 +6,13 @@ import { AppDispatch, RootState } from '../../../app/store';
 import styles from './AdminProductList.module.css'; 
 import { selectProduct } from '../../../app/reducers/userDashboardSlice';
 import CreateItemButton from './CreateItemButton/CreateItemButton';
+import Loader from '../../Loader/Loader';
+import { useTranslation } from 'react-i18next';
 
 const AdminProductList: React.FC = () => {
   const dispatch = useDispatch<AppDispatch>();
   const productList = useSelector((state: RootState) => state.products.products);
+  const { t } = useTranslation();
 
   const handleCreateNewProduct = () => {
     const newProduct = {
@@ -41,7 +44,7 @@ const AdminProductList: React.FC = () => {
   }, [dispatch]);
 
   if (!productList || productList.length === 0) {
-    return <div>Loading products...</div>;
+    return <Loader text={t('Loading')}/>;
   }
 
   return (

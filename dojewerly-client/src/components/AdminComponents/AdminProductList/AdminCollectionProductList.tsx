@@ -4,6 +4,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { fetchAllProducts } from '../../../app/reducers/productsSlice';
 import { AppDispatch, RootState } from '../../../app/store';
 import styles from './AdminProductList.module.css';
+import Loader from '../../Loader/Loader';
+import { useTranslation } from 'react-i18next';
 
 const AdminCollectionProductList: React.FC = () => {
   const dispatch = useDispatch<AppDispatch>();
@@ -11,6 +13,7 @@ const AdminCollectionProductList: React.FC = () => {
   const radioValue = useSelector((state: RootState) => state.userDashboard.radioValue);
   const selectedCollectionId = useSelector((state: RootState) => state.userDashboard.selectedCollectionId);
   const selectedCollection = useSelector((state: RootState) => state.collections.collections.find(coll => coll._id === selectedCollectionId));
+  const { t } = useTranslation();
 
   useEffect(() => {
     dispatch(fetchAllProducts({}));
@@ -26,7 +29,7 @@ const AdminCollectionProductList: React.FC = () => {
   }
 
   if (!displayedProducts || displayedProducts.length === 0) {
-    return <div>Loading products...</div>;
+    return <Loader text={t('Loading')}/>;
   }
 
   return (
