@@ -22,6 +22,7 @@ const SignInForm = memo(() => {
 
   const dispatch = useDispatch<AppDispatch>();
   const auth = useSelector((state: RootState) => state.auth);
+  const status = useSelector((state: RootState) => state.auth.status);
   const navigate = useNavigate();
   const { closeModal } = useModal();
   const { t } = useTranslation();
@@ -87,6 +88,7 @@ const SignInForm = memo(() => {
             <Button
               type="submit"
               size="default"
+              state={status === 'loading' ? 'loading' : 'default'}
               fullWidth={true}
               text={t('SIGN IN')}/>
             <AnimatePresence>

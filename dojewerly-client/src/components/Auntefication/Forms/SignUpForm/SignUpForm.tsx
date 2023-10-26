@@ -24,6 +24,7 @@ const SignUpForm = memo(() => {
 
   const dispatch = useDispatch<AppDispatch>();
   const auth = useSelector((state: RootState) => state.auth);
+  const status = useSelector((state: RootState) => state.auth.status);
   const navigate = useNavigate();
   const { t } = useTranslation();
 
@@ -101,6 +102,7 @@ const SignUpForm = memo(() => {
               type="submit"
               size="default"
               fullWidth={true}
+              state={status === 'loading' ? 'loading' : 'default'}
               text={t('CREATE NEW ACCOUNT')}/>
             <AnimatePresence>
               {auth.error && <NotificationMessage 
