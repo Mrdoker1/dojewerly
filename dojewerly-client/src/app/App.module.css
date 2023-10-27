@@ -121,6 +121,28 @@ html {
     list-style: none;
   }
 
+  /* Стилизация ширины скроллбара */
+  ::-webkit-scrollbar {
+    width: 8px; /* или любая ширина, которую вы предпочитаете */
+  }
+
+  /* Стилизация фона скроллбара (трека) */
+  ::-webkit-scrollbar-track {
+    background: #f1f1f1; /* или любой другой цвет фона */
+  }
+
+  /* Стилизация самого скроллбара (ползунка) */
+  ::-webkit-scrollbar-thumb {
+    background-color: #888; /* или любой другой цвет, который вы предпочитаете */
+    border-radius: 20px; /* создает круглые углы */
+    border: 2px solid #f1f1f1; /* цвет фона трека скроллбара, чтобы создать "отступ" вокруг ползунка */
+  }
+
+  /* Стилизация скроллбара при наведении */
+  ::-webkit-scrollbar-thumb:hover {
+    background-color: #555; /* или любой другой цвет, который темнее основного */
+  }
+
   @media screen and (max-width: 768px) {
     h1 {
       font: var(--cormorant-29-medium);
