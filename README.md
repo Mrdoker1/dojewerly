@@ -12,13 +12,13 @@
 Frontend
 - Stage 1 (Basic MVP #1)
   - ✅ **Routing**
-  - **Homepage**
-  - **Collections**
+  - ✅ **Homepage**
+  - ✅ **Collections**
   - ✅ **Auth**
   - ✅ **Catalog**
   - ✅ **Product Page**
-  - **Adaptive**
-  - **Language Switch(+Translation)**
+  - ✅ **Adaptive**
+  - ✅ **Language Switch(+Translation)**
   - ✅ **User Dashboard**
 - Stage 2 (Messaging & Statistic MVP #2)
   - **Messaging**
