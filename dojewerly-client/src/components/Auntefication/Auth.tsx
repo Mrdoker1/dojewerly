@@ -9,7 +9,7 @@ interface AuthProps {
   heading: string;
   description: string;
   mainForm: React.ReactNode;
-  buttonText: string;
+  button?: {text: string};
   buttonIcon: keyof typeof icons;
   buttonOnClick: () => void;
 }
@@ -19,7 +19,7 @@ const Auth: React.FC<AuthProps> = ({
   heading,
   description,
   mainForm,
-  buttonText,
+  button,
   buttonIcon,
   buttonOnClick,
 }) => {
@@ -43,15 +43,17 @@ const Auth: React.FC<AuthProps> = ({
           </div>
         </div>
         {mainForm}
-        <Button
-          type="button"
-          variant="text"
-          size="default"
-          fullWidth={true} 
-          text={buttonText}
-          iconRight={buttonIcon}
-          onClick={buttonOnClick}
-        />
+        {button && 
+                <Button
+                type="button"
+                variant="text"
+                size="default"
+                fullWidth={true} 
+                text={button?.text}
+                iconRight={buttonIcon}
+                onClick={buttonOnClick}
+              />
+        }
       </div>
     </motion.div>
   );

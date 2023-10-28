@@ -1,5 +1,6 @@
 import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
 import { Product } from './productsSlice';
+import { customFetch } from '../../service/apiService';
 
 const apiUrl = process.env.REACT_APP_API_URL;
 
@@ -12,7 +13,7 @@ export const fetchAllFavourites = createAsyncThunk(
       throw new Error('No session');
     }
 
-    const response = await fetch(`${apiUrl}/users/me/favorites`, {
+    const response = await customFetch(`/users/me/favorites`, {
       headers: {
         'Authorization': `Bearer ${token}`
       }
@@ -31,7 +32,7 @@ export const fetchAllFavourites = createAsyncThunk(
 export const fetchUserFavourites = createAsyncThunk(
   'favourites/fetchByUserId',
   async (userId: string, thunkAPI) => {
-    const response = await fetch(`${apiUrl}/users/me/favorites/${userId}/favorites`);
+    const response = await customFetch(`/users/me/favorites/${userId}/favorites`);
     if (!response.ok) {
       const data = await response.json();
       throw new Error(data.message || 'Failed to fetch favourites by user ID');
@@ -49,7 +50,7 @@ export const addProductToFavourites = createAsyncThunk(
       throw new Error('No session');
     }
 
-    const response = await fetch(`${apiUrl}/users/me/favorites/${productId}`, {
+    const response = await customFetch(`/users/me/favorites/${productId}`, {
       method: 'POST',
       headers: {
         'Authorization': `Bearer ${token}`
@@ -74,7 +75,7 @@ export const removeProductFromFavourites = createAsyncThunk(
       throw new Error('No session');
     }
 
-    const response = await fetch(`${apiUrl}/users/me/favorites/${productId}`, {
+    const response = await customFetch(`/users/me/favorites/${productId}`, {
       method: 'DELETE',
       headers: {
         'Authorization': `Bearer ${token}`

@@ -3,6 +3,8 @@ import { Document } from 'mongoose';
 
 export type TokenDocument = Token & Document;
 
+export const TOKEN_LIVE_TIME = '1h';
+
 @Schema()
 export class Token {
   @Prop({ required: true })
@@ -12,7 +14,7 @@ export class Token {
   userId: string;
 
   // Добавить это поле
-  @Prop({ default: Date.now, index: { expires: '1h' } }) // Установить TTL на 1 час
+  @Prop({ default: Date.now, index: { expires: TOKEN_LIVE_TIME } }) // Установить TTL на 1 час
   createdAt: Date;
 }
 

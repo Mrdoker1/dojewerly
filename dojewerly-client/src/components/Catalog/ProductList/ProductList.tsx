@@ -25,14 +25,14 @@ const ProductList: React.FC = () => {
   const { t } = useTranslation();
 
   useEffect(() => {
-    console.log('ProductList useEffect triggered', filters); // Этот лог
-    if (token) {
-      try {
-        dispatch(getUserProfile()).unwrap();
-      } catch (error) {
-        // Обработка ошибок
-      }
-    }
+    // console.log('ProductList useEffect triggered', filters); // Этот лог
+    // if (token) {
+    //   try {
+    //     dispatch(getUserProfile()).unwrap();
+    //   } catch (error) {
+    //     // Обработка ошибок
+    //   }
+    // }
     batch(() => {
       dispatch(fetchAllProducts(filters));
       dispatch(fetchTotalProductsCount(filters));

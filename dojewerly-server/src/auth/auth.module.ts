@@ -9,7 +9,7 @@ import { LocalStrategy } from './local.strategy';
 import { JwtAuthGuard } from './jwt-auth.guard';
 import { StorageService } from './storage.service';
 import { MongooseModule } from '@nestjs/mongoose';
-import { Token, TokenSchema } from './token.model';
+import { TOKEN_LIVE_TIME, Token, TokenSchema } from './token.model';
 import { TokenService } from './token.service';
 
 @Module({
@@ -26,7 +26,7 @@ import { TokenService } from './token.service';
         console.log('JWT_SECRET:', secret);
         return {
           secret,
-          signOptions: { expiresIn: '1h' },
+          signOptions: { expiresIn: TOKEN_LIVE_TIME },
         };
       },
       inject: [ConfigService],

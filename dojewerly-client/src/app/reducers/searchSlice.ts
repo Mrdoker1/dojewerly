@@ -1,6 +1,7 @@
 // searchSlice.ts или аналогичный файл
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { Product } from './productsSlice';
+import { customFetch } from '../../service/apiService';
 
 const apiUrl = process.env.REACT_APP_API_URL;
 
@@ -10,7 +11,7 @@ export const fetchSearchedProducts = createAsyncThunk(
     try {
       const queryString = `q=${searchQuery}`;  // Формирование строки запроса только с параметром поиска
 
-      const response = await fetch(`${apiUrl}/products?${queryString}`);
+      const response = await customFetch(`/products?${queryString}`);
 
       if (!response.ok) {
         const data = await response.json();
@@ -30,7 +31,7 @@ export const fetchSearchedProductsCount = createAsyncThunk(
     try {
       const queryString = `q=${searchQuery}`;  // Формирование строки запроса только с параметром поиска
 
-      const response = await fetch(`${apiUrl}/products/total?${queryString}`);
+      const response = await customFetch(`/products/total?${queryString}`);
       
       if (!response.ok) {
         const data = await response.json();

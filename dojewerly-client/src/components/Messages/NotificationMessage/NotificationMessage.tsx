@@ -6,7 +6,6 @@ import { motion, usePresence } from 'framer-motion';
 import { removeNotification } from '../../../app/reducers/notificationSlice';
 import { useDispatch } from 'react-redux';
 import { AppDispatch } from '../../../app/store';
-import { clearError } from '../../../app/reducers/authSlice';
 
 export interface NotificationMessageProps {
   /** ID сообщения */

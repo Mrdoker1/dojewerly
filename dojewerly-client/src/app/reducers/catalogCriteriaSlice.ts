@@ -1,4 +1,5 @@
 import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
+import { customFetch } from '../../service/apiService';
 
 const apiUrl = process.env.REACT_APP_API_URL;
 
@@ -14,7 +15,7 @@ export interface CatalogCriteria {
 export const fetchCatalogCriteria = createAsyncThunk(
   'catalogCriteria/fetch',
   async (_, thunkAPI) => {
-    const response = await fetch(`${apiUrl}/catalog-criteria`);
+    const response = await customFetch(`/catalog-criteria`);
 
     if (!response.ok) {
       const data = await response.json();
@@ -29,7 +30,7 @@ export const fetchCatalogCriteria = createAsyncThunk(
 export const updateCatalogCriteria = createAsyncThunk(
   'catalogCriteria/update',
   async (criteria: CatalogCriteria, thunkAPI) => {
-    const response = await fetch(`${apiUrl}/catalog-criteria`, {
+    const response = await customFetch(`/catalog-criteria`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',

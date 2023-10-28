@@ -26,7 +26,9 @@ const FavouriteToggle: React.FC<FavouriteToggleProps> = ({ productId, className,
   const { openModal } = useCustomModal();
 
   useEffect(() => {
-    setIsFavourite(user?.favorites.includes(productId) || false);
+    if (user) {
+      setIsFavourite(user.favorites.includes(productId) || false);
+    }
   }, [user, productId]);
 
   const toggleFavourite = async (event: React.MouseEvent<HTMLDivElement>) => {
@@ -47,7 +49,7 @@ const FavouriteToggle: React.FC<FavouriteToggleProps> = ({ productId, className,
       try {
         await dispatch(getUserProfile()).unwrap();
       } catch (error) {
-        // Обработка ошибок
+
       }
     }
 

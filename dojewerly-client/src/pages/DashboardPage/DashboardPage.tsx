@@ -30,11 +30,13 @@ const DashboardPage = () => {
     { title: t('FAVOURITES'), route: '/dashboard/favourites' },
   ];
 
-  if (user?.role === 'admin') {
-    tabs.push(
-      { title: t('PRODUCTS'), route: '/dashboard/products' },
-      { title: t('COLLECTIONS'), route: '/dashboard/collections' },
-    );
+  if (user) {
+    if (user.role === 'admin') {
+      tabs.push(
+        { title: t('PRODUCTS'), route: '/dashboard/products' },
+        { title: t('COLLECTIONS'), route: '/dashboard/collections' },
+      );
+    }
   }
 
   return (

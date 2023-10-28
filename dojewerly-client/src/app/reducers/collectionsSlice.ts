@@ -1,4 +1,5 @@
 import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
+import { customFetch } from '../../service/apiService';
 
 const apiUrl = process.env.REACT_APP_API_URL;
 
@@ -27,7 +28,7 @@ export interface UpdateCollectionPropertyPayload {
 export const fetchAllCollections = createAsyncThunk(
   'collections/fetchAll',
   async (_, thunkAPI) => {
-    const response = await fetch(`${apiUrl}/collections`);
+    const response = await customFetch(`/collections`);
 
     if (!response.ok) {
       const data = await response.json();
@@ -48,7 +49,7 @@ export const createCollection = createAsyncThunk(
       throw new Error('No session');
     }
 
-    const response = await fetch(`${apiUrl}/collections`, {
+    const response = await customFetch(`${apiUrl}/collections`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -71,7 +72,7 @@ export const createCollection = createAsyncThunk(
 export const fetchCollectionById = createAsyncThunk(
   'collections/fetchById',
   async (id: string, thunkAPI) => {
-    const response = await fetch(`${apiUrl}/collections/${id}`);
+    const response = await customFetch(`/collections/${id}`);
 
     if (!response.ok) {
       const data = await response.json();
@@ -92,7 +93,7 @@ export const updateCollectionById = createAsyncThunk(
       throw new Error('No session');
     }
 
-    const response = await fetch(`${apiUrl}/collections/${id}`, {
+    const response = await customFetch(`/collections/${id}`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
@@ -120,7 +121,7 @@ export const deleteCollection = createAsyncThunk(
       throw new Error('No session');
     }
 
-    const response = await fetch(`${apiUrl}/collections/${id}`, {
+    const response = await customFetch(`/collections/${id}`, {
       method: 'DELETE',
       headers: {
         'Authorization': `Bearer ${token}`
@@ -146,7 +147,7 @@ export const addProductToCollection = createAsyncThunk(
       throw new Error('No session');
     }
 
-    const response = await fetch(`${apiUrl}/collections/${collectionId}/products/${productId}`, {
+    const response = await customFetch(`/collections/${collectionId}/products/${productId}`, {
       method: 'POST',
       headers: {
         'Authorization': `Bearer ${token}`
@@ -172,7 +173,7 @@ export const removeProductFromCollection = createAsyncThunk(
       throw new Error('No session');
     }
 
-    const response = await fetch(`${apiUrl}/collections/${collectionId}/products/${productId}`, {
+    const response = await customFetch(`/collections/${collectionId}/products/${productId}`, {
       method: 'DELETE',
       headers: {
         'Authorization': `Bearer ${token}`

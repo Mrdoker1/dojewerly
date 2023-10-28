@@ -24,8 +24,8 @@ const SignInPage: React.FC = () => {
       bannerImage={banner}
       heading={t('Hello, Let\'s Sign In')}
       description={t('Please sign in to your DoJewerly Account.')}
-      mainForm={<SignInForm />}
-      buttonText={t('CREATE NEW ACCOUNT')}
+      mainForm={<SignInForm onSubmit={ () => { navigate("/dashboard/profile") }}/>}
+      button={{ text: t('CREATE NEW ACCOUNT') }}
       buttonIcon="arrowRight"
       buttonOnClick={() => navigate("/signup")}
     />

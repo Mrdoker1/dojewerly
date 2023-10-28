@@ -5,6 +5,7 @@ import { Outlet } from 'react-router-dom';
 import styles from './Layout.module.css';
 import { useLayout } from './LayoutContext/LayoutContext';
 import { ModalProvider } from '../Modal/ModalProvider';
+import AdditionalData from '../AdditionalData/AdditionalData';
 
 const Layout = memo(() => {
 
@@ -15,6 +16,7 @@ const Layout = memo(() => {
       <div className={`${styles.container} ${backgroundColor}`}>
       <ModalProvider >
         <Header />
+            <AdditionalData></AdditionalData>
             <Outlet></Outlet>
         <Footer />
       </ModalProvider>

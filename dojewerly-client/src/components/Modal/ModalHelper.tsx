@@ -6,15 +6,19 @@ import SignInForm from '../Auntefication/Forms/SignInForm/SignInForm';
 import { useTranslation } from 'react-i18next';
 import InfoModal from './Modals/InfoModal/InfoModal';
 import doxBanner from '../../assets/images/banner-dox.jpg';
+import { useDispatch } from 'react-redux';
+import { AppDispatch } from '../../app/store';
+import { logoutUser } from '../../app/reducers/authSlice';
 
 // Создаем пользовательский хук для открытия модального окна
 export function useCustomModal() {
-  const { openModalWithContent, closeModal } = useModal();
+  const { openModalWithContent, openBlockedModalWithContent, closeModal } = useModal();
   const navigate = useNavigate();
   const { t } = useTranslation();
+  const dispatch = useDispatch<AppDispatch>();
 
   // Функция для открытия модального окна
-  const openModal = (type: 'signup' | 'signin' | 'dox') => {
+  const openModal = (type: 'signup' | 'signin' | 'dox' | 'expiredSession' | 'expiredLogout') => {
     switch (type) {
       case 'signup':
         openModalWithContent(
@@ -22,7 +26,7 @@ export function useCustomModal() {
             heading={t('Create an Account')}
             description={t('Create DoJewerly account to Save Your Favourites and Receive Bonuses!')}
             mainForm={<SignUpForm />} 
-            buttonText={t('ALREADY HAVE AN ACCOUNT?')}
+            button={{text: t('ALREADY HAVE AN ACCOUNT?')}}
             buttonIcon="arrowRight"
             buttonOnClick={() => {
               closeModal();
@@ -37,8 +41,8 @@ export function useCustomModal() {
           <AuthComponent
             heading={t('Hello, Let\'s Sign In')}
             description={t('Please sign in to your DoJewerly Account.')}
-            mainForm={<SignInForm />} 
-            buttonText={t('CREATE NEW ACCOUNT')}
+            mainForm={<SignInForm onSubmit={ () => { navigate("/dashboard/profile") }} />} 
+            button={{ text: t('CREATE NEW ACCOUNT')}}
             buttonIcon="arrowRight"
             buttonOnClick={() => {
               closeModal();
@@ -63,6 +67,35 @@ export function useCustomModal() {
           />
         );
         break;
+      case 'expiredSession':
+        openBlockedModalWithContent(
+          <AuthComponent
+            heading={t('Your acess expired!')}
+            description={t('Please sign in again.')}
+            mainForm={<SignInForm />} 
+            buttonIcon="arrowRight"
+            buttonOnClick={() => {
+              closeModal();
+              //navigate("/signin")
+            }}
+          />
+        );
+        break;
+        case 'expiredLogout':
+          openBlockedModalWithContent(
+            <InfoModal
+              heading={t('Your acess has expired!')}
+              description={t('Please reload page or click to Log In Again!')}
+              buttonText={t('Log In Again!')}
+              buttonOnClick={() => {
+                closeModal();
+                dispatch(logoutUser()).then(() => {
+                  navigate('/signin');
+              });
+              }}
+            />
+          );
+          break;
       default:
         // Обработка других типов модальных окон
         break;

@@ -1,5 +1,6 @@
 import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
 import { ProductQueryParams } from './catalogSlice';
+import { customFetch } from '../../service/apiService';
 
 const apiUrl = process.env.REACT_APP_API_URL;
 
@@ -58,7 +59,7 @@ export const createProduct = createAsyncThunk(
       throw new Error('No session');
     }
 
-    const response = await fetch(`${apiUrl}/products`, {
+    const response = await customFetch(`/products`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -87,7 +88,7 @@ export const updateProduct = createAsyncThunk(
       throw new Error('No session');
     }
 
-    const response = await fetch(`${apiUrl}/products/${id}`, {
+    const response = await customFetch(`/products/${id}`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
@@ -115,7 +116,7 @@ export const deleteProduct = createAsyncThunk(
       throw new Error('No session'); // Проверка наличия токена
     }
 
-    const response = await fetch(`${apiUrl}/products/${id}`, {
+    const response = await customFetch(`/products/${id}`, {
       method: 'DELETE',
       headers: {
         'Authorization': `Bearer ${token}` // Добавление заголовка авторизации
@@ -134,7 +135,7 @@ export const deleteProduct = createAsyncThunk(
 export const fetchProductById = createAsyncThunk(
   'products/fetchById',
   async (productId: string, thunkAPI) => {
-    const response = await fetch(`${apiUrl}/products/${productId}`);
+    const response = await customFetch(`/products/${productId}`);
     if (!response.ok) {
       const data = await response.json();
       throw new Error(data.message || 'Failed to fetch product');
@@ -161,7 +162,7 @@ export const fetchTotalProductsCount = createAsyncThunk(
 
       console.log("Total:", queryParamsCopy);
       
-      const response = await fetch(`${apiUrl}/products/total?${queryString}`);
+      const response = await customFetch(`/products/total?${queryString}`);
       
       if (!response.ok) {
         const data = await response.json();
@@ -188,9 +189,9 @@ export const fetchAllProducts = createAsyncThunk(
         .map(([key, value]) => `${key}=${value}`)
         .join('&');
 
-      const url = `${apiUrl}/products?${queryString}`;
+      const url = `/products?${queryString}`;
       console.log("Fetching products with URL:", url);
-      const response = await fetch(url);
+      const response = await customFetch(url);
 
       if (!response.ok) {
         const data = await response.json();
@@ -218,7 +219,7 @@ export const addImagesToProduct = createAsyncThunk(
       formData.append('images', images[i]);
     }
 
-    const response = await fetch(`${apiUrl}/products/${id}/images`, {
+    const response = await customFetch(`/products/${id}/images`, {
       method: 'PUT',
       headers: {
         'Authorization': `Bearer ${token}`
@@ -245,7 +246,7 @@ export const deleteProductImage = createAsyncThunk(
       throw new Error('No session');
     }
 
-    const response = await fetch(`${apiUrl}/products/${id}/images`, {
+    const response = await customFetch(`/products/${id}/images`, {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json',
@@ -271,7 +272,7 @@ export const updateImagesOrder = createAsyncThunk(
       throw new Error('No session');
     }
 
-    const response = await fetch(`${apiUrl}/products/${id}`, {
+    const response = await customFetch(`/products/${id}`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
@@ -296,7 +297,7 @@ export const partialUpdateProduct = createAsyncThunk<Product, PartialUpdatePaylo
     if (!token) {
       throw new Error('No session');
     }
-    const response = await fetch(`${apiUrl}/products/${id}`, {
+    const response = await customFetch(`/products/${id}`, {
       method: 'PATCH',
       headers: {
         'Content-Type': 'application/json',

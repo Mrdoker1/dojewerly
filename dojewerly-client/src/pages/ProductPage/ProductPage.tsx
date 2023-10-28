@@ -26,13 +26,6 @@ const ProductPage: React.FC = () => {
 
     useEffect(() => {
       window.scrollTo(0, 0); // сброс позиции скролла к верху страницы
-      if (token) {
-        try {
-          dispatch(getUserProfile()).unwrap();
-        } catch (error) {
-          // Обработка ошибок
-        }
-      }
       if (!product && id) {
         dispatch(fetchProductById(id));
       }
@@ -42,8 +35,6 @@ const ProductPage: React.FC = () => {
 
     const localizedProductName = getLocalizedField(product, 'name', currentLanguage);
     const localizedProductDescription = getLocalizedField(product, 'description', currentLanguage);
-    const localizedProductPrice = getLocalizedField(product, 'price', currentLanguage);
-    const localizedProductStock = getLocalizedField(product, 'stock', currentLanguage);
 
     return (
       <motion.div

@@ -13,7 +13,11 @@ import { MessageType } from '../../../Messages/messageTypes';
 import { useTranslation } from 'react-i18next';
 import { AnimatePresence } from 'framer-motion';
 
-const SignInForm = memo(() => {
+interface SignInFormProps {
+  onSubmit?: () => void;
+}
+
+const SignInForm: React.FC<SignInFormProps> = memo(({ onSubmit }) => {
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -53,7 +57,9 @@ const SignInForm = memo(() => {
       console.log('Login result:', result.meta.requestStatus);
       if (result.meta.requestStatus === 'fulfilled') {
         closeModal();
-        navigate("/dashboard/profile"); // Используйте navigate для перенаправления на страницу /dashboard
+        if (onSubmit) {
+          onSubmit();
+        }
       }
     });
   };
@@ -94,7 +100,7 @@ const SignInForm = memo(() => {
             <AnimatePresence>
               {auth.error && <NotificationMessage 
                 type={auth.error.type as MessageType}
-                message={auth.error.message}
+                message={t(auth.error.message)}
                 iconRight='close'
                 iconRightClick={() => dispatch(clearError())}/>}
             </AnimatePresence>

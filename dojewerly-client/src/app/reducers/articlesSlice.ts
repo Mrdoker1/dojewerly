@@ -1,5 +1,6 @@
 // articlesSlice.ts
 import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
+import { customFetch } from '../../service/apiService';
 
 // Замените на ваш настоящий URL API, если переменная окружения не используется
 const apiUrl = process.env.REACT_APP_API_URL; 
@@ -30,7 +31,7 @@ const initialState: ArticlesState = {
 export const fetchArticles = createAsyncThunk(
   'articles/fetchAll',
   async (_, thunkAPI) => {
-    const response = await fetch(`${apiUrl}/articles`);
+    const response = await customFetch(`/articles`);
 
     if (!response.ok) {
       const data = await response.json();
@@ -45,7 +46,7 @@ export const fetchArticles = createAsyncThunk(
 export const fetchArticleById = createAsyncThunk(
   'articles/fetchById',
   async (articleId: string, thunkAPI) => {
-    const response = await fetch(`${apiUrl}/articles/${articleId}`);
+    const response = await customFetch(`/articles/${articleId}`);
 
     if (!response.ok) {
       const data = await response.json();

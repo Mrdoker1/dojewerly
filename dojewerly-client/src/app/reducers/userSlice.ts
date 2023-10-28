@@ -1,4 +1,5 @@
 import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
+import { customFetch } from '../../service/apiService';
 
 const apiUrl = process.env.REACT_APP_API_URL;
 
@@ -35,7 +36,7 @@ export const getUserProfile = createAsyncThunk(
       throw new Error('No session');
     }
 
-    const response = await fetch(`${apiUrl}/users/me`, {
+    const response = await customFetch(`/users/me`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
@@ -62,7 +63,7 @@ export const updateUserProfile = createAsyncThunk(
       throw new Error('No session');
     }
 
-    const response = await fetch(`${apiUrl}/users/me`, {
+    const response = await customFetch(`/users/me`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
@@ -98,7 +99,7 @@ export const patchUserProfile = createAsyncThunk(
       throw new Error('No session');
     }
 
-    const response = await fetch(`${apiUrl}/users/me`, {
+    const response = await customFetch(`/users/me`, {
       method: 'PATCH',
       headers: {
         'Content-Type': 'application/json',
@@ -122,7 +123,7 @@ export const getUserPublicInfo = createAsyncThunk(
   'user/fetchPublicInfo',
   async (userId: string, thunkAPI) => {
     try {
-      const response = await fetch(`${apiUrl}/users/${userId}/public`, {
+      const response = await customFetch(`/users/${userId}/public`, {
         method: 'GET',
       });
 

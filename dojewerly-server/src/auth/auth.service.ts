@@ -1,4 +1,8 @@
-import { Injectable, UnauthorizedException } from '@nestjs/common';
+import {
+  BadRequestException,
+  Injectable,
+  UnauthorizedException,
+} from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { UserService } from '../users/user.service';
 import { UserDocument } from '../users/user.model';
@@ -23,11 +27,11 @@ export class AuthService {
     const user = await this.userService.findByEmail(email);
     if (!user) {
       console.log('User not found with email:', email);
-      throw new UnauthorizedException('User not found');
+      throw new BadRequestException('User not found');
     }
     if (user.password !== password) {
       console.log('Invalid password for email:', email);
-      throw new UnauthorizedException('Invalid password');
+      throw new BadRequestException('Invalid password!');
     }
     console.log('User validation successful, email:', user.email);
     return user;

@@ -6,7 +6,7 @@ interface DoxModalContentProps {
     buttonOnClick: () => void;
     bannerImage?: string;
     heading: string;
-    subheading: string;
+    subheading?: string;
     description: string;
     buttonText: string;
   }
@@ -19,7 +19,7 @@ const InfoModal: React.FC<DoxModalContentProps> = ({buttonOnClick, bannerImage, 
           <img src={bannerImage} alt="Banner" />
         </div>}
       <div className={styles.form}>
-        <div className={styles.subheading}>{subheading}</div>
+        {subheading && <div className={styles.subheading}>{subheading}</div>}
         <h1>{heading}</h1>
         <div className={styles.description}>{description}</div>
         <Button

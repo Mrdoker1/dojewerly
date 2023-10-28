@@ -1,5 +1,6 @@
 import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
 import { MessageType } from '../../components/Messages/messageTypes';
+import { customFetch } from '../../service/apiService';
 
 const apiUrl = process.env.REACT_APP_API_URL;
 
@@ -15,7 +16,7 @@ class AppError extends Error {
 export const registerUser = createAsyncThunk(
   'auth/register',
   async ({ email, username, password }: { email: string; username: string; password: string; }, thunkAPI) => {
-    const response = await fetch(`${apiUrl}/users/register`, {
+    const response = await customFetch(`/users/register`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -41,7 +42,7 @@ export const registerUser = createAsyncThunk(
 export const loginUser = createAsyncThunk(
   'auth/login',
   async ({ email, password }: { email: string; password: string; }, thunkAPI) => {
-    const response = await fetch(`${apiUrl}/auth/login`, {
+    const response = await customFetch(`/auth/login`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -82,7 +83,7 @@ export const logoutUser = createAsyncThunk(
       throw new AppError('No session', 'error');
     }
 
-    const response = await fetch(`${apiUrl}/auth/logout`, {
+    const response = await customFetch(`/auth/logout`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -109,7 +110,7 @@ export const validateToken = createAsyncThunk(
       throw new AppError('Token expired or not exist!', 'error');
     }
 
-    const response = await fetch(`${apiUrl}/auth/validate`, {
+    const response = await customFetch(`/auth/validate`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
@@ -134,11 +135,15 @@ export const authSlice = createSlice({
     email: null,
     token: null as string | null,
     status: 'idle',
+    session: null as 'started' | 'expired' | null,
     error: null as { message: string; type: string } | null
   },
   reducers: {
     clearError: (state) => {
       state.error = null;
+    },
+    setSessionExpired: (state) => {
+      state.session = 'expired';
     },
   },
     extraReducers: (builder) => {
@@ -164,6 +169,7 @@ export const authSlice = createSlice({
         .addCase(loginUser.fulfilled, (state, action: PayloadAction<{ token: string }>) => {
           state.status = 'succeeded';
           state.token = action.payload.token;
+          state.session = 'started';
           localStorage.setItem('token', action.payload.token);
         })
         .addCase(loginUser.rejected, (state, action) => {
@@ -175,10 +181,12 @@ export const authSlice = createSlice({
         })
         .addCase(checkUserSession.fulfilled, (state, action: PayloadAction<string>) => {
           state.status = 'succeeded';
+          state.session = 'started'; 
           state.token = action.payload; // action.payload will be a string
         })
         .addCase(checkUserSession.rejected, (state, action) => {
           state.status = 'failed';
+          state.session = null; 
           state.token = null;
           // state.error = {
           //   message: '',
@@ -190,10 +198,12 @@ export const authSlice = createSlice({
         })
         .addCase(logoutUser.fulfilled, (state) => {
           state.status = 'succeeded';
+          state.session = null;
           state.token = null;
         })
         .addCase(logoutUser.rejected, (state, action) => {
           state.status = 'failed';
+          state.session = null;
           state.token = null;
           state.error = {
             message: action.error.message || 'Unknown error',
@@ -221,5 +231,5 @@ export const authSlice = createSlice({
     },
   });
 
-export const { clearError } = authSlice.actions;
+export const { clearError, setSessionExpired } = authSlice.actions;
 export default authSlice.reducer;
